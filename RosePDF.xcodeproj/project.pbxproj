@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		213C88DA17E81131D3D9B767 /* libPods-RosePDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */; };
 		A1A8DBE22B5E9D630092F0F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */; };
 		A1A8DBE52B5E9D630092F0F8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBE42B5E9D630092F0F8 /* SceneDelegate.m */; };
 		A1A8DBE82B5E9D630092F0F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBE72B5E9D630092F0F8 /* ViewController.m */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RosePDF.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8DBDD2B5E9D630092F0F8 /* RosePDF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosePDF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8DBE02B5E9D630092F0F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -54,6 +56,8 @@
 		A1A8DC022B5E9D650092F0F8 /* RosePDFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RosePDFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8DC062B5E9D650092F0F8 /* RosePDFUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RosePDFUITests.m; sourceTree = "<group>"; };
 		A1A8DC082B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RosePDFUITestsLaunchTests.m; sourceTree = "<group>"; };
+		AB6EAFC0F9AE7561F3527219 /* Pods-RosePDF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosePDF.debug.xcconfig"; path = "Target Support Files/Pods-RosePDF/Pods-RosePDF.debug.xcconfig"; sourceTree = "<group>"; };
+		F0C836D1915B25165E3F9829 /* Pods-RosePDF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosePDF.release.xcconfig"; path = "Target Support Files/Pods-RosePDF/Pods-RosePDF.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				213C88DA17E81131D3D9B767 /* libPods-RosePDF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +86,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F0C56D00EAB5727517CB565 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AB6EAFC0F9AE7561F3527219 /* Pods-RosePDF.debug.xcconfig */,
+				F0C836D1915B25165E3F9829 /* Pods-RosePDF.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		A1A8DBD42B5E9D630092F0F8 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +102,8 @@
 				A1A8DBFB2B5E9D650092F0F8 /* RosePDFTests */,
 				A1A8DC052B5E9D650092F0F8 /* RosePDFUITests */,
 				A1A8DBDE2B5E9D630092F0F8 /* Products */,
+				7F0C56D00EAB5727517CB565 /* Pods */,
+				ED6EAD6ACA7873E6CA215123 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +152,14 @@
 			path = RosePDFUITests;
 			sourceTree = "<group>";
 		};
+		ED6EAD6ACA7873E6CA215123 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +167,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1A8DC0C2B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "RosePDF" */;
 			buildPhases = (
+				14E35838D21EAD6851BE1ACB /* [CP] Check Pods Manifest.lock */,
 				A1A8DBD92B5E9D630092F0F8 /* Sources */,
 				A1A8DBDA2B5E9D630092F0F8 /* Frameworks */,
 				A1A8DBDB2B5E9D630092F0F8 /* Resources */,
@@ -260,6 +285,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		14E35838D21EAD6851BE1ACB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RosePDF-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A1A8DBD92B5E9D630092F0F8 /* Sources */ = {
@@ -437,11 +487,13 @@
 		};
 		A1A8DC0D2B5E9D650092F0F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB6EAFC0F9AE7561F3527219 /* Pods-RosePDF.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RosePDF/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -449,12 +501,13 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = h.com.RosePDF;
+				PRODUCT_BUNDLE_IDENTIFIER = sb.com.RosePDF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -463,11 +516,13 @@
 		};
 		A1A8DC0E2B5E9D650092F0F8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0C836D1915B25165E3F9829 /* Pods-RosePDF.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RosePDF/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -475,12 +530,13 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = h.com.RosePDF;
+				PRODUCT_BUNDLE_IDENTIFIER = sb.com.RosePDF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
