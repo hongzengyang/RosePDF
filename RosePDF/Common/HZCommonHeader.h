@@ -16,8 +16,8 @@
 
 
 
-
-
+#define ScreenWidth     [[[UIApplication sharedApplication] windows] objectAtIndex:0].frame.size.width
+#define ScreenHeight    [[[UIApplication sharedApplication] windows] objectAtIndex:0].frame.size.height
 
 #define hz_safeTop      [UIView hz_safeTop]
 #define hz_safeBottom   [UIView hz_safeBottom]

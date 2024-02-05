@@ -14,7 +14,6 @@ PODS:
   - AFNetworking/Serialization (4.0.0)
   - AFNetworking/UIKit (4.0.0):
     - AFNetworking/NSURLSession
-  - Bugly (2.5.93)
   - HZFoundationKit (0.0.0)
   - HZIAPKit (0.0.0)
   - HZUIKit (0.0.0)
@@ -47,7 +46,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 4.0)
-  - Bugly (= 2.5.93)
   - HZFoundationKit (from `./3rd_paths/HZFoundationKit`)
   - HZIAPKit (from `./3rd_paths/HZIAPKit`)
   - HZUIKit (from `./3rd_paths/HZUIKit`)
@@ -63,7 +61,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
-    - Bugly
     - libwebp
     - LookinServer
     - Masonry
@@ -84,7 +81,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 42892080606935f7a9ec3fda4927fdd37e9cd369
-  Bugly: b8715e6ec4004b7f7fbffab0643ba80545aee3da
   HZFoundationKit: 11fb5e05d78fa22c13095d1e2edce8c6db961f5e
   HZIAPKit: bce617e20fe553226fa609857758272796e61ffe
   HZUIKit: bd1792b2b1887009017327d6d1bb2a70da14009f
@@ -98,6 +94,6 @@ SPEC CHECKSUMS:
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 9e670697d1ae43a40bd31dcd863fcd01cf7901e1
+PODFILE CHECKSUM: 676ae363d03b78e1f69b718b55f4001f35ff47fe
 
 COCOAPODS: 1.12.0

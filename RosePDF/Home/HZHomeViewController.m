@@ -36,10 +36,30 @@
         make.leading.trailing.top.equalTo(self.view);
         make.height.mas_equalTo(hz_safeTop + 54);
     }];
+    
+    UIView *gradientView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - hz_safeBottom - 100, ScreenWidth, 100)];
+    [self.view addSubview:gradientView];
+    [gradientView hz_addGradientWithColors:@[hz_getColorWithAlpha(@"F2F1F6", 0.0),hz_getColorWithAlpha(@"F2F1F6", 1.0)] startPoint:CGPointMake(0.5, 0) endPoint:CGPointMake(0.5, 1.0)];
+    
+    UIButton *addBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [self.view addSubview:addBtn];
+    [addBtn setImage:[UIImage imageNamed:@"rose_home_add"] forState:(UIControlStateNormal)];
+    [addBtn setImage:[UIImage imageNamed:@"rose_home_add"] forState:(UIControlStateHighlighted)];
+    [addBtn addTarget:self action:@selector(clickAddButton) forControlEvents:(UIControlEventTouchUpInside)];
+    [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-(hz_safeBottom + 8));
+        make.width.height.mas_equalTo(86);
+        make.centerX.equalTo(self.view);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}
+
+#pragma mark click
+- (void)clickAddButton {
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -75,7 +95,7 @@ static CGFloat prevOffsetY = 0;
 #pragma mark - Lazy
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:(UITableViewStylePlain)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - hz_safeBottom) style:(UITableViewStylePlain)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = hz_1_bgColor;

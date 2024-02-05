@@ -28,7 +28,7 @@ def common_pods
   pod 'AFNetworking',         '4.0'
   pod 'MBProgressHUD',        '1.1.0'
   pod 'ReactiveObjC',         '3.1.1'
-  pod 'Bugly',                '2.5.93'
+#  pod 'Bugly',                '2.5.93'
   pod 'Masonry'
   
   pod 'LookinServer',         :configurations => ['Debug']
