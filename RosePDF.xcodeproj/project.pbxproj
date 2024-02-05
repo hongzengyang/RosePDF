@@ -116,6 +116,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		442ECF402B713F16003FC69E /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		442ECF412B713F1F003FC69E /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		442ECF422B713F30003FC69E /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ImagePicker;
+			sourceTree = "<group>";
+		};
 		7F0C56D00EAB5727517CB565 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +250,9 @@
 		A1A8DBDF2B5E9D630092F0F8 /* RosePDF */ = {
 			isa = PBXGroup;
 			children = (
+				442ECF422B713F30003FC69E /* ImagePicker */,
+				442ECF412B713F1F003FC69E /* Detail */,
+				442ECF402B713F16003FC69E /* Edit */,
 				A12C2A932B70FAB100B77150 /* Resource */,
 				A1A8DBE02B5E9D630092F0F8 /* AppDelegate.h */,
 				A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */,
