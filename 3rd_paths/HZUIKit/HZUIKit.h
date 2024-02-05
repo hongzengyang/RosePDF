@@ -11,6 +11,7 @@
 #import "UIView+HZCategory.h"
 #import "UIButton+HZCategory.h"
 #import "UIImage+HZCategory.h"
+#import "UIColor+HZCategory.h"
 
 
 #endif /* HZUIKit_h */

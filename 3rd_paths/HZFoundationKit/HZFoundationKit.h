@@ -12,5 +12,6 @@
 #import "NSString+HZCategory.h"
 #import "NSKeyedArchiver+HZCategory.h"
 #import "NSFileManager+HZCategory.h"
+#import "HZSerializeObject.h"
 
 #endif /* HZFoundationKit_h */

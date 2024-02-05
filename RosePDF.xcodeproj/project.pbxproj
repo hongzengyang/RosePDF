@@ -8,9 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		213C88DA17E81131D3D9B767 /* libPods-RosePDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */; };
+		A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */; };
+		A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A662B6F6C6800B77150 /* HZHomeViewController.m */; };
+		A12C2A712B6F784B00B77150 /* HZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A702B6F784B00B77150 /* HZBaseModel.m */; };
+		A12C2A742B6F786900B77150 /* HZProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A732B6F786900B77150 /* HZProjectModel.m */; };
+		A12C2A772B6F788600B77150 /* HZPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A762B6F788600B77150 /* HZPageModel.m */; };
+		A12C2A7D2B70A55A00B77150 /* HZNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A7C2B70A55A00B77150 /* HZNavigationController.m */; };
+		A12C2A802B70A5DB00B77150 /* HZHomeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A7F2B70A5DB00B77150 /* HZHomeNavigationBar.m */; };
+		A12C2A872B70DFCD00B77150 /* HZHomeTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A862B70DFCD00B77150 /* HZHomeTableHeaderView.m */; };
+		A12C2A962B70FADA00B77150 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A12C2A982B70FADA00B77150 /* Localizable.strings */; };
+		A12C2A9D2B70FB2E00B77150 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A12C2A9F2B70FB2E00B77150 /* InfoPlist.strings */; };
+		A12C2AA32B70FDF300B77150 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A12C2AA22B70FDF300B77150 /* Media.xcassets */; };
 		A1A8DBE22B5E9D630092F0F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */; };
-		A1A8DBE52B5E9D630092F0F8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBE42B5E9D630092F0F8 /* SceneDelegate.m */; };
-		A1A8DBE82B5E9D630092F0F8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBE72B5E9D630092F0F8 /* ViewController.m */; };
 		A1A8DBEB2B5E9D630092F0F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1A8DBE92B5E9D630092F0F8 /* Main.storyboard */; };
 		A1A8DBED2B5E9D650092F0F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A8DBEC2B5E9D650092F0F8 /* Assets.xcassets */; };
 		A1A8DBF02B5E9D650092F0F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1A8DBEE2B5E9D650092F0F8 /* LaunchScreen.storyboard */; };
@@ -39,13 +48,34 @@
 
 /* Begin PBXFileReference section */
 		31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RosePDF.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A12C2A622B6F6C4000B77150 /* HZBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZBaseViewController.h; sourceTree = "<group>"; };
+		A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZBaseViewController.m; sourceTree = "<group>"; };
+		A12C2A652B6F6C6800B77150 /* HZHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZHomeViewController.h; sourceTree = "<group>"; };
+		A12C2A662B6F6C6800B77150 /* HZHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZHomeViewController.m; sourceTree = "<group>"; };
+		A12C2A6C2B6F723C00B77150 /* HZCommonHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZCommonHeader.h; sourceTree = "<group>"; };
+		A12C2A6F2B6F784B00B77150 /* HZBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZBaseModel.h; sourceTree = "<group>"; };
+		A12C2A702B6F784B00B77150 /* HZBaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZBaseModel.m; sourceTree = "<group>"; };
+		A12C2A722B6F786900B77150 /* HZProjectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZProjectModel.h; sourceTree = "<group>"; };
+		A12C2A732B6F786900B77150 /* HZProjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZProjectModel.m; sourceTree = "<group>"; };
+		A12C2A752B6F788600B77150 /* HZPageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPageModel.h; sourceTree = "<group>"; };
+		A12C2A762B6F788600B77150 /* HZPageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPageModel.m; sourceTree = "<group>"; };
+		A12C2A782B6F78D800B77150 /* HZProjectDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZProjectDefine.h; sourceTree = "<group>"; };
+		A12C2A7B2B70A55A00B77150 /* HZNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZNavigationController.h; sourceTree = "<group>"; };
+		A12C2A7C2B70A55A00B77150 /* HZNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZNavigationController.m; sourceTree = "<group>"; };
+		A12C2A7E2B70A5DB00B77150 /* HZHomeNavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZHomeNavigationBar.h; sourceTree = "<group>"; };
+		A12C2A7F2B70A5DB00B77150 /* HZHomeNavigationBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZHomeNavigationBar.m; sourceTree = "<group>"; };
+		A12C2A852B70DFCD00B77150 /* HZHomeTableHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZHomeTableHeaderView.h; sourceTree = "<group>"; };
+		A12C2A862B70DFCD00B77150 /* HZHomeTableHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZHomeTableHeaderView.m; sourceTree = "<group>"; };
+		A12C2A972B70FADA00B77150 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A12C2A992B70FADE00B77150 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A12C2A9A2B70FADF00B77150 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A12C2A9E2B70FB2E00B77150 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A12C2AA02B70FB3200B77150 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A12C2AA12B70FB3300B77150 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A12C2AA22B70FDF300B77150 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		A1A8DBDD2B5E9D630092F0F8 /* RosePDF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosePDF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8DBE02B5E9D630092F0F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A1A8DBE32B5E9D630092F0F8 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		A1A8DBE42B5E9D630092F0F8 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		A1A8DBE62B5E9D630092F0F8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A1A8DBE72B5E9D630092F0F8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A1A8DBEA2B5E9D630092F0F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A1A8DBEC2B5E9D650092F0F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1A8DBEF2B5E9D650092F0F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -95,6 +125,85 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A12C2A5F2B6F6BFC00B77150 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				A12C2A652B6F6C6800B77150 /* HZHomeViewController.h */,
+				A12C2A662B6F6C6800B77150 /* HZHomeViewController.m */,
+				A12C2A7E2B70A5DB00B77150 /* HZHomeNavigationBar.h */,
+				A12C2A7F2B70A5DB00B77150 /* HZHomeNavigationBar.m */,
+				A12C2A852B70DFCD00B77150 /* HZHomeTableHeaderView.h */,
+				A12C2A862B70DFCD00B77150 /* HZHomeTableHeaderView.m */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		A12C2A602B6F6C0B00B77150 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A12C2A612B6F6C2A00B77150 /* Base */,
+				A12C2A6C2B6F723C00B77150 /* HZCommonHeader.h */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A12C2A612B6F6C2A00B77150 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				A12C2A622B6F6C4000B77150 /* HZBaseViewController.h */,
+				A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */,
+				A12C2A7B2B70A55A00B77150 /* HZNavigationController.h */,
+				A12C2A7C2B70A55A00B77150 /* HZNavigationController.m */,
+				A12C2A6F2B6F784B00B77150 /* HZBaseModel.h */,
+				A12C2A702B6F784B00B77150 /* HZBaseModel.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		A12C2A682B6F6D2600B77150 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				A12C2A6A2B6F6D3500B77150 /* Database */,
+				A12C2A692B6F6D2E00B77150 /* Model */,
+				A12C2A782B6F78D800B77150 /* HZProjectDefine.h */,
+			);
+			path = Project;
+			sourceTree = "<group>";
+		};
+		A12C2A692B6F6D2E00B77150 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A12C2A722B6F786900B77150 /* HZProjectModel.h */,
+				A12C2A732B6F786900B77150 /* HZProjectModel.m */,
+				A12C2A752B6F788600B77150 /* HZPageModel.h */,
+				A12C2A762B6F788600B77150 /* HZPageModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A12C2A6A2B6F6D3500B77150 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		A12C2A6E2B6F76F700B77150 /* Vip */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Vip;
+			sourceTree = "<group>";
+		};
+		A12C2A932B70FAB100B77150 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				A12C2A982B70FADA00B77150 /* Localizable.strings */,
+				A12C2AA22B70FDF300B77150 /* Media.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		A1A8DBD42B5E9D630092F0F8 = {
 			isa = PBXGroup;
 			children = (
@@ -120,17 +229,19 @@
 		A1A8DBDF2B5E9D630092F0F8 /* RosePDF */ = {
 			isa = PBXGroup;
 			children = (
+				A12C2A932B70FAB100B77150 /* Resource */,
 				A1A8DBE02B5E9D630092F0F8 /* AppDelegate.h */,
 				A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */,
-				A1A8DBE32B5E9D630092F0F8 /* SceneDelegate.h */,
-				A1A8DBE42B5E9D630092F0F8 /* SceneDelegate.m */,
-				A1A8DBE62B5E9D630092F0F8 /* ViewController.h */,
-				A1A8DBE72B5E9D630092F0F8 /* ViewController.m */,
+				A12C2A6E2B6F76F700B77150 /* Vip */,
+				A12C2A682B6F6D2600B77150 /* Project */,
+				A12C2A602B6F6C0B00B77150 /* Common */,
+				A12C2A5F2B6F6BFC00B77150 /* Home */,
 				A1A8DBE92B5E9D630092F0F8 /* Main.storyboard */,
 				A1A8DBEC2B5E9D650092F0F8 /* Assets.xcassets */,
 				A1A8DBEE2B5E9D650092F0F8 /* LaunchScreen.storyboard */,
 				A1A8DBF12B5E9D650092F0F8 /* Info.plist */,
 				A1A8DBF22B5E9D650092F0F8 /* main.m */,
+				A12C2A9F2B70FB2E00B77150 /* InfoPlist.strings */,
 			);
 			path = RosePDF;
 			sourceTree = "<group>";
@@ -246,6 +357,8 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = A1A8DBD42B5E9D630092F0F8;
 			productRefGroup = A1A8DBDE2B5E9D630092F0F8 /* Products */;
@@ -265,8 +378,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1A8DBF02B5E9D650092F0F8 /* LaunchScreen.storyboard in Resources */,
+				A12C2A962B70FADA00B77150 /* Localizable.strings in Resources */,
 				A1A8DBED2B5E9D650092F0F8 /* Assets.xcassets in Resources */,
 				A1A8DBEB2B5E9D630092F0F8 /* Main.storyboard in Resources */,
+				A12C2AA32B70FDF300B77150 /* Media.xcassets in Resources */,
+				A12C2A9D2B70FB2E00B77150 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,10 +432,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1A8DBE82B5E9D630092F0F8 /* ViewController.m in Sources */,
 				A1A8DBE22B5E9D630092F0F8 /* AppDelegate.m in Sources */,
+				A12C2A7D2B70A55A00B77150 /* HZNavigationController.m in Sources */,
+				A12C2A802B70A5DB00B77150 /* HZHomeNavigationBar.m in Sources */,
+				A12C2A742B6F786900B77150 /* HZProjectModel.m in Sources */,
+				A12C2A772B6F788600B77150 /* HZPageModel.m in Sources */,
+				A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */,
 				A1A8DBF32B5E9D650092F0F8 /* main.m in Sources */,
-				A1A8DBE52B5E9D630092F0F8 /* SceneDelegate.m in Sources */,
+				A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */,
+				A12C2A712B6F784B00B77150 /* HZBaseModel.m in Sources */,
+				A12C2A872B70DFCD00B77150 /* HZHomeTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +478,26 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		A12C2A982B70FADA00B77150 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A12C2A972B70FADA00B77150 /* en */,
+				A12C2A992B70FADE00B77150 /* zh-Hans */,
+				A12C2A9A2B70FADF00B77150 /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		A12C2A9F2B70FB2E00B77150 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A12C2A9E2B70FB2E00B77150 /* zh-Hans */,
+				A12C2AA02B70FB3200B77150 /* zh-Hant */,
+				A12C2AA12B70FB3300B77150 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		A1A8DBE92B5E9D630092F0F8 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -379,6 +521,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -437,6 +580,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -493,7 +637,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7M76G8VFG2;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RosePDF/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -507,7 +653,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = sb.com.RosePDF;
+				PRODUCT_BUNDLE_IDENTIFIER = h.com.RosePDF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -522,7 +668,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7M76G8VFG2;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RosePDF/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -536,7 +684,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = sb.com.RosePDF;
+				PRODUCT_BUNDLE_IDENTIFIER = h.com.RosePDF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

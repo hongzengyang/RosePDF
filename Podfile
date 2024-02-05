@@ -29,7 +29,7 @@ def common_pods
   pod 'MBProgressHUD',        '1.1.0'
   pod 'ReactiveObjC',         '3.1.1'
   pod 'Bugly',                '2.5.93'
-  pod 'Masonry',              '1.1.0'
+  pod 'Masonry'
   
   pod 'LookinServer',         :configurations => ['Debug']
 end
