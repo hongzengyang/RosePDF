@@ -1,19 +1,7 @@
 PODS:
-  - AFNetworking (4.0.0):
-    - AFNetworking/NSURLSession (= 4.0.0)
-    - AFNetworking/Reachability (= 4.0.0)
-    - AFNetworking/Security (= 4.0.0)
-    - AFNetworking/Serialization (= 4.0.0)
-    - AFNetworking/UIKit (= 4.0.0)
-  - AFNetworking/NSURLSession (4.0.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.0)
-  - AFNetworking/Security (4.0.0)
-  - AFNetworking/Serialization (4.0.0)
-  - AFNetworking/UIKit (4.0.0):
-    - AFNetworking/NSURLSession
+  - HZAssetsPicker (0.0.0):
+    - HZFoundationKit
+    - HZUIKit
   - HZFoundationKit (0.0.0)
   - HZIAPKit (0.0.0)
   - HZUIKit (0.0.0)
@@ -41,11 +29,12 @@ PODS:
   - SDWebImageWebPCoder (0.11.0):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.15)
+  - WCDB (0.0.1)
   - YYCache (1.0.4)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
-  - AFNetworking (= 4.0)
+  - HZAssetsPicker (from `./3rd_paths/HZAssetsPicker`)
   - HZFoundationKit (from `./3rd_paths/HZFoundationKit`)
   - HZIAPKit (from `./3rd_paths/HZIAPKit`)
   - HZUIKit (from `./3rd_paths/HZUIKit`)
@@ -55,12 +44,12 @@ DEPENDENCIES:
   - ReactiveObjC (= 3.1.1)
   - SDWebImage (= 5.15.7)
   - SDWebImageWebPCoder (= 0.11.0)
+  - WCDB (from `./3rd_paths/WCDB`)
   - YYCache (= 1.0.4)
   - YYModel (= 1.0.4)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - AFNetworking
     - libwebp
     - LookinServer
     - Masonry
@@ -72,15 +61,19 @@ SPEC REPOS:
     - YYModel
 
 EXTERNAL SOURCES:
+  HZAssetsPicker:
+    :path: "./3rd_paths/HZAssetsPicker"
   HZFoundationKit:
     :path: "./3rd_paths/HZFoundationKit"
   HZIAPKit:
     :path: "./3rd_paths/HZIAPKit"
   HZUIKit:
     :path: "./3rd_paths/HZUIKit"
+  WCDB:
+    :path: "./3rd_paths/WCDB"
 
 SPEC CHECKSUMS:
-  AFNetworking: 42892080606935f7a9ec3fda4927fdd37e9cd369
+  HZAssetsPicker: dbbb3180301c155cef76b1f48f9be842be49f7b7
   HZFoundationKit: 11fb5e05d78fa22c13095d1e2edce8c6db961f5e
   HZIAPKit: bce617e20fe553226fa609857758272796e61ffe
   HZUIKit: bd1792b2b1887009017327d6d1bb2a70da14009f
@@ -91,9 +84,10 @@ SPEC CHECKSUMS:
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   SDWebImage: 25bac438318faf37e35650619ebc288a9061d292
   SDWebImageWebPCoder: 295a6573c512f54ad2dd58098e64e17dcf008499
+  WCDB: 297e4e61ff7157dcb65a684127e8d99734247f74
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 676ae363d03b78e1f69b718b55f4001f35ff47fe
+PODFILE CHECKSUM: 5ec0259adbb19019b13e3cb093a59e0ccb364484
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.11.3

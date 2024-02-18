@@ -6,6 +6,7 @@
 //
 
 #import "HZBaseViewController.h"
+#import "HZCommonHeader.h"
 
 @interface HZBaseViewController ()
 
@@ -15,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = hz_1_bgColor;
 }
 
 /*

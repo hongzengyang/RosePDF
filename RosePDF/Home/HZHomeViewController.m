@@ -9,6 +9,11 @@
 #import "HZCommonHeader.h"
 #import "HZHomeNavigationBar.h"
 #import "HZHomeTableHeaderView.h"
+#import "HZEditViewController.h"
+#import "HZProjectModel.h"
+#import <HZAssetsPicker/HZAssetsPickerViewController.h>
+#import <HZAssetsPicker/HZAssetsPickerManager.h>
+
 
 @interface HZHomeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -23,7 +28,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = hz_1_bgColor;
     
     [self configView];
 }
@@ -59,7 +63,47 @@
 
 #pragma mark click
 - (void)clickAddButton {
-    
+    @weakify(self);
+    [HZAssetsManager requestAuthorizationWithCompleteBlock:^(BOOL complete) {
+        @strongify(self);
+        if (!complete) {//用户拒绝
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"str_photo_permission_deny_title", nil)
+                                                                                     message:NSLocalizedString(@"str_photo_permission_deny_tip", nil)
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"str_cancel", nil) style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"str_go_setting", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                // 跳转到应用设置页面
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
+                                                   options:@{}
+                                         completionHandler:nil];
+            }];
+
+            [alertController addAction:cancelAction];
+            [alertController addAction:settingsAction];
+
+            [self presentViewController:alertController animated:YES completion:nil];
+            return;
+        }
+        HZAssetsPickerViewController *assetPicker = [[HZAssetsPickerViewController alloc] init];
+        assetPicker.SelectImageBlock = ^(NSArray<UIImage *> * _Nonnull images) {
+            @strongify(self);
+            HZEditViewController *edit = [[HZEditViewController alloc] init];
+            [self.navigationController pushViewController:edit animated:YES];
+            
+            {//移除assetPicker
+                NSMutableArray *muArray = [self.navigationController.viewControllers mutableCopy];
+                [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(UIViewController *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj isKindOfClass:NSClassFromString(@"HZAssetsPickerViewController")]) {
+                        [muArray removeObject:obj];
+                    }
+                }];
+                self.navigationController.viewControllers = [muArray copy];
+            }
+        };
+        [self.navigationController pushViewController:assetPicker animated:YES];
+        
+    }];
 }
 
 #pragma mark - UITableViewDelegate

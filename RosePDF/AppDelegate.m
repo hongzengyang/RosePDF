@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "HZHomeViewController.h"
 #import "HZNavigationController.h"
+#import <HZUIKit/HZUIKit.h>
 
 @interface AppDelegate ()
 
@@ -18,6 +19,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    if (isRTL) {
+        [UIView appearance].semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+        [UISearchBar appearance].semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+    }
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self enterHome];
     return YES;

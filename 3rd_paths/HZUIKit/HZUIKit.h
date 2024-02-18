@@ -12,6 +12,8 @@
 #import "UIButton+HZCategory.h"
 #import "UIImage+HZCategory.h"
 #import "UIColor+HZCategory.h"
+#import "HZVerticalButton.h"
 
+#define isRTL [[[NSLocale preferredLanguages] objectAtIndex:0] hasPrefix:@"ar"]
 
 #endif /* HZUIKit_h */

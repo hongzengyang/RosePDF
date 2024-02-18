@@ -6,6 +6,6 @@
   
 */
 "CFBundleDisplayName" = "PDF Converter";
-"NSCameraUsageDescription" = "For scan documents, please allow PDF Converter to access your camera.";
-"NSPhotoLibraryUsageDescription" = "To select photos, please allow photos access.";
-"NSPhotoLibraryAddUsageDescription" = "To select photos from your album, please allow photos access.";
+"NSCameraUsageDescription" = "To take photos, we need to access your camera.";
+"NSPhotoLibraryUsageDescription" = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";
+"NSPhotoLibraryAddUsageDescription" = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";

@@ -9,3 +9,20 @@
 
 "str_files" = "Files";
 "str_search" = "Search";
+"str_edit" = "Edit";
+"str_next" = "Next";
+"str_filter" = "Filter";
+"str_left" = "Left";
+"str_right" = "Right";
+"str_crop" = "Crop";
+"str_reorder" = "Reorder";
+"str_delete" = "Delete";
+"str_cancel" = "Cancel";
+"str_import" = "Import";
+"str_photo_permission_deny_title" = "Photo Permission Required";
+"str_photo_permission_deny_tip" = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";
+"str_go_setting" = "Go to Settings";
+"str_photo_permission_limit_title" = "Allow Access to All Photos";
+"str_photo_permission_limit_tip" = "For better experience, please Allow Access to All Photos.";
+"str_selected_photos" = "Selected %@";
+

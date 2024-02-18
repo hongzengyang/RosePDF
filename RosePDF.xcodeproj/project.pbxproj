@@ -11,7 +11,7 @@
 		A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */; };
 		A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A662B6F6C6800B77150 /* HZHomeViewController.m */; };
 		A12C2A712B6F784B00B77150 /* HZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A702B6F784B00B77150 /* HZBaseModel.m */; };
-		A12C2A742B6F786900B77150 /* HZProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A732B6F786900B77150 /* HZProjectModel.m */; };
+		A12C2A742B6F786900B77150 /* HZProjectModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A732B6F786900B77150 /* HZProjectModel.mm */; };
 		A12C2A772B6F788600B77150 /* HZPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A762B6F788600B77150 /* HZPageModel.m */; };
 		A12C2A7D2B70A55A00B77150 /* HZNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A7C2B70A55A00B77150 /* HZNavigationController.m */; };
 		A12C2A802B70A5DB00B77150 /* HZHomeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A7F2B70A5DB00B77150 /* HZHomeNavigationBar.m */; };
@@ -19,6 +19,15 @@
 		A12C2A962B70FADA00B77150 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A12C2A982B70FADA00B77150 /* Localizable.strings */; };
 		A12C2A9D2B70FB2E00B77150 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A12C2A9F2B70FB2E00B77150 /* InfoPlist.strings */; };
 		A12C2AA32B70FDF300B77150 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A12C2AA22B70FDF300B77150 /* Media.xcassets */; };
+		A12C2AAA2B71CA8700B77150 /* HZBaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2AA92B71CA8700B77150 /* HZBaseNavigationBar.m */; };
+		A12C2AAE2B71DB2E00B77150 /* HZEditTopCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2AAD2B71DB2E00B77150 /* HZEditTopCollectionView.m */; };
+		A12C2AB12B71DB4E00B77150 /* HZEditPreviewCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2AB02B71DB4E00B77150 /* HZEditPreviewCollectionView.m */; };
+		A12C2AB42B71DB5E00B77150 /* HZEditBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2AB32B71DB5E00B77150 /* HZEditBottomView.m */; };
+		A12C2AB72B71DCAB00B77150 /* HZEditDataboard.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2AB62B71DCAB00B77150 /* HZEditDataboard.m */; };
+		A12C2ABA2B71F83100B77150 /* HZEditTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2AB92B71F83100B77150 /* HZEditTopCell.m */; };
+		A12C2AC62B7229A200B77150 /* HZBaseDBHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A12C2AC52B7229A200B77150 /* HZBaseDBHelper.mm */; };
+		A12C2AC92B722A2E00B77150 /* HZWCDBHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A12C2AC82B722A2E00B77150 /* HZWCDBHelper.mm */; };
+		A12C2ACC2B722D7700B77150 /* HZProjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2ACB2B722D7700B77150 /* HZProjectManager.m */; };
 		A1A8DBE22B5E9D630092F0F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */; };
 		A1A8DBEB2B5E9D630092F0F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1A8DBE92B5E9D630092F0F8 /* Main.storyboard */; };
 		A1A8DBED2B5E9D650092F0F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A8DBEC2B5E9D650092F0F8 /* Assets.xcassets */; };
@@ -27,6 +36,7 @@
 		A1A8DBFD2B5E9D650092F0F8 /* RosePDFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBFC2B5E9D650092F0F8 /* RosePDFTests.m */; };
 		A1A8DC072B5E9D650092F0F8 /* RosePDFUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DC062B5E9D650092F0F8 /* RosePDFUITests.m */; };
 		A1A8DC092B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DC082B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m */; };
+		A1ABB91B2B8200280007C9B6 /* HZEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ABB91A2B8200280007C9B6 /* HZEditViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +66,7 @@
 		A12C2A6F2B6F784B00B77150 /* HZBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZBaseModel.h; sourceTree = "<group>"; };
 		A12C2A702B6F784B00B77150 /* HZBaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZBaseModel.m; sourceTree = "<group>"; };
 		A12C2A722B6F786900B77150 /* HZProjectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZProjectModel.h; sourceTree = "<group>"; };
-		A12C2A732B6F786900B77150 /* HZProjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZProjectModel.m; sourceTree = "<group>"; };
+		A12C2A732B6F786900B77150 /* HZProjectModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HZProjectModel.mm; sourceTree = "<group>"; };
 		A12C2A752B6F788600B77150 /* HZPageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPageModel.h; sourceTree = "<group>"; };
 		A12C2A762B6F788600B77150 /* HZPageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPageModel.m; sourceTree = "<group>"; };
 		A12C2A782B6F78D800B77150 /* HZProjectDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZProjectDefine.h; sourceTree = "<group>"; };
@@ -73,6 +83,24 @@
 		A12C2AA02B70FB3200B77150 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A12C2AA12B70FB3300B77150 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A12C2AA22B70FDF300B77150 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		A12C2AA82B71CA8700B77150 /* HZBaseNavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZBaseNavigationBar.h; sourceTree = "<group>"; };
+		A12C2AA92B71CA8700B77150 /* HZBaseNavigationBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZBaseNavigationBar.m; sourceTree = "<group>"; };
+		A12C2AAC2B71DB2E00B77150 /* HZEditTopCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditTopCollectionView.h; sourceTree = "<group>"; };
+		A12C2AAD2B71DB2E00B77150 /* HZEditTopCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditTopCollectionView.m; sourceTree = "<group>"; };
+		A12C2AAF2B71DB4E00B77150 /* HZEditPreviewCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditPreviewCollectionView.h; sourceTree = "<group>"; };
+		A12C2AB02B71DB4E00B77150 /* HZEditPreviewCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditPreviewCollectionView.m; sourceTree = "<group>"; };
+		A12C2AB22B71DB5E00B77150 /* HZEditBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditBottomView.h; sourceTree = "<group>"; };
+		A12C2AB32B71DB5E00B77150 /* HZEditBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditBottomView.m; sourceTree = "<group>"; };
+		A12C2AB52B71DCAB00B77150 /* HZEditDataboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditDataboard.h; sourceTree = "<group>"; };
+		A12C2AB62B71DCAB00B77150 /* HZEditDataboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditDataboard.m; sourceTree = "<group>"; };
+		A12C2AB82B71F83100B77150 /* HZEditTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditTopCell.h; sourceTree = "<group>"; };
+		A12C2AB92B71F83100B77150 /* HZEditTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditTopCell.m; sourceTree = "<group>"; };
+		A12C2AC42B7229A200B77150 /* HZBaseDBHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZBaseDBHelper.h; sourceTree = "<group>"; };
+		A12C2AC52B7229A200B77150 /* HZBaseDBHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HZBaseDBHelper.mm; sourceTree = "<group>"; };
+		A12C2AC72B722A2E00B77150 /* HZWCDBHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZWCDBHelper.h; sourceTree = "<group>"; };
+		A12C2AC82B722A2E00B77150 /* HZWCDBHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HZWCDBHelper.mm; sourceTree = "<group>"; };
+		A12C2ACA2B722D7700B77150 /* HZProjectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZProjectManager.h; sourceTree = "<group>"; };
+		A12C2ACB2B722D7700B77150 /* HZProjectManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZProjectManager.m; sourceTree = "<group>"; };
 		A1A8DBDD2B5E9D630092F0F8 /* RosePDF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosePDF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8DBE02B5E9D630092F0F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -86,6 +114,8 @@
 		A1A8DC022B5E9D650092F0F8 /* RosePDFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RosePDFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8DC062B5E9D650092F0F8 /* RosePDFUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RosePDFUITests.m; sourceTree = "<group>"; };
 		A1A8DC082B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RosePDFUITestsLaunchTests.m; sourceTree = "<group>"; };
+		A1ABB9192B8200280007C9B6 /* HZEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditViewController.h; sourceTree = "<group>"; };
+		A1ABB91A2B8200280007C9B6 /* HZEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditViewController.m; sourceTree = "<group>"; };
 		AB6EAFC0F9AE7561F3527219 /* Pods-RosePDF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosePDF.debug.xcconfig"; path = "Target Support Files/Pods-RosePDF/Pods-RosePDF.debug.xcconfig"; sourceTree = "<group>"; };
 		F0C836D1915B25165E3F9829 /* Pods-RosePDF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosePDF.release.xcconfig"; path = "Target Support Files/Pods-RosePDF/Pods-RosePDF.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,27 +146,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		442ECF402B713F16003FC69E /* Edit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Edit;
-			sourceTree = "<group>";
-		};
-		442ECF412B713F1F003FC69E /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Detail;
-			sourceTree = "<group>";
-		};
-		442ECF422B713F30003FC69E /* ImagePicker */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ImagePicker;
-			sourceTree = "<group>";
-		};
 		7F0C56D00EAB5727517CB565 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +173,8 @@
 			children = (
 				A12C2A612B6F6C2A00B77150 /* Base */,
 				A12C2A6C2B6F723C00B77150 /* HZCommonHeader.h */,
+				A12C2AA82B71CA8700B77150 /* HZBaseNavigationBar.h */,
+				A12C2AA92B71CA8700B77150 /* HZBaseNavigationBar.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -184,9 +195,11 @@
 		A12C2A682B6F6D2600B77150 /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				A12C2A6A2B6F6D3500B77150 /* Database */,
+				A12C2AC32B72277900B77150 /* Database */,
 				A12C2A692B6F6D2E00B77150 /* Model */,
 				A12C2A782B6F78D800B77150 /* HZProjectDefine.h */,
+				A12C2ACA2B722D7700B77150 /* HZProjectManager.h */,
+				A12C2ACB2B722D7700B77150 /* HZProjectManager.m */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -195,25 +208,11 @@
 			isa = PBXGroup;
 			children = (
 				A12C2A722B6F786900B77150 /* HZProjectModel.h */,
-				A12C2A732B6F786900B77150 /* HZProjectModel.m */,
+				A12C2A732B6F786900B77150 /* HZProjectModel.mm */,
 				A12C2A752B6F788600B77150 /* HZPageModel.h */,
 				A12C2A762B6F788600B77150 /* HZPageModel.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		A12C2A6A2B6F6D3500B77150 /* Database */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Database;
-			sourceTree = "<group>";
-		};
-		A12C2A6E2B6F76F700B77150 /* Vip */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Vip;
 			sourceTree = "<group>";
 		};
 		A12C2A932B70FAB100B77150 /* Resource */ = {
@@ -223,6 +222,44 @@
 				A12C2AA22B70FDF300B77150 /* Media.xcassets */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		A12C2AA42B71C5C500B77150 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				A12C2AAB2B71DB0700B77150 /* View */,
+				A12C2AB52B71DCAB00B77150 /* HZEditDataboard.h */,
+				A12C2AB62B71DCAB00B77150 /* HZEditDataboard.m */,
+				A1ABB9192B8200280007C9B6 /* HZEditViewController.h */,
+				A1ABB91A2B8200280007C9B6 /* HZEditViewController.m */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		A12C2AAB2B71DB0700B77150 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A12C2AAC2B71DB2E00B77150 /* HZEditTopCollectionView.h */,
+				A12C2AAD2B71DB2E00B77150 /* HZEditTopCollectionView.m */,
+				A12C2AB82B71F83100B77150 /* HZEditTopCell.h */,
+				A12C2AB92B71F83100B77150 /* HZEditTopCell.m */,
+				A12C2AAF2B71DB4E00B77150 /* HZEditPreviewCollectionView.h */,
+				A12C2AB02B71DB4E00B77150 /* HZEditPreviewCollectionView.m */,
+				A12C2AB22B71DB5E00B77150 /* HZEditBottomView.h */,
+				A12C2AB32B71DB5E00B77150 /* HZEditBottomView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A12C2AC32B72277900B77150 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				A12C2AC42B7229A200B77150 /* HZBaseDBHelper.h */,
+				A12C2AC52B7229A200B77150 /* HZBaseDBHelper.mm */,
+				A12C2AC72B722A2E00B77150 /* HZWCDBHelper.h */,
+				A12C2AC82B722A2E00B77150 /* HZWCDBHelper.mm */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 		A1A8DBD42B5E9D630092F0F8 = {
@@ -250,13 +287,10 @@
 		A1A8DBDF2B5E9D630092F0F8 /* RosePDF */ = {
 			isa = PBXGroup;
 			children = (
-				442ECF422B713F30003FC69E /* ImagePicker */,
-				442ECF412B713F1F003FC69E /* Detail */,
-				442ECF402B713F16003FC69E /* Edit */,
+				A12C2AA42B71C5C500B77150 /* Edit */,
 				A12C2A932B70FAB100B77150 /* Resource */,
 				A1A8DBE02B5E9D630092F0F8 /* AppDelegate.h */,
 				A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */,
-				A12C2A6E2B6F76F700B77150 /* Vip */,
 				A12C2A682B6F6D2600B77150 /* Project */,
 				A12C2A602B6F6C0B00B77150 /* Common */,
 				A12C2A5F2B6F6BFC00B77150 /* Home */,
@@ -306,6 +340,7 @@
 				A1A8DBD92B5E9D630092F0F8 /* Sources */,
 				A1A8DBDA2B5E9D630092F0F8 /* Frameworks */,
 				A1A8DBDB2B5E9D630092F0F8 /* Resources */,
+				08A5789ABE301E585D5603C9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -427,6 +462,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		08A5789ABE301E585D5603C9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RosePDF/Pods-RosePDF-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RosePDF/Pods-RosePDF-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RosePDF/Pods-RosePDF-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		14E35838D21EAD6851BE1ACB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -459,12 +511,22 @@
 				A1A8DBE22B5E9D630092F0F8 /* AppDelegate.m in Sources */,
 				A12C2A7D2B70A55A00B77150 /* HZNavigationController.m in Sources */,
 				A12C2A802B70A5DB00B77150 /* HZHomeNavigationBar.m in Sources */,
-				A12C2A742B6F786900B77150 /* HZProjectModel.m in Sources */,
+				A12C2A742B6F786900B77150 /* HZProjectModel.mm in Sources */,
 				A12C2A772B6F788600B77150 /* HZPageModel.m in Sources */,
+				A12C2ACC2B722D7700B77150 /* HZProjectManager.m in Sources */,
+				A12C2AB12B71DB4E00B77150 /* HZEditPreviewCollectionView.m in Sources */,
+				A12C2AB72B71DCAB00B77150 /* HZEditDataboard.m in Sources */,
 				A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */,
 				A1A8DBF32B5E9D650092F0F8 /* main.m in Sources */,
+				A12C2AC92B722A2E00B77150 /* HZWCDBHelper.mm in Sources */,
 				A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */,
+				A1ABB91B2B8200280007C9B6 /* HZEditViewController.m in Sources */,
+				A12C2AB42B71DB5E00B77150 /* HZEditBottomView.m in Sources */,
+				A12C2AC62B7229A200B77150 /* HZBaseDBHelper.mm in Sources */,
 				A12C2A712B6F784B00B77150 /* HZBaseModel.m in Sources */,
+				A12C2ABA2B71F83100B77150 /* HZEditTopCell.m in Sources */,
+				A12C2AAE2B71DB2E00B77150 /* HZEditTopCollectionView.m in Sources */,
+				A12C2AAA2B71CA8700B77150 /* HZBaseNavigationBar.m in Sources */,
 				A12C2A872B70DFCD00B77150 /* HZHomeTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -677,7 +739,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = h.com.RosePDF;
+				PRODUCT_BUNDLE_IDENTIFIER = sb.com.RosePDF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -708,7 +770,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = h.com.RosePDF;
+				PRODUCT_BUNDLE_IDENTIFIER = sb.com.RosePDF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

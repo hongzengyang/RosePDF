@@ -11,6 +11,7 @@
 #import <HZUIKit/HZUIKit.h>
 #import <HZFoundationKit/HZFoundationKit.h>
 #import <Masonry/Masonry.h>
+#import <ReactiveObjC/ReactiveObjC.h>
 
 
 
@@ -21,6 +22,8 @@
 
 #define hz_safeTop      [UIView hz_safeTop]
 #define hz_safeBottom   [UIView hz_safeBottom]
+
+#define navigationHeight 44
 
 #define hz_getColor(x)               [UIColor hz_getColor:x]
 #define hz_getColorWithAlpha(x,a)    [UIColor hz_getColor:x alpha:[NSString stringWithFormat:@"%lf",a]]
