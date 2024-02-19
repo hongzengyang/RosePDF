@@ -19,7 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) long long updateTime;
 @property (nonatomic, strong) NSString *pageIds;
 @property (nonatomic, copy) NSString *folderId;
-@property (nonatomic, assign) HZPDFSize pdfSize;
+@property (nonatomic, assign) NSInteger pdfSize;
+
+@property (nonatomic, strong) NSArray <HZPageModel *>*pageModels;
 
 //保存到数据库
 - (BOOL)saveToDataBase;
@@ -28,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 //删除在表中的记录
 - (BOOL)deleteInDataBase;
 
++ (void)configPdfSize:(HZPDFSize)size;
 
 @end
 

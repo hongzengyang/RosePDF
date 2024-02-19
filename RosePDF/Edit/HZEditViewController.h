@@ -6,11 +6,18 @@
 //
 
 #import "HZBaseViewController.h"
+#import "HZProjectModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
+
+@interface HZEditInput : NSObject
+@property (nonatomic, strong) HZProjectModel *project;        //tmp
+@property (nonatomic, strong) HZProjectModel *originProject;
+@end
+
 
 @interface HZEditViewController : HZBaseViewController
 
+- (instancetype)initWithInput:(HZEditInput *)input;
+
 @end
 
-NS_ASSUME_NONNULL_END

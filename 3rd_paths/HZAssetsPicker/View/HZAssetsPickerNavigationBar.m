@@ -93,7 +93,7 @@
     
     self.titleLab = [[UILabel alloc] init];
     [self addSubview:self.titleLab];
-    self.titleLab.font = [UIFont systemFontOfSize:17];
+    self.titleLab.font = [UIFont systemFontOfSize:17 weight:(UIFontWeightMedium)];
     self.titleLab.textColor = [UIColor blackColor];
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.backBtn);

@@ -17,7 +17,7 @@
 
 
 typedef NS_ENUM(NSUInteger, HZPDFSize) {
-    HZPDFSize_auto,
+    HZPDFSize_auto = 0,
     HZPDFSize_A4,
     HZPDFSize_A3,
 };

@@ -8,12 +8,12 @@
 #import <UIKit/UIKit.h>
 #import "HZPageModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface HZEditTopCell : UICollectionViewCell
 
 - (void)configWithModel:(HZPageModel *)pageModel isAdd:(BOOL)isAdd;
 
+- (void)configSelected:(BOOL)selected;
+
 @end
 
-NS_ASSUME_NONNULL_END

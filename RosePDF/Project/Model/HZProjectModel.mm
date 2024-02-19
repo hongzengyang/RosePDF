@@ -7,10 +7,13 @@
 
 #import "HZProjectModel.h"
 #import <HZFoundationKit/HZSerializeObject.h>
+#import <HZFoundationKit/NSDate+HZCategory.h>
 #import "HZWCDBHelper.h"
 #import <WCDB/WCDB.h>
 
 #define DB_PROJECT_TABLE_NAME @"db_project_table"
+
+#define pref_key_pdfSize  @"pref_key_pdfSize"
 
 
 @interface HZProjectModel()<WCTTableCoding>
@@ -27,8 +30,26 @@ WCDB_PROPERTY(pdfSize)
 
 @implementation HZProjectModel
 
+@synthesize pageModels = _pageModels;
+
 HZ_SERIALIZE_CODER_DECODER();
 HZ_SERIALIZE_COPY_WITH_ZONE();
+
+- (instancetype)init {
+    if (self = [super init]) {
+        if ([[NSUserDefaults standardUserDefaults] valueForKey:pref_key_pdfSize]) {
+            self.pdfSize = [[[NSUserDefaults standardUserDefaults] valueForKey:pref_key_pdfSize] integerValue];
+        }else {
+            self.pdfSize = HZPDFSize_auto;
+        }
+        
+        NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+        self.createTime = interval;
+        
+        self.title = [NSDate hz_dateTimeStringWithTime:interval];
+    }
+    return self;
+}
 
 #pragma mark - Database
 WCDB_IMPLEMENTATION(HZProjectModel)
@@ -65,6 +86,39 @@ WCDB_PRIMARY(HZProjectModel, identifier)
 }
 #pragma mark - Query
 
+#pragma mark - User Config
++ (void)configPdfSize:(HZPDFSize)size {
+    [[NSUserDefaults standardUserDefaults] setValue:@(size) forKey:pref_key_pdfSize];
+}
 
+#pragma mark - Setter Getter
+- (NSArray<HZPageModel *> *)pageModels {
+    if (!_pageModels) {
+        if (self.pageIds.length > 0) {
+            NSArray *array = [self.pageIds componentsSeparatedByString:@","].copy;
+            NSMutableArray *models = [NSMutableArray arrayWithCapacity:array.count];
+            NSString *projectId = self.identifier;
+            [array enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                HZPageModel *page = [HZPageModel readWithPageId:obj projectId:projectId];
+                [models addObject:page];
+            }];
+            _pageModels = models;
+        }
+    }
+    return _pageModels;
+}
+
+- (void)setPageModels:(NSArray<HZPageModel *> *)pageModels {
+    _pageModels = pageModels;
+    
+    NSMutableString *muString = [[NSMutableString alloc] initWithString:@""];
+    [pageModels enumerateObjectsUsingBlock:^(HZPageModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [muString appendString:obj.identifier];
+        if (idx != pageModels.count - 1) {
+            [muString appendString:@","];
+        }
+    }];
+    self.pageIds = muString;
+}
 
 @end

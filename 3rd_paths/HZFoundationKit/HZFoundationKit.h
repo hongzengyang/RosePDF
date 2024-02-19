@@ -13,5 +13,6 @@
 #import "NSKeyedArchiver+HZCategory.h"
 #import "NSFileManager+HZCategory.h"
 #import "HZSerializeObject.h"
+#import "NSDate+HZCategory.h"
 
 #endif /* HZFoundationKit_h */

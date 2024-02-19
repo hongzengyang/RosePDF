@@ -25,4 +25,4 @@
 "str_photo_permission_limit_title" = "Allow Access to All Photos";
 "str_photo_permission_limit_tip" = "For better experience, please Allow Access to All Photos.";
 "str_selected_photos" = "Selected %@";
-
+"str_settings" = "Settings";

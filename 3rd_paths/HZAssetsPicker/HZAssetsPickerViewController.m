@@ -179,6 +179,7 @@ static CGFloat prevOffsetY = 0;
         _navBar.clickRightBlock = ^{
             @strongify(self);
             [HZAssetsManager requestHighQualityImagesWithCompleteBlock:^(NSArray<UIImage *> *images) {
+                @strongify(self);
                 if (self.SelectImageBlock) {
                     self.SelectImageBlock(images);
                 }

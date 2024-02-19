@@ -43,16 +43,28 @@
     if (isAdd) {
         self.imageView.image = [UIImage imageNamed:@"rose_edit_top_add"];
     }else {
-        self.imageView.image = nil;
+        UIImage *originImage = [UIImage imageWithContentsOfFile:[pageModel originPath]];
+        originImage = [originImage hz_resizeImageToWidth:540];
+        self.imageView.image = originImage;
     }
     
     [self setNeedsUpdateConstraints];
     [self updateConstraintsIfNeeded];
 }
 
+- (void)configSelected:(BOOL)selected {
+    if (selected) {
+        self.layer.borderWidth = 1.5;
+        self.layer.borderColor = hz_getColor(@"2B96FA").CGColor;
+    }else {
+        self.layer.borderWidth = 0.0;
+    }
+}
+
 - (UIImageView *)imageView {
     if (!_imageView) {
         _imageView = [[UIImageView alloc] init];
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _imageView;
 }

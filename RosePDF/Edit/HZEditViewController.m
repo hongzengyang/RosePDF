@@ -13,6 +13,10 @@
 #import "HZEditPreviewCollectionView.h"
 #import "HZEditBottomView.h"
 #import "HZEditDataboard.h"
+#import "HZProjectManager.h"
+
+@implementation HZEditInput
+@end
 
 @interface HZEditViewController ()<HZEditBottomViewDelegate>
 
@@ -26,6 +30,13 @@
 @end
 
 @implementation HZEditViewController
+
+- (instancetype)initWithInput:(HZEditInput *)input {
+    if (self = [super init]) {
+        self.databoard.project = input.project;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -76,6 +87,7 @@
         @weakify(self);
         _navBar.clickBackBlock = ^{
             @strongify(self);
+            [HZProjectManager deleteProject:self.databoard.project];
             [self.navigationController popViewControllerAnimated:YES];
         };
         _navBar.clickRightBlock = ^{

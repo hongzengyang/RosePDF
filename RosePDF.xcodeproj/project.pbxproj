@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		213C88DA17E81131D3D9B767 /* libPods-RosePDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */; };
+		4444C8DA2B83A8A0005E96AF /* HZPDFSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4444C8D92B83A8A0005E96AF /* HZPDFSettingViewController.m */; };
 		A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */; };
 		A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A662B6F6C6800B77150 /* HZHomeViewController.m */; };
 		A12C2A712B6F784B00B77150 /* HZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A702B6F784B00B77150 /* HZBaseModel.m */; };
@@ -37,6 +38,7 @@
 		A1A8DC072B5E9D650092F0F8 /* RosePDFUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DC062B5E9D650092F0F8 /* RosePDFUITests.m */; };
 		A1A8DC092B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DC082B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m */; };
 		A1ABB91B2B8200280007C9B6 /* HZEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ABB91A2B8200280007C9B6 /* HZEditViewController.m */; };
+		A1ABB9222B833DF30007C9B6 /* HZEditPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ABB9212B833DF30007C9B6 /* HZEditPreviewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 
 /* Begin PBXFileReference section */
 		31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RosePDF.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4444C8D82B83A8A0005E96AF /* HZPDFSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingViewController.h; sourceTree = "<group>"; };
+		4444C8D92B83A8A0005E96AF /* HZPDFSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFSettingViewController.m; sourceTree = "<group>"; };
 		A12C2A622B6F6C4000B77150 /* HZBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZBaseViewController.h; sourceTree = "<group>"; };
 		A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZBaseViewController.m; sourceTree = "<group>"; };
 		A12C2A652B6F6C6800B77150 /* HZHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZHomeViewController.h; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 		A1A8DC082B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RosePDFUITestsLaunchTests.m; sourceTree = "<group>"; };
 		A1ABB9192B8200280007C9B6 /* HZEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditViewController.h; sourceTree = "<group>"; };
 		A1ABB91A2B8200280007C9B6 /* HZEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditViewController.m; sourceTree = "<group>"; };
+		A1ABB9202B833DF30007C9B6 /* HZEditPreviewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditPreviewCell.h; sourceTree = "<group>"; };
+		A1ABB9212B833DF30007C9B6 /* HZEditPreviewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditPreviewCell.m; sourceTree = "<group>"; };
 		AB6EAFC0F9AE7561F3527219 /* Pods-RosePDF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosePDF.debug.xcconfig"; path = "Target Support Files/Pods-RosePDF/Pods-RosePDF.debug.xcconfig"; sourceTree = "<group>"; };
 		F0C836D1915B25165E3F9829 /* Pods-RosePDF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosePDF.release.xcconfig"; path = "Target Support Files/Pods-RosePDF/Pods-RosePDF.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +152,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4444C8D72B83A881005E96AF /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				4444C8D82B83A8A0005E96AF /* HZPDFSettingViewController.h */,
+				4444C8D92B83A8A0005E96AF /* HZPDFSettingViewController.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		7F0C56D00EAB5727517CB565 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +260,8 @@
 				A12C2AB92B71F83100B77150 /* HZEditTopCell.m */,
 				A12C2AAF2B71DB4E00B77150 /* HZEditPreviewCollectionView.h */,
 				A12C2AB02B71DB4E00B77150 /* HZEditPreviewCollectionView.m */,
+				A1ABB9202B833DF30007C9B6 /* HZEditPreviewCell.h */,
+				A1ABB9212B833DF30007C9B6 /* HZEditPreviewCell.m */,
 				A12C2AB22B71DB5E00B77150 /* HZEditBottomView.h */,
 				A12C2AB32B71DB5E00B77150 /* HZEditBottomView.m */,
 			);
@@ -287,6 +304,7 @@
 		A1A8DBDF2B5E9D630092F0F8 /* RosePDF */ = {
 			isa = PBXGroup;
 			children = (
+				4444C8D72B83A881005E96AF /* Setting */,
 				A12C2AA42B71C5C500B77150 /* Edit */,
 				A12C2A932B70FAB100B77150 /* Resource */,
 				A1A8DBE02B5E9D630092F0F8 /* AppDelegate.h */,
@@ -519,12 +537,14 @@
 				A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */,
 				A1A8DBF32B5E9D650092F0F8 /* main.m in Sources */,
 				A12C2AC92B722A2E00B77150 /* HZWCDBHelper.mm in Sources */,
+				A1ABB9222B833DF30007C9B6 /* HZEditPreviewCell.m in Sources */,
 				A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */,
 				A1ABB91B2B8200280007C9B6 /* HZEditViewController.m in Sources */,
 				A12C2AB42B71DB5E00B77150 /* HZEditBottomView.m in Sources */,
 				A12C2AC62B7229A200B77150 /* HZBaseDBHelper.mm in Sources */,
 				A12C2A712B6F784B00B77150 /* HZBaseModel.m in Sources */,
 				A12C2ABA2B71F83100B77150 /* HZEditTopCell.m in Sources */,
+				4444C8DA2B83A8A0005E96AF /* HZPDFSettingViewController.m in Sources */,
 				A12C2AAE2B71DB2E00B77150 /* HZEditTopCollectionView.m in Sources */,
 				A12C2AAA2B71CA8700B77150 /* HZBaseNavigationBar.m in Sources */,
 				A12C2A872B70DFCD00B77150 /* HZHomeTableHeaderView.m in Sources */,

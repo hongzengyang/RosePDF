@@ -13,6 +13,7 @@
 #import "HZProjectModel.h"
 #import <HZAssetsPicker/HZAssetsPickerViewController.h>
 #import <HZAssetsPicker/HZAssetsPickerManager.h>
+#import "HZProjectManager.h"
 
 
 @interface HZHomeViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -88,18 +89,26 @@
         HZAssetsPickerViewController *assetPicker = [[HZAssetsPickerViewController alloc] init];
         assetPicker.SelectImageBlock = ^(NSArray<UIImage *> * _Nonnull images) {
             @strongify(self);
-            HZEditViewController *edit = [[HZEditViewController alloc] init];
-            [self.navigationController pushViewController:edit animated:YES];
-            
-            {//移除assetPicker
-                NSMutableArray *muArray = [self.navigationController.viewControllers mutableCopy];
-                [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(UIViewController *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj isKindOfClass:NSClassFromString(@"HZAssetsPickerViewController")]) {
-                        [muArray removeObject:obj];
+            [HZProjectManager createProjectWithFolderId:Default_folderId isTmp:YES completeBlock:^(HZProjectModel *project) {
+                [HZProjectManager createPagesWithImages:images inProject:project completeBlock:^(NSArray<HZPageModel *> *pages) {
+                    @strongify(self);
+                    HZEditInput *input = [[HZEditInput alloc] init];
+                    input.project = project;
+                    
+                    HZEditViewController *edit = [[HZEditViewController alloc] initWithInput:input];
+                    [self.navigationController pushViewController:edit animated:YES];
+                    
+                    {//移除assetPicker
+                        NSMutableArray *muArray = [self.navigationController.viewControllers mutableCopy];
+                        [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(UIViewController *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            if ([obj isKindOfClass:NSClassFromString(@"HZAssetsPickerViewController")]) {
+                                [muArray removeObject:obj];
+                            }
+                        }];
+                        self.navigationController.viewControllers = [muArray copy];
                     }
                 }];
-                self.navigationController.viewControllers = [muArray copy];
-            }
+            }];
         };
         [self.navigationController pushViewController:assetPicker animated:YES];
         

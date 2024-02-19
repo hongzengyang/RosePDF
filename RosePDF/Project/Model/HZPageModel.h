@@ -7,10 +7,27 @@
 
 #import "HZBaseModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
+typedef NS_ENUM(NSUInteger, HZPageOrientation) {
+    HZPageOrientation_up,
+    HZPageOrientation_left,
+    HZPageOrientation_down,
+    HZPageOrientation_right
+};
 
 @interface HZPageModel : HZBaseModel
 
+@property (nonatomic, copy) NSString *identifier;
+@property (nonatomic, copy) NSString *projectId;
+@property (nonatomic, assign) HZPageOrientation orientation;
+
+
++ (HZPageModel *)readWithPageId:(NSString *)pageId projectId:(NSString *)projectId;
+
++ (NSString *)folderPathWithPageId:(NSString *)pageId projectId:(NSString *)projectId;
+- (NSString *)originPath;
+- (NSString *)resultPath;
+
+- (void)refreshWithCompleteBlock:(void(^)(void))completeBlock;
+
 @end
 
-NS_ASSUME_NONNULL_END

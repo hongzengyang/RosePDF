@@ -6,11 +6,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HZProjectModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
+#define pref_key_click_edit_top  @"pref_key_click_edit_top"
+#define pref_key_scroll_preview  @"pref_key_scroll_preview"
 
 @interface HZEditDataboard : NSObject
 
-@end
+@property (nonatomic, strong) HZProjectModel *project;
 
-NS_ASSUME_NONNULL_END
+@property (nonatomic, assign) NSInteger currentIndex;
+
+@end

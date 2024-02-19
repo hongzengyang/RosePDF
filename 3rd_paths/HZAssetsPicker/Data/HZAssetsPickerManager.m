@@ -178,11 +178,11 @@
         __block NSInteger finishCount = 0;
         __block NSInteger callbackCount = 0;
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        NSMutableArray *muArray = [[NSMutableArray alloc] init];
         for (int i = 0; i < self.selectedAssets.count; i++) {
             CFTimeInterval startTime = CFAbsoluteTimeGetCurrent();
             NSLog(@"debug--开始第%d条任务,startTime:%lf",i,startTime);
             HZAsset *asset = self.selectedAssets[i];
-            NSMutableArray *muArray = [[NSMutableArray alloc] init];
             [asset requestHighQualityWithCompleteBlock:^(UIImage * _Nonnull image) {
                 dispatch_semaphore_signal(semaphore);
                 CFTimeInterval endTime = CFAbsoluteTimeGetCurrent();
