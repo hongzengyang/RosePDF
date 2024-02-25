@@ -7,10 +7,13 @@
 
 #import <UIKit/UIKit.h>
 #import "HZAlbum.h"
+#import "HZAssetsPickerManager.h"
 
 @interface HZAlbumPickerViewController : UIViewController
 
 @property (nonatomic, copy) void(^SelectAlbum)(HZAlbum *album);
+
+- (instancetype)initWithDataboard:(HZAssetsPickerManager *)databoard;
 
 
 @end

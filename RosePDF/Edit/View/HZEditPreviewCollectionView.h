@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HZEditPreviewCollectionView : UIView
 
 - (instancetype)initWithDataboard:(HZEditDataboard *)databoard;
+- (void)reloadView;
 
 @end
 

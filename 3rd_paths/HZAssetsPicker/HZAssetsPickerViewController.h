@@ -5,6 +5,7 @@
 //  Created by THS on 2024/2/7.
 //
 #import <UIKit/UIKit.h>
+#import "UIImage+AssetsPickerParam.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

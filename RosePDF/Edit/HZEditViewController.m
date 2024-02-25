@@ -14,11 +14,12 @@
 #import "HZEditBottomView.h"
 #import "HZEditDataboard.h"
 #import "HZProjectManager.h"
-
-@implementation HZEditInput
-@end
+#import "HZPDFSettingViewController.h"
+#import "HZSortViewController.h"
 
 @interface HZEditViewController ()<HZEditBottomViewDelegate>
+
+@property (nonatomic, strong) HZEditInput *input;
 
 @property (nonatomic, strong) HZBaseNavigationBar *navBar;
 @property (nonatomic, strong) HZEditTopCollectionView *topView;
@@ -33,7 +34,10 @@
 
 - (instancetype)initWithInput:(HZEditInput *)input {
     if (self = [super init]) {
+        self.input = input;
+        
         self.databoard.project = input.project;
+        self.databoard.originProject = input.originProject;
     }
     return self;
 }
@@ -41,6 +45,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addAssetsFinished) name:pref_key_add_assets_finished object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sortFinish:) name:pref_key_sort_finish object:nil];
 }
 
 - (void)configView {
@@ -71,9 +78,37 @@
     }];
 }
 
+#pragma mark - 通知
+- (void)addAssetsFinished {
+    [self.topView reloadView];
+    [self.previewView reloadView];
+}
+
+- (void)sortFinish:(NSNotification *)not {
+    NSArray <HZPageModel *>*pages = not.object;
+    
+    self.databoard.project.pageModels = pages;
+    [self.topView reloadView];
+    [self.previewView reloadView];
+}
+
 #pragma mark - HZEditBottomViewDelegate
 -(void)editBottomViewClickItem:(HZEditBottomItem)item {
-    
+    @weakify(self);
+    if (item == HZEditBottomItemFilter) {
+        
+    }else if (item == HZEditBottomItemLeft) {
+        
+    }else if (item == HZEditBottomItemRight) {
+        
+    }else if (item == HZEditBottomItemCrop) {
+        
+    }else if (item == HZEditBottomItemReorder) {
+        HZSortViewController *vc = [[HZSortViewController alloc] initWithPages:[self.databoard.project.pageModels copy]];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (item == HZEditBottomItemDelete) {
+        
+    }
 }
 
 #pragma mark - Lazy
@@ -92,6 +127,8 @@
         };
         _navBar.clickRightBlock = ^{
             @strongify(self);
+            HZPDFSettingViewController *vc = [[HZPDFSettingViewController alloc] initWithInput:self.input];
+            [self.navigationController pushViewController:vc animated:YES];
         };
     }
     return _navBar;

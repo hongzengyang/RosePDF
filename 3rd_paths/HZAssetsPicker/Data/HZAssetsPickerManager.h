@@ -11,7 +11,7 @@
 
 typedef void(^HZAssetsPickCompleteBlock)(BOOL complete);
 
-#define HZAssetsManager    [HZAssetsPickerManager manager]
+//#define HZAssetsManager    [HZAssetsPickerManager manager]
 
 @interface HZAssetsPickerManager : NSObject
 
@@ -20,11 +20,11 @@ typedef void(^HZAssetsPickCompleteBlock)(BOOL complete);
 @property (nonatomic, strong, readonly) NSArray <HZAlbum *>*albumsList;
 @property (nonatomic, strong, readonly) HZAlbum *currentAlbum;
 
-+ (HZAssetsPickerManager *)manager;
+//+ (HZAssetsPickerManager *)manager;
 
 - (void)clean;
 
-- (void)requestAuthorizationWithCompleteBlock:(HZAssetsPickCompleteBlock)completeBlock;
++ (void)requestAuthorizationWithCompleteBlock:(HZAssetsPickCompleteBlock)completeBlock;
 
 - (void)requestCurrentAlbumWithCompleteBlock:(HZAssetsPickCompleteBlock)completeBlock;
 

@@ -19,9 +19,14 @@ typedef void(^CreatePageBlock)(HZPageModel *page);
 + (NSString *)ocrFolderPath;
 + (NSString *)projectPathWithIdentifier:(NSString *)identifier;
 
-+ (void)createProjectWithFolderId:(NSString *)folderId isTmp:(BOOL)isTmp completeBlock:(CreateProjectBlock)completeBlock;
-+ (void)createPagesWithImages:(NSArray <UIImage *>*)images inProject:(HZProjectModel *)project completeBlock:(CreatePagesBlock)completeBlock;
++ (BOOL)isTmp:(NSString *)projectId;
 
++ (HZProjectModel *)createProjectWithFolderId:(NSString *)folderId isTmp:(BOOL)isTmp;
++ (void)addPagesWithImages:(NSArray <UIImage *>*)images inProject:(HZProjectModel *)project completeBlock:(CreatePagesBlock)completeBlock;
 + (void)deleteProject:(HZProjectModel *)project;
+
++ (void)migratePagesFromProject:(HZProjectModel *)fromProject toProject:(HZProjectModel *)toProject keepOrigin:(BOOL)keepOrigin completeBlock:(CreateProjectBlock)completeBlock;
+
++ (void)cleanTmpProjects;
 
 @end

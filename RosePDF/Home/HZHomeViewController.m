@@ -31,6 +31,9 @@
     [super viewDidLoad];
     
     [self configView];
+    [self requestData];
+    
+    [HZProjectManager cleanTmpProjects];
 }
 
 - (void)configView {
@@ -58,6 +61,11 @@
     }];
 }
 
+- (void)requestData {
+//    NSArray *projects = [HZProjectModel queryAllProjects];
+//    NSLog(@"ss");
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
@@ -65,7 +73,7 @@
 #pragma mark click
 - (void)clickAddButton {
     @weakify(self);
-    [HZAssetsManager requestAuthorizationWithCompleteBlock:^(BOOL complete) {
+    [HZAssetsPickerManager requestAuthorizationWithCompleteBlock:^(BOOL complete) {
         @strongify(self);
         if (!complete) {//用户拒绝
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"str_photo_permission_deny_title", nil)
@@ -89,25 +97,14 @@
         HZAssetsPickerViewController *assetPicker = [[HZAssetsPickerViewController alloc] init];
         assetPicker.SelectImageBlock = ^(NSArray<UIImage *> * _Nonnull images) {
             @strongify(self);
-            [HZProjectManager createProjectWithFolderId:Default_folderId isTmp:YES completeBlock:^(HZProjectModel *project) {
-                [HZProjectManager createPagesWithImages:images inProject:project completeBlock:^(NSArray<HZPageModel *> *pages) {
-                    @strongify(self);
-                    HZEditInput *input = [[HZEditInput alloc] init];
-                    input.project = project;
-                    
-                    HZEditViewController *edit = [[HZEditViewController alloc] initWithInput:input];
-                    [self.navigationController pushViewController:edit animated:YES];
-                    
-                    {//移除assetPicker
-                        NSMutableArray *muArray = [self.navigationController.viewControllers mutableCopy];
-                        [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(UIViewController *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                            if ([obj isKindOfClass:NSClassFromString(@"HZAssetsPickerViewController")]) {
-                                [muArray removeObject:obj];
-                            }
-                        }];
-                        self.navigationController.viewControllers = [muArray copy];
-                    }
-                }];
+            HZProjectModel *project = [HZProjectManager createProjectWithFolderId:Default_folderId isTmp:YES];
+            [HZProjectManager addPagesWithImages:images inProject:project completeBlock:^(NSArray<HZPageModel *> *pages) {
+                @strongify(self);
+                HZEditInput *input = [[HZEditInput alloc] init];
+                input.project = project;
+                
+                HZEditViewController *edit = [[HZEditViewController alloc] initWithInput:input];
+                [self.navigationController pushViewController:edit animated:YES];
             }];
         };
         [self.navigationController pushViewController:assetPicker animated:YES];

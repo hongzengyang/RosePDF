@@ -55,7 +55,7 @@
 - (void)configSelected:(BOOL)selected {
     if (selected) {
         self.layer.borderWidth = 1.5;
-        self.layer.borderColor = hz_getColor(@"2B96FA").CGColor;
+        self.layer.borderColor = hz_main_color.CGColor;
     }else {
         self.layer.borderWidth = 0.0;
     }

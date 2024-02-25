@@ -8,6 +8,7 @@
 #import "HZProjectManager.h"
 #import "HZProjectDefine.h"
 #import "HZCommonHeader.h"
+#import <HZAssetsPicker/HZAssetsPickerViewController.h>
 
 @implementation HZProjectManager
 
@@ -46,7 +47,11 @@
     return projectFolderPath;
 }
 
-+ (void)createProjectWithFolderId:(NSString *)folderId isTmp:(BOOL)isTmp completeBlock:(CreateProjectBlock)completeBlock {
++ (BOOL)isTmp:(NSString *)projectId {
+    return [projectId hasPrefix:Tmp_project_prefix];
+}
+
++ (HZProjectModel *)createProjectWithFolderId:(NSString *)folderId isTmp:(BOOL)isTmp {
     HZProjectModel *project;
     NSString *identifier = nil;
     if (isTmp) {
@@ -67,22 +72,27 @@
         project.identifier = identifier;
         project.folderId = (folderId.length > 0) ? folderId : Default_folderId;
     }
-    if (completeBlock) {
-        completeBlock(project);
-    }
+
+    return project;
 }
 
-+ (void)createPagesWithImages:(NSArray <UIImage *>*)images inProject:(HZProjectModel *)project completeBlock:(CreatePagesBlock)completeBlock {
++ (void)addPagesWithImages:(NSArray <UIImage *>*)images inProject:(HZProjectModel *)project completeBlock:(CreatePagesBlock)completeBlock {
     NSMutableArray <HZPageModel *>*pages = [[NSMutableArray alloc] init];
     __block NSInteger callback = 0;
-    [images enumerateObjectsUsingBlock:^(UIImage * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [images enumerateObjectsUsingBlock:^(UIImage *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [HZProjectManager createPageWithImage:obj inProject:project completeBlock:^(HZPageModel *page) {
             callback++;
             if (page) {
+                page.createTime = obj.createTime;
+                page.title = obj.title;
                 [pages addObject:page];
             }
             if (callback == images.count) {
-                project.pageModels = [pages copy];
+                
+                NSMutableArray *muArray = [[NSMutableArray alloc] initWithArray:project.pageModels];
+                [muArray addObjectsFromArray:pages];
+                project.pageModels = [muArray copy];
+                
                 if (completeBlock) {
                     completeBlock(project.pageModels);
                 }
@@ -131,14 +141,76 @@
 }
 
 + (void)deleteProject:(HZProjectModel *)project {
-    BOOL suc = NO;
-    NSFileManager *fileMgr = [NSFileManager defaultManager];
     NSString *projectPath = [self projectPathWithIdentifier:project.identifier];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [[NSFileManager defaultManager] removeItemAtPath:projectPath error:nil];
     });
     
     [project deleteInDataBase];
+}
+
++ (void)migratePagesFromProject:(HZProjectModel *)fromProject toProject:(HZProjectModel *)toProject keepOrigin:(BOOL)keepOrigin completeBlock:(CreateProjectBlock)completeBlock {
+    BOOL isNew = NO;
+    if (!toProject) {
+        isNew = YES;
+        toProject = [HZProjectManager createProjectWithFolderId:fromProject.folderId isTmp:NO];
+    }else {
+        isNew = NO;
+        toProject.updateTime = [[NSDate date] timeIntervalSince1970];
+    }
+    toProject.pageModels = [fromProject.pageModels copy];
+    
+    if (isNew) {
+        [toProject saveToDataBase];
+    }else {
+        [toProject updateInDataBase];
+    }
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSFileManager *fileMgr = [NSFileManager defaultManager];
+        NSString *fromProjectPath = [HZProjectManager projectPathWithIdentifier:fromProject.identifier];
+        NSArray<NSString *> *contents = [fileMgr contentsOfDirectoryAtPath:fromProjectPath error:nil];
+        NSString *toProjectPath = [HZProjectManager projectPathWithIdentifier:toProject.identifier];
+        
+        if (keepOrigin) {
+            [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *tmpPagePath = [fromProjectPath stringByAppendingPathComponent:obj];
+                NSString *toPath = [toProjectPath stringByAppendingPathComponent:obj];
+                [fileMgr copyItemAtPath:tmpPagePath toPath:toPath error:nil];
+            }];
+        }else {
+            [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *tmpPagePath = [fromProjectPath stringByAppendingPathComponent:obj];
+                NSString *toPath = [toProjectPath stringByAppendingPathComponent:obj];
+                [fileMgr moveItemAtPath:tmpPagePath toPath:toPath error:nil];
+            }];
+            [fileMgr removeItemAtPath:fromProjectPath error:nil];
+        }
+        
+        [toProject.pageModels enumerateObjectsUsingBlock:^(HZPageModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj saveToDisk];
+        }];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completeBlock) {
+                completeBlock(toProject);
+            }
+        });
+    });
+}
+
++ (void)cleanTmpProjects {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *ocrFolderPath = [HZProjectManager ocrFolderPath];
+        NSFileManager *fileMgr = [NSFileManager defaultManager];
+        NSArray <NSString *>*contents = [fileMgr contentsOfDirectoryAtPath:ocrFolderPath error:nil];
+        [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            BOOL isTmp = [HZProjectManager isTmp:obj];
+            if (isTmp) {
+                [fileMgr removeItemAtPath:[ocrFolderPath stringByAppendingPathComponent:obj] error:nil];
+            }
+        }];
+    });
 }
 
 @end

@@ -29,6 +29,9 @@ PODS:
   - SDWebImageWebPCoder (0.11.0):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.15)
+  - SVProgressHUD (2.3.1):
+    - SVProgressHUD/Core (= 2.3.1)
+  - SVProgressHUD/Core (2.3.1)
   - WCDB (0.0.1)
   - YYCache (1.0.4)
   - YYModel (1.0.4)
@@ -44,6 +47,7 @@ DEPENDENCIES:
   - ReactiveObjC (= 3.1.1)
   - SDWebImage (= 5.15.7)
   - SDWebImageWebPCoder (= 0.11.0)
+  - SVProgressHUD (= 2.3.1)
   - WCDB (from `./3rd_paths/WCDB`)
   - YYCache (= 1.0.4)
   - YYModel (= 1.0.4)
@@ -57,6 +61,7 @@ SPEC REPOS:
     - ReactiveObjC
     - SDWebImage
     - SDWebImageWebPCoder
+    - SVProgressHUD
     - YYCache
     - YYModel
 
@@ -84,10 +89,11 @@ SPEC CHECKSUMS:
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   SDWebImage: 25bac438318faf37e35650619ebc288a9061d292
   SDWebImageWebPCoder: 295a6573c512f54ad2dd58098e64e17dcf008499
+  SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   WCDB: 297e4e61ff7157dcb65a684127e8d99734247f74
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 5ec0259adbb19019b13e3cb093a59e0ccb364484
+PODFILE CHECKSUM: f0c3b94960f3ab296cb2041f8d2ec6e894565629
 
 COCOAPODS: 1.11.3

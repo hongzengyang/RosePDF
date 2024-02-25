@@ -78,7 +78,7 @@
                                               contentMode:PHImageContentModeDefault
                                                   options:options
                                             resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-        NSLog(@"debug--requestHighQuality");
+//        NSLog(@"debug--requestHighQuality");
         completeBlock(result);
     }];
     

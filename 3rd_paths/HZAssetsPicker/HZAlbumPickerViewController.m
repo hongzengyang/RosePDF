@@ -21,9 +21,18 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray <HZAlbum *>*albumList;
 
+@property (nonatomic, strong) HZAssetsPickerManager *databoard;
+
 @end
 
 @implementation HZAlbumPickerViewController
+
+- (instancetype)initWithDataboard:(HZAssetsPickerManager *)databoard {
+    if (self = [super init]) {
+        self.databoard = databoard;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,7 +57,7 @@
 }
 
 - (void)requestData {
-    self.albumList = [HZAssetsManager.albumsList copy];
+    self.albumList = [self.databoard.albumsList copy];
     [self.collectionView reloadData];
 }
 

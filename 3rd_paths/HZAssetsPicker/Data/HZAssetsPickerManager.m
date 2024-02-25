@@ -7,6 +7,7 @@
 
 #import "HZAssetsPickerManager.h"
 #import <Photos/Photos.h>
+#import "UIImage+AssetsPickerParam.h"
 
 #define pref_key_lastSelectAlnumIdentifier  @"pref_key_lastSelectAlnumIdentifier"
 
@@ -23,14 +24,14 @@
 
 @implementation HZAssetsPickerManager
 
-+ (HZAssetsPickerManager *)manager {
-    static dispatch_once_t pred;
-    static HZAssetsPickerManager *sharedInstance = nil;
-    dispatch_once(&pred, ^{
-        sharedInstance = [[HZAssetsPickerManager alloc] init];
-    });
-    return sharedInstance;
-}
+//+ (HZAssetsPickerManager *)manager {
+//    static dispatch_once_t pred;
+//    static HZAssetsPickerManager *sharedInstance = nil;
+//    dispatch_once(&pred, ^{
+//        sharedInstance = [[HZAssetsPickerManager alloc] init];
+//    });
+//    return sharedInstance;
+//}
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -46,7 +47,7 @@
     self.currentAlbum = nil;
 }
 
-- (void)requestAuthorizationWithCompleteBlock:(HZAssetsPickCompleteBlock)completeBlock {
++ (void)requestAuthorizationWithCompleteBlock:(HZAssetsPickCompleteBlock)completeBlock {
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         dispatch_async(dispatch_get_main_queue(), ^{
             BOOL complete;
@@ -174,8 +175,9 @@
 }
 
 - (void)requestHighQualityImagesWithCompleteBlock:(void (^)(NSArray<UIImage *> *))completeBlock {
+    
+    __block void(^copyCompleteBlock)(NSArray<UIImage *> *) = completeBlock;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        __block NSInteger finishCount = 0;
         __block NSInteger callbackCount = 0;
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         NSMutableArray *muArray = [[NSMutableArray alloc] init];
@@ -193,16 +195,18 @@
                 }
                 callbackCount++;
                 if (image) {
-                    finishCount++;
                     [muArray addObject:image];
+                    image.createTime = [asset.asset.creationDate timeIntervalSince1970];
+                    image.title = [asset.asset valueForKey:@"filename"];
                 }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (callbackCount == self.selectedAssets.count) {
-                        if (completeBlock) {
-                            completeBlock([muArray copy]);
+                if (callbackCount == self.selectedAssets.count) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (copyCompleteBlock) {
+                            copyCompleteBlock([muArray copy]);
+                            copyCompleteBlock = nil;
                         }
-                    }
-                });
+                    });
+                }
             }];
             
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);

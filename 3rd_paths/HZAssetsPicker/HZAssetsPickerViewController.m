@@ -25,10 +25,14 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) HZAssetsPickerBottomView *bottomView;
 
+@property (nonatomic, strong) HZAssetsPickerManager *databoard;
+
 @end
 
 @implementation HZAssetsPickerViewController
-
+- (void)dealloc {
+    [self.databoard clean];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configView];
@@ -85,7 +89,7 @@
 #pragma mark - Data
 - (void)requestData {
     @weakify(self);
-    [HZAssetsManager requestAuthorizationWithCompleteBlock:^(BOOL complete) {
+    [HZAssetsPickerManager requestAuthorizationWithCompleteBlock:^(BOOL complete) {
         @strongify(self);
         if (!complete) {//用户拒绝
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"str_photo_permission_deny_title", nil)
@@ -107,9 +111,9 @@
             return;
         }
         
-        [HZAssetsManager requestCurrentAlbumWithCompleteBlock:^(BOOL complete) {
+        [self.databoard requestCurrentAlbumWithCompleteBlock:^(BOOL complete) {
             @strongify(self);
-            [self.curAlbumView updateWithAlbum:HZAssetsManager.currentAlbum];
+            [self.curAlbumView updateWithAlbum:self.databoard.currentAlbum];
             [self.collectionView reloadData];
         }];
     }];
@@ -129,11 +133,11 @@ static CGFloat prevOffsetY = 0;
 
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return HZAssetsManager.assetsList.count;
+    return self.databoard.assetsList.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HZAssetsPickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HZAssetsPickerCell" forIndexPath:indexPath];
-    HZAsset *asset = [HZAssetsManager.assetsList objectAtIndex:indexPath.row];
+    HZAsset *asset = [self.databoard.assetsList objectAtIndex:indexPath.row];
     [cell configAsset:asset];
     return cell;
 }
@@ -148,16 +152,16 @@ static CGFloat prevOffsetY = 0;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    HZAsset *asset = [HZAssetsManager.assetsList objectAtIndex:indexPath.row];
+    HZAsset *asset = [self.databoard.assetsList objectAtIndex:indexPath.row];
     if (asset.isCameraEntrance) {
         return;
     }
     
-    BOOL alreadySelected = [HZAssetsManager isSelected:asset];
+    BOOL alreadySelected = [self.databoard isSelected:asset];
     if (alreadySelected) {
-        [HZAssetsManager deleteAsset:asset];
+        [self.databoard deleteAsset:asset];
     }else {
-        [HZAssetsManager addAsset:asset];
+        [self.databoard addAsset:asset];
     }
     [self.bottomView reload];
 }
@@ -174,16 +178,15 @@ static CGFloat prevOffsetY = 0;
         _navBar.clickBackBlock = ^{
             @strongify(self);
             [self.navigationController popViewControllerAnimated:YES];
-            [HZAssetsManager clean];
+            [self.databoard clean];
         };
         _navBar.clickRightBlock = ^{
             @strongify(self);
-            [HZAssetsManager requestHighQualityImagesWithCompleteBlock:^(NSArray<UIImage *> *images) {
+            [self.databoard requestHighQualityImagesWithCompleteBlock:^(NSArray<UIImage *> *images) {
                 @strongify(self);
                 if (self.SelectImageBlock) {
                     self.SelectImageBlock(images);
                 }
-                [HZAssetsManager clean];
             }];
         };
     }
@@ -195,12 +198,12 @@ static CGFloat prevOffsetY = 0;
         _curAlbumView = [[HZCurrentAlbumView alloc] init];
         __weak typeof(self) weakSelf = self;
         _curAlbumView.ClickBlock = ^{
-            HZAlbumPickerViewController *vc = [[HZAlbumPickerViewController alloc] init];
+            HZAlbumPickerViewController *vc = [[HZAlbumPickerViewController alloc] initWithDataboard:self.databoard];
             vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
             [weakSelf presentViewController:vc animated:YES completion:nil];
             
             vc.SelectAlbum = ^(HZAlbum *album) {
-                [HZAssetsManager selectAlbum:album];
+                [self.databoard selectAlbum:album];
                 [weakSelf requestData];
             };
         };
@@ -226,18 +229,25 @@ static CGFloat prevOffsetY = 0;
 
 - (HZAssetsPickerBottomView *)bottomView {
     if (!_bottomView) {
-        _bottomView = [[HZAssetsPickerBottomView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, [UIView hz_safeBottom] + 53 + 80)];
+        _bottomView = [[HZAssetsPickerBottomView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, [UIView hz_safeBottom] + 53 + 80) databoard:self.databoard];
         __weak typeof(self) weakSelf = self;
         _bottomView.deleteAllBlock = ^{
-            [HZAssetsManager deleAllAssets];
+            [self.databoard deleAllAssets];
             [weakSelf.bottomView reload];
         };
         _bottomView.deleteAeestBlock = ^(HZAsset *asset) {
-            [HZAssetsManager deleteAsset:asset];
+            [self.databoard deleteAsset:asset];
             [weakSelf.bottomView reload];
         };
     }
     return _bottomView;
+}
+
+- (HZAssetsPickerManager *)databoard {
+    if (!_databoard) {
+        _databoard = [[HZAssetsPickerManager alloc] init];
+    }
+    return _databoard;
 }
 
 @end

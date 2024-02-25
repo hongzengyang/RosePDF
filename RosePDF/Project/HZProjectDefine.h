@@ -16,10 +16,28 @@
 #define OCR_FOLDER_NAME             @"ocr"
 
 
+typedef NS_ENUM(NSUInteger, HZPDFMargin) {
+    HZPDFMargin_none,
+    HZPDFMargin_normal,
+};
+
+typedef NS_ENUM(NSUInteger, HZPDFQuality) {
+    HZPDFQuality_100,
+    HZPDFQuality_75,
+    HZPDFQuality_50,
+    HZPDFQuality_25
+};
+
 typedef NS_ENUM(NSUInteger, HZPDFSize) {
-    HZPDFSize_auto = 0,
-    HZPDFSize_A4,
+    HZPDFSize_autoFit,
     HZPDFSize_A3,
+    HZPDFSize_A4,
+    HZPDFSize_A5,
+    HZPDFSize_B4,
+    HZPDFSize_B5,
+    HZPDFSize_Executive,
+    HZPDFSize_Legal,
+    HZPDFSize_Letter,
 };
 
 

@@ -10,6 +10,7 @@
 #import <HZFoundationKit/NSDate+HZCategory.h>
 #import "HZWCDBHelper.h"
 #import <WCDB/WCDB.h>
+#import "HZProjectManager.h"
 
 #define DB_PROJECT_TABLE_NAME @"db_project_table"
 
@@ -25,6 +26,10 @@ WCDB_PROPERTY(updateTime)
 WCDB_PROPERTY(pageIds)
 WCDB_PROPERTY(folderId)
 WCDB_PROPERTY(pdfSize)
+WCDB_PROPERTY(margin)
+WCDB_PROPERTY(quality)
+WCDB_PROPERTY(openPassword)
+WCDB_PROPERTY(password)
 
 @end
 
@@ -37,16 +42,11 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
 
 - (instancetype)init {
     if (self = [super init]) {
-        if ([[NSUserDefaults standardUserDefaults] valueForKey:pref_key_pdfSize]) {
-            self.pdfSize = [[[NSUserDefaults standardUserDefaults] valueForKey:pref_key_pdfSize] integerValue];
-        }else {
-            self.pdfSize = HZPDFSize_auto;
-        }
-        
         NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
         self.createTime = interval;
+        self.updateTime = interval;
         
-        self.title = [NSDate hz_dateTimeStringWithTime:interval];
+        self.title = [NSString stringWithFormat:@"%@",[NSDate hz_dateTimeStringWithTime:interval]];
     }
     return self;
 }
@@ -60,6 +60,10 @@ WCDB_SYNTHESIZE(HZProjectModel, updateTime)
 WCDB_SYNTHESIZE(HZProjectModel, pageIds)
 WCDB_SYNTHESIZE(HZProjectModel, folderId)
 WCDB_SYNTHESIZE(HZProjectModel, pdfSize)
+WCDB_SYNTHESIZE(HZProjectModel, margin)
+WCDB_SYNTHESIZE(HZProjectModel, quality)
+WCDB_SYNTHESIZE(HZProjectModel, openPassword)
+WCDB_SYNTHESIZE(HZProjectModel, password)
 WCDB_PRIMARY(HZProjectModel, identifier)
 
 - (BOOL)saveToDataBase {
@@ -75,7 +79,7 @@ WCDB_PRIMARY(HZProjectModel, identifier)
         return YES;
     }
     [HZWCDBDateBase createTableAndIndexesOfName:DB_PROJECT_TABLE_NAME withClass:self.class];
-    return [HZWCDBDateBase updateRowsInTable:DB_PROJECT_TABLE_NAME onProperties:{self.class.title,self.class.createTime,self.class.updateTime,self.class.pageIds,self.class.folderId,self.class.pdfSize
+    return [HZWCDBDateBase updateRowsInTable:DB_PROJECT_TABLE_NAME onProperties:{self.class.title,self.class.createTime,self.class.updateTime,self.class.pageIds,self.class.folderId,self.class.pdfSize,self.class.margin,self.class.quality,self.class.openPassword,self.class.password
     } withObject:self where:self.class.identifier==self.identifier];
 }
 - (BOOL)deleteInDataBase {
@@ -85,9 +89,23 @@ WCDB_PRIMARY(HZProjectModel, identifier)
     return [HZWCDBDateBase deleteObjectsFromTable:DB_PROJECT_TABLE_NAME where:self.class.identifier==self.identifier];
 }
 #pragma mark - Query
++ (NSArray<HZProjectModel *> *)queryAllProjects {
+    NSArray<HZProjectModel *> *projectList = [HZWCDBDateBase getObjectsOfClass:self fromTable:DB_PROJECT_TABLE_NAME orderBy:self.createTime.order(WCTOrderedDescending)];
+    return projectList;
+}
+
+#pragma mark - Pdf
+- (BOOL)pdfExist {
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self pdfPath]];
+}
+
+- (NSString *)pdfPath {
+    NSString *projectPath = [HZProjectManager projectPathWithIdentifier:self.identifier];
+    return [projectPath stringByAppendingPathComponent:@"file.pdf"];
+}
 
 #pragma mark - User Config
-+ (void)configPdfSize:(HZPDFSize)size {
++ (void)golbalConfigPdfSize:(HZPDFSize)size {
     [[NSUserDefaults standardUserDefaults] setValue:@(size) forKey:pref_key_pdfSize];
 }
 

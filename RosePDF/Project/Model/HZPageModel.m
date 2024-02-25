@@ -8,12 +8,16 @@
 #import "HZPageModel.h"
 #import "HZCommonHeader.h"
 #import "HZProjectManager.h"
+#import <HZFoundationKit/HZSerializeObject.h>
 
 @interface HZPageModel()
 
 @end
 
 @implementation HZPageModel
+HZ_SERIALIZE_CODER_DECODER();
+HZ_SERIALIZE_COPY_WITH_ZONE();
+
 + (HZPageModel *)readWithPageId:(NSString *)pageId projectId:(NSString *)projectId {
     HZPageModel *pageModel = nil;
     if (pageId.length > 0 && projectId.length > 0) {
@@ -29,9 +33,8 @@
     NSString *jsonStr = [NSString stringWithContentsOfFile:[self configPath] encoding:NSUTF8StringEncoding error:nil];
     HZPageModel *tmpModel = [HZPageModel yy_modelWithJSON:jsonStr];
     if (tmpModel) {
-        //
-        //
-        //
+        self.title = tmpModel.title;
+        self.createTime = tmpModel.createTime;
         self.orientation = tmpModel.orientation;
     }
 }

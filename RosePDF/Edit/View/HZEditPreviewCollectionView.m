@@ -36,6 +36,10 @@
     }];
 }
 
+- (void)reloadView {
+    [self.collectionView reloadData];
+}
+
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.databoard.project.pageModels.count;
@@ -74,7 +78,7 @@
 
 #pragma mark - Notification
 - (void)handleIndexChanged {
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.databoard.currentIndex inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:YES];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.databoard.currentIndex inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO];
 }
 
 #pragma mark - Private

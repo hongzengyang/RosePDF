@@ -6,11 +6,13 @@
 //
 
 #import "HZBaseViewController.h"
+#import "HZEditInput.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface HZPDFSettingViewController : HZBaseViewController
 
+- (instancetype)initWithInput:(HZEditInput *)input;
+
 @end
 
-NS_ASSUME_NONNULL_END
+

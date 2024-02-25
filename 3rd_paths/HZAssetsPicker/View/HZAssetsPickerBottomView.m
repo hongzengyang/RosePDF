@@ -16,12 +16,16 @@
 @property (nonatomic, strong) UILabel *selectLab;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
+@property (nonatomic, strong) HZAssetsPickerManager *databoard;
+
 @end
 
 @implementation HZAssetsPickerBottomView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+
+- (instancetype)initWithFrame:(CGRect)frame databoard:(HZAssetsPickerManager *)databoard {
     if (self = [super initWithFrame:frame]) {
+        self.databoard = databoard;
         [self configView];
     }
     return self;
@@ -69,7 +73,7 @@
     [self.collectionView reloadData];
     
     CGFloat curY = self.top;
-    NSInteger selectCount = HZAssetsManager.selectedAssets.count;
+    NSInteger selectCount = self.databoard.selectedAssets.count;
     if (selectCount == 0) {
         if (curY == [UIScreen mainScreen].bounds.size.height) {
             
@@ -99,11 +103,11 @@
 
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return HZAssetsManager.selectedAssets.count;
+    return self.databoard.selectedAssets.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HZAssetsPickerBottomCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HZAssetsPickerBottomCell" forIndexPath:indexPath];
-    HZAsset *asset = [HZAssetsManager.selectedAssets objectAtIndex:indexPath.row];
+    HZAsset *asset = [self.databoard.selectedAssets objectAtIndex:indexPath.row];
     [cell configWithAsset:asset];
     
     __weak typeof(self) weakSelf = self;

@@ -18,10 +18,16 @@ typedef NS_ENUM(NSUInteger, HZPageOrientation) {
 
 @property (nonatomic, copy) NSString *identifier;
 @property (nonatomic, copy) NSString *projectId;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) long long createTime;
+
+
 @property (nonatomic, assign) HZPageOrientation orientation;
 
 
 + (HZPageModel *)readWithPageId:(NSString *)pageId projectId:(NSString *)projectId;
+
+- (void)saveToDisk;
 
 + (NSString *)folderPathWithPageId:(NSString *)pageId projectId:(NSString *)projectId;
 - (NSString *)originPath;

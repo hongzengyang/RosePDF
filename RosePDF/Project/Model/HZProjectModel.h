@@ -19,10 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) long long updateTime;
 @property (nonatomic, strong) NSString *pageIds;
 @property (nonatomic, copy) NSString *folderId;
-@property (nonatomic, assign) NSInteger pdfSize;
+@property (nonatomic, assign) HZPDFSize pdfSize;
+@property (nonatomic, assign) HZPDFMargin margin;
+@property (nonatomic, assign) HZPDFQuality quality;
+@property (nonatomic, assign) BOOL openPassword;
+@property (nonatomic, copy) NSString *password;
+
 
 @property (nonatomic, strong) NSArray <HZPageModel *>*pageModels;
 
++ (NSArray <HZProjectModel *>*)queryAllProjects;
 //保存到数据库
 - (BOOL)saveToDataBase;
 //在数据库中更新
@@ -30,7 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
 //删除在表中的记录
 - (BOOL)deleteInDataBase;
 
-+ (void)configPdfSize:(HZPDFSize)size;
+- (BOOL)pdfExist;
+- (NSString *)pdfPath;
+
+
++ (void)golbalConfigPdfSize:(HZPDFSize)size;
 
 @end
 

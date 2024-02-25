@@ -6,13 +6,7 @@
 //
 
 #import "HZBaseViewController.h"
-#import "HZProjectModel.h"
-
-
-@interface HZEditInput : NSObject
-@property (nonatomic, strong) HZProjectModel *project;        //tmp
-@property (nonatomic, strong) HZProjectModel *originProject;
-@end
+#import "HZEditInput.h"
 
 
 @interface HZEditViewController : HZBaseViewController

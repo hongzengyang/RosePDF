@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)hz_copyContentsFromFolderPath:(NSString *)fromPath toFolderPath:(NSString *)toPath;
 
+- (NSString *)hz_toMorestTwoFloatMBSize:(long long)size;
+
 @end
 
 NS_ASSUME_NONNULL_END

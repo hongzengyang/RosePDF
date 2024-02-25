@@ -32,6 +32,7 @@ def common_pods
   pod 'ReactiveObjC',         '3.1.1'
 #  pod 'Bugly',                '2.5.93'
   pod 'Masonry'
+  pod 'SVProgressHUD',        '2.3.1'
   
   pod 'LookinServer',         :configurations => ['Debug']
 end

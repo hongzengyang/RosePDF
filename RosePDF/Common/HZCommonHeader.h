@@ -28,6 +28,7 @@
 #define hz_getColor(x)               [UIColor hz_getColor:x]
 #define hz_getColorWithAlpha(x,a)    [UIColor hz_getColor:x alpha:[NSString stringWithFormat:@"%lf",a]]
 
+#define hz_main_color     [UIColor hz_getColor:@"2B96FA"]
 
 #define hz_1_bgColor      [UIColor hz_getColor:@"F2F1F6"]
 #define hz_2_bgColor      [UIColor hz_getColor:@"E4E3EB"]
