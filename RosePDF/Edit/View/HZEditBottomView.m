@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) HZEditDataboard *databoard;
 
+@property (nonatomic, strong) HZVerticalButton *deleteBtn;
+
 @end
 
 @implementation HZEditBottomView
@@ -42,14 +44,26 @@
             make.width.mas_equalTo(btnWidth);
             make.height.mas_equalTo(btnHeight);
         }];
+        if (i == HZEditBottomItemDelete) {
+            self.deleteBtn = btn;
+        }
     }
-    
-    
+    [self checkDeleteEnable];
 }
 
 - (void)clickItem:(UIButton *)item {
     if (self.delegate && [self.delegate respondsToSelector:@selector(editBottomViewClickItem:)]) {
         [self.delegate editBottomViewClickItem:item.tag];
+    }
+}
+
+- (void)checkDeleteEnable {
+    if (self.databoard.project.pageModels.count <= 1) {
+        self.deleteBtn.enabled = NO;
+        self.deleteBtn.alpha = 0.3;
+    }else {
+        self.deleteBtn.enabled = YES;
+        self.deleteBtn.alpha = 1.0;
     }
 }
 

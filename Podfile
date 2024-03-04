@@ -23,6 +23,7 @@ def common_pods
   pod 'HZAssetsPicker',       :path => './3rd_paths/HZAssetsPicker'
   pod 'WCDB',                 :path => './3rd_paths/WCDB'
   
+  pod 'GPUImage'
   pod 'YYModel',              '1.0.4'
   pod 'SDWebImage',           '5.15.7'
   pod 'SDWebImageWebPCoder',  '0.11.0'

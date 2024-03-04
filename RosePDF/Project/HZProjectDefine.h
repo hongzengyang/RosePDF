@@ -40,5 +40,25 @@ typedef NS_ENUM(NSUInteger, HZPDFSize) {
     HZPDFSize_Letter,
 };
 
+typedef NS_ENUM(NSUInteger, HZFilterType) {
+    HZFilter_none,
+    HZFilter_enhance,
+    HZFilter_bw,
+    HZFilter_gray
+};
+
+typedef NS_ENUM(NSUInteger, HZAdjustType) {
+    HZAdjust_contrast,
+    HZAdjust_brightness,
+    HZAdjust_saturation
+};
+
+typedef NS_ENUM(NSUInteger, HZPageOrientation) {
+    HZPageOrientation_up,
+    HZPageOrientation_left,
+    HZPageOrientation_down,
+    HZPageOrientation_right
+};
+
 
 #endif /* HZProjectDefine_h */

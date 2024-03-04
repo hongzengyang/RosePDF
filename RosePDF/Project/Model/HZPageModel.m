@@ -9,6 +9,42 @@
 #import "HZCommonHeader.h"
 #import "HZProjectManager.h"
 #import <HZFoundationKit/HZSerializeObject.h>
+#import "HZFilterManager.h"
+
+@implementation HZValueModel
+
+HZ_SERIALIZE_CODER_DECODER();
+HZ_SERIALIZE_COPY_WITH_ZONE();
+
+@end
+
+@implementation HZFilterModel
+
+HZ_SERIALIZE_CODER_DECODER();
+HZ_SERIALIZE_COPY_WITH_ZONE();
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{
+                @"value" : [HZValueModel class]
+             };
+}
+
+@end
+
+@implementation HZAdjustModel
+
+HZ_SERIALIZE_CODER_DECODER();
+HZ_SERIALIZE_COPY_WITH_ZONE();
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{
+                @"brightnessValue" : [HZValueModel class],
+                @"contrastValue" : [HZValueModel class],
+                @"saturationValue" : [HZValueModel class]
+             };
+}
+
+@end
 
 @interface HZPageModel()
 
@@ -17,6 +53,19 @@
 @implementation HZPageModel
 HZ_SERIALIZE_CODER_DECODER();
 HZ_SERIALIZE_COPY_WITH_ZONE();
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{
+                @"filter" : [HZFilterModel class],
+                @"adjust" : [HZAdjustModel class]
+             };
+}
+- (instancetype)init {
+    if (self = [super init]) {
+        self.filter = [HZFilterManager defaultFilterModel:(HZFilter_enhance)];
+        self.adjust = [HZFilterManager defaultAdjustModel];
+    }
+    return self;
+}
 
 + (HZPageModel *)readWithPageId:(NSString *)pageId projectId:(NSString *)projectId {
     HZPageModel *pageModel = nil;
@@ -30,18 +79,23 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
 }
 
 - (void)readFromDisk {
-    NSString *jsonStr = [NSString stringWithContentsOfFile:[self configPath] encoding:NSUTF8StringEncoding error:nil];
+    NSString *path = [self configPath];
+    NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     HZPageModel *tmpModel = [HZPageModel yy_modelWithJSON:jsonStr];
     if (tmpModel) {
         self.title = tmpModel.title;
         self.createTime = tmpModel.createTime;
         self.orientation = tmpModel.orientation;
+        self.filter = tmpModel.filter;
+        self.adjust = tmpModel.adjust;
     }
 }
 
 - (void)saveToDisk {
+    NSString *path = [self configPath];
     NSString *jsonStr = [self yy_modelToJSONString];
-    [jsonStr writeToFile:[self configPath] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    NSError *error;
+    [jsonStr writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
 }
 
 + (NSString *)folderPathWithPageId:(NSString *)pageId projectId:(NSString *)projectId {
@@ -68,12 +122,12 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
     return [[self pageFolderPath] stringByAppendingPathComponent:@"page.config"];
 }
 
-- (void)refreshWithCompleteBlock:(void (^)(void))completeBlock {
+- (void)refreshWithCompleteBlock:(void (^)(UIImage *))completeBlock {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        UIImage *originalImage = [UIImage imageWithContentsOfFile:[self originPath]];
-        if (!originalImage) {
+        UIImage *contentImage = [UIImage imageWithContentsOfFile:[self originPath]];
+        if (!contentImage) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completeBlock();
+                completeBlock(nil);
             });
             return;
         }
@@ -81,15 +135,15 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
         //crop
         //rotate
         //filter
-        
-        UIImage *resultImage = originalImage;
-        NSData *resultData = UIImageJPEGRepresentation(resultImage, 1.0);
-        [resultData writeToFile:[self resultPath] atomically:YES];
-        
-        [self saveToDisk];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completeBlock();
-        });
+        [HZFilterManager makeFilterImageWithImage:contentImage page:self completeBlock:^(UIImage *result ,HZPageModel *page) {
+            NSData *resultData = UIImageJPEGRepresentation(result, 0.9);
+            BOOL suc = [resultData writeToFile:[self resultPath] atomically:YES];
+            
+            [self saveToDisk];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completeBlock(result);
+            });
+        }];
     });
 }
 

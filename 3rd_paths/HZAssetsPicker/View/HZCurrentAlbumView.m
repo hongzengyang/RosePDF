@@ -29,8 +29,16 @@
 }
 
 - (void)configView {
-    self.backgroundColor = [UIColor hz_getColor:@"E4E3EB" alpha:@"0.8"];
+    self.backgroundColor = [UIColor clearColor];
     self.layer.cornerRadius = 6;
+    self.layer.masksToBounds = YES;
+    
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    [self addSubview:blurEffectView];
+    [blurEffectView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
     
     
     self.titleLab = [[UILabel alloc] init];

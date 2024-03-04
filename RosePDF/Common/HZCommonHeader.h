@@ -12,8 +12,8 @@
 #import <HZFoundationKit/HZFoundationKit.h>
 #import <Masonry/Masonry.h>
 #import <ReactiveObjC/ReactiveObjC.h>
-
-
+#import <SVProgressHUD/SVProgressHUD.h>
+#import "HZCommonUtils.h"
 
 
 
@@ -32,6 +32,7 @@
 
 #define hz_1_bgColor      [UIColor hz_getColor:@"F2F1F6"]
 #define hz_2_bgColor      [UIColor hz_getColor:@"E4E3EB"]
+#define hz_3_bgColor      [UIColor hz_getColor:@"F4F4F4"]
 #define hz_1_textColor    [UIColor hz_getColor:@"000000"]
 #define hz_2_textColor    [UIColor hz_getColor:@"666666"]
 

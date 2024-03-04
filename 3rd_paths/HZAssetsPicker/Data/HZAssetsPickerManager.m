@@ -87,35 +87,59 @@
         return;
     }
     
+    CFTimeInterval startTime = CFAbsoluteTimeGetCurrent();
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         PHFetchOptions *options = [[PHFetchOptions alloc] init];
         options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", PHAssetMediaTypeImage];
         
         PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:self.currentAlbum.assetCollection options:options];
         
+
         NSMutableArray <HZAsset *>*muArray = [[NSMutableArray alloc] init];
-        
-        [assets enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(PHAsset * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            HZAsset *hzAsset = [[HZAsset alloc] initWithAsset:obj];
-            [muArray addObject:hzAsset];
-        }];
-        
         {
             HZAsset *camera = [[HZAsset alloc] initWithAsset:nil];
             camera.isCameraEntrance = YES;
             [muArray insertObject:camera atIndex:0];
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.lock lock];
-            self.assetsList = [muArray copy];
-            [self.lock unlock];
-            self.currentAlbum.assets = [muArray copy];
+        [assets enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(PHAsset * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HZAsset *hzAsset = [[HZAsset alloc] initWithAsset:obj];
+            [muArray addObject:hzAsset];
             
-            if (completeBlock) {
-                completeBlock(YES);
+            if (idx == assets.count - 200) {
+                NSArray *array = [muArray copy];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.lock lock];
+                    self.assetsList = array;
+                    self.currentAlbum.assets = array;
+                    [self.lock unlock];
+                    
+                    
+                    NSLog(@"debug--200 Duration = %@",@(CFAbsoluteTimeGetCurrent() - startTime));
+                    
+                    if (completeBlock) {
+                        completeBlock(YES);
+                    }
+                });
             }
-        });
+            
+            if (idx == 0) {
+                NSArray *array = [muArray copy];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.lock lock];
+                    self.assetsList = array;
+                    self.currentAlbum.assets = array;
+                    [self.lock unlock];
+                    
+                    NSLog(@"debug--total Duration = %@",@(CFAbsoluteTimeGetCurrent() - startTime));
+                    
+                    if (completeBlock) {
+                        completeBlock(YES);
+                    }
+                });
+            }
+        }];
     });
 }
 

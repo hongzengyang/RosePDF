@@ -47,7 +47,7 @@
 - (UILabel *)titleLab {
     if (!_titleLab) {
         _titleLab = [[UILabel alloc] init];
-        _titleLab.font = [UIFont systemFontOfSize:30];
+        _titleLab.font = [UIFont systemFontOfSize:30 weight:(UIFontWeightBold)];
         _titleLab.textColor = hz_1_textColor;
         _titleLab.text = NSLocalizedString(@"str_files", nil);
     }

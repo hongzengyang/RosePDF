@@ -30,6 +30,7 @@ WCDB_PROPERTY(margin)
 WCDB_PROPERTY(quality)
 WCDB_PROPERTY(openPassword)
 WCDB_PROPERTY(password)
+WCDB_PROPERTY(newFlag)
 
 @end
 
@@ -64,6 +65,7 @@ WCDB_SYNTHESIZE(HZProjectModel, margin)
 WCDB_SYNTHESIZE(HZProjectModel, quality)
 WCDB_SYNTHESIZE(HZProjectModel, openPassword)
 WCDB_SYNTHESIZE(HZProjectModel, password)
+WCDB_SYNTHESIZE(HZProjectModel, newFlag)
 WCDB_PRIMARY(HZProjectModel, identifier)
 
 - (BOOL)saveToDataBase {
@@ -79,7 +81,7 @@ WCDB_PRIMARY(HZProjectModel, identifier)
         return YES;
     }
     [HZWCDBDateBase createTableAndIndexesOfName:DB_PROJECT_TABLE_NAME withClass:self.class];
-    return [HZWCDBDateBase updateRowsInTable:DB_PROJECT_TABLE_NAME onProperties:{self.class.title,self.class.createTime,self.class.updateTime,self.class.pageIds,self.class.folderId,self.class.pdfSize,self.class.margin,self.class.quality,self.class.openPassword,self.class.password
+    return [HZWCDBDateBase updateRowsInTable:DB_PROJECT_TABLE_NAME onProperties:{self.class.title,self.class.createTime,self.class.updateTime,self.class.pageIds,self.class.folderId,self.class.pdfSize,self.class.margin,self.class.quality,self.class.openPassword,self.class.password,self.class.newFlag
     } withObject:self where:self.class.identifier==self.identifier];
 }
 - (BOOL)deleteInDataBase {
@@ -101,7 +103,7 @@ WCDB_PRIMARY(HZProjectModel, identifier)
 
 - (NSString *)pdfPath {
     NSString *projectPath = [HZProjectManager projectPathWithIdentifier:self.identifier];
-    return [projectPath stringByAppendingPathComponent:@"file.pdf"];
+    return [projectPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pdf",self.title]];
 }
 
 #pragma mark - User Config

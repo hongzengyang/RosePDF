@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) HZPDFQuality quality;
 @property (nonatomic, assign) BOOL openPassword;
 @property (nonatomic, copy) NSString *password;
-
+@property (nonatomic, assign) BOOL newFlag;
 
 @property (nonatomic, strong) NSArray <HZPageModel *>*pageModels;
 

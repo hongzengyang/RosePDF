@@ -20,4 +20,8 @@
 
 @property (nonatomic, assign) NSInteger currentIndex;
 
+@property (nonatomic, assign) BOOL isFilterMode;
+
+- (HZPageModel *)currentPage;
+
 @end

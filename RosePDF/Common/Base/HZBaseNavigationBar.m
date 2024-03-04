@@ -28,6 +28,11 @@
 }
 
 - (void)configBackImage:(UIImage *)image {
+    if (!image) {
+        self.backBtn.hidden = YES;
+    }else {
+        self.backBtn.hidden = NO;
+    }
     [self.backBtn setImage:image forState:(UIControlStateNormal)];
     [self updateConstraintsIfNeeded];
 }
@@ -55,7 +60,7 @@
 - (void)configView {
     self.backgroundColor = [UIColor whiteColor];
     
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [self addSubview:blurEffectView];
     [blurEffectView mas_makeConstraints:^(MASConstraintMaker *make) {

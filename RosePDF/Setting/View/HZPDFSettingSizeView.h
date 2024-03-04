@@ -6,11 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HZProjectModel.h"
+#import "HZPDFSettingDataboard.h"
 
 
 @interface HZPDFSettingSizeView : UIView
-- (instancetype)initWithFrame:(CGRect)frame project:(HZProjectModel *)project;
+- (instancetype)initWithFrame:(CGRect)frame databoard:(HZPDFSettingDataboard *)databoard;
+
+- (HZPDFSize)currentPdfSize;
 
 + (NSString *)sizeTitleWithPdfSize:(HZPDFSize)size;
 + (NSString *)sizeDescWithPdfSize:(HZPDFSize)size;

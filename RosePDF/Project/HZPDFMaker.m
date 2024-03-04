@@ -14,12 +14,9 @@
 + (void)generatePDFWithProject:(HZProjectModel *)project completeBlock:(void (^)(NSString *))completeBlock {
     NSTimeInterval start = CFAbsoluteTimeGetCurrent();
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *filePath;
+        NSString *filePath = [project pdfPath];
         NSData *pdfData = [self createPDFWithProject:project];
         if (pdfData) {
-            NSString *name = [NSString stringWithFormat:@"%@.pdf",project.title];
-            filePath = [NSTemporaryDirectory() stringByAppendingString:name];
-            
             if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
                 [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
             }
@@ -49,21 +46,45 @@
         }
     }];
     
+    CGFloat marginScale;
+    if (project.margin == HZPDFMargin_normal) {
+        marginScale = 0.1;
+    }else {
+        marginScale = 0.0;
+    }
+    
     NSMutableData *pdfData = nil;
     if (images.count > 0) {
         BOOL isOrigin = (project.pdfSize == HZPDFSize_autoFit);
         if (isOrigin) {
             pdfData = [NSMutableData data];
-            CGSize pageSize = [images firstObject].size;
-            CGRect pdfFrame = CGRectMake(0, 0, pageSize.width, pageSize.height);
+            CGFloat targetWidth = [images firstObject].size.width;
+            CGRect pdfFrame = CGRectMake(0, 0, targetWidth, 0);
             UIGraphicsBeginPDFContextToData(pdfData, pdfFrame, [self documentInfoWithPassword:project.password]);
 //            CGContextRef pdfContext = UIGraphicsGetCurrentContext();
             for (NSInteger index = 0; index < images.count; index ++) {
                 @autoreleasepool {
                     UIImage *img = images[index];
-                    pdfFrame = CGRectMake(0, 0, pageSize.width, pageSize.width * (img.size.height / img.size.width));
+                    CGSize pageSize = CGSizeMake(targetWidth, targetWidth * (img.size.height / img.size.width));
+                    CGFloat x;
+                    CGFloat y;
+                    CGFloat width;
+                    CGFloat height;
+                    if (project.margin == HZPDFMargin_none) {
+                        x = 0;
+                        y = 0;
+                        width = pageSize.width;
+                        height = pageSize.height;
+                    }else {
+                        x = pageSize.width * 0.1;
+                        y = pageSize.height * 0.1;
+                        width = pageSize.width * 0.8;
+                        height = pageSize.height * 0.8;
+                    }
+                    
+                    pdfFrame = CGRectMake(0, 0, pageSize.width, pageSize.height);
                     UIGraphicsBeginPDFPageWithInfo(pdfFrame, nil);
-                    [img drawInRect:pdfFrame];
+                    [img drawInRect:CGRectMake(x, y, width, height)];
                 }
             }
             UIGraphicsEndPDFContext();

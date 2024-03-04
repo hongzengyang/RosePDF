@@ -16,6 +16,8 @@
 #import "HZProjectManager.h"
 #import "HZPDFSettingViewController.h"
 #import "HZSortViewController.h"
+#import "HZEditFilterView.h"
+#import <GPUImage/GPUImage.h>
 
 @interface HZEditViewController ()<HZEditBottomViewDelegate>
 
@@ -25,12 +27,17 @@
 @property (nonatomic, strong) HZEditTopCollectionView *topView;
 @property (nonatomic, strong) HZEditPreviewCollectionView *previewView;
 @property (nonatomic, strong) HZEditBottomView *bottomView;
+@property (nonatomic, strong) HZEditFilterView *filterView;
 
 @property (nonatomic, strong) HZEditDataboard *databoard;
 
 @end
 
 @implementation HZEditViewController
+
+- (void)dealloc {
+    [[GPUImageContext sharedImageProcessingContext].framebufferCache purgeAllUnassignedFramebuffers];
+}
 
 - (instancetype)initWithInput:(HZEditInput *)input {
     if (self = [super init]) {
@@ -73,15 +80,53 @@
     [self.view addSubview:self.previewView];
     [self.previewView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.equalTo(self.view);
-        make.top.equalTo(self.topView.mas_bottom);
+        make.top.equalTo(self.navBar.mas_bottom).offset(88);
         make.bottom.equalTo(self.bottomView.mas_top);
     }];
+}
+
+- (void)enterFilterMode {
+    if (!self.filterView) {
+        self.filterView = [[HZEditFilterView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 154 + hz_safeBottom) databoard:self.databoard];
+        [self.view addSubview:self.filterView];
+        @weakify(self);
+        self.filterView.slideBlock = ^(BOOL isFilter, HZFilterType filterType, HZAdjustType adjustType) {
+            @strongify(self);
+            [self.previewView reloadView];
+        };
+        
+        self.filterView.clickFilterItemBlock = ^(HZFilterType filterType) {
+            @strongify(self);
+            [self.previewView reloadView];
+        };
+        
+        self.filterView.completeBlock = ^{
+            @strongify(self);
+            [self exitFilterMode];
+        };
+    }
+    
+    [self.filterView update];
+    
+    self.filterView.top = self.view.height;
+    [UIView animateWithDuration:0.25 animations:^{
+        self.filterView.bottom = self.view.bottom;
+    }];
+    self.databoard.isFilterMode = YES;
+}
+
+- (void)exitFilterMode {
+    [UIView animateWithDuration:0.25 animations:^{
+        self.filterView.top = self.view.height;
+    }];
+    self.databoard.isFilterMode = NO;
 }
 
 #pragma mark - 通知
 - (void)addAssetsFinished {
     [self.topView reloadView];
     [self.previewView reloadView];
+    [self.bottomView checkDeleteEnable];
 }
 
 - (void)sortFinish:(NSNotification *)not {
@@ -93,10 +138,12 @@
 }
 
 #pragma mark - HZEditBottomViewDelegate
--(void)editBottomViewClickItem:(HZEditBottomItem)item {
-    @weakify(self);
+- (void)editBottomViewClickItem:(HZEditBottomItem)item {
+//    @weakify(self);
     if (item == HZEditBottomItemFilter) {
-        
+        if (!self.databoard.isFilterMode) {
+            [self enterFilterMode];
+        }
     }else if (item == HZEditBottomItemLeft) {
         
     }else if (item == HZEditBottomItemRight) {
@@ -107,7 +154,15 @@
         HZSortViewController *vc = [[HZSortViewController alloc] initWithPages:[self.databoard.project.pageModels copy]];
         [self.navigationController pushViewController:vc animated:YES];
     }else if (item == HZEditBottomItemDelete) {
-        
+        NSMutableArray *muArray = [self.databoard.project.pageModels mutableCopy];
+        [muArray removeObjectAtIndex:self.databoard.currentIndex];
+        self.databoard.project.pageModels = [muArray copy];
+        if (self.databoard.currentIndex >= self.databoard.project.pageModels.count) {
+            self.databoard.currentIndex = self.databoard.project.pageModels.count -1;
+        }
+        [self.topView reloadView];
+        [self.previewView reloadView];
+        [self.bottomView checkDeleteEnable];
     }
 }
 
@@ -122,12 +177,14 @@
         @weakify(self);
         _navBar.clickBackBlock = ^{
             @strongify(self);
-            [HZProjectManager deleteProject:self.databoard.project];
-            [self.navigationController popViewControllerAnimated:YES];
+            [HZProjectManager deleteProject:self.databoard.project completeBlock:^(HZProjectModel *project) {
+                @strongify(self);
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
         };
         _navBar.clickRightBlock = ^{
             @strongify(self);
-            HZPDFSettingViewController *vc = [[HZPDFSettingViewController alloc] initWithInput:self.input];
+            HZPDFSettingViewController *vc = [[HZPDFSettingViewController alloc] initWithProject:self.input.project originalProject:self.input.originProject];
             [self.navigationController pushViewController:vc animated:YES];
         };
     }

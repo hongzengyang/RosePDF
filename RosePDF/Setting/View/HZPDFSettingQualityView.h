@@ -6,11 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HZProjectModel.h"
+#import "HZPDFSettingDataboard.h"
 
 
 @interface HZPDFSettingQualityView : UIView
-- (instancetype)initWithFrame:(CGRect)frame project:(HZProjectModel *)project;
+- (instancetype)initWithFrame:(CGRect)frame databoard:(HZPDFSettingDataboard *)databoard;
+
+- (HZPDFQuality)currentQuality;
+
 @end
 
 

@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDataboard:(HZEditDataboard *)databoard;
 
+- (void)checkDeleteEnable;
+
 @end
 
 NS_ASSUME_NONNULL_END

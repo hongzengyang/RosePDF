@@ -9,7 +9,10 @@
 #import "HZCommonHeader.h"
 
 @interface HZPDFSettingPasswordView()<UITextFieldDelegate>
-@property (nonatomic, strong) HZProjectModel *project;
+@property (nonatomic, strong) HZPDFSettingDataboard *databoard;
+
+@property (nonatomic, assign) BOOL openPsw;
+
 
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UISwitch *stateSwitch;
@@ -24,9 +27,12 @@
 
 @implementation HZPDFSettingPasswordView
 
-- (instancetype)initWithFrame:(CGRect)frame project:(HZProjectModel *)project {
+- (instancetype)initWithFrame:(CGRect)frame databoard:(HZPDFSettingDataboard *)databoard {
     if (self = [super initWithFrame:frame]) {
-        self.project = project;
+        self.databoard = databoard;
+        
+        self.openPsw = databoard.project.openPassword;
+        
         [self configView];
     }
     return self;
@@ -57,7 +63,7 @@
     [sh layoutIfNeeded];
 //    CGFloat scale = 30.0/sh.bounds.size.width;
 //    sh.transform = CGAffineTransformMakeScale( scale, scale );
-    sh.on = self.project.openPassword;
+    sh.on = self.openPsw;
     sh.thumbTintColor = hz_getColor(@"FFFFFF");
     sh.onTintColor = hz_main_color;
     self.stateSwitch = sh;
@@ -76,6 +82,7 @@
     rightBtn.contentMode = UIViewContentModeCenter;
     [rightBtn setImage:[UIImage imageNamed:@"rose_setting_passwordEye"] forState:(UIControlStateNormal)];
     [rightBtn setImage:[UIImage imageNamed:@"rose_setting_passwordEye"] forState:(UIControlStateSelected)];
+    rightBtn.selected = YES;
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bottomContainerView);
         make.trailing.equalTo(self.bottomContainerView).offset(-16);
@@ -89,7 +96,7 @@
     textField.keyboardType = UIKeyboardTypeEmailAddress;
     textField.delegate = self;
     [self.bottomContainerView addSubview:textField];
-    textField.text = self.project.password;
+    textField.text = self.databoard.project.password;
     textField.textColor = [UIColor blackColor];
     textField.font = [UIFont systemFontOfSize:17];
     [textField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -110,8 +117,15 @@
     self.separaterView = separater;
 }
 
+- (BOOL)openPswState {
+    return self.openPsw;
+}
+- (NSString *)curPsw {
+    return self.textField.text;
+}
+
 - (void)layoutAllViews {
-    if (self.project.openPassword) {
+    if (self.openPsw) {
         [self setHeight:115];
         self.bottomContainerView.hidden = NO;
         [self.bottomContainerView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -131,23 +145,19 @@
 }
 
 - (void)clickRightButton {
-    if (self.rightBtn.selected) {
-        self.textField.text = @"";
-    }else {
-        [self.textField becomeFirstResponder];
-    }
+    self.rightBtn.selected = !self.rightBtn.selected;
+    self.textField.secureTextEntry = self.rightBtn.selected;
 }
 
 - (void)clickpdfEncryptSwitch:(UISwitch *)sh {
     if (!sh.isOn) {
         self.textField.text = @"";
-    }
-    
-    self.project.openPassword = sh.isOn;
-    
-    if ([self.textField isFirstResponder]) {
         [self.textField resignFirstResponder];
+    }else {
+        [self.textField becomeFirstResponder];
     }
+    
+    self.openPsw = sh.isOn;
     
     if (self.PasswordSwitchBlock) {
         self.PasswordSwitchBlock();
@@ -160,5 +170,14 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@"\n"]) {
+        [textField resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
 @end
 

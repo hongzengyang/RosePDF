@@ -6,11 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HZProjectModel.h"
+#import "HZPDFSettingDataboard.h"
 
 
 @interface HZPDFSettingMarginView : UIView
-- (instancetype)initWithFrame:(CGRect)frame project:(HZProjectModel *)project;
+- (instancetype)initWithFrame:(CGRect)frame databoard:(HZPDFSettingDataboard *)databoard;
+
+- (HZPDFMargin)currentMargin;
 @end
 
 

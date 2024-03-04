@@ -8,6 +8,8 @@
 #import "HZEditTopCollectionView.h"
 #import "HZCommonHeader.h"
 #import "HZEditTopCell.h"
+#import <HZAssetsPicker/HZAssetsPickerViewController.h>
+#import "HZProjectManager.h"
 
 @interface HZEditTopCollectionView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -33,6 +35,13 @@
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
+    }];
+}
+
+- (void)reloadView {
+    [self.collectionView reloadData];
+    [self.collectionView performBatchUpdates:nil completion:^(BOOL finished) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.databoard.currentIndex inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:YES];
     }];
 }
 
@@ -63,11 +72,28 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == self.databoard.project.pageModels.count) {
+        HZAssetsPickerViewController *assetPicker = [[HZAssetsPickerViewController alloc] init];
+        @weakify(self);
+        assetPicker.SelectImageBlock = ^(NSArray<UIImage *> * _Nonnull images) {
+            @strongify(self);
+            if (images.count == 0) {
+                [[UIView hz_viewController].navigationController popViewControllerAnimated:YES];
+                return;
+            }
+            
+            [HZProjectManager addPagesWithImages:images inProject:self.databoard.project completeBlock:^(NSArray<HZPageModel *> *pages) {
+                @strongify(self);
+                [[NSNotificationCenter defaultCenter] postNotificationName:pref_key_add_assets_finished object:nil];
+                [[UIView hz_viewController].navigationController popViewControllerAnimated:YES];
+            }];
+        };
+        [[UIView hz_viewController].navigationController pushViewController:assetPicker animated:YES];
         return;
     }
     
     if (self.databoard.currentIndex != indexPath.row) {
         self.databoard.currentIndex = indexPath.row;
+        [self handleIndexChanged];
         [[NSNotificationCenter defaultCenter] postNotificationName:pref_key_click_edit_top object:nil];
     }
 }
@@ -75,6 +101,9 @@
 #pragma mark - Notification
 - (void)handleIndexChanged {
     [self.collectionView reloadData];
+    [self.collectionView performBatchUpdates:nil completion:^(BOOL finished) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.databoard.currentIndex inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:YES];
+    }];
 }
 
 #pragma mark - Lazy

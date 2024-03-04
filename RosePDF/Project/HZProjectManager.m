@@ -76,6 +76,30 @@
     return project;
 }
 
++ (void)duplicateTmpWithProject:(HZProjectModel *)project completeBlock:(CreateProjectBlock)completeBlock {
+    HZProjectModel *tmpProject = [self createProjectWithFolderId:Default_folderId isTmp:YES];
+    
+    tmpProject.title = project.title;
+    tmpProject.createTime = project.createTime;
+    tmpProject.updateTime = project.updateTime;
+    tmpProject.pdfSize = project.pdfSize;
+    tmpProject.margin = project.margin;
+    tmpProject.quality = project.quality;
+    tmpProject.openPassword = project.openPassword;
+    tmpProject.password = project.password;
+    tmpProject.newFlag = project.newFlag;
+    tmpProject.pageModels = project.pageModels;
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self transferContentsFromProject:project toProject:tmpProject keepOrigin:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completeBlock) {
+                completeBlock(tmpProject);
+            }
+        });
+    });
+}
+
 + (void)addPagesWithImages:(NSArray <UIImage *>*)images inProject:(HZProjectModel *)project completeBlock:(CreatePagesBlock)completeBlock {
     NSMutableArray <HZPageModel *>*pages = [[NSMutableArray alloc] init];
     __block NSInteger callback = 0;
@@ -129,10 +153,13 @@
         pageModel.projectId = project.identifier;
         
         UIImage *originalImage = [UIImage hz_fixOrientation:image];
+//        if (image.size.width > 2048) {
+//            originalImage = [originalImage hz_resizeImageToWidth:2048];
+//        }
         NSData *originData = UIImageJPEGRepresentation(originalImage, 0.5);
         [originData writeToFile:[pageModel originPath] atomically:YES];
         
-        [pageModel refreshWithCompleteBlock:^{
+        [pageModel refreshWithCompleteBlock:^(UIImage *result) {
             if (completeBlock) {
                 completeBlock(pageModel);
             }
@@ -140,13 +167,33 @@
     });
 }
 
-+ (void)deleteProject:(HZProjectModel *)project {
++ (void)deleteProject:(HZProjectModel *)project completeBlock:(CreateProjectBlock)completeBlock {
     NSString *projectPath = [self projectPathWithIdentifier:project.identifier];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [[NSFileManager defaultManager] removeItemAtPath:projectPath error:nil];
+        [project deleteInDataBase];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completeBlock) {
+                completeBlock(project);
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:pref_key_delete_project object:project];
+        });
     });
-    
-    [project deleteInDataBase];
+}
+
++ (BOOL)renameProject:(HZProjectModel *)project name:(NSString *)name {
+    NSString *newPDFPath = [[NSString stringWithFormat:@"%@",[self projectPathWithIdentifier:project.identifier]] stringByAppendingPathComponent: [NSString stringWithFormat:@"%@.pdf",name]];
+    NSString *originPDFPath = [project pdfPath];
+    if ([[NSFileManager defaultManager] copyItemAtPath:originPDFPath toPath:newPDFPath error:nil]) {
+        project.title = name;
+        [project updateInDataBase];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:pref_key_rename_project object:project];
+        });
+        return YES;
+    }else {
+        return NO;
+    }
 }
 
 + (void)migratePagesFromProject:(HZProjectModel *)fromProject toProject:(HZProjectModel *)toProject keepOrigin:(BOOL)keepOrigin completeBlock:(CreateProjectBlock)completeBlock {
@@ -158,8 +205,17 @@
         isNew = NO;
         toProject.updateTime = [[NSDate date] timeIntervalSince1970];
     }
-    toProject.pageModels = [fromProject.pageModels copy];
     
+    toProject.title = fromProject.title;
+    toProject.createTime = fromProject.createTime;
+    toProject.updateTime = [[NSDate date] timeIntervalSince1970];
+    toProject.pageModels = [fromProject.pageModels copy];
+    toProject.pdfSize = fromProject.pdfSize;
+    toProject.margin = fromProject.margin;
+    toProject.quality = fromProject.quality;
+    toProject.openPassword = fromProject.openPassword;
+    toProject.password = fromProject.password;
+    toProject.newFlag = isNew;
     if (isNew) {
         [toProject saveToDataBase];
     }else {
@@ -167,36 +223,42 @@
     }
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSFileManager *fileMgr = [NSFileManager defaultManager];
-        NSString *fromProjectPath = [HZProjectManager projectPathWithIdentifier:fromProject.identifier];
-        NSArray<NSString *> *contents = [fileMgr contentsOfDirectoryAtPath:fromProjectPath error:nil];
-        NSString *toProjectPath = [HZProjectManager projectPathWithIdentifier:toProject.identifier];
-        
-        if (keepOrigin) {
-            [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSString *tmpPagePath = [fromProjectPath stringByAppendingPathComponent:obj];
-                NSString *toPath = [toProjectPath stringByAppendingPathComponent:obj];
-                [fileMgr copyItemAtPath:tmpPagePath toPath:toPath error:nil];
-            }];
-        }else {
-            [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSString *tmpPagePath = [fromProjectPath stringByAppendingPathComponent:obj];
-                NSString *toPath = [toProjectPath stringByAppendingPathComponent:obj];
-                [fileMgr moveItemAtPath:tmpPagePath toPath:toPath error:nil];
-            }];
-            [fileMgr removeItemAtPath:fromProjectPath error:nil];
-        }
-        
-        [toProject.pageModels enumerateObjectsUsingBlock:^(HZPageModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [obj saveToDisk];
-        }];
-        
+        [self transferContentsFromProject:fromProject toProject:toProject keepOrigin:keepOrigin];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completeBlock) {
                 completeBlock(toProject);
             }
+            [[NSNotificationCenter defaultCenter] postNotificationName:pref_key_update_project object:toProject];
         });
     });
+}
+
++ (void)transferContentsFromProject:(HZProjectModel *)fromProject toProject:(HZProjectModel *)toProject keepOrigin:(BOOL)keepOrigin {
+    
+    [toProject.pageModels enumerateObjectsUsingBlock:^(HZPageModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj saveToDisk];
+    }];
+    
+    
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    NSString *fromProjectPath = [HZProjectManager projectPathWithIdentifier:fromProject.identifier];
+    NSArray<NSString *> *contents = [fileMgr contentsOfDirectoryAtPath:fromProjectPath error:nil];
+    NSString *toProjectPath = [HZProjectManager projectPathWithIdentifier:toProject.identifier];
+    
+    if (keepOrigin) {
+        [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *tmpPagePath = [fromProjectPath stringByAppendingPathComponent:obj];
+            NSString *toPath = [toProjectPath stringByAppendingPathComponent:obj];
+            [fileMgr copyItemAtPath:tmpPagePath toPath:toPath error:nil];
+        }];
+    }else {
+        [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *tmpPagePath = [fromProjectPath stringByAppendingPathComponent:obj];
+            NSString *toPath = [toProjectPath stringByAppendingPathComponent:obj];
+            [fileMgr moveItemAtPath:tmpPagePath toPath:toPath error:nil];
+        }];
+        [fileMgr removeItemAtPath:fromProjectPath error:nil];
+    }
 }
 
 + (void)cleanTmpProjects {

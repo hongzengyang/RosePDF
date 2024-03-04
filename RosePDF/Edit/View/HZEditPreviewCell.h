@@ -10,7 +10,7 @@
 
 @interface HZEditPreviewCell : UICollectionViewCell
 
-- (void)configWithModel:(HZPageModel *)pageModel;
+- (void)configWithModel:(HZPageModel *)pageModel filterMode:(BOOL)filterMode;
 
 - (void)resetZoom;
 

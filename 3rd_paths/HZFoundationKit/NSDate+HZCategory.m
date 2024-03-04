@@ -13,7 +13,7 @@
 + (NSString *)hz_dateTimeStringWithTime:(NSTimeInterval)timeInterval {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd a hh:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *dateStr = [dateFormatter stringFromDate:date];
     dateStr = [dateStr stringByReplacingOccurrencesOfString:@":" withString:@"."];
     return dateStr;

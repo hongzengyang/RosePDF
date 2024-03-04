@@ -227,7 +227,8 @@ static const NSString *tapGestureKey = @"tapGestureKey";
 
 #pragma mark - 渐变
 - (void)hz_addGradientWithColors:(NSArray<UIColor *> *)colors startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint {
-    [self.layer.sublayers enumerateObjectsUsingBlock:^(__kindof CALayer *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSMutableArray <CALayer *>*copyLayers = [[NSMutableArray alloc] initWithArray:self.layer.sublayers];
+    [copyLayers enumerateObjectsUsingBlock:^(__kindof CALayer *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj.name isEqualToString:gradient_layer_name]) {
             [obj removeFromSuperlayer];
         }

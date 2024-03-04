@@ -44,7 +44,6 @@
         self.imageView.image = [UIImage imageNamed:@"rose_edit_top_add"];
     }else {
         UIImage *originImage = [UIImage imageWithContentsOfFile:[pageModel originPath]];
-        originImage = [originImage hz_resizeImageToWidth:540];
         self.imageView.image = originImage;
     }
     

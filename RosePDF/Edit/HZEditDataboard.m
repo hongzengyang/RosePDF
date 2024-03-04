@@ -9,4 +9,8 @@
 
 @implementation HZEditDataboard
 
+- (HZPageModel *)currentPage {
+    return [self.project.pageModels objectAtIndex:self.currentIndex];
+}
+
 @end

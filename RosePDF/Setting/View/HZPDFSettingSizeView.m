@@ -10,7 +10,9 @@
 #import "HZPDFSizeViewController.h"
 
 @interface HZPDFSettingSizeView()
-@property (nonatomic, strong) HZProjectModel *project;
+@property (nonatomic, strong) HZPDFSettingDataboard *databoard;
+
+@property (nonatomic, assign) HZPDFSize selectSize;
 
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *sizeLab;
@@ -18,9 +20,12 @@
 @end
 @implementation HZPDFSettingSizeView
 
-- (instancetype)initWithFrame:(CGRect)frame project:(HZProjectModel *)project {
+- (instancetype)initWithFrame:(CGRect)frame databoard:(HZPDFSettingDataboard *)databoard {
     if (self = [super initWithFrame:frame]) {
-        self.project = project;
+        self.databoard = databoard;
+        
+        self.selectSize = databoard.project.pdfSize;
+        
         [self configView];
     }
     return self;
@@ -54,7 +59,7 @@
     [self addSubview:sizeLab];
     sizeLab.font = [UIFont systemFontOfSize:14];
     sizeLab.textColor = hz_getColor(@"888888");
-    sizeLab.text = [[self class] sizeTitleWithPdfSize:self.project.pdfSize];
+    sizeLab.text = [[self class] sizeTitleWithPdfSize:self.selectSize];
     [sizeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.trailing.equalTo(iconImageView.mas_leading);
@@ -72,13 +77,19 @@
     }];
 }
 
+- (HZPDFSize)currentPdfSize {
+    return self.selectSize;
+}
+
 - (void)clickSizeButton {
-    HZPDFSizeViewController *vc = [[HZPDFSizeViewController alloc] initWithInputPDFSize:self.project.pdfSize];
+    HZPDFSizeViewController *vc = [[HZPDFSizeViewController alloc] initWithInputPDFSize:self.selectSize];
     @weakify(self);
     vc.SelectPdfSizeBlock = ^(HZPDFSize size) {
         @strongify(self);
-        self.project.pdfSize = size;
-        self.sizeLab.text = [[self class] sizeTitleWithPdfSize:size];
+        if (size != self.selectSize) {
+            self.selectSize = size;
+            self.sizeLab.text = [[self class] sizeTitleWithPdfSize:size];
+        }
     };
     
     UIViewController *contorller = [UIView hz_viewController];

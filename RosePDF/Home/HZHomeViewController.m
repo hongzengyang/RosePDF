@@ -14,13 +14,15 @@
 #import <HZAssetsPicker/HZAssetsPickerViewController.h>
 #import <HZAssetsPicker/HZAssetsPickerManager.h>
 #import "HZProjectManager.h"
-
+#import "HZAlertTextFieldView.h"
+#import "HZPDFDetailViewController.h"
+#import "HZHomeCell.h"
 
 @interface HZHomeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) HZHomeNavigationBar *navBar;
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) NSArray <HZProjectModel *>*projects;
 @end
 
 @implementation HZHomeViewController
@@ -32,6 +34,12 @@
     
     [self configView];
     [self requestData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectUpdate:) name:pref_key_update_project object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectDelete:) name:pref_key_delete_project object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectRename:) name:pref_key_rename_project object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectPasswordChanged:) name:pref_key_project_psw_changed object:nil];
     
     [HZProjectManager cleanTmpProjects];
 }
@@ -62,8 +70,8 @@
 }
 
 - (void)requestData {
-//    NSArray *projects = [HZProjectModel queryAllProjects];
-//    NSLog(@"ss");
+    self.projects = [HZProjectModel queryAllProjects];
+    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -118,15 +126,28 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    return nil;
+    HZHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HZHomeCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    HZProjectModel *project = [self.projects objectAtIndex:indexPath.row];
+    [cell configWithProject:project];
+    
+    return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return self.projects.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    HZProjectModel *project = [self.projects objectAtIndex:indexPath.row];
+    HZPDFDetailViewController *vc = [[HZPDFDetailViewController alloc] initWithProject:project];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    if (project.newFlag) {
+        project.newFlag = NO;
+        [project updateInDataBase];
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationNone)];
+    }
 }
 
 #pragma mark - UIScrollView
@@ -142,6 +163,33 @@ static CGFloat prevOffsetY = 0;
     [self.view endEditing:YES];
 }
 
+#pragma mark - 通知
+- (void)projectUpdate:(NSNotification *)not {
+    HZProjectModel *project = not.object;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self requestData];
+    });
+}
+- (void)projectDelete:(NSNotification *)not {
+    HZProjectModel *project = not.object;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self requestData];
+    });
+}
+- (void)projectRename:(NSNotification *)not {
+    HZProjectModel *project = not.object;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self requestData];
+    });
+}
+
+- (void)projectPasswordChanged:(NSNotification *)not {
+    HZProjectModel *project = not.object;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self requestData];
+    });
+}
+
 #pragma mark - Lazy
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -151,6 +199,8 @@ static CGFloat prevOffsetY = 0;
         _tableView.backgroundColor = hz_1_bgColor;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_tableView registerClass:[HZHomeCell class] forCellReuseIdentifier:@"HZHomeCell"];
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
         
         HZHomeTableHeaderView *header = [[HZHomeTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, hz_safeTop + 158)];
         _tableView.tableHeaderView = header;

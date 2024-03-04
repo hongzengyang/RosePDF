@@ -13,6 +13,8 @@
 
 + (void)generatePDFWithProject:(HZProjectModel *)project completeBlock:(void(^)(NSString *pdfPath))completeBlock;
 
++ (CGSize)pageSizeWithoutOrigin:(HZPDFSize)size;
+
 @end
 
 

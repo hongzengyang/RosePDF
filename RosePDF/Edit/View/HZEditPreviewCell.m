@@ -7,6 +7,7 @@
 
 #import "HZEditPreviewCell.h"
 #import "HZCommonHeader.h"
+#import "HZFilterManager.h"
 @import AVFoundation;
 
 @interface HZEditPreviewCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
@@ -38,6 +39,11 @@
     if (!self.scrollView) {
         self.scrollView = [[UIScrollView alloc] init];
         [self.containerView addSubview:self.scrollView];
+        
+        // 添加双击手势
+        UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+        doubleTapGesture.numberOfTapsRequired = 2;
+        [self.scrollView addGestureRecognizer:doubleTapGesture];
     }
     [self.scrollView setFrame:self.containerView.bounds];
     self.scrollView.userInteractionEnabled = YES;
@@ -56,11 +62,6 @@
         [self.scrollView addSubview:self.pageImageView];
     }
     self.pageImageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    // 添加双击手势
-    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
-    doubleTapGesture.numberOfTapsRequired = 2;
-    [self.scrollView addGestureRecognizer:doubleTapGesture];
 }
 
 - (void)handleDoubleTap:(UITapGestureRecognizer *)gesture {
@@ -73,29 +74,54 @@
     }
 }
 
-- (void)configWithModel:(HZPageModel *)pageModel {
+- (void)configWithModel:(HZPageModel *)pageModel filterMode:(BOOL)filterMode {
     self.pageModel = pageModel;
     
     [self configCell];
     
     @weakify(self);
-    [self getDisplayImageWithCompleteBlock:^(UIImage *image) {
-        @strongify(self);
-        CGRect rect = AVMakeRectWithAspectRatioInsideRect(CGSizeMake(image.size.width, image.size.height), self.scrollView.bounds);
-        if (!isnan(rect.origin.x) && !isnan(rect.origin.y) && !isnan(rect.size.width) && !isnan(rect.size.height)) {
-            self.pageImageView.frame = rect;
-        }else{
-            self.pageImageView.frame = self.contentView.bounds;
-        }
-        
-        self.pageImageView.hidden = image ? NO: YES;
-        self.pageImageView.image = image;
-    }];
+    if (filterMode) {
+        [HZFilterManager makeFilterImageWithImage:[UIImage imageWithContentsOfFile:[pageModel resultPath]] page:pageModel completeBlock:^(UIImage *image, HZPageModel *pageModel) {
+            @strongify(self);
+            if ([pageModel.identifier isEqualToString:self.pageModel.identifier]) {
+                CGImageRef ref = image.CGImage;
+                CGRect rect = AVMakeRectWithAspectRatioInsideRect(CGSizeMake(image.size.width, image.size.height), self.scrollView.bounds);
+                if (!isnan(rect.origin.x) && !isnan(rect.origin.y) && !isnan(rect.size.width) && !isnan(rect.size.height)) {
+                    self.pageImageView.frame = rect;
+                }else{
+                    self.pageImageView.frame = self.contentView.bounds;
+                }
+
+                self.pageImageView.hidden = image ? NO: YES;
+                self.pageImageView.image = image;
+                NSLog(@"debug--setimage");
+            }else {
+                NSLog(@"debug--error");
+            }
+        }];
+    }else {
+        [self getDisplayImageWithCompleteBlock:^(UIImage *image) {
+            @strongify(self);
+            CGImageRef ref = image.CGImage;
+            CGRect rect = AVMakeRectWithAspectRatioInsideRect(CGSizeMake(image.size.width, image.size.height), self.scrollView.bounds);
+            if (!isnan(rect.origin.x) && !isnan(rect.origin.y) && !isnan(rect.size.width) && !isnan(rect.size.height)) {
+                self.pageImageView.frame = rect;
+            }else{
+                self.pageImageView.frame = self.contentView.bounds;
+            }
+
+            self.pageImageView.hidden = image ? NO: YES;
+            self.pageImageView.image = image;
+            NSLog(@"debug--setimage");
+        }];
+    }
     
 }
 
 - (void)resetZoom {
-    [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
+    if (self.scrollView.zoomScale != self.scrollView.minimumZoomScale) {
+        [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
+    }
 }
 
 - (void)getDisplayImageWithCompleteBlock:(void(^)(UIImage *image))completeBlock {

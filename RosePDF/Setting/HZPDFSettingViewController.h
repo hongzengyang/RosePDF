@@ -6,12 +6,12 @@
 //
 
 #import "HZBaseViewController.h"
-#import "HZEditInput.h"
-
+#import "HZProjectModel.h"
 
 @interface HZPDFSettingViewController : HZBaseViewController
 
-- (instancetype)initWithInput:(HZEditInput *)input;
+- (instancetype)initWithProject:(HZProjectModel *)project
+                originalProject:(HZProjectModel *)originalProject;
 
 @end
 

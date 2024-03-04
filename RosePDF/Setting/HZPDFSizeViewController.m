@@ -209,6 +209,8 @@
     }
     
     [self updateSelectImageView];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -lazy

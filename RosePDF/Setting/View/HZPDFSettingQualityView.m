@@ -10,7 +10,9 @@
 #import "HZSelectPopView.h"
 
 @interface HZPDFSettingQualityView()
-@property (nonatomic, strong) HZProjectModel *project;
+@property (nonatomic, strong) HZPDFSettingDataboard *databoard;
+
+@property (nonatomic, assign) HZPDFQuality selectQuality;
 
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *qualityLab;
@@ -19,9 +21,12 @@
 @end
 @implementation HZPDFSettingQualityView
 
-- (instancetype)initWithFrame:(CGRect)frame project:(HZProjectModel *)project {
+- (instancetype)initWithFrame:(CGRect)frame databoard:(HZPDFSettingDataboard *)databoard {
     if (self = [super initWithFrame:frame]) {
-        self.project = project;
+        self.databoard = databoard;
+        
+        self.selectQuality = databoard.project.quality;
+        
         [self configView];
     }
     return self;
@@ -56,7 +61,7 @@
     [self addSubview:qualityLab];
     qualityLab.font = [UIFont systemFontOfSize:14];
     qualityLab.textColor = hz_getColor(@"888888");
-    qualityLab.text = [self qualityTextWithQuality:self.project.quality];
+    qualityLab.text = [self qualityTextWithQuality:self.selectQuality];
     [qualityLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.trailing.equalTo(iconImageView.mas_leading);
@@ -83,6 +88,10 @@
     }];
 }
 
+- (HZPDFQuality)currentQuality {
+    return self.selectQuality;
+}
+
 - (void)clickQualityButton {
     NSArray *items = @[
         [self qualityTextWithQuality:(HZPDFQuality_100)],
@@ -90,7 +99,7 @@
         [self qualityTextWithQuality:(HZPDFQuality_50)],
         [self qualityTextWithQuality:(HZPDFQuality_25)]
     ];
-    NSString *curItem = [self qualityTextWithQuality:self.project.quality];
+    NSString *curItem = [self qualityTextWithQuality:self.selectQuality];
     NSInteger index = 0;
     if ([items containsObject:curItem]) {
         index = [items indexOfObject:curItem];
@@ -98,9 +107,13 @@
     @weakify(self);
     [HZSelectPopView popWithItems:items index:index inView:[UIView hz_viewController].view relatedView:self.iconImageView type:(HZSelectPopType_quality) selectBlock:^(NSInteger index) {
         @strongify(self);
-        self.project.quality = index;
-        self.qualityLab.text = [self qualityTextWithQuality:self.project.quality];
+        if (index != self.selectQuality) {
+            self.selectQuality = index;
+            self.qualityLab.text = [self qualityTextWithQuality:self.selectQuality];
+        }
     }];
+    
+    [[UIView hz_viewController].view endEditing:YES];
 }
 
 - (NSString *)qualityTextWithQuality:(HZPDFQuality)quality {

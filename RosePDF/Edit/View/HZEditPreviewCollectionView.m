@@ -47,7 +47,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HZEditPreviewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HZEditPreviewCell" forIndexPath:indexPath];
     HZPageModel *pageModel = [self.databoard.project.pageModels objectAtIndex:indexPath.row];
-    [cell configWithModel:pageModel];
+    [cell configWithModel:pageModel filterMode:self.databoard.isFilterMode];
     return cell;
 }
 

@@ -10,7 +10,9 @@
 #import "HZSelectPopView.h"
 
 @interface HZPDFSettingMarginView()
-@property (nonatomic, strong) HZProjectModel *project;
+@property (nonatomic, strong) HZPDFSettingDataboard *databoard;
+
+@property (nonatomic, assign) HZPDFMargin selectMargin;
 
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *marginLab;
@@ -19,9 +21,12 @@
 @end
 @implementation HZPDFSettingMarginView
 
-- (instancetype)initWithFrame:(CGRect)frame project:(HZProjectModel *)project {
+- (instancetype)initWithFrame:(CGRect)frame databoard:(HZPDFSettingDataboard *)databoard {
     if (self = [super initWithFrame:frame]) {
-        self.project = project;
+        self.databoard = databoard;
+        
+        self.selectMargin = databoard.project.margin;
+        
         [self configView];
     }
     return self;
@@ -56,7 +61,7 @@
     [self addSubview:marginLab];
     marginLab.font = [UIFont systemFontOfSize:14];
     marginLab.textColor = hz_getColor(@"888888");
-    marginLab.text = [self marginTextWithMargin:self.project.margin];
+    marginLab.text = [self marginTextWithMargin:self.selectMargin];
     [marginLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.trailing.equalTo(iconImageView.mas_leading);
@@ -84,12 +89,16 @@
     }];
 }
 
+- (HZPDFMargin)currentMargin {
+    return self.selectMargin;
+}
+
 - (void)clickMarginButton {
     NSArray *items = @[
         [self marginTextWithMargin:(HZPDFMargin_none)],
         [self marginTextWithMargin:(HZPDFMargin_normal)]
     ];
-    NSString *curItem = [self marginTextWithMargin:self.project.margin];
+    NSString *curItem = [self marginTextWithMargin:self.selectMargin];
     NSInteger index = 0;
     if ([items containsObject:curItem]) {
         index = [items indexOfObject:curItem];
@@ -97,9 +106,13 @@
     @weakify(self);
     [HZSelectPopView popWithItems:items index:index inView:[UIView hz_viewController].view relatedView:self.iconImageView type:(HZSelectPopType_margin) selectBlock:^(NSInteger index) {
         @strongify(self);
-        self.project.margin = index;
-        self.marginLab.text = [self marginTextWithMargin:self.project.margin];
+        if (index != self.selectMargin) {
+            self.selectMargin = index;
+            self.marginLab.text = [self marginTextWithMargin:self.selectMargin];
+        }
     }];
+    
+    [[UIView hz_viewController].view endEditing:YES];
 }
 
 - (NSString *)marginTextWithMargin:(HZPDFMargin)margin {
