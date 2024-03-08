@@ -14,5 +14,7 @@
 
 - (void)resetZoom;
 
+- (void)renderPreviewImage;
+
 @end
 

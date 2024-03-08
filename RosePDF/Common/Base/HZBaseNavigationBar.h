@@ -17,5 +17,8 @@
 - (void)configRightTitle:(NSString *)title;
 - (void)configTitle:(NSString *)title;
 
+- (void)setBackHidden:(BOOL)hidden;
+- (void)setRightHidden:(BOOL)hidden;
+
 @end
 

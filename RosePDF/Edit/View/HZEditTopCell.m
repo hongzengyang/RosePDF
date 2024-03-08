@@ -43,8 +43,8 @@
     if (isAdd) {
         self.imageView.image = [UIImage imageNamed:@"rose_edit_top_add"];
     }else {
-        UIImage *originImage = [UIImage imageWithContentsOfFile:[pageModel originPath]];
-        self.imageView.image = originImage;
+        UIImage *previewImage = [UIImage imageWithContentsOfFile:[pageModel previewPath]];
+        self.imageView.image = previewImage;
     }
     
     [self setNeedsUpdateConstraints];

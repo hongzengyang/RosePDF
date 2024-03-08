@@ -17,6 +17,8 @@
 #import "HZAssetsPickerCell.h"
 #import "HZAssetsPickerBottomView.h"
 #import "HZAlbumPickerViewController.h"
+#import "HZCameraViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface HZAssetsPickerViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -26,6 +28,8 @@
 @property (nonatomic, strong) HZAssetsPickerBottomView *bottomView;
 
 @property (nonatomic, strong) HZAssetsPickerManager *databoard;
+
+@property (nonatomic, assign) BOOL requesting;
 
 @end
 
@@ -154,6 +158,60 @@ static CGFloat prevOffsetY = 0;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     HZAsset *asset = [self.databoard.assetsList objectAtIndex:indexPath.row];
     if (asset.isCameraEntrance) {
+        
+        @weakify(self);
+        void(^enterCameraBlock)(NSArray <UIImage *>*) = ^(NSArray <UIImage *>*images){
+            @strongify(self);
+            NSDictionary *param;
+            if (images.count > 0) {
+                param = @{@"images":[images copy]};
+            }
+            HZCameraViewController *vc = [[HZCameraViewController alloc] initWithInputParams:param];
+            vc.modalPresentationStyle = UIModalPresentationFullScreen;
+            [self presentViewController:vc animated:YES completion:nil];
+            
+            vc.selectFinishBlock = ^(NSArray<UIImage *> *images) {
+                @strongify(self);
+                [images enumerateObjectsUsingBlock:^(UIImage * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    HZAsset *asset = [[HZAsset alloc] initWithImage:obj];
+                    asset.captureTime = obj.createTime;
+                    asset.captureTitle = obj.title;
+                    [self.databoard addAsset:asset];
+                }];
+                [self.bottomView reload];
+            };
+        };
+        
+        if (self.databoard.selectedAssets.count == 0) {
+            enterCameraBlock(nil);
+            return;
+        }
+        
+        NSMutableArray <UIImage *>*thumbImages = [[NSMutableArray alloc] init];
+        dispatch_queue_t queue = dispatch_queue_create("com.sbpdf.requestThumbnail", NULL);
+        dispatch_async(queue, ^{
+            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+            __block NSInteger callbackCount = 0;
+            for (int i = 0; i < self.databoard.selectedAssets.count; i++) {
+                CFTimeInterval startTime = CFAbsoluteTimeGetCurrent();
+                NSLog(@"debug--开始刷新第%d页page,startTime:%lf",i,startTime);
+                HZAsset *asset = self.databoard.selectedAssets[i];
+                [asset requestThumbnailWithCompleteBlock:^(UIImage * _Nonnull image) {
+                    @strongify(self);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        CFTimeInterval endTime = CFAbsoluteTimeGetCurrent();
+                        NSLog(@"debug--完成刷新第%d页page,endTime:%lf",i,(endTime - startTime));
+                        dispatch_semaphore_signal(semaphore);
+                        callbackCount++;
+                        [thumbImages addObject:image];
+                        if (callbackCount == self.databoard.selectedAssets.count) {
+                            enterCameraBlock([thumbImages copy]);
+                        }
+                    });
+                }];
+                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            }
+        });
         return;
     }
     
@@ -182,12 +240,22 @@ static CGFloat prevOffsetY = 0;
         };
         _navBar.clickRightBlock = ^{
             @strongify(self);
+            if (self.databoard.selectedAssets.count == 0) {
+                return;
+            }
+            if (self.requesting) {
+                return;
+            }
+            [SVProgressHUD show];
             [self.databoard requestHighQualityImagesWithCompleteBlock:^(NSArray<UIImage *> *images) {
+                [SVProgressHUD dismiss];
                 @strongify(self);
                 if (self.SelectImageBlock) {
                     self.SelectImageBlock(images);
                 }
+                self.requesting = NO;
             }];
+            self.requesting = YES;
         };
     }
     return _navBar;

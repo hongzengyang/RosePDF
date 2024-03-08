@@ -10,6 +10,6 @@
 
 @interface HZHomeCell : UITableViewCell
 
-- (void)configWithProject:(HZProjectModel *)project;
+- (void)configWithProject:(HZProjectModel *)project isSelectMode:(BOOL)isSelectMode isSelect:(BOOL)isSelect;
 
 @end

@@ -18,11 +18,17 @@
 #import "HZPDFDetailViewController.h"
 #import "HZHomeCell.h"
 
-@interface HZHomeViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HZHomeViewController ()<UITableViewDelegate,UITableViewDataSource,HZHomeNavigationBarDelegate>
+
+@property (nonatomic, strong) NSArray <HZProjectModel *>*projects;
 
 @property (nonatomic, strong) HZHomeNavigationBar *navBar;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray <HZProjectModel *>*projects;
+@property (nonatomic, strong) UIView *deleteView;
+@property (nonatomic, strong) UIButton *addBtn;
+
+@property (nonatomic, assign) BOOL multiSelectMode;
+@property (nonatomic, strong) NSMutableArray <HZProjectModel *>*selectProjects;
 @end
 
 @implementation HZHomeViewController
@@ -31,6 +37,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.selectProjects = [[NSMutableArray alloc] init];
     
     [self configView];
     [self requestData];
@@ -57,6 +65,8 @@
     [self.view addSubview:gradientView];
     [gradientView hz_addGradientWithColors:@[hz_getColorWithAlpha(@"F2F1F6", 0.0),hz_getColorWithAlpha(@"F2F1F6", 1.0)] startPoint:CGPointMake(0.5, 0) endPoint:CGPointMake(0.5, 1.0)];
     
+    [self.view addSubview:self.deleteView];
+    
     UIButton *addBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.view addSubview:addBtn];
     [addBtn setImage:[UIImage imageNamed:@"rose_home_add"] forState:(UIControlStateNormal)];
@@ -67,6 +77,7 @@
         make.width.height.mas_equalTo(86);
         make.centerX.equalTo(self.view);
     }];
+    self.addBtn = addBtn;
 }
 
 - (void)requestData {
@@ -106,8 +117,10 @@
         assetPicker.SelectImageBlock = ^(NSArray<UIImage *> * _Nonnull images) {
             @strongify(self);
             HZProjectModel *project = [HZProjectManager createProjectWithFolderId:Default_folderId isTmp:YES];
+            [SVProgressHUD show];
             [HZProjectManager addPagesWithImages:images inProject:project completeBlock:^(NSArray<HZPageModel *> *pages) {
                 @strongify(self);
+                [SVProgressHUD dismiss];
                 HZEditInput *input = [[HZEditInput alloc] init];
                 input.project = project;
                 
@@ -129,7 +142,7 @@
     HZHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HZHomeCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     HZProjectModel *project = [self.projects objectAtIndex:indexPath.row];
-    [cell configWithProject:project];
+    [cell configWithProject:project isSelectMode:self.multiSelectMode isSelect:[self.selectProjects containsObject:project]];
     
     return cell;
 }
@@ -140,6 +153,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     HZProjectModel *project = [self.projects objectAtIndex:indexPath.row];
+    if (self.multiSelectMode) {
+        if ([self.selectProjects containsObject:project]) {
+            [self.selectProjects removeObject:project];
+        }else {
+            [self.selectProjects addObject:project];
+        }
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationNone)];
+        return;
+    }
+    
     HZPDFDetailViewController *vc = [[HZPDFDetailViewController alloc] initWithProject:project];
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -161,6 +184,67 @@ static CGFloat prevOffsetY = 0;
     }
     prevOffsetY = scrollView.contentOffset.y;
     [self.view endEditing:YES];
+}
+
+#pragma mark - HZHomeNavigationBarDelegate
+- (void)clickMultiSelectButton {
+    [self enterSelectMode];
+}
+- (void)clickAppSettingsButton {
+    
+}
+
+- (void)clickSelectAllButton {
+    [self.selectProjects removeAllObjects];
+    [self.selectProjects addObjectsFromArray:self.projects];
+    [self.tableView reloadData];
+}
+- (void)clickCancelSelectAllButton {
+    [self.selectProjects removeAllObjects];
+    [self.tableView reloadData];
+}
+- (void)clickSelectFinishButton {
+    [self.selectProjects removeAllObjects];
+    [self exitSelectMode];
+    [self.navBar configSelectMode:NO];
+}
+
+#pragma mark -- 多选
+- (void)enterSelectMode {
+    self.multiSelectMode = YES;
+    [self.tableView reloadData];
+    
+    self.addBtn.hidden = YES;
+    [UIView animateWithDuration:0.25 animations:^{
+        self.deleteView.bottom = ScreenHeight - hz_safeBottom - 20;
+    }];
+}
+
+- (void)exitSelectMode {
+    self.multiSelectMode = NO;
+    [self.tableView reloadData];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.deleteView.top = ScreenHeight;
+    } completion:^(BOOL finished) {
+        self.addBtn.hidden = NO;
+    }];
+}
+
+- (void)clickDeleteButton {
+    __block NSInteger callback = 0;
+    NSInteger total = self.selectProjects.count;
+    [self.selectProjects enumerateObjectsUsingBlock:^(HZProjectModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [HZProjectManager deleteProject:obj postNotification:NO completeBlock:^(HZProjectModel *project) {
+            callback++;
+            if (callback == total) {
+                [self.selectProjects removeAllObjects];
+                [self requestData];
+                [self exitSelectMode];
+                [self.navBar configSelectMode:NO];
+            }
+        }];
+    }];
 }
 
 #pragma mark - 通知
@@ -213,8 +297,45 @@ static CGFloat prevOffsetY = 0;
 - (HZHomeNavigationBar *)navBar {
     if (!_navBar) {
         _navBar = [[HZHomeNavigationBar alloc] init];
+        _navBar.delegate = self;
     }
     return _navBar;
+}
+
+- (UIView *)deleteView {
+    if (!_deleteView) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake((ScreenWidth - 254)/2.0, ScreenHeight, 254, 56)];
+        view.backgroundColor = [UIColor whiteColor];
+        _deleteView = view;
+        _deleteView.layer.cornerRadius = 16;
+        _deleteView.layer.masksToBounds = YES;
+        
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.image = [UIImage imageNamed:@"rose_edit_delete"];
+        [_deleteView addSubview:imageView];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.height.mas_equalTo(24);
+            make.leading.equalTo(view).offset(84);
+            make.centerY.equalTo(view);
+        }];
+        
+        UILabel *label = [[UILabel alloc] init];
+        label.font = [UIFont systemFontOfSize:17 weight:(UIFontWeightBold)];
+        label.text = NSLocalizedString(@"str_delete", nil);
+        label.textColor = hz_getColor(@"FF3B30");
+        [view addSubview:label];
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(view);
+            make.leading.equalTo(imageView.mas_trailing).offset(4);
+        }];
+        
+        UIButton *btn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [view addSubview:btn];
+        btn.backgroundColor = [UIColor clearColor];
+        [btn addTarget:self action:@selector(clickDeleteButton) forControlEvents:(UIControlEventTouchUpInside)];
+        btn.frame = view.bounds;
+    }
+    return _deleteView;
 }
 
 @end

@@ -32,6 +32,7 @@
 		A12C2AC62B7229A200B77150 /* HZBaseDBHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A12C2AC52B7229A200B77150 /* HZBaseDBHelper.mm */; };
 		A12C2AC92B722A2E00B77150 /* HZWCDBHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A12C2AC82B722A2E00B77150 /* HZWCDBHelper.mm */; };
 		A12C2ACC2B722D7700B77150 /* HZProjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2ACB2B722D7700B77150 /* HZProjectManager.m */; };
+		A13B8DC42B9AE3F800AC131C /* HZHomeMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = A13B8DC32B9AE3F800AC131C /* HZHomeMenuView.m */; };
 		A1A01C032B8C2675008B6FE8 /* HZAlertTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A01C022B8C2675008B6FE8 /* HZAlertTextFieldView.m */; };
 		A1A01C072B8C6490008B6FE8 /* HZPDFDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A01C062B8C6490008B6FE8 /* HZPDFDetailViewController.m */; };
 		A1A01C0B2B8C675E008B6FE8 /* HZDetailBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A01C0A2B8C675E008B6FE8 /* HZDetailBottomView.m */; };
@@ -57,6 +58,11 @@
 		A1B4DD0D2B902644000E144D /* HZEditFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD0C2B902644000E144D /* HZEditFilterView.m */; };
 		A1B4DD102B905525000E144D /* HZSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD0F2B905525000E144D /* HZSlider.m */; };
 		A1B4DD132B930AAF000E144D /* HZEditFilterSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD122B930AAF000E144D /* HZEditFilterSliderView.m */; };
+		A1B4DD312B988606000E144D /* HZCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD302B988606000E144D /* HZCropView.m */; };
+		A1B4DD342B988619000E144D /* HZCropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD332B988619000E144D /* HZCropViewController.m */; };
+		A1B4DD392B98868D000E144D /* HZGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD382B98868D000E144D /* HZGeometry.m */; };
+		A1B4DD3D2B988A3B000E144D /* HZCropData.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD3C2B988A3B000E144D /* HZCropData.m */; };
+		A1B4DD402B988B65000E144D /* HZCropCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD3F2B988B65000E144D /* HZCropCell.m */; };
 		A1FE6E1C2B846848005AA056 /* HZPDFSettingPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FE6E1B2B846848005AA056 /* HZPDFSettingPasswordView.m */; };
 		A1FE6E1F2B849A5D005AA056 /* HZPDFSettingMarginView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FE6E1E2B849A5D005AA056 /* HZPDFSettingMarginView.m */; };
 		A1FE6E222B849FFB005AA056 /* HZPDFSettingQualityView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FE6E212B849FFB005AA056 /* HZPDFSettingQualityView.m */; };
@@ -141,6 +147,8 @@
 		A12C2AC82B722A2E00B77150 /* HZWCDBHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HZWCDBHelper.mm; sourceTree = "<group>"; };
 		A12C2ACA2B722D7700B77150 /* HZProjectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZProjectManager.h; sourceTree = "<group>"; };
 		A12C2ACB2B722D7700B77150 /* HZProjectManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZProjectManager.m; sourceTree = "<group>"; };
+		A13B8DC22B9AE3F800AC131C /* HZHomeMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZHomeMenuView.h; sourceTree = "<group>"; };
+		A13B8DC32B9AE3F800AC131C /* HZHomeMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZHomeMenuView.m; sourceTree = "<group>"; };
 		A1A01C012B8C2675008B6FE8 /* HZAlertTextFieldView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZAlertTextFieldView.h; sourceTree = "<group>"; };
 		A1A01C022B8C2675008B6FE8 /* HZAlertTextFieldView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZAlertTextFieldView.m; sourceTree = "<group>"; };
 		A1A01C052B8C6490008B6FE8 /* HZPDFDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFDetailViewController.h; sourceTree = "<group>"; };
@@ -188,6 +196,16 @@
 		A1B4DD0F2B905525000E144D /* HZSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZSlider.m; sourceTree = "<group>"; };
 		A1B4DD112B930AAF000E144D /* HZEditFilterSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditFilterSliderView.h; sourceTree = "<group>"; };
 		A1B4DD122B930AAF000E144D /* HZEditFilterSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditFilterSliderView.m; sourceTree = "<group>"; };
+		A1B4DD2F2B988606000E144D /* HZCropView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HZCropView.h; path = RosePDF/Edit/Crop/View/HZCropView.h; sourceTree = SOURCE_ROOT; };
+		A1B4DD302B988606000E144D /* HZCropView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HZCropView.m; path = RosePDF/Edit/Crop/View/HZCropView.m; sourceTree = SOURCE_ROOT; };
+		A1B4DD322B988619000E144D /* HZCropViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HZCropViewController.h; path = 3rd_paths/HZAssetsPicker/Camera/View/HZCropViewController.h; sourceTree = SOURCE_ROOT; };
+		A1B4DD332B988619000E144D /* HZCropViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HZCropViewController.m; path = 3rd_paths/HZAssetsPicker/Camera/View/HZCropViewController.m; sourceTree = SOURCE_ROOT; };
+		A1B4DD372B98868D000E144D /* HZGeometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HZGeometry.h; path = 3rd_paths/HZAssetsPicker/Camera/View/HZGeometry.h; sourceTree = SOURCE_ROOT; };
+		A1B4DD382B98868D000E144D /* HZGeometry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HZGeometry.m; path = 3rd_paths/HZAssetsPicker/Camera/View/HZGeometry.m; sourceTree = SOURCE_ROOT; };
+		A1B4DD3B2B988A3B000E144D /* HZCropData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HZCropData.h; path = 3rd_paths/HZAssetsPicker/Camera/View/HZCropData.h; sourceTree = SOURCE_ROOT; };
+		A1B4DD3C2B988A3B000E144D /* HZCropData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HZCropData.m; path = 3rd_paths/HZAssetsPicker/Camera/View/HZCropData.m; sourceTree = SOURCE_ROOT; };
+		A1B4DD3E2B988B65000E144D /* HZCropCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HZCropCell.h; path = 3rd_paths/HZAssetsPicker/Camera/View/HZCropCell.h; sourceTree = SOURCE_ROOT; };
+		A1B4DD3F2B988B65000E144D /* HZCropCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HZCropCell.m; path = 3rd_paths/HZAssetsPicker/Camera/View/HZCropCell.m; sourceTree = SOURCE_ROOT; };
 		A1FE6E1A2B846848005AA056 /* HZPDFSettingPasswordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingPasswordView.h; sourceTree = "<group>"; };
 		A1FE6E1B2B846848005AA056 /* HZPDFSettingPasswordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFSettingPasswordView.m; sourceTree = "<group>"; };
 		A1FE6E1D2B849A5D005AA056 /* HZPDFSettingMarginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingMarginView.h; sourceTree = "<group>"; };
@@ -356,6 +374,7 @@
 		A12C2AA42B71C5C500B77150 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				A1B4DD2E2B9885F1000E144D /* Crop */,
 				A1FE6E3B2B861272005AA056 /* Sort */,
 				A12C2AAB2B71DB0700B77150 /* View */,
 				A12C2AB52B71DCAB00B77150 /* HZEditDataboard.h */,
@@ -517,6 +536,47 @@
 			path = Share;
 			sourceTree = "<group>";
 		};
+		A1B4DD2E2B9885F1000E144D /* Crop */ = {
+			isa = PBXGroup;
+			children = (
+				A1B4DD3A2B988A2C000E144D /* Model */,
+				A1B4DD362B98865C000E144D /* Utils */,
+				A1B4DD352B98864D000E144D /* View */,
+				A1B4DD322B988619000E144D /* HZCropViewController.h */,
+				A1B4DD332B988619000E144D /* HZCropViewController.m */,
+			);
+			path = Crop;
+			sourceTree = "<group>";
+		};
+		A1B4DD352B98864D000E144D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A1B4DD2F2B988606000E144D /* HZCropView.h */,
+				A1B4DD302B988606000E144D /* HZCropView.m */,
+				A1B4DD3E2B988B65000E144D /* HZCropCell.h */,
+				A1B4DD3F2B988B65000E144D /* HZCropCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A1B4DD362B98865C000E144D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A1B4DD372B98868D000E144D /* HZGeometry.h */,
+				A1B4DD382B98868D000E144D /* HZGeometry.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		A1B4DD3A2B988A2C000E144D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A1B4DD3B2B988A3B000E144D /* HZCropData.h */,
+				A1B4DD3C2B988A3B000E144D /* HZCropData.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A1FE6E3B2B861272005AA056 /* Sort */ = {
 			isa = PBXGroup;
 			children = (
@@ -539,6 +599,8 @@
 				A1FE6E552B889CBE005AA056 /* HZHomeCell.m */,
 				A1B4DCFF2B8F014B000E144D /* HZHomeProjectItemView.h */,
 				A1B4DD002B8F014B000E144D /* HZHomeProjectItemView.m */,
+				A13B8DC22B9AE3F800AC131C /* HZHomeMenuView.h */,
+				A13B8DC32B9AE3F800AC131C /* HZHomeMenuView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -750,6 +812,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B4DD342B988619000E144D /* HZCropViewController.m in Sources */,
 				A1A8DBE22B5E9D630092F0F8 /* AppDelegate.m in Sources */,
 				A1B4DCEF2B8D70EE000E144D /* HZPDFPreviewCell.m in Sources */,
 				A12C2A7D2B70A55A00B77150 /* HZNavigationController.m in Sources */,
@@ -777,6 +840,7 @@
 				A1B4DCFE2B8ED552000E144D /* HZShareManager.m in Sources */,
 				A12C2AC92B722A2E00B77150 /* HZWCDBHelper.mm in Sources */,
 				A1ABB9252B8444F20007C9B6 /* HZPDFSettingCell.m in Sources */,
+				A13B8DC42B9AE3F800AC131C /* HZHomeMenuView.m in Sources */,
 				A1A01C0B2B8C675E008B6FE8 /* HZDetailBottomView.m in Sources */,
 				A1ABB9222B833DF30007C9B6 /* HZEditPreviewCell.m in Sources */,
 				A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */,
@@ -793,8 +857,11 @@
 				A1B4DD072B8F4663000E144D /* HZChangePasswordViewController.m in Sources */,
 				A1FE6E412B861560005AA056 /* HZSortCell.m in Sources */,
 				A1A01C0E2B8C76DD008B6FE8 /* HZDetailPasswordView.m in Sources */,
+				A1B4DD392B98868D000E144D /* HZGeometry.m in Sources */,
 				4444C8DA2B83A8A0005E96AF /* HZPDFSettingViewController.m in Sources */,
 				A1B4DD102B905525000E144D /* HZSlider.m in Sources */,
+				A1B4DD3D2B988A3B000E144D /* HZCropData.m in Sources */,
+				A1B4DD402B988B65000E144D /* HZCropCell.m in Sources */,
 				A12C2AAE2B71DB2E00B77150 /* HZEditTopCollectionView.m in Sources */,
 				A12C2AAA2B71CA8700B77150 /* HZBaseNavigationBar.m in Sources */,
 				A12C2A872B70DFCD00B77150 /* HZHomeTableHeaderView.m in Sources */,
@@ -802,6 +869,7 @@
 				A1FE6E3E2B8612A5005AA056 /* HZSortViewController.m in Sources */,
 				A1FE6E222B849FFB005AA056 /* HZPDFSettingQualityView.m in Sources */,
 				A1B4DD0A2B902488000E144D /* HZFilterManager.m in Sources */,
+				A1B4DD312B988606000E144D /* HZCropView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

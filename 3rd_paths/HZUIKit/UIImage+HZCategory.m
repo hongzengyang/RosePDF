@@ -459,6 +459,8 @@ typedef struct s_bitmap_header
     CGContextDrawImage(context, CGRectMake(0, 0, rect.size.width, rect.size.height), self.CGImage);
 
     UIImage *newPic = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
 
     return newPic;
 }

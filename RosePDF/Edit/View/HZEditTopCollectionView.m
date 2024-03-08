@@ -80,9 +80,10 @@
                 [[UIView hz_viewController].navigationController popViewControllerAnimated:YES];
                 return;
             }
-            
+            [SVProgressHUD show];
             [HZProjectManager addPagesWithImages:images inProject:self.databoard.project completeBlock:^(NSArray<HZPageModel *> *pages) {
                 @strongify(self);
+                [SVProgressHUD dismiss];
                 [[NSNotificationCenter defaultCenter] postNotificationName:pref_key_add_assets_finished object:nil];
                 [[UIView hz_viewController].navigationController popViewControllerAnimated:YES];
             }];

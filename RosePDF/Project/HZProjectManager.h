@@ -30,12 +30,14 @@ typedef void(^CreatePageBlock)(HZPageModel *page);
 + (HZProjectModel *)createProjectWithFolderId:(NSString *)folderId isTmp:(BOOL)isTmp;
 + (void)duplicateTmpWithProject:(HZProjectModel *)project completeBlock:(CreateProjectBlock)completeBlock;
 + (void)addPagesWithImages:(NSArray <UIImage *>*)images inProject:(HZProjectModel *)project completeBlock:(CreatePagesBlock)completeBlock;
-+ (void)deleteProject:(HZProjectModel *)project completeBlock:(CreateProjectBlock)completeBlock;
++ (void)deleteProject:(HZProjectModel *)project postNotification:(BOOL)postNotification completeBlock:(CreateProjectBlock)completeBlock;
 
 + (BOOL)renameProject:(HZProjectModel *)project name:(NSString *)name;
 
 + (void)migratePagesFromProject:(HZProjectModel *)fromProject toProject:(HZProjectModel *)toProject keepOrigin:(BOOL)keepOrigin completeBlock:(CreateProjectBlock)completeBlock;
 
 + (void)cleanTmpProjects;
+
++ (void)compressImage:(UIImage *)image toPath:(NSString *)toPath;
 
 @end

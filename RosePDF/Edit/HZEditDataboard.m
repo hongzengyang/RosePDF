@@ -10,6 +10,10 @@
 @implementation HZEditDataboard
 
 - (HZPageModel *)currentPage {
+    if (self.currentIndex >= self.project.pageModels.count || self.currentIndex < 0) {
+        return nil;
+    }
+    
     return [self.project.pageModels objectAtIndex:self.currentIndex];
 }
 

@@ -24,15 +24,6 @@
 
 @implementation HZAssetsPickerManager
 
-//+ (HZAssetsPickerManager *)manager {
-//    static dispatch_once_t pred;
-//    static HZAssetsPickerManager *sharedInstance = nil;
-//    dispatch_once(&pred, ^{
-//        sharedInstance = [[HZAssetsPickerManager alloc] init];
-//    });
-//    return sharedInstance;
-//}
-
 - (instancetype)init {
     if (self = [super init]) {
         self.selectedAssets = [[NSMutableArray alloc] init];
@@ -103,6 +94,21 @@
             [muArray insertObject:camera atIndex:0];
         }
         
+        if (assets.count == 0) {
+            NSArray *array = [muArray copy];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.lock lock];
+                self.assetsList = array;
+                self.currentAlbum.assets = array;
+                [self.lock unlock];
+                
+                if (completeBlock) {
+                    completeBlock(YES);
+                }
+            });
+            return;
+        }
+        
         [assets enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(PHAsset * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             HZAsset *hzAsset = [[HZAsset alloc] initWithAsset:obj];
             [muArray addObject:hzAsset];
@@ -116,7 +122,7 @@
                     [self.lock unlock];
                     
                     
-                    NSLog(@"debug--200 Duration = %@",@(CFAbsoluteTimeGetCurrent() - startTime));
+//                    NSLog(@"debug--200 Duration = %@",@(CFAbsoluteTimeGetCurrent() - startTime));
                     
                     if (completeBlock) {
                         completeBlock(YES);
@@ -132,7 +138,7 @@
                     self.currentAlbum.assets = array;
                     [self.lock unlock];
                     
-                    NSLog(@"debug--total Duration = %@",@(CFAbsoluteTimeGetCurrent() - startTime));
+//                    NSLog(@"debug--total Duration = %@",@(CFAbsoluteTimeGetCurrent() - startTime));
                     
                     if (completeBlock) {
                         completeBlock(YES);
@@ -207,21 +213,21 @@
         NSMutableArray *muArray = [[NSMutableArray alloc] init];
         for (int i = 0; i < self.selectedAssets.count; i++) {
             CFTimeInterval startTime = CFAbsoluteTimeGetCurrent();
-            NSLog(@"debug--开始第%d条任务,startTime:%lf",i,startTime);
+//            NSLog(@"debug--开始第%d条任务,startTime:%lf",i,startTime);
             HZAsset *asset = self.selectedAssets[i];
             [asset requestHighQualityWithCompleteBlock:^(UIImage * _Nonnull image) {
                 dispatch_semaphore_signal(semaphore);
                 CFTimeInterval endTime = CFAbsoluteTimeGetCurrent();
-                if (image) {
-                    NSLog(@"debug--已完成第%d条任务,成功,endTime:%lf",i,(endTime - startTime));
-                }else {
-                    NSLog(@"debug--已完成第%d条任务,失败,endTime:%lf",i,(endTime - startTime));
-                }
+//                if (image) {
+//                    NSLog(@"debug--已完成第%d条任务,成功,endTime:%lf",i,(endTime - startTime));
+//                }else {
+//                    NSLog(@"debug--已完成第%d条任务,失败,endTime:%lf",i,(endTime - startTime));
+//                }
                 callbackCount++;
                 if (image) {
                     [muArray addObject:image];
-                    image.createTime = [asset.asset.creationDate timeIntervalSince1970];
-                    image.title = [asset.asset valueForKey:@"filename"];
+                    image.createTime = [asset createTime];
+                    image.title = [asset title];
                 }
                 if (callbackCount == self.selectedAssets.count) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -271,6 +277,10 @@
             _currentAlbum = lastSelectCollection;
         }else if (userLibraryCollection) {
             _currentAlbum = userLibraryCollection;
+        }else {
+            if (muArray.count > 0) {
+                _currentAlbum = [muArray firstObject];
+            }
         }
     }
     return _currentAlbum;

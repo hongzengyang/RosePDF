@@ -8,13 +8,24 @@
 #import <UIKit/UIKit.h>
 #import "HZCommonHeader.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@protocol HZHomeNavigationBarDelegate <NSObject>
+
+- (void)clickMultiSelectButton;
+- (void)clickAppSettingsButton;
+
+- (void)clickSelectAllButton;
+- (void)clickCancelSelectAllButton;
+- (void)clickSelectFinishButton;
+
+@end
+
 
 @interface HZHomeNavigationBar : UIView
+
+@property (nonatomic, weak) id <HZHomeNavigationBarDelegate> delegate;
+
 
 - (void)configSelectMode:(BOOL)isSelectMode;
 - (void)configSwipeUpMode:(BOOL)isSwipeUpMode;
 
 @end
-
-NS_ASSUME_NONNULL_END

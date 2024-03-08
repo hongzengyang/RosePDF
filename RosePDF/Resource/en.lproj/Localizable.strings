@@ -19,11 +19,18 @@
 "str_delete" = "Delete";
 "str_cancel" = "Cancel";
 "str_import" = "Import";
+"str_finish" = "Finish";
+"str_select" = "Select";
+"str_selectfiles" = "Select Files";
+"str_selectall" = "Select All";
+"str_deselectall" = "Deselect All";
 "str_photo_permission_deny_title" = "Photo Permission Required";
 "str_photo_permission_deny_tip" = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";
 "str_go_setting" = "Go to Settings";
 "str_photo_permission_limit_title" = "Allow Access to All Photos";
 "str_photo_permission_limit_tip" = "For better experience, please Allow Access to All Photos.";
+"str_camera_permission_deny_title" = "Camera Permission Required";
+"str_camera_permission_deny_tip" = "To take photos, we need to access your camera.";
 "str_selected_photos" = "Selected %@";
 "str_settings" = "Settings";
 "str_convert" = "Convert";
@@ -53,5 +60,8 @@
 "str_enhance" = "Enhance";
 "str_bw" = "B&W";
 "str_gray" = "Gray";
+"str_brightness" = "Brightness";
+"str_contrast" = "Contrast";
+"str_saturation" = "Saturation";
 "str_start_converting" = "Converting to PDF...";
 "str_complete_converting" = "Conversion completed.";

@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, strong) UIButton *moreBtn;
 @property (nonatomic, strong) UIButton *shareBtn;
+@property (nonatomic, strong) UIButton *selectBtn;
 @end
 
 @implementation HZHomeCell
@@ -88,6 +89,12 @@
     self.shareBtn.backgroundColor = hz_getColor(@"F4F4F4");
     self.shareBtn.layer.cornerRadius = 6;
     self.shareBtn.layer.masksToBounds = YES;
+    
+    self.selectBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [self.containerView addSubview:self.selectBtn];
+    self.selectBtn.userInteractionEnabled = NO;
+    [self.selectBtn setImage:[UIImage imageNamed:@"rose_homeselect_n"] forState:(UIControlStateNormal)];
+    [self.selectBtn setImage:[UIImage imageNamed:@"rose_homeselect_s"] forState:(UIControlStateSelected)];
 }
 
 - (void)layoutSubviews {
@@ -128,6 +135,13 @@
         make.height.mas_equalTo(24);
     }];
     
+    [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.containerView);
+        make.trailing.equalTo(self.containerView).offset(-16);
+        make.width.mas_equalTo(24);
+        make.height.mas_equalTo(24);
+    }];
+    
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.thumbImageView);
         make.leading.equalTo(self.thumbImageView.mas_trailing).offset(8);
@@ -148,7 +162,7 @@
     }];
 }
 
-- (void)configWithProject:(HZProjectModel *)project {
+- (void)configWithProject:(HZProjectModel *)project isSelectMode:(BOOL)isSelectMode isSelect:(BOOL)isSelect {
     self.project = project;
     
     if (project.password.length > 0) {
@@ -170,6 +184,17 @@
     NSData *data = [NSData dataWithContentsOfFile:[project pdfPath]];
     self.countLab.text = [NSString stringWithFormat:@"%@ %@ - %@",@(self.project.pageModels.count),NSLocalizedString(@"str_pages", nil),[[NSFileManager defaultManager] hz_toMorestTwoFloatMBSize:data.length]];
     self.timeLab.text = [NSDate hz_dateTimeStringWithTime:project.createTime];
+    
+    if (isSelectMode) {
+        self.selectBtn.hidden = NO;
+        self.moreBtn.hidden = YES;
+        self.shareBtn.hidden = YES;
+        self.selectBtn.selected = isSelect;
+    }else {
+        self.selectBtn.hidden = YES;
+        self.moreBtn.hidden = NO;
+        self.shareBtn.hidden = NO;
+    }
 }
 
 - (void)clickMore {

@@ -17,7 +17,8 @@
 #import "HZPDFSettingViewController.h"
 #import "HZSortViewController.h"
 #import "HZEditFilterView.h"
-#import <GPUImage/GPUImage.h>
+#import <YYModel/NSObject+YYModel.h>
+#import "HZCropViewController.h"
 
 @interface HZEditViewController ()<HZEditBottomViewDelegate>
 
@@ -34,10 +35,6 @@
 @end
 
 @implementation HZEditViewController
-
-- (void)dealloc {
-    [[GPUImageContext sharedImageProcessingContext].framebufferCache purgeAllUnassignedFramebuffers];
-}
 
 - (instancetype)initWithInput:(HZEditInput *)input {
     if (self = [super init]) {
@@ -85,24 +82,25 @@
     }];
 }
 
+#pragma mark - Filter
 - (void)enterFilterMode {
     if (!self.filterView) {
-        self.filterView = [[HZEditFilterView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 154 + hz_safeBottom) databoard:self.databoard];
+        self.filterView = [[HZEditFilterView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 192 + hz_safeBottom) databoard:self.databoard];
         [self.view addSubview:self.filterView];
         @weakify(self);
         self.filterView.slideBlock = ^(BOOL isFilter, HZFilterType filterType, HZAdjustType adjustType) {
             @strongify(self);
-            [self.previewView reloadView];
+            [self.previewView renderCurrentPreviewImage];
         };
         
         self.filterView.clickFilterItemBlock = ^(HZFilterType filterType) {
             @strongify(self);
-            [self.previewView reloadView];
+            [self.previewView renderCurrentPreviewImage];
         };
         
-        self.filterView.completeBlock = ^{
+        self.filterView.completeBlock = ^(BOOL applyAll) {
             @strongify(self);
-            [self exitFilterMode];
+            [self handleFilterComplete:applyAll];
         };
     }
     
@@ -113,6 +111,8 @@
         self.filterView.bottom = self.view.bottom;
     }];
     self.databoard.isFilterMode = YES;
+    [self.navBar setBackHidden:YES];
+    [self.navBar setRightHidden:YES];
 }
 
 - (void)exitFilterMode {
@@ -120,12 +120,51 @@
         self.filterView.top = self.view.height;
     }];
     self.databoard.isFilterMode = NO;
+    [self.navBar setBackHidden:NO];
+    [self.navBar setRightHidden:NO];
+}
+
+- (void)handleFilterComplete:(BOOL)applyToAll {
+    HZPageModel *curPage = [self.databoard currentPage];
+    
+    NSMutableArray <HZPageModel *>*pages = [[NSMutableArray alloc] init];
+    if (applyToAll) {
+        [pages addObjectsFromArray:self.databoard.project.pageModels];
+        [pages enumerateObjectsUsingBlock:^(HZPageModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.filter = [HZFilterModel yy_modelWithJSON:[curPage.filter yy_modelToJSONData]];
+            obj.adjust = [HZAdjustModel yy_modelWithJSON:[curPage.adjust yy_modelToJSONData]];
+        }];
+    }else {
+        if (curPage) {
+            [pages addObject:curPage];
+        }
+    }
+    
+    if (pages.count == 0) {
+        [self exitFilterMode];
+        return;
+    }
+
+    [SVProgressHUD show];
+    @weakify(self);
+    [HZPageModel writeResultFileWithPages:pages completeBlock:^{
+        @strongify(self);
+        [SVProgressHUD dismiss];
+        [self exitFilterMode];
+        [self.previewView reloadAll];
+    }];
+}
+
+#pragma mark - Crop
+- (void)handleCropFinish {
+    [self.topView reloadView];
+    [self.previewView reloadAll];
 }
 
 #pragma mark - 通知
 - (void)addAssetsFinished {
     [self.topView reloadView];
-    [self.previewView reloadView];
+    [self.previewView reloadAll];
     [self.bottomView checkDeleteEnable];
 }
 
@@ -134,22 +173,74 @@
     
     self.databoard.project.pageModels = pages;
     [self.topView reloadView];
-    [self.previewView reloadView];
+    [self.previewView reloadAll];
 }
 
 #pragma mark - HZEditBottomViewDelegate
 - (void)editBottomViewClickItem:(HZEditBottomItem)item {
-//    @weakify(self);
+    @weakify(self);
+    HZPageModel *currenrPage = [self.databoard currentPage];
     if (item == HZEditBottomItemFilter) {
         if (!self.databoard.isFilterMode) {
             [self enterFilterMode];
         }
     }else if (item == HZEditBottomItemLeft) {
-        
+        HZPageOrientation orientation = currenrPage.orientation;
+        switch (orientation) {
+            case HZPageOrientation_up:
+                orientation = HZPageOrientation_left;
+                break;
+            case HZPageOrientation_left:
+                orientation = HZPageOrientation_down;
+                break;
+            case HZPageOrientation_down:
+                orientation = HZPageOrientation_right;
+                break;
+            case HZPageOrientation_right:
+                orientation = HZPageOrientation_up;
+                break;
+            default:
+                break;
+        }
+        currenrPage.orientation = orientation;
+        [SVProgressHUD show];
+        [currenrPage writeResultFileWithCompleteBlock:^(UIImage *result) {
+            @strongify(self);
+            [SVProgressHUD dismiss];
+            [self.previewView reloadAll];
+        }];
     }else if (item == HZEditBottomItemRight) {
-        
+        HZPageOrientation orientation = currenrPage.orientation;
+        switch (orientation) {
+            case HZPageOrientation_up:
+                orientation = HZPageOrientation_right;
+                break;
+            case HZPageOrientation_right:
+                orientation = HZPageOrientation_down;
+                break;
+            case HZPageOrientation_down:
+                orientation = HZPageOrientation_left;
+                break;
+            case HZPageOrientation_left:
+                orientation = HZPageOrientation_up;
+                break;
+            default:
+                break;
+        }
+        currenrPage.orientation = orientation;
+        [SVProgressHUD show];
+        [currenrPage writeResultFileWithCompleteBlock:^(UIImage *result) {
+            @strongify(self);
+            [SVProgressHUD dismiss];
+            [self.previewView reloadAll];
+        }];
     }else if (item == HZEditBottomItemCrop) {
-        
+        HZCropViewController *vc = [[HZCropViewController alloc] initWithPageModel:currenrPage];
+        vc.cropFinishBlock = ^{
+            @strongify(self);
+            [self handleCropFinish];
+        };
+        [self.navigationController pushViewController:vc animated:YES];
     }else if (item == HZEditBottomItemReorder) {
         HZSortViewController *vc = [[HZSortViewController alloc] initWithPages:[self.databoard.project.pageModels copy]];
         [self.navigationController pushViewController:vc animated:YES];
@@ -158,10 +249,10 @@
         [muArray removeObjectAtIndex:self.databoard.currentIndex];
         self.databoard.project.pageModels = [muArray copy];
         if (self.databoard.currentIndex >= self.databoard.project.pageModels.count) {
-            self.databoard.currentIndex = self.databoard.project.pageModels.count -1;
+            self.databoard.currentIndex = self.databoard.project.pageModels.count - 1;
         }
         [self.topView reloadView];
-        [self.previewView reloadView];
+        [self.previewView reloadAll];
         [self.bottomView checkDeleteEnable];
     }
 }
@@ -177,7 +268,7 @@
         @weakify(self);
         _navBar.clickBackBlock = ^{
             @strongify(self);
-            [HZProjectManager deleteProject:self.databoard.project completeBlock:^(HZProjectModel *project) {
+            [HZProjectManager deleteProject:self.databoard.project postNotification:YES completeBlock:^(HZProjectModel *project) {
                 @strongify(self);
                 [self.navigationController popViewControllerAnimated:YES];
             }];

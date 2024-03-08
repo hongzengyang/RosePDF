@@ -57,6 +57,14 @@
     [self updateConstraintsIfNeeded];
 }
 
+- (void)setBackHidden:(BOOL)hidden {
+    self.backBtn.hidden = hidden;
+}
+
+- (void)setRightHidden:(BOOL)hidden {
+    self.rightBtn.hidden = hidden;
+}
+
 - (void)configView {
     self.backgroundColor = [UIColor whiteColor];
     

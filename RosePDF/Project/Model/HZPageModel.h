@@ -33,13 +33,18 @@
 
 @interface HZPageModel : HZBaseModel
 
+//归档
 @property (nonatomic, copy) NSString *identifier;
 @property (nonatomic, copy) NSString *projectId;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *border;
 @property (nonatomic, assign) long long createTime;
 @property (nonatomic, assign) HZPageOrientation orientation;
 @property (nonatomic, strong) HZFilterModel *filter;
 @property (nonatomic, strong) HZAdjustModel *adjust;
+
+//不归档
+@property (nonatomic, strong) NSArray <NSValue *>*borderArray;  //左上-左下-右下-右上
 
 + (HZPageModel *)readWithPageId:(NSString *)pageId projectId:(NSString *)projectId;
 
@@ -47,9 +52,13 @@
 
 + (NSString *)folderPathWithPageId:(NSString *)pageId projectId:(NSString *)projectId;
 - (NSString *)originPath;
+- (NSString *)previewPath;
 - (NSString *)resultPath;
 
-- (void)refreshWithCompleteBlock:(void(^)(UIImage *result))completeBlock;
+
+- (void)writeResultFileWithCompleteBlock:(void(^)(UIImage *result))completeBlock;
+- (void)renderResultImageWithCompleteBlock:(void(^)(UIImage *result))completeBlock;
++ (void)writeResultFileWithPages:(NSArray <HZPageModel *>*)pages completeBlock:(void(^)(void))completeBlock;
 
 @end
 

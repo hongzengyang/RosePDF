@@ -490,7 +490,7 @@
     @weakify(self);
     [sheet addDestructiveButtonWithTitle:NSLocalizedString(@"str_delete", nil) block:^{
         @strongify(self);
-        [HZProjectManager deleteProject:self.project completeBlock:^(HZProjectModel *project) {
+        [HZProjectManager deleteProject:self.project postNotification:YES completeBlock:^(HZProjectModel *project) {
             @strongify(self);
             [self dismiss];
         }];

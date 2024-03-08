@@ -11,7 +11,6 @@
 #import "HZPageModel.h"
 #import <HZUIKit/HZVerticalButton.h>
 #import "HZEditFilterSliderView.h"
-#import <GPUImage/GPUImage.h>
 
 @interface HZEditFilterView()
 
@@ -21,6 +20,7 @@
 @property (nonatomic, strong) UIButton *adjustBtn;
 
 @property (nonatomic, strong) UIButton *completeBtn;
+@property (nonatomic, strong) UIButton *applyAllBtn;
 
 @property (nonatomic, strong) HZEditFilterSliderView *slider;
 
@@ -45,19 +45,38 @@
         self.adjustButtonrray = [[NSMutableArray alloc] init];
         
         [self configView];
+        [self addDataboard];
     }
     return self;
 }
 
 - (void)configView {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor clearColor];
+    
+    self.applyAllBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    self.applyAllBtn.backgroundColor = hz_getColorWithAlpha(@"000000", 0.4);
+    [self.applyAllBtn setImage:[UIImage imageNamed:@"rose_applyALL"] forState:(UIControlStateNormal)];
+    self.applyAllBtn.layer.cornerRadius = 14;
+    self.applyAllBtn.layer.masksToBounds = YES;
+    [self.applyAllBtn addTarget:self action:@selector(clickApplyAllButton) forControlEvents:(UIControlEventTouchUpInside)];
+    [self addSubview:self.applyAllBtn];
+    [self.applyAllBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(self).offset(-16);
+        make.top.equalTo(self);
+        make.width.mas_equalTo(95);
+        make.height.mas_equalTo(28);
+    }];
+    
+    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 38, self.width, self.height - 38)];
+    containerView.backgroundColor = [UIColor whiteColor];
+    [self addSubview:containerView];
     
     self.filterBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.filterBtn setTitle:NSLocalizedString(@"str_filter", nil) forState:(UIControlStateNormal)];
     [self.filterBtn addTarget:self action:@selector(clickFilterButton) forControlEvents:(UIControlEventTouchUpInside)];
-    [self addSubview:self.filterBtn];
+    [containerView addSubview:self.filterBtn];
     [self.filterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.top.equalTo(self).offset(16);
+        make.leading.top.equalTo(containerView).offset(16);
         make.width.mas_equalTo(38);
         make.height.mas_equalTo(18);
     }];
@@ -65,7 +84,7 @@
     self.adjustBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.adjustBtn setTitle:NSLocalizedString(@"str_adjust", nil) forState:(UIControlStateNormal)];
     [self.adjustBtn addTarget:self action:@selector(clickAdjustButton) forControlEvents:(UIControlEventTouchUpInside)];
-    [self addSubview:self.adjustBtn];
+    [containerView addSubview:self.adjustBtn];
     [self.adjustBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.filterBtn.mas_trailing).offset(14);
         make.centerY.equalTo(self.filterBtn);
@@ -78,9 +97,9 @@
     self.completeBtn.layer.cornerRadius = 10;
     self.completeBtn.layer.masksToBounds = YES;
     [self.completeBtn addTarget:self action:@selector(clickCompleteButton) forControlEvents:(UIControlEventTouchUpInside)];
-    [self addSubview:self.completeBtn];
+    [containerView addSubview:self.completeBtn];
     [self.completeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self).offset(-16);
+        make.trailing.equalTo(containerView).offset(-16);
         make.centerY.equalTo(self.filterBtn);
         make.width.mas_equalTo(38);
         make.height.mas_equalTo(28);
@@ -90,19 +109,19 @@
     [self.completeBtn hz_addGradientWithColors:@[hz_main_color,hz_getColor(@"83BAF2")] startPoint:CGPointMake(0, 0.5) endPoint:CGPointMake(1, 0.5)];
     
     @weakify(self);
-    self.slider = [[HZEditFilterSliderView alloc] initWithFrame:CGRectMake((self.width - 220)/2.0, 58, 220, 12)];
+    self.slider = [[HZEditFilterSliderView alloc] initWithFrame:CGRectMake((containerView.width - 220)/2.0, 58, 220, 12)];
     self.slider.slideEndBlock = ^{
         @strongify(self);
         [self handleSlideChangedAction];
     };
-    [self addSubview:self.slider];
+    [containerView addSubview:self.slider];
     
     self.filterView = [[UIView alloc] init];
     self.filterView.backgroundColor = [UIColor whiteColor];
-    [self addSubview:self.filterView];
+    [containerView addSubview:self.filterView];
     [self.filterView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.equalTo(self);
-        make.top.equalTo(self).offset(86);
+        make.leading.trailing.equalTo(containerView);
+        make.top.equalTo(containerView).offset(86);
         make.height.mas_equalTo(58);
     }];
     {
@@ -126,7 +145,7 @@
     
     self.adjustView = [[UIView alloc] init];
     self.adjustView.backgroundColor = [UIColor whiteColor];
-    [self addSubview:self.adjustView];
+    [containerView addSubview:self.adjustView];
     [self.adjustView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.filterView);
     }];
@@ -156,7 +175,7 @@
         [self.adjustView layoutIfNeeded];
     }
     
-    [self hz_addCorner:(UIRectCornerTopLeft | UIRectCornerTopRight) radious:10];
+    [containerView hz_addCorner:(UIRectCornerTopLeft | UIRectCornerTopRight) radious:10];
     
     [self clickFilterButton];
 }
@@ -198,10 +217,24 @@
     return view;
 }
 
+- (void)addDataboard {
+    @weakify(self);
+    [[RACObserve(self.databoard, currentIndex) distinctUntilChanged] subscribeNext:^(id  _Nullable x) {
+        @strongify(self);
+        [self update];
+    }];
+}
+
 - (void)update {
     [self updateCurrentFilter];
     [self updateCurrentAdjust];
     [self updateSlider];
+    
+    if (self.databoard.project.pageModels.count <= 1) {
+        self.applyAllBtn.hidden = YES;
+    }else {
+        self.applyAllBtn.hidden = NO;
+    }
 }
 
 - (void)updateCurrentFilter {
@@ -265,7 +298,7 @@
     self.filterBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:(UIFontWeightMedium)];
     self.adjustBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:(UIFontWeightRegular)];
     
-    [self bringSubviewToFront:self.filterView];
+    [self.filterView.superview bringSubviewToFront:self.filterView];
     self.isFocusAdjust = NO;
     [self update];
 }
@@ -276,17 +309,21 @@
     self.filterBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:(UIFontWeightRegular)];
     self.adjustBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:(UIFontWeightMedium)];
     
-    [self bringSubviewToFront:self.adjustView];
+    [self.adjustView.superview bringSubviewToFront:self.adjustView];
     self.isFocusAdjust = YES;
     [self update];
 }
 
 - (void)clickCompleteButton {
     if (self.completeBlock) {
-        self.completeBlock();
+        self.completeBlock(NO);
     }
-    
-    [[GPUImageContext sharedImageProcessingContext].framebufferCache purgeAllUnassignedFramebuffers];
+}
+
+- (void)clickApplyAllButton {
+    if (self.completeBlock) {
+        self.completeBlock(YES);
+    }
 }
 
 - (void)handleSlideChangedAction {

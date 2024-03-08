@@ -129,7 +129,7 @@
             q = 0.75;
             break;
         case HZPDFQuality_50:
-            q = 0.5;
+            q = 0.6;
             break;
         case HZPDFQuality_25:
             q = 0.4;

@@ -92,7 +92,6 @@
     if (item == HZDetailBottomItemShare) {
         [HZShareManager shareWithProject:self.project completionWithItemsHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
             @strongify(self);
-            NSLog(@"debug--");
         }];
     }else if (item == HZDetailBottomItemRename) {
         HZAlertTextFieldInput *input = [[HZAlertTextFieldInput alloc] init];
@@ -132,7 +131,7 @@
         HZActionSheet *sheet = [[HZActionSheet alloc] initWithTitle:nil];
         [sheet addDestructiveButtonWithTitle:NSLocalizedString(@"str_delete", nil) block:^{
             @strongify(self);
-            [HZProjectManager deleteProject:self.project completeBlock:^(HZProjectModel *project) {
+            [HZProjectManager deleteProject:self.project postNotification:YES completeBlock:^(HZProjectModel *project) {
                 @strongify(self);
                 [self.navigationController popViewControllerAnimated:YES];
             }];

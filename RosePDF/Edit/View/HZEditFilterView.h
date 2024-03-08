@@ -10,7 +10,7 @@
 
 @interface HZEditFilterView : UIView
 
-@property (nonatomic, copy) void(^completeBlock)(void);
+@property (nonatomic, copy) void(^completeBlock)(BOOL applyAll);
 @property (nonatomic, copy) void(^clickFilterItemBlock)(HZFilterType filterType);
 @property (nonatomic, copy) void(^slideBlock)(BOOL isFilter, HZFilterType filterType, HZAdjustType adjustType);
 

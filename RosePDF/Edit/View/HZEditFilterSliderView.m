@@ -117,7 +117,7 @@
     
     self.value = (touchX / self.userTouchView.width) * (self.max - self.min) + self.min;
     [self updateViewFrame];
-    
+    NSLog(@"debug--current value:%@",@(self.value));
     if (self.slideEndBlock) {
         self.slideEndBlock();
     }

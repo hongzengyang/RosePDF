@@ -36,8 +36,16 @@
     }];
 }
 
-- (void)reloadView {
+- (void)reloadAll {
     [self.collectionView reloadData];
+}
+
+- (void)reloadCurrent {
+    [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.databoard.currentIndex inSection:0]]];
+}
+
+- (void)renderCurrentPreviewImage {
+    [[self currentCell] renderPreviewImage];
 }
 
 #pragma mark - UICollectionViewDataSource

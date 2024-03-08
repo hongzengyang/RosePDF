@@ -166,6 +166,9 @@
     [convertBtn setNeedsLayout];
     [convertBtn layoutIfNeeded];
     [convertBtn hz_addGradientWithColors:@[hz_main_color,hz_getColor(@"83BAF2")] startPoint:CGPointMake(0, 0.5) endPoint:CGPointMake(1, 0.5)];
+    
+    [self.view setNeedsLayout];
+    [self.view layoutIfNeeded];
 }
 
 - (void)layoutAllView {

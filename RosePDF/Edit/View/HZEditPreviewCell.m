@@ -81,41 +81,46 @@
     
     @weakify(self);
     if (filterMode) {
-        [HZFilterManager makeFilterImageWithImage:[UIImage imageWithContentsOfFile:[pageModel resultPath]] page:pageModel completeBlock:^(UIImage *image, HZPageModel *pageModel) {
+        [pageModel renderResultImageWithCompleteBlock:^(UIImage *image) {
             @strongify(self);
             if ([pageModel.identifier isEqualToString:self.pageModel.identifier]) {
-                CGImageRef ref = image.CGImage;
-                CGRect rect = AVMakeRectWithAspectRatioInsideRect(CGSizeMake(image.size.width, image.size.height), self.scrollView.bounds);
-                if (!isnan(rect.origin.x) && !isnan(rect.origin.y) && !isnan(rect.size.width) && !isnan(rect.size.height)) {
-                    self.pageImageView.frame = rect;
-                }else{
-                    self.pageImageView.frame = self.contentView.bounds;
-                }
-
-                self.pageImageView.hidden = image ? NO: YES;
-                self.pageImageView.image = image;
-                NSLog(@"debug--setimage");
-            }else {
-                NSLog(@"debug--error");
+                [self displayPreviewWithImage:image];
             }
         }];
     }else {
         [self getDisplayImageWithCompleteBlock:^(UIImage *image) {
             @strongify(self);
-            CGImageRef ref = image.CGImage;
-            CGRect rect = AVMakeRectWithAspectRatioInsideRect(CGSizeMake(image.size.width, image.size.height), self.scrollView.bounds);
-            if (!isnan(rect.origin.x) && !isnan(rect.origin.y) && !isnan(rect.size.width) && !isnan(rect.size.height)) {
-                self.pageImageView.frame = rect;
-            }else{
-                self.pageImageView.frame = self.contentView.bounds;
-            }
-
-            self.pageImageView.hidden = image ? NO: YES;
-            self.pageImageView.image = image;
-            NSLog(@"debug--setimage");
+            [self displayPreviewWithImage:image];
         }];
     }
     
+}
+
+- (void)renderPreviewImage {
+    @weakify(self);
+    [self.pageModel renderResultImageWithCompleteBlock:^(UIImage *image) {
+        @strongify(self);
+        [self displayPreviewWithImage:image];
+    }];
+}
+
+- (void)displayPreviewWithImage:(UIImage *)image {
+
+    CGRect rect = AVMakeRectWithAspectRatioInsideRect(CGSizeMake(image.size.width, image.size.height), self.scrollView.bounds);
+    if (!isnan(rect.origin.x) && !isnan(rect.origin.y) && !isnan(rect.size.width) && !isnan(rect.size.height)) {
+        self.pageImageView.frame = rect;
+    }else{
+        self.pageImageView.frame = self.contentView.bounds;
+    }
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+    
+    self.pageImageView.hidden = image ? NO: YES;
+    self.pageImageView.image = image;
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
 }
 
 - (void)resetZoom {

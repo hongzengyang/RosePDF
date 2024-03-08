@@ -8,13 +8,14 @@
 #import "HZFilterManager.h"
 #import "HZPageModel.h"
 #import <CoreImage/CoreImage.h>
-//#import <CoreImage/CIFilterBuiltins.h>
+#import <CoreImage/CIFilterBuiltins.h>
 #import <GPUImage/GPUImage.h>
 
 @interface HZFilterManager ()
 
 @property (nonatomic, strong) dispatch_queue_t queue;
 
+//GPUImage
 @property (nonatomic, strong) GPUImagePicture *stillImageSource;
 
 @property (nonatomic, strong) GPUImageSharpenFilter *sharpenFilter;
@@ -23,6 +24,12 @@
 @property (nonatomic, strong) GPUImageBrightnessFilter *brightnessFilter;
 @property (nonatomic, strong) GPUImageContrastFilter *contrastFilter;
 @property (nonatomic, strong) GPUImageSaturationFilter *saturationFilter;
+
+//CoreImage
+//@property (strong, nonatomic) CIContext *context;
+//@property (strong, nonatomic) CIFilter *filter;
+@property (strong, nonatomic) CIImage *beginImage;
+@property (strong, nonatomic) CIFilter <CIColorControls> *colorControlFilter;
 @end
 
 @implementation HZFilterManager
@@ -38,7 +45,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _queue = dispatch_queue_create("com.sbpdf.filterQueue", DISPATCH_QUEUE_SERIAL);;
+        _queue = dispatch_queue_create("com.sbpdf.filterQueue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
@@ -69,10 +76,10 @@
     model.filterType = type;
     if (type == HZFilter_enhance) {
         HZValueModel *value = [[HZValueModel alloc] init];
-        value.intensity = 0.8;
+        value.intensity = 0.5;
         value.defaultValue = value.intensity;
         value.min = 0.0;
-        value.max = 1.0;
+        value.max = 4.0;
         model.value = value;
     }else if (type == HZFilter_bw) {
         HZValueModel *value = [[HZValueModel alloc] init];
@@ -121,7 +128,110 @@
 }
 
 + (void)makeFilterImageWithImage:(UIImage *)image page:(HZPageModel *)pageModel completeBlock:(void (^)(UIImage *, HZPageModel *))completeBlock {
+    [self coreImageWithImage:image page:pageModel completeBlock:completeBlock];
+//    [self GPUImageWithImage:image page:pageModel completeBlock:completeBlock];
+}
 
++ (void)coreImageWithImage:(UIImage *)image page:(HZPageModel *)pageModel completeBlock:(void (^)(UIImage *, HZPageModel *))completeBlock {
+    HZFilterManager *manager = [HZFilterManager manager];
+    dispatch_async(manager.queue, ^{
+        @autoreleasepool {
+//            CGImageRef cgImage = [image CGImage];
+//            if (!cgImage) {
+//                UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+//                [image drawAtPoint:CGPointZero];
+//                cgImage = UIGraphicsGetImageFromCurrentImageContext().CGImage;
+//                UIGraphicsEndImageContext();
+//            }
+//            CIImage *inputImage = [[CIImage alloc] initWithCGImage:cgImage];
+//            CIImage *outputImage;
+            
+            CIImage *inputImage = [image CIImage];
+            if (!inputImage) {
+                inputImage = [CIImage imageWithCGImage:image.CGImage];
+            }
+            CIImage *outputImage;
+            
+            
+            if (pageModel.filter.filterType == HZFilter_enhance) {
+                outputImage = [self coreImagePreActionWithImage:inputImage];
+                
+//                CIFilter <CIDocumentEnhancer> *filter = [CIFilter documentEnhancerFilter];
+//                filter.inputImage = outputImage;
+//                filter.amount = pageModel.filter.value.intensity;
+//                outputImage = [filter outputImage];
+  
+                CIFilter <CIExposureAdjust> *filter = [CIFilter exposureAdjustFilter];
+                filter.inputImage = outputImage;
+                filter.EV = pageModel.filter.value.intensity;
+                outputImage = [filter outputImage];
+                
+            }else if (pageModel.filter.filterType == HZFilter_bw) {
+                outputImage = [self coreImagePreActionWithImage:inputImage];
+                
+                CIFilter <CIColorMonochrome> *filter = [CIFilter colorMonochromeFilter];
+                filter.inputImage = outputImage;
+                filter.color = [CIColor colorWithRed:0.0 green:0.0 blue:0.0];
+                filter.intensity = pageModel.filter.value.intensity;
+                outputImage = [filter outputImage];
+                
+            }else if (pageModel.filter.filterType == HZFilter_gray) {
+                outputImage = [self coreImagePreActionWithImage:inputImage];
+                
+                CIFilter <CIColorMonochrome> *filter = [CIFilter colorMonochromeFilter];
+                filter.inputImage = outputImage;
+                filter.color = [CIColor colorWithCGColor:[UIColor grayColor].CGColor];
+                filter.intensity = pageModel.filter.value.intensity;
+                outputImage = [filter outputImage];
+            }else {
+                outputImage = inputImage;
+            }
+            
+    //        if (!manager.colorControlFilter) {
+    //            manager.colorControlFilter = [CIFilter colorControlsFilter];
+    //        }
+    //        manager.colorControlFilter.inputImage = outputImage;
+    //        manager.colorControlFilter.brightness = pageModel.adjust.brightnessValue.intensity;
+    //        manager.colorControlFilter.contrast = pageModel.adjust.contrastValue.intensity;
+    //        manager.colorControlFilter.saturation = pageModel.adjust.saturationValue.intensity;
+    //        outputImage = [manager.colorControlFilter outputImage];
+            
+//            outputImage = [outputImage imageByApplyingFilter:@"CIColorControls" withInputParameters:@{@"inputBrightness":@(pageModel.adjust.brightnessValue.intensity),@"inputContrast":@(pageModel.adjust.contrastValue.intensity),@"inputSaturation":@(pageModel.adjust.saturationValue.intensity)}];
+            
+            UIImage *result = [UIImage imageWithCIImage:outputImage];
+            
+            inputImage = nil;
+            outputImage = nil;
+            
+            if (completeBlock) {
+                completeBlock(result,pageModel);
+            }
+        }
+    });
+}
+
++ (CIImage *)coreImagePreActionWithImage:(CIImage *)inputImage {
+    //CIExposureAdjust   曝光调节
+    //CISharpenLuminance 锐化调节(亮度)
+    //CIUnsharpMask      锐化调节(调节边缘和细节)
+    CIImage *outputImage;
+    {
+        CIFilter <CISharpenLuminance> *filter1 = [CIFilter sharpenLuminanceFilter];
+        filter1.inputImage = inputImage;
+        filter1.radius = 2.5;
+        filter1.sharpness = 0.6;
+        outputImage = [filter1 outputImage];
+        
+        CIFilter <CIUnsharpMask> *filter2 = [CIFilter unsharpMaskFilter];
+        filter2.inputImage = outputImage;
+        filter2.radius = 2.5;
+        filter2.intensity = 0.5;
+        outputImage = [filter2 outputImage];
+    }
+    return outputImage;
+}
+
++ (void)GPUImageWithImage:(UIImage *)image page:(HZPageModel *)pageModel completeBlock:(void (^)(UIImage *, HZPageModel *))completeBlock {
     NSTimeInterval start = CFAbsoluteTimeGetCurrent();
     
     HZFilterManager *manager = [HZFilterManager manager];
@@ -142,7 +252,11 @@
             manager.sharpenFilter.sharpness = pageModel.filter.value.intensity;
             [filters addObject:manager.sharpenFilter];
         }else if (pageModel.filter.filterType == HZFilter_bw) {
-
+            if (!manager.sharpenFilter) {
+                manager.sharpenFilter = [[GPUImageSharpenFilter alloc] init];
+            }
+            manager.sharpenFilter.sharpness = pageModel.filter.value.intensity;
+            [filters addObject:manager.sharpenFilter];
         }else if (pageModel.filter.filterType == HZFilter_gray) {
             if (!manager.grayscaleFilter) {
                 manager.grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
@@ -190,42 +304,12 @@
         
         
         if (completeBlock) {
-            NSLog(@"debug--duration = %@,identifier:%@",@(CFAbsoluteTimeGetCurrent() - start),pageModel.identifier);
             dispatch_async(dispatch_get_main_queue(), ^{
                 completeBlock(newImg,pageModel);
             });
         }
     });
 }
-
-////1.创建基于CPU的CIContext对象
-//    self.context = [CIContext contextWithOptions:
-//    [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
-// forKey:kCIContextUseSoftwareRenderer]];
-//
-//    //2.创建基于GPU的CIContext对象
-//    self.context = [CIContext contextWithOptions: nil];
-//
-//    //3.创建基于OpenGL优化的CIContext对象，可获得实时性能
-//    self.context = [CIContext contextWithEAGLContext:[[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2]];
-//
-//    // 将UIImage转换成CIImage
-//    CIImage *ciImage = [[CIImage alloc] initWithImage:[UIImage imageNamed:@"WechatIMG1.jpeg"]];
-//    // 创建滤镜
-//    CIFilter *filter = [CIFilter filterWithName:_dataSourse[indexPath.row]
-//                                  keysAndValues:kCIInputImageKey, ciImage, nil];
-//    [filter setDefaults];
-//
-//    // 获取绘制上下文
-//    CIContext *context = [CIContext contextWithOptions:nil];
-//    // 渲染并输出CIImage
-//    CIImage *outputImage = [filter outputImage];
-//    // 创建CGImage句柄
-//    CGImageRef cgImage = [self.context createCGImage:outputImage
-//                                      fromRect:[outputImage extent]];
-//    imageview.image = [UIImage imageWithCGImage:cgImage];
-//    // 释放CGImage句柄
-//    CGImageRelease(cgImage)；
 
 
 @end
