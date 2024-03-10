@@ -24,6 +24,7 @@
 
 @property (nonatomic, strong) HZHomeNavigationBar *navBar;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UILabel *emptyLab;
 @property (nonatomic, strong) UIView *deleteView;
 @property (nonatomic, strong) UIButton *addBtn;
 
@@ -53,6 +54,8 @@
 }
 
 - (void)configView {
+    self.view.backgroundColor = hz_1_bgColor;
+    
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.navBar];
     
@@ -83,6 +86,12 @@
 - (void)requestData {
     self.projects = [HZProjectModel queryAllProjects];
     [self.tableView reloadData];
+    
+    if (self.projects.count > 0) {
+        self.emptyLab.hidden = YES;
+    }else {
+        self.emptyLab.hidden = NO;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -277,10 +286,10 @@ static CGFloat prevOffsetY = 0;
 #pragma mark - Lazy
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - hz_safeBottom) style:(UITableViewStylePlain)];
+        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - hz_safeBottom) style:(UITableViewStylePlain)];
+        _tableView = tableView;
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.backgroundColor = hz_1_bgColor;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[HZHomeCell class] forCellReuseIdentifier:@"HZHomeCell"];
@@ -291,6 +300,16 @@ static CGFloat prevOffsetY = 0;
         if (@available(iOS 11.0, *)){
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
+        
+        self.emptyLab = [[UILabel alloc] init];
+        self.emptyLab.font = [UIFont systemFontOfSize:20];
+        self.emptyLab.textColor = hz_getColor(@"999999");
+        [_tableView addSubview:self.emptyLab];
+        self.emptyLab.text = NSLocalizedString(@"str_home_empty_file", nil);
+        [self.emptyLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(tableView);
+            make.centerY.equalTo(tableView).offset(50);
+        }];
     }
     return _tableView;
 }

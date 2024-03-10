@@ -132,6 +132,8 @@
     }];
     
     [self.asset requestHighQualityWithCompleteBlock:^(UIImage * _Nonnull image) {
+        if (image) {
+        }
         preImageView.image = image;
     }];
     

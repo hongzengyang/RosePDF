@@ -130,6 +130,7 @@
     }else {
         // 设置获取图片的参数
         PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+        options.synchronous = NO;
         options.resizeMode = PHImageRequestOptionsResizeModeExact;
         options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
         options.networkAccessAllowed = YES;

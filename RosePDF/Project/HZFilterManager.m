@@ -76,7 +76,7 @@
     model.filterType = type;
     if (type == HZFilter_enhance) {
         HZValueModel *value = [[HZValueModel alloc] init];
-        value.intensity = 0.5;
+        value.intensity = 1.0;
         value.defaultValue = value.intensity;
         value.min = 0.0;
         value.max = 4.0;
@@ -113,7 +113,7 @@
     HZValueModel *cValue = [[HZValueModel alloc] init];
     cValue.min = 1.0;
     cValue.max = 3.0;
-    cValue.intensity = 1.5;
+    cValue.intensity = 1.0;
     cValue.defaultValue = cValue.intensity;
     adjust.contrastValue = cValue;
     
@@ -187,14 +187,15 @@
                 outputImage = inputImage;
             }
             
-    //        if (!manager.colorControlFilter) {
-    //            manager.colorControlFilter = [CIFilter colorControlsFilter];
-    //        }
-    //        manager.colorControlFilter.inputImage = outputImage;
-    //        manager.colorControlFilter.brightness = pageModel.adjust.brightnessValue.intensity;
-    //        manager.colorControlFilter.contrast = pageModel.adjust.contrastValue.intensity;
-    //        manager.colorControlFilter.saturation = pageModel.adjust.saturationValue.intensity;
-    //        outputImage = [manager.colorControlFilter outputImage];
+            if (!manager.colorControlFilter) {
+                manager.colorControlFilter = [CIFilter colorControlsFilter];
+                NSLog(@"%@,%@,%@",@(manager.colorControlFilter.brightness),@(manager.colorControlFilter.contrast),@(manager.colorControlFilter.saturation));
+            }
+            manager.colorControlFilter.inputImage = outputImage;
+            manager.colorControlFilter.brightness = pageModel.adjust.brightnessValue.intensity;
+            manager.colorControlFilter.contrast = pageModel.adjust.contrastValue.intensity;
+            manager.colorControlFilter.saturation = pageModel.adjust.saturationValue.intensity;
+            outputImage = [manager.colorControlFilter outputImage];
             
 //            outputImage = [outputImage imageByApplyingFilter:@"CIColorControls" withInputParameters:@{@"inputBrightness":@(pageModel.adjust.brightnessValue.intensity),@"inputContrast":@(pageModel.adjust.contrastValue.intensity),@"inputSaturation":@(pageModel.adjust.saturationValue.intensity)}];
             

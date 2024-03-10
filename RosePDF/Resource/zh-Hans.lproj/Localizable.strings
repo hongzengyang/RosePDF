@@ -9,6 +9,7 @@
 
 "str_files" = "文件";
 "str_search" = "搜索";
+"str_home_empty_file" = "暂无文件";
 "str_edit" = "编辑";
 "str_next" = "下一步";
 "str_filter" = "滤镜";

@@ -84,6 +84,7 @@
             make.leading.equalTo(_searchView).offset(36);
             make.trailing.equalTo(_searchView).offset(-36);
         }];
+        textField.userInteractionEnabled = NO;
     }
     return _searchView;
 }

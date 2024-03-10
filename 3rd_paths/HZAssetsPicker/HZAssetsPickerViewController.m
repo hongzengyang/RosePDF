@@ -158,7 +158,7 @@ static CGFloat prevOffsetY = 0;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     HZAsset *asset = [self.databoard.assetsList objectAtIndex:indexPath.row];
     if (asset.isCameraEntrance) {
-        
+        return;
         @weakify(self);
         void(^enterCameraBlock)(NSArray <UIImage *>*) = ^(NSArray <UIImage *>*images){
             @strongify(self);

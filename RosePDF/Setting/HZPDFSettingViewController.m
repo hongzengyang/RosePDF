@@ -139,7 +139,7 @@
     [self.view addSubview:previewBtn];
     [previewBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view).offset(16);
-        make.bottom.equalTo(self.view).offset(-hz_safeBottom);
+        make.bottom.equalTo(self.view).offset(-hz_safeBottom - 20);
         make.width.height.mas_equalTo(56);
     }];
     previewBtn.backgroundColor = hz_2_bgColor;
@@ -152,7 +152,7 @@
     [self.view addSubview:convertBtn];
     [convertBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(self.view).offset(-16);
-        make.bottom.equalTo(self.view).offset(-hz_safeBottom);
+        make.bottom.equalTo(previewBtn);
         make.height.mas_equalTo(56);
         make.width.mas_equalTo(254);
     }];

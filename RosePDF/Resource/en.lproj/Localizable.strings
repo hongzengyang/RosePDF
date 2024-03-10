@@ -9,6 +9,7 @@
 
 "str_files" = "Files";
 "str_search" = "Search";
+"str_home_empty_file" = "No file created.";
 "str_edit" = "Edit";
 "str_next" = "Next";
 "str_filter" = "Filter";

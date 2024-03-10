@@ -67,7 +67,7 @@
     [textContainerView addSubview:eyeBtn];
     [eyeBtn addTarget:self action:@selector(clickEyeButton:) forControlEvents:(UIControlEventTouchUpInside)];
     eyeBtn.contentMode = UIViewContentModeCenter;
-    [eyeBtn setImage:[UIImage imageNamed:@"rose_setting_passwordEye"] forState:(UIControlStateNormal)];
+    [eyeBtn setImage:[UIImage imageNamed:@"rose_setting_passwordEye_o"] forState:(UIControlStateNormal)];
     [eyeBtn setImage:[UIImage imageNamed:@"rose_setting_passwordEye"] forState:(UIControlStateSelected)];
     eyeBtn.selected = YES;
     [eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {

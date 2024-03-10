@@ -125,6 +125,7 @@
 }
 
 - (void)clickMoreButton {
+    return;
     @weakify(self);
     [HZHomeMenuView popInView:[UIView hz_viewController].view relatedView:self selectBlock:^(HZHomeMenuType index) {
         @strongify(self);

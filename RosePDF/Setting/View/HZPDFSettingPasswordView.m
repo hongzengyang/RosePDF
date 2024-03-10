@@ -80,7 +80,7 @@
     [self.bottomContainerView addSubview:rightBtn];
     [rightBtn addTarget:self action:@selector(clickRightButton) forControlEvents:(UIControlEventTouchUpInside)];
     rightBtn.contentMode = UIViewContentModeCenter;
-    [rightBtn setImage:[UIImage imageNamed:@"rose_setting_passwordEye"] forState:(UIControlStateNormal)];
+    [rightBtn setImage:[UIImage imageNamed:@"rose_setting_passwordEye_o"] forState:(UIControlStateNormal)];
     [rightBtn setImage:[UIImage imageNamed:@"rose_setting_passwordEye"] forState:(UIControlStateSelected)];
     rightBtn.selected = YES;
     [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
