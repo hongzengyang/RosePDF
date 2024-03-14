@@ -41,7 +41,7 @@
     self.navBar.backgroundColor = [UIColor clearColor];
     [self.navBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.top.trailing.equalTo(self.view);
-        make.height.mas_equalTo(hz_safeTop + navigationHeight);
+        make.height.mas_equalTo(55);
     }];
     
     UILabel *titleLab = [[UILabel alloc] init];
@@ -218,7 +218,7 @@
     if (!_navBar) {
         _navBar = [[HZBaseNavigationBar alloc] init];
         [_navBar configBackImage:[UIImage imageNamed:@"rose_back"]];
-        [_navBar configTitle:NSLocalizedString(@"str_settings", nil)];
+        [_navBar configTitle:NSLocalizedString(@"str_pagesize", nil)];
         [_navBar configRightTitle:nil];
         
         @weakify(self);

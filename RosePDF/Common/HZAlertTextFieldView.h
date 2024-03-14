@@ -15,6 +15,8 @@ typedef void(^HZAlertClickBlock)(HZAlertTextFieldView *alertView);
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *cancelText;
 @property (nonatomic, copy) NSString *rightText;
+@property (nonatomic, copy) NSString *originText;
+
 @property (nonatomic, copy) HZAlertClickBlock cancelBlock;
 @property (nonatomic, copy) HZAlertClickBlock rightBlock;
 @property (nonatomic, assign) BOOL encrypt;

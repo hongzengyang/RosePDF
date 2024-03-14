@@ -1,18 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "rose_brightness_n@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "rose_brightness_n@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "dial.minrose_brightness_n.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

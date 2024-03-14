@@ -98,6 +98,7 @@
         input.title = NSLocalizedString(@"str_rename", nil);
         input.cancelText = NSLocalizedString(@"str_cancel", nil);
         input.rightText = NSLocalizedString(@"str_save", nil);
+        input.originText = self.project.title;
         input.cancelBlock = ^(HZAlertTextFieldView *alertView) {
             
         };

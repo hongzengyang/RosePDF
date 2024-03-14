@@ -33,9 +33,6 @@
 @end
 
 @implementation HZHomeViewController
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -287,6 +284,7 @@ static CGFloat prevOffsetY = 0;
 - (UITableView *)tableView {
     if (!_tableView) {
         UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - hz_safeBottom) style:(UITableViewStylePlain)];
+        tableView.backgroundColor = hz_1_bgColor;
         _tableView = tableView;
         _tableView.delegate = self;
         _tableView.dataSource = self;

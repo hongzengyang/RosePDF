@@ -38,8 +38,15 @@
     }];
 }
 
-- (void)reloadView {
+- (void)reloadAll {
     [self.collectionView reloadData];
+    [self.collectionView performBatchUpdates:nil completion:^(BOOL finished) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.databoard.currentIndex inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:YES];
+    }];
+}
+
+- (void)reloadCurrent {
+    [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:self.databoard.currentIndex inSection:0]]];
     [self.collectionView performBatchUpdates:nil completion:^(BOOL finished) {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.databoard.currentIndex inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:YES];
     }];

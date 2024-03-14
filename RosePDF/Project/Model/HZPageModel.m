@@ -244,22 +244,6 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 UIImage *baseCGImage = result;
-//                if (!baseCGImage.CGImage) {
-//                    CIImage *ciImage = [baseCGImage CIImage];
-//                    CGSize size = ciImage.extent.size;
-//                    UIGraphicsBeginImageContext(size);
-//                    CGRect rect;
-//                    rect.origin = CGPointZero;
-//                    rect.size   = size;
-//                    UIImage *remImage = [UIImage imageWithCIImage:ciImage];
-//                    [remImage drawInRect:rect];
-//                    baseCGImage = UIGraphicsGetImageFromCurrentImageContext();
-//                    UIGraphicsEndImageContext();
-//                    remImage = nil;
-//                    ciImage = nil;
-                
-                
-//                }
                 
                 if (!baseCGImage.CGImage) {
                     UIGraphicsBeginImageContextWithOptions(baseCGImage.size, NO, baseCGImage.scale);
@@ -271,6 +255,10 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
 
                 if (writeToFile) {
                     [HZProjectManager compressImage:baseCGImage toPath:[self resultPath]];
+                    
+                    UIImage *previewImage = [baseCGImage hz_resizeImageToWidth:320];
+                    [HZProjectManager compressImage:previewImage toPath:[self previewPath]];
+                    
                     [self saveToDisk];
                 }
                 

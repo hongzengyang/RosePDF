@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configSwipeUpMode:(BOOL)isSwipeUpMode;
 
+- (void)updateNextButtonEnable:(BOOL)enable;
+
 @end
 
 NS_ASSUME_NONNULL_END

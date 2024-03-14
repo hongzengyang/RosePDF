@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDataboard:(HZEditDataboard *)databoard;
 
-- (void)reloadView;
+- (void)reloadAll;
+- (void)reloadCurrent;
 
 @end
 

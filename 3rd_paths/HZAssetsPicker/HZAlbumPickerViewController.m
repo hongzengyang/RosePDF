@@ -27,6 +27,10 @@
 
 @implementation HZAlbumPickerViewController
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDarkContent;
+}
+
 - (instancetype)initWithDataboard:(HZAssetsPickerManager *)databoard {
     if (self = [super init]) {
         self.databoard = databoard;

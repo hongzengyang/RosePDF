@@ -179,12 +179,6 @@
         NSData *originData = UIImageJPEGRepresentation(originalImage, 0.5);
         [originData writeToFile:[pageModel originPath] atomically:YES];
         
-        {
-            UIImage *previewImage = [UIImage imageWithData:originData];
-            previewImage = [previewImage hz_resizeImageToWidth:540];
-            [self compressImage:previewImage toPath:[pageModel previewPath]];
-        }
-        
         [pageModel writeResultFileWithCompleteBlock:^(UIImage *result) {
             if (completeBlock) {
                 completeBlock(pageModel);
@@ -212,6 +206,11 @@
 + (BOOL)renameProject:(HZProjectModel *)project name:(NSString *)name {
     NSString *newPDFPath = [[NSString stringWithFormat:@"%@",[self projectPathWithIdentifier:project.identifier]] stringByAppendingPathComponent: [NSString stringWithFormat:@"%@.pdf",name]];
     NSString *originPDFPath = [project pdfPath];
+    
+    if ([newPDFPath isEqualToString:originPDFPath]) {
+        return YES;
+    }
+    
     if ([[NSFileManager defaultManager] copyItemAtPath:originPDFPath toPath:newPDFPath error:nil]) {
         project.title = name;
         [project updateInDataBase];

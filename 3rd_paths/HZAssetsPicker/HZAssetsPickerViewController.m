@@ -37,6 +37,11 @@
 - (void)dealloc {
     [self.databoard clean];
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDarkContent;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configView];
@@ -158,7 +163,6 @@ static CGFloat prevOffsetY = 0;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     HZAsset *asset = [self.databoard.assetsList objectAtIndex:indexPath.row];
     if (asset.isCameraEntrance) {
-        return;
         @weakify(self);
         void(^enterCameraBlock)(NSArray <UIImage *>*) = ^(NSArray <UIImage *>*images){
             @strongify(self);
@@ -179,6 +183,7 @@ static CGFloat prevOffsetY = 0;
                     [self.databoard addAsset:asset];
                 }];
                 [self.bottomView reload];
+                [self.navBar updateNextButtonEnable:self.databoard.selectedAssets.count > 0];
             };
         };
         
@@ -221,6 +226,7 @@ static CGFloat prevOffsetY = 0;
     }else {
         [self.databoard addAsset:asset];
     }
+    [self.navBar updateNextButtonEnable:self.databoard.selectedAssets.count > 0];
     [self.bottomView reload];
 }
 
@@ -232,6 +238,7 @@ static CGFloat prevOffsetY = 0;
         [_navBar configBackImage:[UIImage imageNamed:@"rose_close"]];
         [_navBar configRightTitle:NSLocalizedString(@"str_next", nil)];
         [_navBar configTitle:NSLocalizedString(@"str_import", nil)];
+        [_navBar updateNextButtonEnable:NO];
         @weakify(self);
         _navBar.clickBackBlock = ^{
             @strongify(self);
@@ -264,15 +271,16 @@ static CGFloat prevOffsetY = 0;
 - (HZCurrentAlbumView *)curAlbumView {
     if (!_curAlbumView) {
         _curAlbumView = [[HZCurrentAlbumView alloc] init];
-        __weak typeof(self) weakSelf = self;
+        @weakify(self);
         _curAlbumView.ClickBlock = ^{
+            @strongify(self);
             HZAlbumPickerViewController *vc = [[HZAlbumPickerViewController alloc] initWithDataboard:self.databoard];
             vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            [weakSelf presentViewController:vc animated:YES completion:nil];
-            
+            [self presentViewController:vc animated:YES completion:nil];
             vc.SelectAlbum = ^(HZAlbum *album) {
+                @strongify(self);
                 [self.databoard selectAlbum:album];
-                [weakSelf requestData];
+                [self requestData];
             };
         };
     }
@@ -298,14 +306,18 @@ static CGFloat prevOffsetY = 0;
 - (HZAssetsPickerBottomView *)bottomView {
     if (!_bottomView) {
         _bottomView = [[HZAssetsPickerBottomView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, [UIView hz_safeBottom] + 53 + 80) databoard:self.databoard];
-        __weak typeof(self) weakSelf = self;
+        @weakify(self);
         _bottomView.deleteAllBlock = ^{
+            @strongify(self);
             [self.databoard deleAllAssets];
-            [weakSelf.bottomView reload];
+            [self.bottomView reload];
+            [self.navBar updateNextButtonEnable:self.databoard.selectedAssets.count > 0];
         };
         _bottomView.deleteAeestBlock = ^(HZAsset *asset) {
+            @strongify(self);
             [self.databoard deleteAsset:asset];
-            [weakSelf.bottomView reload];
+            [self.bottomView reload];
+            [self.navBar updateNextButtonEnable:self.databoard.selectedAssets.count > 0];
         };
     }
     return _bottomView;

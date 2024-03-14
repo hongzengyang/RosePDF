@@ -9,11 +9,27 @@
 
 @implementation NSDate (HZCategory)
 
-//2019-2-14 PM 3:06:55
-+ (NSString *)hz_dateTimeStringWithTime:(NSTimeInterval)timeInterval {
++ (NSString *)hz_dateTimeString1WithTime:(NSTimeInterval)timeInterval {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSLocale * localeStr = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    dateFormatter.locale= localeStr;
+    
+    NSString *dateStr = [dateFormatter stringFromDate:date];
+    dateStr = [dateStr stringByReplacingOccurrencesOfString:@":" withString:@"."];
+    return dateStr;
+}
+
++ (NSString *)hz_dateTimeString2WithTime:(NSTimeInterval)timeInterval {
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
+    
+    NSLocale * localeStr = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    dateFormatter.locale= localeStr;
+    
     NSString *dateStr = [dateFormatter stringFromDate:date];
     dateStr = [dateStr stringByReplacingOccurrencesOfString:@":" withString:@"."];
     return dateStr;

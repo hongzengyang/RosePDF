@@ -47,7 +47,7 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
         self.createTime = interval;
         self.updateTime = interval;
         
-        self.title = [NSString stringWithFormat:@"%@",[NSDate hz_dateTimeStringWithTime:interval]];
+        self.title = [NSString stringWithFormat:@"%@",[NSDate hz_dateTimeString1WithTime:interval]];
     }
     return self;
 }

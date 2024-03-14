@@ -91,7 +91,7 @@
     }
     self.containerView = containerView;
     
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemThickMaterialLight];
     UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [containerView addSubview:blurEffectView];
     [blurEffectView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -119,18 +119,31 @@
     [self setNeedsLayout];
     [self layoutIfNeeded];
     
-    {//shadow
-        UIView *shadow = [[UIView alloc] init];
-        [self insertSubview:shadow belowSubview:containerView];
-        [shadow setFrame:CGRectInset(containerView.frame, 16, 0)];
-        shadow.layer.shadowColor = hz_getColorWithAlpha(@"000000", 0.2).CGColor;
-        shadow.layer.shadowOffset = CGSizeMake(20, -3);
-        shadow.layer.shadowRadius = 10;
-        shadow.layer.shadowOpacity = 0.5;
-        shadow.backgroundColor = [UIColor whiteColor];
-    }
+    UIView *shadow = [[UIView alloc] init];
+//    {//shadow
+//        [self insertSubview:shadow belowSubview:containerView];
+//        [shadow setFrame:CGRectInset(containerView.frame, 16, 16)];
+//        shadow.layer.shadowColor = hz_getColorWithAlpha(@"000000", 0.2).CGColor;
+//        shadow.layer.shadowOffset = CGSizeMake(20, -3);
+//        shadow.layer.shadowRadius = 10;
+//        shadow.layer.shadowOpacity = 0.5;
+//        shadow.backgroundColor = [UIColor whiteColor];
+//    }
     
     [self updateSelectImageView];
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+    
+    
+    
+//    [UIView animateWithDuration:0.15 animations:^{
+//        containerView.transform = CGAffineTransformMakeScale(1.05, 1.05);
+//    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:0.15 animations:^{
+//            containerView.transform = CGAffineTransformIdentity;
+//        } completion:nil];
+//    }];
 }
 
 - (void)updateSelectImageView {

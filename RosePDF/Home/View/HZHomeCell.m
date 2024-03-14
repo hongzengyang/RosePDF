@@ -183,7 +183,7 @@
     
     NSData *data = [NSData dataWithContentsOfFile:[project pdfPath]];
     self.countLab.text = [NSString stringWithFormat:@"%@ %@ - %@",@(self.project.pageModels.count),NSLocalizedString(@"str_pages", nil),[[NSFileManager defaultManager] hz_toMorestTwoFloatMBSize:data.length]];
-    self.timeLab.text = [NSDate hz_dateTimeStringWithTime:project.createTime];
+    self.timeLab.text = [NSDate hz_dateTimeString2WithTime:project.createTime];
     
     if (isSelectMode) {
         self.selectBtn.hidden = NO;

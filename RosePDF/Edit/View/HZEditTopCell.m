@@ -40,6 +40,7 @@
 
 - (void)configWithModel:(HZPageModel *)pageModel isAdd:(BOOL)isAdd {
     self.pageModel = pageModel;
+    self.imageView.image = nil;
     if (isAdd) {
         self.imageView.image = [UIImage imageNamed:@"rose_edit_top_add"];
     }else {

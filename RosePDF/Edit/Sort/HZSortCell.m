@@ -85,7 +85,7 @@
     self.thumbImageView.image = originImage;
     
     self.titleLab.text = page.title;
-    self.timeLab.text = [NSString stringWithFormat:@"%@",[NSDate hz_dateTimeStringWithTime:page.createTime]];
+    self.timeLab.text = [NSString stringWithFormat:@"%@",[NSDate hz_dateTimeString2WithTime:page.createTime]];
     
     self.rightImageView.image = [UIImage imageNamed:@"rose_sort_drag"];
 }

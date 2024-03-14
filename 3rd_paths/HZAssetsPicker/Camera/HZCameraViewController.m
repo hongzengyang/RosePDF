@@ -156,11 +156,21 @@
 
 - (void)clickGridButton:(UIButton *)button {
     button.selected = !button.selected;
+    if (button.selected) {
+        button.tintColor = [UIColor hz_getColor:@"262626"];
+    }else {
+        button.tintColor = [UIColor hz_getColor:@"888888"];
+    }
     self.gridLayer.hidden = !self.gridBtn.selected;
 }
 
 - (void)clickFlashButton:(UIButton *)button {
     button.selected = !button.selected;
+    if (button.selected) {
+        button.tintColor = [UIColor hz_getColor:@"262626"];
+    }else {
+        button.tintColor = [UIColor hz_getColor:@"888888"];
+    }
 }
 
 - (void)clickCameraButton {
@@ -199,7 +209,7 @@
         
         NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
         image.createTime = interval;
-        image.title = [NSString stringWithFormat:@"Cam_%@.JPG",[NSDate hz_dateTimeStringWithTime:interval]];
+        image.title = [NSString stringWithFormat:@"Cam_%@.JPG",[NSDate hz_dateTimeString1WithTime:interval]];
     }
 }
 
@@ -239,8 +249,10 @@
         
         UIButton *grid = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [topView addSubview:grid];
-        [grid setImage:[UIImage imageNamed:@"rose_camera_grid_n"] forState:(UIControlStateNormal)];
-        [grid setImage:[UIImage imageNamed:@"rose_camera_grid_s"] forState:(UIControlStateSelected)];
+        UIImage *girdImage = [[UIImage imageNamed:@"rose_camera_grid"] imageWithRenderingMode:(UIImageRenderingModeAlwaysTemplate)];
+        [grid setImage:girdImage forState:(UIControlStateNormal)];
+        [grid setImage:girdImage forState:(UIControlStateSelected)];
+        grid.tintColor = [UIColor hz_getColor:@"888888"];
         [grid addTarget:self action:@selector(clickGridButton:) forControlEvents:(UIControlEventTouchUpInside)];
         [grid mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.height.mas_equalTo(28);
@@ -251,8 +263,10 @@
         
         UIButton *flash = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [topView addSubview:flash];
-        [flash setImage:[UIImage imageNamed:@"rose_camera_grid_n"] forState:(UIControlStateNormal)];
-        [flash setImage:[UIImage imageNamed:@"rose_camera_flash_s"] forState:(UIControlStateSelected)];
+        UIImage *flashImage = [[UIImage imageNamed:@"rose_camera_flash"] imageWithRenderingMode:(UIImageRenderingModeAlwaysTemplate)];
+        [flash setImage:flashImage forState:(UIControlStateNormal)];
+        [flash setImage:flashImage forState:(UIControlStateSelected)];
+        flash.tintColor = [UIColor hz_getColor:@"888888"];
         [flash addTarget:self action:@selector(clickFlashButton:) forControlEvents:(UIControlEventTouchUpInside)];
         [flash mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.height.mas_equalTo(28);

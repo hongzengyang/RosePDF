@@ -7,6 +7,7 @@
 
 #import "HZHomeTableHeaderView.h"
 #import "HZCommonHeader.h"
+#import "HZSearchViewController.h"
 
 @interface HZHomeTableHeaderView()
 
@@ -27,6 +28,11 @@
 - (void)configView {
     [self addSubview:self.titleLab];
     [self addSubview:self.searchView];
+}
+
+- (void)clickSearch {
+    HZSearchViewController *vc = [[HZSearchViewController alloc] init];
+    [[UIView hz_viewController].navigationController pushViewController:vc animated:YES];
 }
 
 - (void)updateConstraints {
@@ -56,7 +62,8 @@
 
 - (UIView *)searchView {
     if (!_searchView) {
-        _searchView = [[UIView alloc] init];
+        UIView *view = [[UIView alloc] init];
+        _searchView = view;
         _searchView.backgroundColor = hz_2_bgColor;
         _searchView.layer.cornerRadius = 10;
         _searchView.layer.masksToBounds = YES;
@@ -65,8 +72,8 @@
         [_searchView addSubview:iconImageView];
         [iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_searchView);
-            make.leading.equalTo(_searchView).offset(6);
-            make.width.height.mas_equalTo(14);
+            make.leading.equalTo(_searchView).offset(4);
+            make.width.height.mas_equalTo(28);
         }];
         
         UITextField *textField = [[UITextField alloc] init];
@@ -85,6 +92,13 @@
             make.trailing.equalTo(_searchView).offset(-36);
         }];
         textField.userInteractionEnabled = NO;
+        
+        UIButton *button = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [_searchView addSubview:button];
+        [button addTarget:self action:@selector(clickSearch) forControlEvents:(UIControlEventTouchUpInside)];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(view);
+        }];
     }
     return _searchView;
 }

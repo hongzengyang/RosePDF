@@ -14,6 +14,7 @@
 #import "HZChangePasswordViewController.h"
 #import <HZUIKit/HZActionSheet.h>
 #import "HZPDFMaker.h"
+#import "HZShareManager.h"
 
 @interface HZHomeProjectItemView()
 
@@ -200,7 +201,7 @@
         }
     }
     
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(titleView.left, pswView.bottom+10, titleView.width, itemHeight * 3)];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(titleView.left, pswView.bottom+10, titleView.width, itemHeight * 4)];
     bottomView.layer.cornerRadius = 10;
     bottomView.layer.masksToBounds = YES;
     [containerView addSubview:bottomView];
@@ -285,8 +286,50 @@
             make.height.mas_equalTo(1);
         }];
     }
+    
     {
-        UIView *deleteView = [[UIView alloc] initWithFrame:CGRectMake(0, itemHeight*2, bottomView.width, itemHeight)];
+        UIView *shareView = [[UIView alloc] initWithFrame:CGRectMake(0, itemHeight*2, bottomView.width, itemHeight)];
+        [bottomView addSubview:shareView];
+        shareView.backgroundColor = [UIColor whiteColor];
+        
+        UILabel *leftLab = [[UILabel alloc] init];
+        [shareView addSubview:leftLab];
+        leftLab.text = NSLocalizedString(@"str_share", nil);
+        leftLab.font = [UIFont systemFontOfSize:17];
+        leftLab.textColor = hz_1_textColor;
+        [leftLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(shareView).offset(16);
+            make.centerY.equalTo(shareView);
+        }];
+        
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.contentMode = UIViewContentModeCenter;
+        [shareView addSubview:imageView];
+        imageView.image = [UIImage imageNamed:@"rose_detail_share"];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.trailing.equalTo(shareView).offset(-16);
+            make.centerY.equalTo(shareView);
+            make.width.height.mas_equalTo(28);
+        }];
+        
+        UIButton *button = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [button setFrame:shareView.bounds];
+        button.backgroundColor = [UIColor clearColor];
+        [shareView addSubview:button];
+        [button addTarget:self action:@selector(clickShare) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        UIView *separater = [[UIView alloc] init];
+        separater.backgroundColor = hz_1_bgColor;
+        [shareView addSubview:separater];
+        [separater mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(leftLab);
+            make.trailing.bottom.equalTo(shareView);
+            make.height.mas_equalTo(1);
+        }];
+    }
+    
+    {
+        UIView *deleteView = [[UIView alloc] initWithFrame:CGRectMake(0, itemHeight*3, bottomView.width, itemHeight)];
         [bottomView addSubview:deleteView];
         deleteView.backgroundColor = [UIColor whiteColor];
         
@@ -356,6 +399,7 @@
     input.title = NSLocalizedString(@"str_rename", nil);
     input.cancelText = NSLocalizedString(@"str_cancel", nil);
     input.rightText = NSLocalizedString(@"str_save", nil);
+    input.originText = self.project.title;
     input.cancelBlock = ^(HZAlertTextFieldView *alertView) {
         
     };
@@ -485,6 +529,14 @@
         [self dismiss];
     }];
 }
+
+- (void)clickShare {
+    @weakify(self);
+    [HZShareManager shareWithProject:self.project completionWithItemsHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
+        @strongify(self);
+    }];
+}
+
 - (void)clickDelete {
     HZActionSheet *sheet = [[HZActionSheet alloc] initWithTitle:nil];
     @weakify(self);

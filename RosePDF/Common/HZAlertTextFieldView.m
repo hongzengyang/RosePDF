@@ -68,6 +68,15 @@
     textField.delegate = self;
     textField.textColor = hz_getColor(@"000000");
     textField.tintColor = [UIColor blackColor];
+    if (self.inputModel.originText.length > 0) {
+//        textField.text = self.inputModel.originText;
+//        UITextPosition *postion1 = [textField positionFromPosition:textField.beginningOfDocument offset:0];
+//        UITextPosition *postion2 = [textField positionFromPosition:textField.beginningOfDocument offset:textField.text.length];
+//        UITextRange *textRange = [textField textRangeFromPosition:postion1 toPosition:postion2];
+//        textField.selectedTextRange = textRange;
+        
+        [textField setMarkedText:self.inputModel.originText selectedRange:NSMakeRange(0, self.inputModel.originText.length)];
+    }
     textField.font = [UIFont systemFontOfSize:14];
     [textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(contentView).offset(57);

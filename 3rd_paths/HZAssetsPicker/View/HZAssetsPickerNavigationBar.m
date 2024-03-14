@@ -144,5 +144,9 @@
     }
 }
 
+- (void)updateNextButtonEnable:(BOOL)enable {
+    self.rightBtn.enabled = enable;
+}
+
 @end
 

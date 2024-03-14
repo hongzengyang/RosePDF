@@ -9,6 +9,7 @@
 #import <Masonry/Masonry.h>
 #import <ReactiveObjC/ReactiveObjC.h>
 #import <HZUIKit/HZUIKit.h>
+#import "HZAssetsLongPressManager.h"
 
 @interface HZAssetsPickerCell()
 
@@ -100,55 +101,16 @@
             [UIView animateWithDuration:0.1 animations:^{
                 self.transform = CGAffineTransformMakeScale(1.0, 1.0);
             } completion:^(BOOL finished) {
-                [self showPreview];
+                [[HZAssetsLongPressManager manager] showFromCell:self.imageView asset:self.asset];
             }];
         }];
         
         UIImpactFeedbackGenerator *gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
         [gen prepare];
         [gen impactOccurred];
+    }else if (gesture.state == UIGestureRecognizerStateEnded) {
+        [[HZAssetsLongPressManager manager] dismiss];
     }
-}
-
-- (void)showPreview {
-    UIView *preview = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [[UIApplication sharedApplication].keyWindow addSubview:preview];
-    
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    blurEffectView.frame = preview.bounds;
-    [preview addSubview:blurEffectView];
-    blurEffectView.userInteractionEnabled = NO;
-    
-    CGRect curFrame = [self.contentView convertRect:self.imageView.frame toView:[UIApplication sharedApplication].keyWindow];
-    CGRect targetFrame = AVMakeRectWithAspectRatioInsideRect(CGSizeMake(self.asset.asset.pixelWidth, self.asset.asset.pixelHeight), CGRectMake(19, 0, preview.width - 19 - 19, preview.height));
-    
-    UIImageView *preImageView = [[UIImageView alloc] initWithFrame:curFrame];
-    [preview addSubview:preImageView];
-    preImageView.image = self.imageView.image;
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        preImageView.frame = targetFrame;
-    }];
-    
-    [self.asset requestHighQualityWithCompleteBlock:^(UIImage * _Nonnull image) {
-        if (image) {
-        }
-        preImageView.image = image;
-    }];
-    
-    
-    @weakify(preview);
-    [preview hz_clickBlock:^{
-        @strongify(preview);
-        [UIView animateWithDuration:0.2 animations:^{
-            blurEffectView.alpha = 0.0;
-            preImageView.alpha = 0.0;
-            preImageView.frame = curFrame;
-        } completion:^(BOOL finished) {
-            [preview removeFromSuperview];
-        }];
-    }];
 }
 
 - (UIImageView *)imageView {

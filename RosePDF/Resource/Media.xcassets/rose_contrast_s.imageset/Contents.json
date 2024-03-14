@@ -1,18 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "rose_contrast_s@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "rose_contrast_s@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "circle.lefthalf.fillrose_contrast_s.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

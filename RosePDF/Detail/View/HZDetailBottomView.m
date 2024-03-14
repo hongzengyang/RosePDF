@@ -27,8 +27,8 @@
 - (void)configView {
     self.backgroundColor = [UIColor whiteColor];
     
-    NSArray *images = @[[UIImage imageNamed:@"rose_detail_share"],[UIImage imageNamed:@"rose_detail_rename"],[UIImage imageNamed:@"rose_detail_edit"],[UIImage imageNamed:@"rose_detail_setting"],[UIImage imageNamed:@"rose_edit_delete"]];
-    NSArray *titles = @[NSLocalizedString(@"str_share", nil),NSLocalizedString(@"str_rename", nil),NSLocalizedString(@"str_edit", nil),NSLocalizedString(@"str_settings", nil),NSLocalizedString(@"str_delete", nil)];
+    NSArray *images = @[[UIImage imageNamed:@"rose_detail_rename"],[UIImage imageNamed:@"rose_detail_edit"],[UIImage imageNamed:@"rose_detail_setting"],[UIImage imageNamed:@"rose_detail_share"],[UIImage imageNamed:@"rose_edit_delete"]];
+    NSArray *titles = @[NSLocalizedString(@"str_rename", nil),NSLocalizedString(@"str_edit", nil),NSLocalizedString(@"str_settings", nil),NSLocalizedString(@"str_share", nil),NSLocalizedString(@"str_delete", nil)];
     CGFloat btnWidth = 40;
     CGFloat btnHeight = 37;
     CGFloat startLeading = 19;

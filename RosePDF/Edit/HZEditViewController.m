@@ -82,6 +82,16 @@
     }];
 }
 
+- (void)reloadAll {
+    [self.topView reloadAll];
+    [self.previewView reloadAll];
+}
+
+- (void)reloadCurrent {
+    [self.topView reloadCurrent];
+    [self.previewView reloadAll];
+}
+
 #pragma mark - Filter
 - (void)enterFilterMode {
     if (!self.filterView) {
@@ -151,20 +161,22 @@
         @strongify(self);
         [SVProgressHUD dismiss];
         [self exitFilterMode];
-        [self.previewView reloadAll];
+        if (applyToAll) {
+            [self reloadAll];
+        }else {
+            [self reloadCurrent];
+        }
     }];
 }
 
 #pragma mark - Crop
 - (void)handleCropFinish {
-    [self.topView reloadView];
-    [self.previewView reloadAll];
+    [self reloadCurrent];
 }
 
 #pragma mark - 通知
 - (void)addAssetsFinished {
-    [self.topView reloadView];
-    [self.previewView reloadAll];
+    [self reloadAll];
     [self.bottomView checkDeleteEnable];
 }
 
@@ -172,8 +184,7 @@
     NSArray <HZPageModel *>*pages = not.object;
     
     self.databoard.project.pageModels = pages;
-    [self.topView reloadView];
-    [self.previewView reloadAll];
+    [self reloadAll];
 }
 
 #pragma mark - HZEditBottomViewDelegate
@@ -207,7 +218,7 @@
         [currenrPage writeResultFileWithCompleteBlock:^(UIImage *result) {
             @strongify(self);
             [SVProgressHUD dismiss];
-            [self.previewView reloadAll];
+            [self reloadCurrent];
         }];
     }else if (item == HZEditBottomItemRight) {
         HZPageOrientation orientation = currenrPage.orientation;
@@ -232,7 +243,7 @@
         [currenrPage writeResultFileWithCompleteBlock:^(UIImage *result) {
             @strongify(self);
             [SVProgressHUD dismiss];
-            [self.previewView reloadAll];
+            [self reloadCurrent];
         }];
     }else if (item == HZEditBottomItemCrop) {
         HZCropViewController *vc = [[HZCropViewController alloc] initWithPageModel:currenrPage];
@@ -251,8 +262,7 @@
         if (self.databoard.currentIndex >= self.databoard.project.pageModels.count) {
             self.databoard.currentIndex = self.databoard.project.pageModels.count - 1;
         }
-        [self.topView reloadView];
-        [self.previewView reloadAll];
+        [self reloadAll];
         [self.bottomView checkDeleteEnable];
     }
 }

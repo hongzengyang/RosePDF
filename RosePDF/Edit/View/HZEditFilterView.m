@@ -150,15 +150,15 @@
         make.edges.equalTo(self.filterView);
     }];
     {
-        NSArray *images = @[[UIImage imageNamed:@"rose_contrast_s"],[UIImage imageNamed:@"rose_brightness_n"],[UIImage imageNamed:@"rose_saturation_n"]];
-        NSArray *selectedImages = @[[UIImage imageNamed:@"rose_contrast_s"],[UIImage imageNamed:@"rose_brightness_n"],[UIImage imageNamed:@"rose_saturation_n"]];
+        NSArray *images = @[[UIImage imageNamed:@"rose_contrast_n"],[UIImage imageNamed:@"rose_brightness_n"],[UIImage imageNamed:@"rose_saturation_n"]];
+        NSArray *selectedImages = @[[UIImage imageNamed:@"rose_contrast_s"],[UIImage imageNamed:@"rose_brightness_s"],[UIImage imageNamed:@"rose_saturation_s"]];
         NSArray *titles = @[NSLocalizedString(@"str_contrast", nil),NSLocalizedString(@"str_brightness", nil),NSLocalizedString(@"str_saturation", nil)];
-        CGFloat btnWidth = 42;
-        CGFloat btnHeight = 49;
+        CGFloat btnWidth = 48;
+        CGFloat btnHeight = 58;
         CGFloat space = 20.0;
         CGFloat startLeading = (ScreenWidth - btnWidth*3 - space*2)/2.0;
         for (int i = 0; i < images.count; i++) {
-            HZVerticalButton *btn = [HZVerticalButton buttonWithSize:CGSizeMake(btnWidth, btnHeight) imageSize:CGSizeMake(30, 30) image:images[i] verticalSpacing:9 title:titles[i] titleColor:hz_1_textColor font:[UIFont systemFontOfSize:10]];
+            HZVerticalButton *btn = [HZVerticalButton buttonWithSize:CGSizeMake(btnWidth, btnHeight) imageSize:CGSizeMake(40, 40) image:images[i] verticalSpacing:4 title:titles[i] titleColor:hz_1_textColor font:[UIFont systemFontOfSize:8]];
             [btn setSelectImage:selectedImages[i] selectTitleColor:hz_main_color];
             [self.adjustView addSubview:btn];
             btn.tag = i;

@@ -9,7 +9,9 @@
 
 @interface NSDate (HZCategory)
 
-+ (NSString *)hz_dateTimeStringWithTime:(NSTimeInterval)timeInterval;
++ (NSString *)hz_dateTimeString1WithTime:(NSTimeInterval)timeInterval;
+
++ (NSString *)hz_dateTimeString2WithTime:(NSTimeInterval)timeInterval;
 
 @end
 

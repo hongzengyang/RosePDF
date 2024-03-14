@@ -9,10 +9,10 @@
 #import "HZProjectModel.h"
 
 typedef NS_ENUM(NSUInteger, HZDetailBottomItem) {
-    HZDetailBottomItemShare,
     HZDetailBottomItemRename,
     HZDetailBottomItemEdit,
     HZDetailBottomItemSetting,
+    HZDetailBottomItemShare,
     HZDetailBottomItemDelete
 };
 
