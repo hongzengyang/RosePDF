@@ -12,6 +12,8 @@
 		4472BB462B9378BE0093D5D6 /* HZPDFConvertingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4472BB452B9378BE0093D5D6 /* HZPDFConvertingView.m */; };
 		4472BB492B937AED0093D5D6 /* rose_pdf_loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4472BB472B937AED0093D5D6 /* rose_pdf_loading.gif */; };
 		4472BB4A2B937AED0093D5D6 /* rose_pdf_complete.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4472BB482B937AED0093D5D6 /* rose_pdf_complete.gif */; };
+		44F5C64F2BA8816900CE4CA9 /* ImageShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		44F5C6562BA8822C00CE4CA9 /* ShareExtensionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F5C6552BA8822C00CE4CA9 /* ShareExtensionViewController.m */; };
 		A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */; };
 		A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A662B6F6C6800B77150 /* HZHomeViewController.m */; };
 		A12C2A712B6F784B00B77150 /* HZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A702B6F784B00B77150 /* HZBaseModel.m */; };
@@ -81,6 +83,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		44F5C64D2BA8816900CE4CA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1A8DBD52B5E9D630092F0F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44F5C6432BA8816800CE4CA9;
+			remoteInfo = ImageShareExtension;
+		};
 		A1A8DBF92B5E9D650092F0F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A1A8DBD52B5E9D630092F0F8 /* Project object */;
@@ -97,6 +106,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		44F5C6502BA8816900CE4CA9 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				44F5C64F2BA8816900CE4CA9 /* ImageShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RosePDF.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4444C8D82B83A8A0005E96AF /* HZPDFSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingViewController.h; sourceTree = "<group>"; };
@@ -105,6 +128,10 @@
 		4472BB452B9378BE0093D5D6 /* HZPDFConvertingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFConvertingView.m; sourceTree = "<group>"; };
 		4472BB472B937AED0093D5D6 /* rose_pdf_loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rose_pdf_loading.gif; sourceTree = "<group>"; };
 		4472BB482B937AED0093D5D6 /* rose_pdf_complete.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rose_pdf_complete.gif; sourceTree = "<group>"; };
+		44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		44F5C64C2BA8816900CE4CA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44F5C6542BA8822C00CE4CA9 /* ShareExtensionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareExtensionViewController.h; sourceTree = "<group>"; };
+		44F5C6552BA8822C00CE4CA9 /* ShareExtensionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareExtensionViewController.m; sourceTree = "<group>"; };
 		A12C2A622B6F6C4000B77150 /* HZBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZBaseViewController.h; sourceTree = "<group>"; };
 		A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZBaseViewController.m; sourceTree = "<group>"; };
 		A12C2A652B6F6C6800B77150 /* HZHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZHomeViewController.h; sourceTree = "<group>"; };
@@ -242,6 +269,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		44F5C6412BA8816800CE4CA9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1A8DBDA2B5E9D630092F0F8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -283,6 +317,16 @@
 				A1B4DD062B8F4663000E144D /* HZChangePasswordViewController.m */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		44F5C6452BA8816900CE4CA9 /* ImageShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				44F5C6542BA8822C00CE4CA9 /* ShareExtensionViewController.h */,
+				44F5C6552BA8822C00CE4CA9 /* ShareExtensionViewController.m */,
+				44F5C64C2BA8816900CE4CA9 /* Info.plist */,
+			);
+			path = ImageShareExtension;
 			sourceTree = "<group>";
 		};
 		7F0C56D00EAB5727517CB565 /* Pods */ = {
@@ -471,6 +515,7 @@
 				A1A8DBDF2B5E9D630092F0F8 /* RosePDF */,
 				A1A8DBFB2B5E9D650092F0F8 /* RosePDFTests */,
 				A1A8DC052B5E9D650092F0F8 /* RosePDFUITests */,
+				44F5C6452BA8816900CE4CA9 /* ImageShareExtension */,
 				A1A8DBDE2B5E9D630092F0F8 /* Products */,
 				7F0C56D00EAB5727517CB565 /* Pods */,
 				ED6EAD6ACA7873E6CA215123 /* Frameworks */,
@@ -483,6 +528,7 @@
 				A1A8DBDD2B5E9D630092F0F8 /* RosePDF.app */,
 				A1A8DBF82B5E9D650092F0F8 /* RosePDFTests.xctest */,
 				A1A8DC022B5E9D650092F0F8 /* RosePDFUITests.xctest */,
+				44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -621,6 +667,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		44F5C6432BA8816800CE4CA9 /* ImageShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44F5C6532BA8816900CE4CA9 /* Build configuration list for PBXNativeTarget "ImageShareExtension" */;
+			buildPhases = (
+				44F5C6402BA8816800CE4CA9 /* Sources */,
+				44F5C6412BA8816800CE4CA9 /* Frameworks */,
+				44F5C6422BA8816800CE4CA9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImageShareExtension;
+			productName = ImageShareExtension;
+			productReference = 44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		A1A8DBDC2B5E9D630092F0F8 /* RosePDF */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1A8DC0C2B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "RosePDF" */;
@@ -631,10 +694,12 @@
 				A1A8DBDB2B5E9D630092F0F8 /* Resources */,
 				08A5789ABE301E585D5603C9 /* [CP] Embed Pods Frameworks */,
 				6052DA0BB9E48A488C8DE313 /* [CP] Copy Pods Resources */,
+				44F5C6502BA8816900CE4CA9 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				44F5C64E2BA8816900CE4CA9 /* PBXTargetDependency */,
 			);
 			name = RosePDF;
 			productName = RosePDF;
@@ -686,6 +751,9 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					44F5C6432BA8816800CE4CA9 = {
+						CreatedOnToolsVersion = 15.0;
+					};
 					A1A8DBDC2B5E9D630092F0F8 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -717,11 +785,19 @@
 				A1A8DBDC2B5E9D630092F0F8 /* RosePDF */,
 				A1A8DBF72B5E9D650092F0F8 /* RosePDFTests */,
 				A1A8DC012B5E9D650092F0F8 /* RosePDFUITests */,
+				44F5C6432BA8816800CE4CA9 /* ImageShareExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		44F5C6422BA8816800CE4CA9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1A8DBDB2B5E9D630092F0F8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -813,6 +889,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		44F5C6402BA8816800CE4CA9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44F5C6562BA8822C00CE4CA9 /* ShareExtensionViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1A8DBD92B5E9D630092F0F8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -899,6 +983,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		44F5C64E2BA8816900CE4CA9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44F5C6432BA8816800CE4CA9 /* ImageShareExtension */;
+			targetProxy = 44F5C64D2BA8816900CE4CA9 /* PBXContainerItemProxy */;
+		};
 		A1A8DBFA2B5E9D650092F0F8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A1A8DBDC2B5E9D630092F0F8 /* RosePDF */;
@@ -951,6 +1040,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		44F5C6512BA8816900CE4CA9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z2Q26UZ9SX;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ImageShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ImageShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = pdfconverter.phototopdf.pdf.ImageShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		44F5C6522BA8816900CE4CA9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z2Q26UZ9SX;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ImageShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ImageShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = pdfconverter.phototopdf.pdf.ImageShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		A1A8DC0A2B5E9D650092F0F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1076,7 +1223,7 @@
 				GCC_PREFIX_HEADER = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RosePDF/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = RosePDF;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -1111,7 +1258,7 @@
 				GCC_PREFIX_HEADER = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RosePDF/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = RosePDF;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -1200,6 +1347,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		44F5C6532BA8816900CE4CA9 /* Build configuration list for PBXNativeTarget "ImageShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44F5C6512BA8816900CE4CA9 /* Debug */,
+				44F5C6522BA8816900CE4CA9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A1A8DBD82B5E9D630092F0F8 /* Build configuration list for PBXProject "RosePDF" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
