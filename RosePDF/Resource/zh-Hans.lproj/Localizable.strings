@@ -1,61 +1,55 @@
-/* 
-  Localizable.strings
-  RosePDF
-
-  Created by THS on 2024/2/5.
-  
-*/
-
-
+"str_appname" = "PDF转换器";
 "str_files" = "文件";
 "str_search" = "搜索";
-"str_home_empty_file" = "暂无文件";
+"str_home_empty_file" = "没有文件";
 "str_edit" = "编辑";
 "str_next" = "下一步";
 "str_filter" = "滤镜";
-"str_left" = "左旋";
-"str_right" = "右旋";
+"str_left" = "左";
+"str_right" = "右";
 "str_crop" = "裁剪";
-"str_reorder" = "排序";
+"str_reorder" = "重新排序";
 "str_delete" = "删除";
 "str_cancel" = "取消";
-"str_import" = "导入";
+"str_import" = "选择";
+"str_selectalbum" = "选择相册";
 "str_finish" = "完成";
 "str_select" = "选择";
 "str_selectfiles" = "选择文件";
 "str_selectall" = "全选";
 "str_deselectall" = "取消全选";
-"str_photo_permission_deny_title" = "Photo Permission Required";
-"str_photo_permission_deny_tip" = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";
-"str_go_setting" = "Go to Settings";
-"str_photo_permission_limit_title" = "Allow Access to All Photos";
-"str_photo_permission_limit_tip" = "For better experience, please Allow Access to All Photos.";
-"str_camera_permission_deny_title" = "Camera Permission Required";
-"str_camera_permission_deny_tip" = "To take photos, we need to access your camera.";
-"str_selected_photos" = "已选择 %@";
+"str_photo_permission_deny_title" = "需要照片权限";
+"str_photo_permission_deny_tip" = "为了选择照片进行 PDF 转换，我们需要访问您的照片。为了更好的体验，请允许访问所有照片。";
+"str_go_setting" = "前往设置";
+"str_photo_permission_limit_title" = "允许访问所有照片";
+"str_photo_permission_limit_tip" = "为了更好的体验，请允许访问所有照片。";
+"str_camera_permission_deny_title" = "需要相机权限";
+"str_camera_permission_deny_tip" = "为了拍照，我们需要访问您的相机。";
+"str_selected_photos" = "已选择 %@ 张照片";
 "str_settings" = "设置";
-"str_convert" = "Convert";
+"str_convert" = "转换";
 "str_setpassword" = "设置密码";
 "str_enterpassword" = "输入密码";
-"str_changepassword" = "改密码";
+"str_changepassword" = "更改密码";
 "str_removepassword" = "删除密码";
-"str_margin" = "间距";
-"str_normal" = "常规";
+"str_margin" = "边距";
+"str_normal" = "正常";
 "str_none" = "无";
 "str_quality" = "质量";
-"str_pagesize" = "Page Size";
-"str_size_autofit_desc" = "Same as image size";
+"str_pagesize" = "页面尺寸";
+"str_orientation" = "方向";
+"str_size_autofit_desc" = "与图片尺寸相同";
 "str_done" = "完成";
-"str_sort_tip" = "Drag to change order";
+"str_sort_tip" = "拖动以更改顺序";
 "str_exit_preview" = "退出预览";
 "str_share" = "分享";
-"str_rename" = "改名";
+"str_rename" = "重命名";
 "str_save" = "保存";
 "str_pages" = "页";
 "str_open" = "打开";
 "str_password_error" = "密码错误";
 "str_password_format_error" = "密码格式错误";
-"str_new" = "新";
+"str_new" = "新建";
 "str_adjust" = "调整";
 "str_original" = "原始";
 "str_enhance" = "增强";
@@ -64,5 +58,24 @@
 "str_brightness" = "亮度";
 "str_contrast" = "对比度";
 "str_saturation" = "饱和度";
-"str_start_converting" = "Converting to PDF...";
-"str_complete_converting" = "Conversion completed.";
+"str_start_converting" = "正在转换为 PDF...";
+"str_complete_converting" = "转换完成。";
+"str_guide_title1" = "欢迎使用\n%@";
+"str_guide_title2" = "导入或扫描";
+"str_guide_title3" = "编辑和设置";
+"str_guide_title4" = "导出和分享";
+"str_continue" = "继续";
+"str_portrait" = "竖向";
+"str_landscape" = "横向";
+"str_premium_desc1" = "获得无限转换次数。";
+"str_premium_desc2" = "PDF 转换从未如此轻松！";
+"str_terms" = "条款和条件";
+"str_privacy" = "隐私政策";
+"str_price" = "仅 %@ /周。";
+"str_cancelanytime" = "随时可取消。";
+"str_restore" = "恢复";
+"str_restorefailed" = "看起来您还没有购买。";
+"str_feedback" = "反馈";
+"str_rate" = "给我们评分";
+"str_about" = "关于";
+

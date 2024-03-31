@@ -13,5 +13,7 @@
 
 + (NSString *)hz_dateTimeString2WithTime:(NSTimeInterval)timeInterval;
 
++ (BOOL)hz_checkFirstTimeOpenAppTodayWithKey:(NSString *)key;
+
 @end
 

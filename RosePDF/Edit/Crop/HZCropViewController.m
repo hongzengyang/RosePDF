@@ -84,12 +84,10 @@
         __block NSInteger callbackCount = 0;
         @weakify(self);
         for (int i = 0; i < self.dataList.count; i++) {
-            CFTimeInterval startTime = CFAbsoluteTimeGetCurrent();
             HZCropData *data = self.dataList[i];
             data.pageModel.borderArray = [data.borders copy];
-            [data.pageModel writeResultFileWithCompleteBlock:^(UIImage *result) {
+            [data.pageModel cropWithCompleteBlock:^{
                 @strongify(self);
-                CFTimeInterval endTime = CFAbsoluteTimeGetCurrent();
                 dispatch_semaphore_signal(semaphore);
                 callbackCount++;
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -114,7 +112,7 @@
         _navBar = [[HZBaseNavigationBar alloc] init];
         [_navBar configBackImage:[UIImage imageNamed:@"rose_back"]];
         [_navBar configTitle:NSLocalizedString(@"str_crop", nil)];
-        [_navBar configRightTitle:NSLocalizedString(@"str_finish", nil)];
+        [_navBar configRightTitle:NSLocalizedString(@"str_done", nil)];
         
         @weakify(self);
         _navBar.clickBackBlock = ^{

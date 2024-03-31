@@ -83,11 +83,11 @@
 - (NSString *)hz_toMorestTwoFloatMBSize:(long long)size {
     float floatSize = size/(1000*1000*1.0);
     if (fmodf(floatSize, 1)==0) {//如果有一位小数点
-        return [NSString stringWithFormat:@"%.0fMB",floatSize];
+        return [NSString stringWithFormat:@"%.0f MB",floatSize];
     } else if (fmodf(floatSize*10, 1)==0) {//如果有两位小数点
-        return [NSString stringWithFormat:@"%.1fMB",floatSize];
+        return [NSString stringWithFormat:@"%.1f MB",floatSize];
     }
-    return [NSString stringWithFormat:@"%.2fMB",floatSize];
+    return [NSString stringWithFormat:@"%.2f MB",floatSize];
 }
 
 @end

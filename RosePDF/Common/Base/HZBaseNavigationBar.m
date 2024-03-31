@@ -87,7 +87,9 @@
     
     self.rightBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self addSubview:self.rightBtn];
-    [self.rightBtn setBackgroundImage:[UIImage imageNamed:@"rose_nav_right_bg"] forState:(UIControlStateNormal)];
+    [self.rightBtn setBackgroundImage:[UIImage imageNamed:@"rose_gradient_bg"] forState:(UIControlStateNormal)];
+    self.rightBtn.layer.cornerRadius = 6;
+    self.rightBtn.layer.masksToBounds = YES;
     self.rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [self.rightBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [self.rightBtn addTarget:self action:@selector(clickRightButton) forControlEvents:(UIControlEventTouchUpInside)];

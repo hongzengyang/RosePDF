@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  RosePDF
+
+  Created by THS on 2024/2/5.
+  
+*/
+"CFBundleDisplayName" = "PDF Converter";
+"NSCameraUsageDescription" = "Để chụp ảnh, chúng tôi cần truy cập vào máy ảnh của bạn.";
+"NSPhotoLibraryUsageDescription" = "Để chọn ảnh để chuyển đổi PDF, chúng tôi cần truy cập vào ảnh của bạn. Để có trải nghiệm tốt hơn, vui lòng Cho Phép Truy Cập vào Tất cả Ảnh.";
+"NSPhotoLibraryAddUsageDescription" = "Để chọn ảnh để chuyển đổi PDF, chúng tôi cần truy cập vào ảnh của bạn. Để có trải nghiệm tốt hơn, vui lòng Cho Phép Truy Cập vào Tất cả Ảnh.";

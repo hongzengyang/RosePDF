@@ -26,6 +26,7 @@ WCDB_PROPERTY(updateTime)
 WCDB_PROPERTY(pageIds)
 WCDB_PROPERTY(folderId)
 WCDB_PROPERTY(pdfSize)
+WCDB_PROPERTY(pdfOrientation)
 WCDB_PROPERTY(margin)
 WCDB_PROPERTY(quality)
 WCDB_PROPERTY(openPassword)
@@ -61,6 +62,7 @@ WCDB_SYNTHESIZE(HZProjectModel, updateTime)
 WCDB_SYNTHESIZE(HZProjectModel, pageIds)
 WCDB_SYNTHESIZE(HZProjectModel, folderId)
 WCDB_SYNTHESIZE(HZProjectModel, pdfSize)
+WCDB_SYNTHESIZE(HZProjectModel, pdfOrientation)
 WCDB_SYNTHESIZE(HZProjectModel, margin)
 WCDB_SYNTHESIZE(HZProjectModel, quality)
 WCDB_SYNTHESIZE(HZProjectModel, openPassword)
@@ -81,7 +83,7 @@ WCDB_PRIMARY(HZProjectModel, identifier)
         return YES;
     }
     [HZWCDBDateBase createTableAndIndexesOfName:DB_PROJECT_TABLE_NAME withClass:self.class];
-    return [HZWCDBDateBase updateRowsInTable:DB_PROJECT_TABLE_NAME onProperties:{self.class.title,self.class.createTime,self.class.updateTime,self.class.pageIds,self.class.folderId,self.class.pdfSize,self.class.margin,self.class.quality,self.class.openPassword,self.class.password,self.class.newFlag
+    return [HZWCDBDateBase updateRowsInTable:DB_PROJECT_TABLE_NAME onProperties:{self.class.title,self.class.createTime,self.class.updateTime,self.class.pageIds,self.class.folderId,self.class.pdfSize,self.class.pdfOrientation,self.class.margin,self.class.quality,self.class.openPassword,self.class.password,self.class.newFlag
     } withObject:self where:self.class.identifier==self.identifier];
 }
 - (BOOL)deleteInDataBase {
@@ -94,6 +96,23 @@ WCDB_PRIMARY(HZProjectModel, identifier)
 + (NSArray<HZProjectModel *> *)queryAllProjects {
     NSArray<HZProjectModel *> *projectList = [HZWCDBDateBase getObjectsOfClass:self fromTable:DB_PROJECT_TABLE_NAME orderBy:self.createTime.order(WCTOrderedDescending)];
     return projectList;
+}
+
++ (NSArray<HZProjectModel *> *)searchWithText:(NSString *)text {
+    if (text.length == 0) {
+        return nil;
+    }
+    
+    NSArray<HZProjectModel *> *projectList = [self queryAllProjects];
+    
+    __block NSMutableArray<HZProjectModel *> *muArray = [[NSMutableArray alloc] init];
+    [projectList enumerateObjectsUsingBlock:^(HZProjectModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.title containsString:text]) {
+            [muArray addObject:obj];
+        }
+    }];
+    
+    return muArray;
 }
 
 #pragma mark - Pdf
@@ -142,3 +161,4 @@ WCDB_PRIMARY(HZProjectModel, identifier)
 }
 
 @end
+

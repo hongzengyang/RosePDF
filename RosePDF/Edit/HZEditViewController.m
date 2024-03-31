@@ -95,7 +95,7 @@
 #pragma mark - Filter
 - (void)enterFilterMode {
     if (!self.filterView) {
-        self.filterView = [[HZEditFilterView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 192 + hz_safeBottom) databoard:self.databoard];
+        self.filterView = [[HZEditFilterView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 28 + 10 + 154 + hz_safeBottom) databoard:self.databoard];
         [self.view addSubview:self.filterView];
         @weakify(self);
         self.filterView.slideBlock = ^(BOOL isFilter, HZFilterType filterType, HZAdjustType adjustType) {

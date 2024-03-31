@@ -70,6 +70,10 @@
             break;
         default: {
             CGSize size = [HZPDFMaker pageSizeWithoutOrigin:self.project.pdfSize];
+            if (self.project.pdfOrientation == HZPDFOrientation_landscape) {
+                CGSize newSize = CGSizeMake(size.height, size.width);
+                size = newSize;
+            }
             height = width * (size.height / size.width);
         }
             break;

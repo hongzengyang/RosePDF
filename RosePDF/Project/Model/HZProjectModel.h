@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *pageIds;
 @property (nonatomic, copy) NSString *folderId;
 @property (nonatomic, assign) HZPDFSize pdfSize;
+@property (nonatomic, assign) HZPDFOrientation pdfOrientation;
 @property (nonatomic, assign) HZPDFMargin margin;
 @property (nonatomic, assign) HZPDFQuality quality;
 @property (nonatomic, assign) BOOL openPassword;
@@ -29,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray <HZPageModel *>*pageModels;
 
 + (NSArray <HZProjectModel *>*)queryAllProjects;
++ (NSArray <HZProjectModel *>*)searchWithText:(NSString *)text;
 //保存到数据库
 - (BOOL)saveToDataBase;
 //在数据库中更新
@@ -45,3 +47,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+

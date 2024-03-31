@@ -85,6 +85,7 @@
     tmpProject.createTime = project.createTime;
     tmpProject.updateTime = project.updateTime;
     tmpProject.pdfSize = project.pdfSize;
+    tmpProject.pdfOrientation = project.pdfOrientation;
     tmpProject.margin = project.margin;
     tmpProject.quality = project.quality;
     tmpProject.openPassword = project.openPassword;
@@ -179,6 +180,8 @@
         NSData *originData = UIImageJPEGRepresentation(originalImage, 0.5);
         [originData writeToFile:[pageModel originPath] atomically:YES];
         
+        [originData writeToFile:[pageModel contentPath] atomically:YES];
+        
         [pageModel writeResultFileWithCompleteBlock:^(UIImage *result) {
             if (completeBlock) {
                 completeBlock(pageModel);
@@ -237,6 +240,7 @@
     toProject.createTime = fromProject.createTime;
     toProject.updateTime = [[NSDate date] timeIntervalSince1970];
     toProject.pdfSize = fromProject.pdfSize;
+    toProject.pdfOrientation = fromProject.pdfOrientation;
     toProject.margin = fromProject.margin;
     toProject.quality = fromProject.quality;
     toProject.openPassword = fromProject.openPassword;

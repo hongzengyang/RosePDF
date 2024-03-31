@@ -17,6 +17,9 @@
 #import "HZAlertTextFieldView.h"
 #import "HZPDFDetailViewController.h"
 #import "HZHomeCell.h"
+#import "HZIAPManager.h"
+#import "HZIAPViewController.h"
+#import "HZSystemManager.h"
 
 @interface HZHomeViewController ()<UITableViewDelegate,UITableViewDataSource,HZHomeNavigationBarDelegate>
 
@@ -42,17 +45,37 @@
     [self requestData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectUpdate:) name:pref_key_update_project object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectDelete:) name:pref_key_delete_project object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectRename:) name:pref_key_rename_project object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectPasswordChanged:) name:pref_key_project_psw_changed object:nil];
     
     [HZProjectManager cleanTmpProjects];
+    
+    {//
+        if (![IAPInstance isVip]) {
+            if ([NSDate hz_checkFirstTimeOpenAppTodayWithKey:@"pref_key_first_open_homePage"]) {
+                if (![HZSystemManager manager].duringFirstOpen) {
+                    HZIAPViewController *vc = [[HZIAPViewController alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                    @weakify(self);
+                    vc.clickCloseBlock = ^{
+                        @strongify(self);
+                        [self.navigationController popViewControllerAnimated:YES];
+                    };
+                    vc.successBlock = ^{
+                        @strongify(self);
+                        [self.navigationController popViewControllerAnimated:YES];
+                    };
+                }
+            }
+        }
+    }
 }
 
 - (void)configView {
-    self.view.backgroundColor = hz_1_bgColor;
-    
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.navBar];
     
@@ -68,13 +91,14 @@
     [self.view addSubview:self.deleteView];
     
     UIButton *addBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    addBtn.contentMode = UIViewContentModeCenter;
     [self.view addSubview:addBtn];
     [addBtn setImage:[UIImage imageNamed:@"rose_home_add"] forState:(UIControlStateNormal)];
     [addBtn setImage:[UIImage imageNamed:@"rose_home_add"] forState:(UIControlStateHighlighted)];
     [addBtn addTarget:self action:@selector(clickAddButton) forControlEvents:(UIControlEventTouchUpInside)];
     [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(-(hz_safeBottom + 8));
-        make.width.height.mas_equalTo(86);
+        make.bottom.equalTo(self.view).offset(-hz_safeBottom);
+        make.width.height.mas_equalTo(118);
         make.centerX.equalTo(self.view);
     }];
     self.addBtn = addBtn;
@@ -93,6 +117,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navBar viewWillAppear];
 }
 
 #pragma mark click
@@ -166,6 +191,12 @@
             [self.selectProjects addObject:project];
         }
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationNone)];
+        
+        if (self.selectProjects.count == self.projects.count) {
+            [self.navBar configAllSelected:YES];
+        }else {
+            [self.navBar configAllSelected:NO];
+        }
         return;
     }
     
@@ -193,6 +224,21 @@ static CGFloat prevOffsetY = 0;
 }
 
 #pragma mark - HZHomeNavigationBarDelegate
+- (void)clickIAPButton {
+    HZIAPViewController *vc = [[HZIAPViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    @weakify(self);
+    vc.clickCloseBlock = ^{
+        @strongify(self);
+        [self.navigationController popViewControllerAnimated:YES];
+    };
+    vc.successBlock = ^{
+        @strongify(self);
+        [self.navigationController popViewControllerAnimated:YES];
+    };
+}
+
 - (void)clickMultiSelectButton {
     [self enterSelectMode];
 }

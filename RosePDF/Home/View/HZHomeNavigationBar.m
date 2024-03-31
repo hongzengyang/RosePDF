@@ -8,6 +8,7 @@
 #import "HZHomeNavigationBar.h"
 #import "HZCommonHeader.h"
 #import "HZHomeMenuView.h"
+#import "HZIAPManager.h"
 
 @interface HZHomeNavigationBar()
 
@@ -34,6 +35,7 @@
     if (self = [super initWithFrame:frame]) {
         [self configView];
         [self configSelectMode:NO];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vipStatusChanged) name:notify_iap_changed object:nil];
     }
     return self;
 }
@@ -42,6 +44,10 @@
     self.isSelectMode = isSelectMode;
     self.normalContainerView.hidden = isSelectMode;
     self.selectContainerView.hidden = !isSelectMode;
+}
+
+- (void)configAllSelected:(BOOL)allSelected {
+    self.selectAllBtn.selected = allSelected;
 }
 
 - (void)configSwipeUpMode:(BOOL)isSwipeUpMode {
@@ -66,8 +72,8 @@
     }];
     
     [self.vipBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.normalContainerView).offset(16);
-        make.width.height.mas_equalTo(22);
+        make.leading.equalTo(self.normalContainerView).offset(10);
+        make.width.height.mas_equalTo(34);
         make.centerY.equalTo(self.normalContainerView);
     }];
     [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -104,6 +110,11 @@
     [self refreshWithAnimation:NO];
 }
 
+- (void)viewWillAppear {
+    BOOL isVip = [IAPInstance isVip];
+    self.vipBtn.hidden = isVip;
+}
+
 - (void)refreshWithAnimation:(BOOL)animation {
     NSTimeInterval duration = animation ? 0.1 : 0;
     if (self.isSwipeUpMode) {
@@ -121,11 +132,12 @@
 
 #pragma mark - Click
 - (void)clickVipButton {
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(clickIAPButton)]) {
+        [self.delegate clickIAPButton];
+    }
 }
 
 - (void)clickMoreButton {
-    return;
     @weakify(self);
     [HZHomeMenuView popInView:[UIView hz_viewController].view relatedView:self selectBlock:^(HZHomeMenuType index) {
         @strongify(self);
@@ -159,6 +171,12 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(clickSelectFinishButton)]) {
         [self.delegate clickSelectFinishButton];
     }
+}
+
+#pragma mark - Notification
+- (void)vipStatusChanged {
+    BOOL isVip = [IAPInstance isVip];
+    self.vipBtn.hidden = isVip;
 }
 
 #pragma mark - Lazy
@@ -198,6 +216,7 @@
 - (UIButton *)vipBtn {
     if (!_vipBtn) {
         _vipBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        _vipBtn.contentMode = UIViewContentModeCenter;
         [_vipBtn setImage:[UIImage imageNamed:@"rose_home_vip"] forState:(UIControlStateNormal)];
         [_vipBtn addTarget:self action:@selector(clickVipButton) forControlEvents:(UIControlEventTouchUpInside)];
     }
@@ -227,12 +246,11 @@
         _selectAllBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [_selectAllBtn setTitle:[NSString stringWithFormat:@"  %@  ",NSLocalizedString(@"str_deselectall", nil)] forState:(UIControlStateSelected)];
         [_selectAllBtn setTitle:[NSString stringWithFormat:@"  %@  ",NSLocalizedString(@"str_selectall", nil)] forState:(UIControlStateNormal)];
-        [_selectAllBtn setBackgroundImage:[UIImage imageNamed:@"rose_nav_right_bg"] forState:(UIControlStateNormal)];
-        [_selectAllBtn setBackgroundImage:[UIImage imageNamed:@"rose_nav_right_bg"] forState:(UIControlStateSelected)];
-        [_selectAllBtn setBackgroundImage:[UIImage imageNamed:@"rose_nav_right_bg"] forState:(UIControlStateHighlighted)];
+        _selectAllBtn.layer.cornerRadius = 6;
+        _selectAllBtn.layer.masksToBounds = YES;
         _selectAllBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_selectAllBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-        [_selectAllBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateSelected)];
+        [_selectAllBtn setTitleColor:hz_main_color forState:(UIControlStateNormal)];
+        [_selectAllBtn setTitleColor:hz_main_color forState:(UIControlStateSelected)];
         [_selectAllBtn addTarget:self action:@selector(clickSelectAllButton:) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _selectAllBtn;
@@ -242,7 +260,9 @@
     if (!_finishBtn) {
         _finishBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [_finishBtn setTitle:[NSString stringWithFormat:@"  %@  ",NSLocalizedString(@"str_done", nil)] forState:(UIControlStateNormal)];
-        [_finishBtn setBackgroundImage:[UIImage imageNamed:@"rose_nav_right_bg"] forState:(UIControlStateNormal)];
+        [_finishBtn setBackgroundImage:[UIImage imageNamed:@"rose_gradient_bg"] forState:(UIControlStateNormal)];
+        _finishBtn.layer.cornerRadius = 6;
+        _finishBtn.layer.masksToBounds = YES;
         _finishBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_finishBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         [_finishBtn addTarget:self action:@selector(clickFinishButton) forControlEvents:(UIControlEventTouchUpInside)];

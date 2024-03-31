@@ -82,9 +82,16 @@
     textField.keyboardType = UIKeyboardTypeEmailAddress;
     textField.tintColor = [UIColor blackColor];
     textField.delegate = self;
+    textField.font = [UIFont systemFontOfSize:17];
+    
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"str_enterpassword", nil) attributes:
+    @{NSForegroundColorAttributeName:hz_getColor(@"B2B2B2"),
+    NSFontAttributeName:textField.font}
+    ];
+    textField.attributedPlaceholder = attrString;
+    
     [textContainerView addSubview:textField];
     textField.textColor = [UIColor blackColor];
-    textField.font = [UIFont systemFontOfSize:17];
     [textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.top.bottom.equalTo(textContainerView);
         make.leading.equalTo(textContainerView).offset(12);

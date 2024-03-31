@@ -1,7 +1,80 @@
-/* 
-  Localizable.strings
-  RosePDF
-
-  Created by THS on 2024/2/5.
-  
-*/
+"str_appname" = "PDF轉檔";
+"str_files" = "檔案";
+"str_search" = "搜尋";
+"str_home_empty_file" = "尚未建立任何檔案";
+"str_edit" = "編輯";
+"str_next" = "下一步";
+"str_filter" = "濾鏡";
+"str_left" = "左";
+"str_right" = "右";
+"str_crop" = "裁剪";
+"str_reorder" = "重新排序";
+"str_delete" = "刪除";
+"str_cancel" = "取消";
+"str_import" = "選取";
+"str_selectalbum" = "選取相簿";
+"str_finish" = "完成";
+"str_select" = "選擇";
+"str_selectfiles" = "選擇檔案";
+"str_selectall" = "全選";
+"str_deselectall" = "取消全選";
+"str_photo_permission_deny_title" = "需要照片權限";
+"str_photo_permission_deny_tip" = "為了選擇照片進行 PDF 轉檔，我們需要存取您的照片。為了更好的體驗，請允許存取所有照片。";
+"str_go_setting" = "前往設定";
+"str_photo_permission_limit_title" = "允許存取所有照片";
+"str_photo_permission_limit_tip" = "為了更好的體驗，請允許存取所有照片。";
+"str_camera_permission_deny_title" = "需要相機權限";
+"str_camera_permission_deny_tip" = "為了拍攝照片，我們需要存取您的相機。";
+"str_selected_photos" = "已選擇 %@ 張照片";
+"str_settings" = "設定";
+"str_convert" = "轉檔";
+"str_setpassword" = "設置密碼";
+"str_enterpassword" = "輸入密碼";
+"str_changepassword" = "更改密碼";
+"str_removepassword" = "刪除密碼";
+"str_margin" = "邊距";
+"str_normal" = "常規";
+"str_none" = "無";
+"str_quality" = "品質";
+"str_pagesize" = "頁面大小";
+"str_orientation" = "方向";
+"str_size_autofit_desc" = "與圖片大小相同";
+"str_done" = "完成";
+"str_sort_tip" = "拖曳以更改順序";
+"str_exit_preview" = "退出預覽";
+"str_share" = "分享";
+"str_rename" = "重新命名";
+"str_save" = "儲存";
+"str_pages" = "頁";
+"str_open" = "開啟";
+"str_password_error" = "密碼錯誤";
+"str_password_format_error" = "密碼格式錯誤";
+"str_new" = "新增";
+"str_adjust" = "調整";
+"str_original" = "原始";
+"str_enhance" = "增強";
+"str_bw" = "黑白";
+"str_gray" = "灰階";
+"str_brightness" = "亮度";
+"str_contrast" = "對比度";
+"str_saturation" = "飽和度";
+"str_start_converting" = "正在轉檔為 PDF...";
+"str_complete_converting" = "轉檔完成。";
+"str_guide_title1" = "歡迎使用\n%@";
+"str_guide_title2" = "導入或掃描";
+"str_guide_title3" = "編輯與設定";
+"str_guide_title4" = "匯出與分享";
+"str_continue" = "繼續";
+"str_portrait" = "豎向";
+"str_landscape" = "橫向";
+"str_premium_desc1" = "獲得無限轉檔次數。";
+"str_premium_desc2" = "PDF 轉檔從未如此輕鬆！";
+"str_terms" = "條款與條件";
+"str_privacy" = "隱私政策";
+"str_price" = "每週只需 %@。";
+"str_cancelanytime" = "隨時可取消。";
+"str_restore" = "恢復購買";
+"str_restorefailed" = "似乎您尚未購買。";
+"str_feedback" = "回饋意見";
+"str_rate" = "給我們評分";
+"str_about" = "關於";

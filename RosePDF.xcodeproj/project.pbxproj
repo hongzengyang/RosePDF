@@ -12,6 +12,8 @@
 		4472BB462B9378BE0093D5D6 /* HZPDFConvertingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4472BB452B9378BE0093D5D6 /* HZPDFConvertingView.m */; };
 		4472BB492B937AED0093D5D6 /* rose_pdf_loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4472BB472B937AED0093D5D6 /* rose_pdf_loading.gif */; };
 		4472BB4A2B937AED0093D5D6 /* rose_pdf_complete.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4472BB482B937AED0093D5D6 /* rose_pdf_complete.gif */; };
+		44A7C72B2BB9813800B3C385 /* Terms_Conditions.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7C72A2BB9813800B3C385 /* Terms_Conditions.pdf */; };
+		44A7C72D2BB9817100B3C385 /* PrivacyPolicy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7C72C2BB9817100B3C385 /* PrivacyPolicy.pdf */; };
 		44F5C64F2BA8816900CE4CA9 /* ImageShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		44F5C6562BA8822C00CE4CA9 /* ShareExtensionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F5C6552BA8822C00CE4CA9 /* ShareExtensionViewController.m */; };
 		A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */; };
@@ -44,6 +46,12 @@
 		A1A240F42B9ED198009081E8 /* HZGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A240F02B9ED198009081E8 /* HZGeometry.m */; };
 		A1A240F52B9ED198009081E8 /* HZCropCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A240F32B9ED198009081E8 /* HZCropCell.m */; };
 		A1A240F92B9ED4B2009081E8 /* HZSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A240F82B9ED4B2009081E8 /* HZSearchViewController.m */; };
+		A1A241232BABD03B009081E8 /* HZUserGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A241222BABD03A009081E8 /* HZUserGuideViewController.m */; };
+		A1A241272BABD0E2009081E8 /* HZUserGuideCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A241262BABD0E2009081E8 /* HZUserGuideCell.m */; };
+		A1A2413D2BB17114009081E8 /* HZIAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A2413C2BB17114009081E8 /* HZIAPViewController.m */; };
+		A1A2413E2BB17114009081E8 /* HZIAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A2413C2BB17114009081E8 /* HZIAPViewController.m */; };
+		A1A2415F2BB1A6F9009081E8 /* HZIAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A2415E2BB1A6F9009081E8 /* HZIAPManager.m */; };
+		A1A241602BB1A6F9009081E8 /* HZIAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A2415E2BB1A6F9009081E8 /* HZIAPManager.m */; };
 		A1A8DBE22B5E9D630092F0F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */; };
 		A1A8DBEB2B5E9D630092F0F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1A8DBE92B5E9D630092F0F8 /* Main.storyboard */; };
 		A1A8DBED2B5E9D650092F0F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A8DBEC2B5E9D650092F0F8 /* Assets.xcassets */; };
@@ -55,6 +63,9 @@
 		A1ABB91B2B8200280007C9B6 /* HZEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ABB91A2B8200280007C9B6 /* HZEditViewController.m */; };
 		A1ABB9222B833DF30007C9B6 /* HZEditPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ABB9212B833DF30007C9B6 /* HZEditPreviewCell.m */; };
 		A1ABB9252B8444F20007C9B6 /* HZPDFSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ABB9242B8444F20007C9B6 /* HZPDFSettingCell.m */; };
+		A1B190962BB2FFED00B31842 /* HZSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B190952BB2FFED00B31842 /* HZSystemManager.m */; };
+		A1B190A12BB4463D00B31842 /* HZFilterDebugView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B190A02BB4463D00B31842 /* HZFilterDebugView.m */; };
+		A1B190A92BB55D2A00B31842 /* HZPDFWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B190A82BB55D2A00B31842 /* HZPDFWebViewController.m */; };
 		A1B4DCEC2B8D7060000E144D /* HZPDFPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DCEB2B8D7060000E144D /* HZPDFPreviewView.m */; };
 		A1B4DCEF2B8D70EE000E144D /* HZPDFPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DCEE2B8D70EE000E144D /* HZPDFPreviewCell.m */; };
 		A1B4DCFE2B8ED552000E144D /* HZShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DCFD2B8ED552000E144D /* HZShareManager.m */; };
@@ -128,6 +139,8 @@
 		4472BB452B9378BE0093D5D6 /* HZPDFConvertingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFConvertingView.m; sourceTree = "<group>"; };
 		4472BB472B937AED0093D5D6 /* rose_pdf_loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rose_pdf_loading.gif; sourceTree = "<group>"; };
 		4472BB482B937AED0093D5D6 /* rose_pdf_complete.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rose_pdf_complete.gif; sourceTree = "<group>"; };
+		44A7C72A2BB9813800B3C385 /* Terms_Conditions.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Terms_Conditions.pdf; sourceTree = "<group>"; };
+		44A7C72C2BB9817100B3C385 /* PrivacyPolicy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PrivacyPolicy.pdf; sourceTree = "<group>"; };
 		44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F5C64C2BA8816900CE4CA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44F5C6542BA8822C00CE4CA9 /* ShareExtensionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareExtensionViewController.h; sourceTree = "<group>"; };
@@ -195,6 +208,44 @@
 		A1A240F32B9ED198009081E8 /* HZCropCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZCropCell.m; sourceTree = "<group>"; };
 		A1A240F72B9ED4B2009081E8 /* HZSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZSearchViewController.h; sourceTree = "<group>"; };
 		A1A240F82B9ED4B2009081E8 /* HZSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZSearchViewController.m; sourceTree = "<group>"; };
+		A1A241212BABD03A009081E8 /* HZUserGuideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZUserGuideViewController.h; sourceTree = "<group>"; };
+		A1A241222BABD03A009081E8 /* HZUserGuideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZUserGuideViewController.m; sourceTree = "<group>"; };
+		A1A241252BABD0E2009081E8 /* HZUserGuideCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZUserGuideCell.h; sourceTree = "<group>"; };
+		A1A241262BABD0E2009081E8 /* HZUserGuideCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZUserGuideCell.m; sourceTree = "<group>"; };
+		A1A2413B2BB17114009081E8 /* HZIAPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZIAPViewController.h; sourceTree = "<group>"; };
+		A1A2413C2BB17114009081E8 /* HZIAPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZIAPViewController.m; sourceTree = "<group>"; };
+		A1A2413F2BB19814009081E8 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A241402BB19814009081E8 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A241412BB1988A009081E8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A241422BB1988A009081E8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A241432BB198ED009081E8 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A241442BB198ED009081E8 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A241452BB19920009081E8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A241462BB19920009081E8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A241472BB1994E009081E8 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A241482BB1994E009081E8 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A241492BB19974009081E8 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A2414A2BB19974009081E8 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A2414B2BB19997009081E8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A2414C2BB19997009081E8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A2414D2BB199B3009081E8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A2414E2BB199B3009081E8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A2414F2BB199F4009081E8 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A241502BB199F4009081E8 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A241512BB19A44009081E8 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A241522BB19A44009081E8 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A241532BB19A6D009081E8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A241542BB19A6D009081E8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A241552BB19A98009081E8 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A241562BB19A98009081E8 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A241572BB19AB8009081E8 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A241582BB19AB8009081E8 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A241592BB19AE3009081E8 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1A2415A2BB19AE3009081E8 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1A2415B2BB19B10009081E8 /* en-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-IN"; path = "en-IN.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A1A2415C2BB19B10009081E8 /* en-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-IN"; path = "en-IN.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A1A2415D2BB1A6F9009081E8 /* HZIAPManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZIAPManager.h; sourceTree = "<group>"; };
+		A1A2415E2BB1A6F9009081E8 /* HZIAPManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZIAPManager.m; sourceTree = "<group>"; };
 		A1A8DBDD2B5E9D630092F0F8 /* RosePDF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosePDF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8DBE02B5E9D630092F0F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -214,6 +265,12 @@
 		A1ABB9212B833DF30007C9B6 /* HZEditPreviewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditPreviewCell.m; sourceTree = "<group>"; };
 		A1ABB9232B8444F20007C9B6 /* HZPDFSettingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingCell.h; sourceTree = "<group>"; };
 		A1ABB9242B8444F20007C9B6 /* HZPDFSettingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFSettingCell.m; sourceTree = "<group>"; };
+		A1B190942BB2FFED00B31842 /* HZSystemManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZSystemManager.h; sourceTree = "<group>"; };
+		A1B190952BB2FFED00B31842 /* HZSystemManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZSystemManager.m; sourceTree = "<group>"; };
+		A1B1909F2BB4463D00B31842 /* HZFilterDebugView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZFilterDebugView.h; sourceTree = "<group>"; };
+		A1B190A02BB4463D00B31842 /* HZFilterDebugView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZFilterDebugView.m; sourceTree = "<group>"; };
+		A1B190A72BB55D2A00B31842 /* HZPDFWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFWebViewController.h; sourceTree = "<group>"; };
+		A1B190A82BB55D2A00B31842 /* HZPDFWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFWebViewController.m; sourceTree = "<group>"; };
 		A1B4DCEA2B8D7060000E144D /* HZPDFPreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFPreviewView.h; sourceTree = "<group>"; };
 		A1B4DCEB2B8D7060000E144D /* HZPDFPreviewView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFPreviewView.m; sourceTree = "<group>"; };
 		A1B4DCED2B8D70EE000E144D /* HZPDFPreviewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFPreviewCell.h; sourceTree = "<group>"; };
@@ -351,6 +408,7 @@
 		A12C2A602B6F6C0B00B77150 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A1B190932BB2FFD600B31842 /* Manager */,
 				A12C2A612B6F6C2A00B77150 /* Base */,
 				A12C2A6C2B6F723C00B77150 /* HZCommonHeader.h */,
 				A1FE6E2F2B85B008005AA056 /* HZSelectPopView.h */,
@@ -361,6 +419,8 @@
 				A1B4DD0F2B905525000E144D /* HZSlider.m */,
 				A1B4DD022B8F3048000E144D /* HZCommonUtils.h */,
 				A1B4DD032B8F3048000E144D /* HZCommonUtils.m */,
+				A1B190A72BB55D2A00B31842 /* HZPDFWebViewController.h */,
+				A1B190A82BB55D2A00B31842 /* HZPDFWebViewController.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -410,6 +470,7 @@
 		A12C2A932B70FAB100B77150 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				A1B190A22BB55C2C00B31842 /* File */,
 				A12C2A982B70FADA00B77150 /* Localizable.strings */,
 				A12C2AA22B70FDF300B77150 /* Media.xcassets */,
 				4472BB482B937AED0093D5D6 /* rose_pdf_complete.gif */,
@@ -451,6 +512,8 @@
 				A1B4DD0C2B902644000E144D /* HZEditFilterView.m */,
 				A1B4DD112B930AAF000E144D /* HZEditFilterSliderView.h */,
 				A1B4DD122B930AAF000E144D /* HZEditFilterSliderView.m */,
+				A1B1909F2BB4463D00B31842 /* HZFilterDebugView.h */,
+				A1B190A02BB4463D00B31842 /* HZFilterDebugView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -509,6 +572,36 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		A1A241202BABD003009081E8 /* UserGuide */ = {
+			isa = PBXGroup;
+			children = (
+				A1A241212BABD03A009081E8 /* HZUserGuideViewController.h */,
+				A1A241222BABD03A009081E8 /* HZUserGuideViewController.m */,
+				A1A241242BABD0CB009081E8 /* View */,
+			);
+			path = UserGuide;
+			sourceTree = "<group>";
+		};
+		A1A241242BABD0CB009081E8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A1A241252BABD0E2009081E8 /* HZUserGuideCell.h */,
+				A1A241262BABD0E2009081E8 /* HZUserGuideCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A1A2413A2BB170F7009081E8 /* IAP */ = {
+			isa = PBXGroup;
+			children = (
+				A1A2413B2BB17114009081E8 /* HZIAPViewController.h */,
+				A1A2413C2BB17114009081E8 /* HZIAPViewController.m */,
+				A1A2415D2BB1A6F9009081E8 /* HZIAPManager.h */,
+				A1A2415E2BB1A6F9009081E8 /* HZIAPManager.m */,
+			);
+			path = IAP;
+			sourceTree = "<group>";
+		};
 		A1A8DBD42B5E9D630092F0F8 = {
 			isa = PBXGroup;
 			children = (
@@ -536,6 +629,8 @@
 		A1A8DBDF2B5E9D630092F0F8 /* RosePDF */ = {
 			isa = PBXGroup;
 			children = (
+				A1A2413A2BB170F7009081E8 /* IAP */,
+				A1A241202BABD003009081E8 /* UserGuide */,
 				A1A240F62B9ED497009081E8 /* Search */,
 				A1B4DCFB2B8ED52F000E144D /* Share */,
 				A1A01C042B8C646B008B6FE8 /* Detail */,
@@ -593,6 +688,24 @@
 				4472BB452B9378BE0093D5D6 /* HZPDFConvertingView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A1B190932BB2FFD600B31842 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				A1B190942BB2FFED00B31842 /* HZSystemManager.h */,
+				A1B190952BB2FFED00B31842 /* HZSystemManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		A1B190A22BB55C2C00B31842 /* File */ = {
+			isa = PBXGroup;
+			children = (
+				44A7C72A2BB9813800B3C385 /* Terms_Conditions.pdf */,
+				44A7C72C2BB9817100B3C385 /* PrivacyPolicy.pdf */,
+			);
+			path = File;
 			sourceTree = "<group>";
 		};
 		A1B4DCFB2B8ED52F000E144D /* Share */ = {
@@ -776,6 +889,21 @@
 				Base,
 				"zh-Hans",
 				"zh-Hant",
+				ar,
+				de,
+				es,
+				fr,
+				id,
+				it,
+				ja,
+				ko,
+				pl,
+				pt,
+				ru,
+				th,
+				tr,
+				vi,
+				"en-IN",
 			);
 			mainGroup = A1A8DBD42B5E9D630092F0F8;
 			productRefGroup = A1A8DBDE2B5E9D630092F0F8 /* Products */;
@@ -802,10 +930,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44A7C72B2BB9813800B3C385 /* Terms_Conditions.pdf in Resources */,
 				A1A8DBF02B5E9D650092F0F8 /* LaunchScreen.storyboard in Resources */,
 				A12C2A962B70FADA00B77150 /* Localizable.strings in Resources */,
 				A1A8DBED2B5E9D650092F0F8 /* Assets.xcassets in Resources */,
 				4472BB4A2B937AED0093D5D6 /* rose_pdf_complete.gif in Resources */,
+				44A7C72D2BB9817100B3C385 /* PrivacyPolicy.pdf in Resources */,
 				4472BB492B937AED0093D5D6 /* rose_pdf_loading.gif in Resources */,
 				A1A8DBEB2B5E9D630092F0F8 /* Main.storyboard in Resources */,
 				A12C2AA32B70FDF300B77150 /* Media.xcassets in Resources */,
@@ -914,14 +1044,19 @@
 				A12C2ACC2B722D7700B77150 /* HZProjectManager.m in Sources */,
 				A12C2AB12B71DB4E00B77150 /* HZEditPreviewCollectionView.m in Sources */,
 				A1A01C072B8C6490008B6FE8 /* HZPDFDetailViewController.m in Sources */,
+				A1A2413D2BB17114009081E8 /* HZIAPViewController.m in Sources */,
+				A1B190962BB2FFED00B31842 /* HZSystemManager.m in Sources */,
+				A1B190A12BB4463D00B31842 /* HZFilterDebugView.m in Sources */,
 				A12C2AB72B71DCAB00B77150 /* HZEditDataboard.m in Sources */,
 				A1FE6E252B84A27F005AA056 /* HZPDFSettingSizeView.m in Sources */,
 				A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */,
 				A1A8DBF32B5E9D650092F0F8 /* main.m in Sources */,
+				A1B190A92BB55D2A00B31842 /* HZPDFWebViewController.m in Sources */,
 				A1FE6E2E2B858EC3005AA056 /* HZPDFMaker.m in Sources */,
 				4472BB462B9378BE0093D5D6 /* HZPDFConvertingView.m in Sources */,
 				A1FE6E2B2B858A91005AA056 /* HZEditInput.m in Sources */,
 				A1B4DD012B8F014B000E144D /* HZHomeProjectItemView.m in Sources */,
+				A1A241272BABD0E2009081E8 /* HZUserGuideCell.m in Sources */,
 				A1B4DD132B930AAF000E144D /* HZEditFilterSliderView.m in Sources */,
 				A1A240F42B9ED198009081E8 /* HZGeometry.m in Sources */,
 				A1FE6E1C2B846848005AA056 /* HZPDFSettingPasswordView.m in Sources */,
@@ -937,6 +1072,7 @@
 				A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */,
 				A1ABB91B2B8200280007C9B6 /* HZEditViewController.m in Sources */,
 				A12C2AB42B71DB5E00B77150 /* HZEditBottomView.m in Sources */,
+				A1A241232BABD03B009081E8 /* HZUserGuideViewController.m in Sources */,
 				A1A240F52B9ED198009081E8 /* HZCropCell.m in Sources */,
 				A12C2AC62B7229A200B77150 /* HZBaseDBHelper.mm in Sources */,
 				A1FE6E282B84BA66005AA056 /* HZPDFSizeViewController.m in Sources */,
@@ -955,6 +1091,7 @@
 				A12C2AAE2B71DB2E00B77150 /* HZEditTopCollectionView.m in Sources */,
 				A12C2AAA2B71CA8700B77150 /* HZBaseNavigationBar.m in Sources */,
 				A12C2A872B70DFCD00B77150 /* HZHomeTableHeaderView.m in Sources */,
+				A1A2415F2BB1A6F9009081E8 /* HZIAPManager.m in Sources */,
 				A1A01C032B8C2675008B6FE8 /* HZAlertTextFieldView.m in Sources */,
 				A1FE6E3E2B8612A5005AA056 /* HZSortViewController.m in Sources */,
 				A1FE6E222B849FFB005AA056 /* HZPDFSettingQualityView.m in Sources */,
@@ -967,7 +1104,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1A241602BB1A6F9009081E8 /* HZIAPManager.m in Sources */,
 				A1A8DBFD2B5E9D650092F0F8 /* RosePDFTests.m in Sources */,
+				A1A2413E2BB17114009081E8 /* HZIAPViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1146,21 @@
 				A12C2A972B70FADA00B77150 /* en */,
 				A12C2A992B70FADE00B77150 /* zh-Hans */,
 				A12C2A9A2B70FADF00B77150 /* zh-Hant */,
+				A1A2413F2BB19814009081E8 /* ar */,
+				A1A241412BB1988A009081E8 /* de */,
+				A1A241432BB198ED009081E8 /* es */,
+				A1A241452BB19920009081E8 /* fr */,
+				A1A241472BB1994E009081E8 /* id */,
+				A1A241492BB19974009081E8 /* it */,
+				A1A2414B2BB19997009081E8 /* ja */,
+				A1A2414D2BB199B3009081E8 /* ko */,
+				A1A2414F2BB199F4009081E8 /* pl */,
+				A1A241512BB19A44009081E8 /* pt */,
+				A1A241532BB19A6D009081E8 /* ru */,
+				A1A241552BB19A98009081E8 /* th */,
+				A1A241572BB19AB8009081E8 /* tr */,
+				A1A241592BB19AE3009081E8 /* vi */,
+				A1A2415B2BB19B10009081E8 /* en-IN */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1017,6 +1171,21 @@
 				A12C2A9E2B70FB2E00B77150 /* zh-Hans */,
 				A12C2AA02B70FB3200B77150 /* zh-Hant */,
 				A12C2AA12B70FB3300B77150 /* en */,
+				A1A241402BB19814009081E8 /* ar */,
+				A1A241422BB1988A009081E8 /* de */,
+				A1A241442BB198ED009081E8 /* es */,
+				A1A241462BB19920009081E8 /* fr */,
+				A1A241482BB1994E009081E8 /* id */,
+				A1A2414A2BB19974009081E8 /* it */,
+				A1A2414C2BB19997009081E8 /* ja */,
+				A1A2414E2BB199B3009081E8 /* ko */,
+				A1A241502BB199F4009081E8 /* pl */,
+				A1A241522BB19A44009081E8 /* pt */,
+				A1A241542BB19A6D009081E8 /* ru */,
+				A1A241562BB19A98009081E8 /* th */,
+				A1A241582BB19AB8009081E8 /* tr */,
+				A1A2415A2BB19AE3009081E8 /* vi */,
+				A1A2415C2BB19B10009081E8 /* en-IN */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1149,7 +1318,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1202,7 +1371,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1216,6 +1385,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z2Q26UZ9SX;
@@ -1224,9 +1394,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RosePDF/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RosePDF;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "To take photos, we need to access your camera.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1240,6 +1410,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pdfconverter.phototopdf.pdf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1251,6 +1422,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z2Q26UZ9SX;
@@ -1259,9 +1431,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RosePDF/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RosePDF;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "To take photos, we need to access your camera.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1275,6 +1447,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pdfconverter.phototopdf.pdf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

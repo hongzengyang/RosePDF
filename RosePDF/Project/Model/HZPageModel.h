@@ -52,9 +52,11 @@
 
 + (NSString *)folderPathWithPageId:(NSString *)pageId projectId:(NSString *)projectId;
 - (NSString *)originPath;
+- (NSString *)contentPath;
 - (NSString *)previewPath;
 - (NSString *)resultPath;
 
+- (void)cropWithCompleteBlock:(void(^)(void))completeBlock;
 
 - (void)writeResultFileWithCompleteBlock:(void(^)(UIImage *result))completeBlock;
 - (void)renderResultImageWithCompleteBlock:(void(^)(UIImage *result))completeBlock;

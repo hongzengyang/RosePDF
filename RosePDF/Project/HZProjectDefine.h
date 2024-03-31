@@ -28,6 +28,11 @@ typedef NS_ENUM(NSUInteger, HZPDFQuality) {
     HZPDFQuality_25
 };
 
+typedef NS_ENUM(NSUInteger, HZPDFOrientation) {
+    HZPDFOrientation_portrait,
+    HZPDFOrientation_landscape,
+};
+
 typedef NS_ENUM(NSUInteger, HZPDFSize) {
     HZPDFSize_autoFit,
     HZPDFSize_A3,
@@ -42,9 +47,9 @@ typedef NS_ENUM(NSUInteger, HZPDFSize) {
 
 typedef NS_ENUM(NSUInteger, HZFilterType) {
     HZFilter_none,
-    HZFilter_enhance,
     HZFilter_bw,
-    HZFilter_gray
+    HZFilter_gray,
+    HZFilter_color,
 };
 
 typedef NS_ENUM(NSUInteger, HZAdjustType) {

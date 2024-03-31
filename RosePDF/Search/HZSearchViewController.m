@@ -7,11 +7,19 @@
 
 #import "HZSearchViewController.h"
 #import "HZCommonHeader.h"
+#import "HZEditViewController.h"
+#import "HZProjectModel.h"
+#import "HZProjectManager.h"
+#import "HZPDFDetailViewController.h"
+#import "HZHomeCell.h"
 
-@interface HZSearchViewController ()<UITextFieldDelegate>
+@interface HZSearchViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic, strong) NSArray <HZProjectModel *>*projects;
 
 @property (nonatomic, strong) UIView *navBar;
 @property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -21,12 +29,23 @@
     [super viewDidLoad];
     
     [self configView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectUpdate:) name:pref_key_update_project object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectDelete:) name:pref_key_delete_project object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectRename:) name:pref_key_rename_project object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectPasswordChanged:) name:pref_key_project_psw_changed object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)configView {
     self.view.backgroundColor = hz_1_bgColor;
     
     [self.view addSubview:self.navBar];
+    [self.view addSubview:self.tableView];
 }
 
 - (void)clickCancelButton {
@@ -37,12 +56,91 @@
     self.textField.text = @"";
 }
 
+- (void)startSearch {
+    self.projects = [HZProjectModel searchWithText:self.textField.text];
+    [self.tableView reloadData];
+}
+
+#pragma mark - UITableViewDelegate
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 116.0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    HZHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HZHomeCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    HZProjectModel *project = [self.projects objectAtIndex:indexPath.row];
+    [cell configWithProject:project isSelectMode:NO isSelect:NO];
+    
+    @weakify(self);
+    cell.clickMoreBlock = ^{
+        @strongify(self);
+        if ([self.textField isFirstResponder]) {
+            [self.textField resignFirstResponder];
+        }
+    };
+    cell.clickShareBlock = ^{
+        @strongify(self);
+        if ([self.textField isFirstResponder]) {
+            [self.textField resignFirstResponder];
+        }
+    };
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.projects.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HZProjectModel *project = [self.projects objectAtIndex:indexPath.row];
+    
+    HZPDFDetailViewController *vc = [[HZPDFDetailViewController alloc] initWithProject:project];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    if (project.newFlag) {
+        project.newFlag = NO;
+        [project updateInDataBase];
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationNone)];
+    }
+    
+    if ([self.textField isFirstResponder]) {
+        [self.textField resignFirstResponder];
+    }
+}
+
+#pragma mark - UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([string isEqualToString:@"\n"]) {
         [textField resignFirstResponder];
+        [self startSearch];
         return NO;
     }
     return YES;
+}
+
+#pragma mark - 通知
+- (void)projectUpdate:(NSNotification *)not {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self startSearch];
+    });
+}
+- (void)projectDelete:(NSNotification *)not {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self startSearch];
+    });
+}
+- (void)projectRename:(NSNotification *)not {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self startSearch];
+    });
+}
+
+- (void)projectPasswordChanged:(NSNotification *)not {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self startSearch];
+    });
 }
 
 #pragma mark - Lazy
@@ -99,7 +197,7 @@
             textField.returnKeyType = UIReturnKeySearch;
             textField.delegate = self;
             [containerView addSubview:textField];
-            textField.tintColor = hz_getColor(@"888888");
+            textField.tintColor = hz_getColor(@"000000");
             textField.textColor = hz_getColor(@"888888");
             textField.font = [UIFont systemFontOfSize:16];
             [textField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -122,4 +220,23 @@
     return _navBar;
 }
 
+- (UITableView *)tableView {
+    if (!_tableView) {
+        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.navBar.bottom, self.view.width, self.view.height - self.navBar.bottom) style:(UITableViewStylePlain)];
+        tableView.backgroundColor = hz_1_bgColor;
+        _tableView = tableView;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_tableView registerClass:[HZHomeCell class] forCellReuseIdentifier:@"HZHomeCell"];
+        _tableView.contentInset = UIEdgeInsetsMake(20, 0, 100, 0);
+        
+        if (@available(iOS 11.0, *)){
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
+    }
+    return _tableView;
+}
 @end
+

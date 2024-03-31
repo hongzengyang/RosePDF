@@ -17,7 +17,7 @@ end
 
 
 def common_pods
-  pod 'HZIAPKit',             :path => './3rd_paths/HZIAPKit'
+  pod 'XYIAPKit',             :path => './3rd_paths/XYIAPKit'
   pod 'HZFoundationKit',      :path => './3rd_paths/HZFoundationKit'
   pod 'HZUIKit',              :path => './3rd_paths/HZUIKit'
   pod 'HZAssetsPicker',       :path => './3rd_paths/HZAssetsPicker'
@@ -26,16 +26,15 @@ def common_pods
   pod 'GPUImage'
   pod 'YYModel',              '1.0.4'
   pod 'SDWebImage',           '5.15.7'
-  pod 'SDWebImageWebPCoder',  '0.11.0'
-  pod 'YYCache',              '1.0.4'
-#  pod 'AFNetworking',         '4.0'
-  pod 'MBProgressHUD',        '1.1.0'
   pod 'ReactiveObjC',         '3.1.1'
-#  pod 'Bugly',                '2.5.93'
   pod 'Masonry'
   pod 'SVProgressHUD',        '2.3.1'
-  
   pod 'LookinServer',         :configurations => ['Debug']
+  #  pod 'SDWebImageWebPCoder',  '0.11.0'
+  #  pod 'YYCache',              '1.0.4'
+  #  pod 'AFNetworking',         '4.0'
+  #  pod 'MBProgressHUD',        '1.1.0'
+  #  pod 'Bugly',                '2.5.93'
 end
 
 target 'RosePDF' do

@@ -47,7 +47,12 @@
                                          UIActivityTypePostToVimeo,
                                          UIActivityTypePostToTencentWeibo];
     
-    [viewwController presentViewController:activityVC animated:TRUE completion:nil];
+    if ([[HZSystemManager manager] iPadDevice]) {
+        activityVC.popoverPresentationController.sourceView = viewwController.view;
+        activityVC.popoverPresentationController.sourceRect = CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight);
+        activityVC.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    }
+    [viewwController presentViewController:activityVC animated:YES completion:nil];
 }
 
 @end

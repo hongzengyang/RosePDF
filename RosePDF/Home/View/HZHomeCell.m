@@ -198,11 +198,19 @@
 }
 
 - (void)clickMore {
+    if (self.clickMoreBlock) {
+        self.clickMoreBlock();
+    }
+    
     HZHomeProjectItemView *itemView = [[HZHomeProjectItemView alloc] initWithProject:self.project];
     [[UIView hz_viewController].view addSubview:itemView];
 }
 
 - (void)clickShare {
+    if (self.clickShareBlock) {
+        self.clickShareBlock();
+    }
+    
     [HZShareManager shareWithProject:self.project completionWithItemsHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
             
     }];

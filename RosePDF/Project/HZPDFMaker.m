@@ -91,6 +91,10 @@
         }else {
             pdfData = [NSMutableData data];
             CGSize pageSize = [self pageSizeWithoutOrigin:project.pdfSize];
+            if (project.pdfOrientation == HZPDFOrientation_landscape) {
+                CGSize newSize = CGSizeMake(pageSize.height, pageSize.width);
+                pageSize = newSize;
+            }
             
             UIEdgeInsets inset = UIEdgeInsetsZero;
             if (project.margin == HZPDFMargin_normal) {

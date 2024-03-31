@@ -5,7 +5,7 @@
   Created by THS on 2024/2/5.
   
 */
-"CFBundleDisplayName" = "PDF Converter";
-"NSCameraUsageDescription" = "请允许PDF Converter使用您的相机扫描文件";
-"NSPhotoLibraryUsageDescription" = "允许访问相册以便从相册选择图片创建文件";
-"NSPhotoLibraryAddUsageDescription" = "允许访问相册以便从相册选择图片创建文件";
+"CFBundleDisplayName" = "PDF转换器";
+"NSCameraUsageDescription" = "为了拍照，我们需要访问您的相机。";
+"NSPhotoLibraryUsageDescription" = "为了选择照片进行 PDF 转换，我们需要访问您的照片。为了更好的体验，请允许访问所有照片。";
+"NSPhotoLibraryAddUsageDescription" = "为了选择照片进行 PDF 转换，我们需要访问您的照片。为了更好的体验，请允许访问所有照片。";

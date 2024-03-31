@@ -55,6 +55,14 @@
     return button;
 }
 
+- (void)enableMultiLineTitle:(BOOL)enable {
+    if (enable) {
+        self.inner_titleLab.numberOfLines = 2;
+    }else {
+        self.inner_titleLab.numberOfLines = 1;
+    }
+}
+
 - (void)setSelectImage:(UIImage *)selectImage selectTitleColor:(UIColor *)selectTitleColor {
     self.sel_image = selectImage;
     self.sel_titleColor = selectTitleColor;

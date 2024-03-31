@@ -11,6 +11,7 @@
 #import "HZPageModel.h"
 #import <HZUIKit/HZVerticalButton.h>
 #import "HZEditFilterSliderView.h"
+#import "HZFilterDebugView.h"
 
 @interface HZEditFilterView()
 
@@ -29,6 +30,7 @@
 @property (nonatomic, assign) BOOL isFocusAdjust;
 
 @property (nonatomic, strong) NSMutableArray <UIButton *>*filterNamerray;
+@property (nonatomic, strong) NSMutableArray <UIImageView *>*filterImagerray;
 @property (nonatomic, strong) NSMutableArray <UIButton *>*filterButtonrray;
 
 @property (nonatomic, strong) NSMutableArray <HZVerticalButton *>*adjustButtonrray;
@@ -41,6 +43,7 @@
     if (self = [super initWithFrame:frame]) {
         self.databoard = databoard;
         self.filterNamerray = [[NSMutableArray alloc] init];
+        self.filterImagerray = [[NSMutableArray alloc] init];
         self.filterButtonrray = [[NSMutableArray alloc] init];
         self.adjustButtonrray = [[NSMutableArray alloc] init];
         
@@ -73,23 +76,27 @@
     
     self.filterBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.filterBtn setTitle:NSLocalizedString(@"str_filter", nil) forState:(UIControlStateNormal)];
+    self.filterBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:(UIFontWeightMedium)];
     [self.filterBtn addTarget:self action:@selector(clickFilterButton) forControlEvents:(UIControlEventTouchUpInside)];
     [containerView addSubview:self.filterBtn];
+    [self.filterBtn sizeToFit];
     [self.filterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.top.equalTo(containerView).offset(16);
-        make.width.mas_equalTo(38);
-        make.height.mas_equalTo(18);
+        make.width.mas_equalTo(self.filterBtn.width);
+        make.height.mas_equalTo(self.filterBtn.height);
     }];
     
     self.adjustBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.adjustBtn setTitle:NSLocalizedString(@"str_adjust", nil) forState:(UIControlStateNormal)];
+    self.adjustBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:(UIFontWeightMedium)];
     [self.adjustBtn addTarget:self action:@selector(clickAdjustButton) forControlEvents:(UIControlEventTouchUpInside)];
     [containerView addSubview:self.adjustBtn];
+    [self.adjustBtn sizeToFit];
     [self.adjustBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.filterBtn.mas_trailing).offset(14);
         make.centerY.equalTo(self.filterBtn);
-        make.width.mas_equalTo(38);
-        make.height.mas_equalTo(18);
+        make.width.mas_equalTo(self.adjustBtn.width);
+        make.height.mas_equalTo(self.adjustBtn.height);
     }];
     
     self.completeBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -178,6 +185,23 @@
     [containerView hz_addCorner:(UIRectCornerTopLeft | UIRectCornerTopRight) radious:10];
     
     [self clickFilterButton];
+    
+    
+    {//debug
+        UIButton *debugBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [self addSubview:debugBtn];
+        [debugBtn setTitle:@"debug" forState:(UIControlStateNormal)];
+        debugBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:(UIFontWeightMedium)];
+        [debugBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+        [debugBtn addTarget:self action:@selector(clickDebugButton) forControlEvents:(UIControlEventTouchUpInside)];
+        [debugBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.trailing.equalTo(self.completeBtn.mas_leading).offset(-16);
+            make.centerY.equalTo(self.completeBtn);
+            make.width.mas_equalTo(80);
+            make.height.mas_equalTo(28);
+        }];
+        debugBtn.hidden = YES;
+    }
 }
 
 - (UIView *)createFilterViewWithType:(HZFilterType)type {
@@ -200,10 +224,12 @@
     
     UIImageView *imageView = [[UIImageView alloc] init];
     [view addSubview:imageView];
+    imageView.tag = type;
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.top.trailing.equalTo(view);
         make.bottom.equalTo(nameLab.mas_top);
     }];
+    [self.filterImagerray addObject:imageView];
     
     UIButton *button = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [view addSubview:button];
@@ -372,6 +398,7 @@
     }
     
     currentPage.filter = [HZFilterManager defaultFilterModel:selectType];
+    currentPage.adjust = [HZFilterManager defaultAdjustModel];
     [self update];
     if (self.clickFilterItemBlock) {
         self.clickFilterItemBlock(selectType);
@@ -386,6 +413,13 @@
     
     self.selectedAdjust = adjustType;
     [self update];
+}
+
+- (void)clickDebugButton {
+    HZPageModel *page = [self.databoard currentPage];
+    UIImage *image = [UIImage imageWithContentsOfFile:[page contentPath]];
+    HZFilterDebugView *view = [[HZFilterDebugView alloc] initWithFrame:[UIScreen mainScreen].bounds image:image];
+    [[UIView hz_viewController].view addSubview:view];
 }
 
 

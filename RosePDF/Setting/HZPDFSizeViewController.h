@@ -10,9 +10,9 @@
 
 @interface HZPDFSizeViewController : HZBaseViewController
 
-@property (nonatomic, copy) void(^SelectPdfSizeBlock)(HZPDFSize size);
+@property (nonatomic, copy) void(^SelectPdfSizeBlock)(HZPDFSize size,HZPDFOrientation orientation);
 
-- (instancetype)initWithInputPDFSize:(HZPDFSize)pdfSize;
+- (instancetype)initWithInputPDFSize:(HZPDFSize)pdfSize orientation:(HZPDFOrientation)orientation;
 
 @end
 

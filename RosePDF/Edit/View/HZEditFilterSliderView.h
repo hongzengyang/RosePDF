@@ -11,6 +11,9 @@
 @interface HZEditFilterSliderView : UIView
 
 @property (nonatomic, assign, readonly) CGFloat value;
+@property (nonatomic, assign, readonly) CGFloat defaultValue;
+
+@property (nonatomic, assign) BOOL debugMode;
 
 @property (nonatomic, copy) void(^slideEndBlock)(void);
 

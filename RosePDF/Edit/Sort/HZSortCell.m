@@ -80,7 +80,7 @@
 }
 
 - (void)configWithPage:(HZPageModel *)page {
-    UIImage *originImage = [UIImage imageWithContentsOfFile:[page originPath]];
+    UIImage *originImage = [UIImage imageWithContentsOfFile:[page contentPath]];
     originImage = [originImage hz_resizeImageToWidth:540];
     self.thumbImageView.image = originImage;
     

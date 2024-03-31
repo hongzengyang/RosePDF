@@ -20,6 +20,8 @@
 @property (nonatomic, strong) UIView *thumbView;
 @property (nonatomic, strong) UIView *impactView;
 
+@property (nonatomic, strong) UILabel *valueLab;
+
 @property (nonatomic, strong) UIView *gradientView;
 
 @end
@@ -56,6 +58,13 @@
     self.thumbView.layer.masksToBounds = YES;
     [self.userTouchView addSubview:self.thumbView];
     [self.thumbView hz_addGradientWithColors:@[hz_main_color,hz_getColor(@"83BAF2")] startPoint:CGPointMake(0, 0.5) endPoint:CGPointMake(1, 0.5)];
+    
+    
+    self.valueLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, self.userTouchView.height/2.0)];
+    [self.userTouchView insertSubview:self.valueLab atIndex:0];
+    self.valueLab.font = [UIFont systemFontOfSize:12];
+    self.valueLab.hidden = YES;
+    self.valueLab.textColor = [UIColor blackColor];
 }
 
 - (void)updateWithMin:(CGFloat)min max:(CGFloat)max value:(CGFloat)value defaultValue:(CGFloat)defaultValue {
@@ -64,6 +73,12 @@
     self.max = max;
     self.value = value;
     self.defaultValue = defaultValue;
+    
+    if (self.value != self.defaultValue) {
+        self.valueLab.text = [NSString stringWithFormat:@"%@",@(self.value)];
+    }else {
+        self.valueLab.text = [NSString stringWithFormat:@""];
+    }
     
     CGFloat impactPercent = (self.defaultValue - self.min) / (self.max - self.min);
     self.impactView.centerX = self.impactView.superview.width * impactPercent;
@@ -85,6 +100,12 @@
     self.gradientView.layer.masksToBounds = YES;
 }
 
+- (void)setDebugMode:(BOOL)debugMode {
+    _debugMode = debugMode;
+    self.valueLab.hidden = !debugMode;
+}
+
+static CGFloat globalFloat = 0.0;
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     CGPoint pt = [[touches anyObject] locationInView:self.userTouchView];
     
@@ -96,12 +117,26 @@
         touchX = self.userTouchView.width;
     }
     
-    self.value = (touchX / self.userTouchView.width) * (self.max - self.min) + self.min;
+    CGFloat dragValue = (touchX / self.userTouchView.width) * (self.max - self.min) + self.min;
+    NSString *formattedString = [NSString stringWithFormat:@"%.1f", dragValue];
+    
+    NSLog(@"debug--touchMoved:%@",@(dragValue));
+    if (fabs(globalFloat - dragValue) > (self.max - self.min)/20.0) {
+        if (self.slideEndBlock) {
+            self.slideEndBlock();
+        }
+        globalFloat = dragValue;
+        NSLog(@"debug-------------------callback:%@",@(globalFloat));
+    }
+    
+    self.value = dragValue;
     [self updateViewFrame];
     
-//    if (self.slideEndBlock) {
-//        self.slideEndBlock();
-//    }
+    if (self.value != self.defaultValue) {
+        self.valueLab.text = [NSString stringWithFormat:@"%@",@(self.value)];
+    }else {
+        self.valueLab.text = [NSString stringWithFormat:@""];
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -120,6 +155,12 @@
     NSLog(@"debug--current value:%@",@(self.value));
     if (self.slideEndBlock) {
         self.slideEndBlock();
+    }
+    
+    if (self.value != self.defaultValue) {
+        self.valueLab.text = [NSString stringWithFormat:@"%@",@(self.value)];
+    }else {
+        self.valueLab.text = [NSString stringWithFormat:@""];
     }
 }
 

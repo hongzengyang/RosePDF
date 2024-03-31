@@ -372,6 +372,12 @@
         [self dismiss];
     }];
     
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionDown; // 设置手势方向为向下
+
+    // 将手势识别器添加到 UIView 上
+    [containerView addGestureRecognizer:swipeGesture];
+    
     [self show];
 }
 
@@ -507,27 +513,84 @@
 }
 - (void)clickEdit {
     @weakify(self);
-    [HZProjectManager duplicateTmpWithProject:self.project completeBlock:^(HZProjectModel *project) {
+    void(^gotoEditBlock)(void) = ^ {
         @strongify(self);
-        HZEditInput *input = [[HZEditInput alloc] init];
-        input.project = project;
-        input.originProject = self.project;
-        
-        HZEditViewController *vc = [[HZEditViewController alloc] initWithInput:input];
-        [[UIView hz_viewController].navigationController pushViewController:vc animated:YES];
-        
-        [self dismiss];
-    }];
+        [HZProjectManager duplicateTmpWithProject:self.project completeBlock:^(HZProjectModel *project) {
+            @strongify(self);
+            HZEditInput *input = [[HZEditInput alloc] init];
+            input.project = project;
+            input.originProject = self.project;
+            
+            HZEditViewController *vc = [[HZEditViewController alloc] initWithInput:input];
+            [[UIView hz_viewController].navigationController pushViewController:vc animated:YES];
+            [self dismiss];
+        }];
+    };
+    
+    if (self.project.openPassword && self.project.password.length > 0) {
+        HZAlertTextFieldInput *input = [[HZAlertTextFieldInput alloc] init];
+        input.title = NSLocalizedString(@"str_enterpassword", nil);
+        input.cancelText = NSLocalizedString(@"str_cancel", nil);
+        input.rightText = NSLocalizedString(@"str_done", nil);
+        input.encrypt = YES;
+        input.keyboardType = UIKeyboardTypeEmailAddress;
+        input.cancelBlock = ^(HZAlertTextFieldView *alertView) {
+            
+        };
+        input.rightBlock = ^(HZAlertTextFieldView *alertView) {
+            @strongify(self);
+            if (![alertView.inputText isEqualToString:self.project.password]) {
+                alertView.errorMessage = NSLocalizedString(@"str_password_error", nil);
+                return;
+            }
+            gotoEditBlock();
+            [alertView removeFromSuperview];
+            [self dismiss];
+        };
+        HZAlertTextFieldView *view = [[HZAlertTextFieldView alloc] initWithInput:input];
+        [[UIView hz_viewController].view addSubview:view];
+    }else {
+        gotoEditBlock();
+    }
 }
 - (void)clickSetting {
     @weakify(self);
-    [HZProjectManager duplicateTmpWithProject:self.project completeBlock:^(HZProjectModel *project) {
+    void(^gotoSettingBlock)(void) = ^ {
         @strongify(self);
-        HZPDFSettingViewController *vc = [[HZPDFSettingViewController alloc] initWithProject:project originalProject:self.project];
-        [[UIView hz_viewController].navigationController pushViewController:vc animated:YES];
-        
-        [self dismiss];
-    }];
+        [HZProjectManager duplicateTmpWithProject:self.project completeBlock:^(HZProjectModel *project) {
+            @strongify(self);
+            HZPDFSettingViewController *vc = [[HZPDFSettingViewController alloc] initWithProject:project originalProject:self.project];
+            [[UIView hz_viewController].navigationController pushViewController:vc animated:YES];
+            
+            [self dismiss];
+        }];
+    };
+    
+    if (self.project.openPassword && self.project.password.length > 0) {
+        HZAlertTextFieldInput *input = [[HZAlertTextFieldInput alloc] init];
+        input.title = NSLocalizedString(@"str_enterpassword", nil);
+        input.cancelText = NSLocalizedString(@"str_cancel", nil);
+        input.rightText = NSLocalizedString(@"str_done", nil);
+        input.encrypt = YES;
+        input.keyboardType = UIKeyboardTypeEmailAddress;
+        input.cancelBlock = ^(HZAlertTextFieldView *alertView) {
+            
+        };
+        input.rightBlock = ^(HZAlertTextFieldView *alertView) {
+            @strongify(self);
+            if (![alertView.inputText isEqualToString:self.project.password]) {
+                alertView.errorMessage = NSLocalizedString(@"str_password_error", nil);
+                return;
+            }
+            gotoSettingBlock();
+            [alertView removeFromSuperview];
+            [self dismiss];
+        };
+        HZAlertTextFieldView *view = [[HZAlertTextFieldView alloc] initWithInput:input];
+        [[UIView hz_viewController].view addSubview:view];
+    }else {
+        gotoSettingBlock();
+    }
 }
 
 - (void)clickShare {
@@ -549,6 +612,13 @@
     }];
     [sheet addCancelButtonWithTitle:NSLocalizedString(@"str_cancel", nil)];
     [sheet showInView:[UIView hz_viewController].view];
+}
+
+#pragma 手势
+- (void)handleSwipe:(UISwipeGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateRecognized) {
+        [self dismiss];
+    }
 }
 
 @end

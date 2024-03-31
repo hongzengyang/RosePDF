@@ -82,20 +82,36 @@
 }
 
 - (void)clickSizeButton {
-    HZPDFSizeViewController *vc = [[HZPDFSizeViewController alloc] initWithInputPDFSize:self.selectSize];
+    HZPDFSizeViewController *vc = [[HZPDFSizeViewController alloc] initWithInputPDFSize:self.selectSize orientation:self.databoard.project.pdfOrientation];
     @weakify(self);
-    vc.SelectPdfSizeBlock = ^(HZPDFSize size) {
+    vc.SelectPdfSizeBlock = ^(HZPDFSize size,HZPDFOrientation orientation) {
         @strongify(self);
         if (size != self.selectSize) {
             self.selectSize = size;
             self.sizeLab.text = [[self class] sizeTitleWithPdfSize:size];
         }
+        self.databoard.project.pdfOrientation = orientation;
     };
     
     UIViewController *contorller = [UIView hz_viewController];
     [contorller presentViewController:vc animated:YES completion:^{
         
     }];
+}
+
++ (NSString *)orientationTitleWithOrientation:(HZPDFOrientation)orientation {
+    NSString *text = @"";
+    switch (orientation) {
+        case HZPDFOrientation_portrait:
+            text = NSLocalizedString(@"str_portrait", nil);
+            break;
+        case HZPDFOrientation_landscape:
+            text = NSLocalizedString(@"str_landscape", nil);
+            break;
+        default:
+            break;
+    }
+    return text;
 }
 
 + (NSString *)sizeTitleWithPdfSize:(HZPDFSize)size {

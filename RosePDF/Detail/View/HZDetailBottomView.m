@@ -29,12 +29,13 @@
     
     NSArray *images = @[[UIImage imageNamed:@"rose_detail_rename"],[UIImage imageNamed:@"rose_detail_edit"],[UIImage imageNamed:@"rose_detail_setting"],[UIImage imageNamed:@"rose_detail_share"],[UIImage imageNamed:@"rose_edit_delete"]];
     NSArray *titles = @[NSLocalizedString(@"str_rename", nil),NSLocalizedString(@"str_edit", nil),NSLocalizedString(@"str_settings", nil),NSLocalizedString(@"str_share", nil),NSLocalizedString(@"str_delete", nil)];
-    CGFloat btnWidth = 40;
+    CGFloat btnWidth = 50;
     CGFloat btnHeight = 37;
     CGFloat startLeading = 19;
     CGFloat space = (ScreenWidth - (startLeading * 2) - (btnWidth * 5)) / 4.0;
     for (int i = 0; i < images.count; i++) {
-        HZVerticalButton *btn = [HZVerticalButton buttonWithSize:CGSizeMake(btnWidth, btnHeight) imageSize:CGSizeMake(22, 22) image:images[i] verticalSpacing:3 title:titles[i] titleColor:i == 4 ? hz_getColor(@"FF3B30") : hz_getColor(@"333333") font:[UIFont systemFontOfSize:10]];
+        HZVerticalButton *btn = [HZVerticalButton buttonWithSize:CGSizeMake(btnWidth, btnHeight) imageSize:CGSizeMake(22, 22) image:images[i] verticalSpacing:3 title:titles[i] titleColor:i == 4 ? hz_getColor(@"FF3B30") : hz_getColor(@"333333") font:[UIFont systemFontOfSize:10 weight:(UIFontWeightMedium)]];
+        [btn enableMultiLineTitle:NO];
         [self addSubview:btn];
         btn.tag = i;
         [btn addTarget:self action:@selector(clickItem:) forControlEvents:(UIControlEventTouchUpInside)];

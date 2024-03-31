@@ -133,6 +133,9 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
 - (NSString *)originPath {
     return [[self pageFolderPath] stringByAppendingPathComponent:@"origin.jpg"];
 }
+- (NSString *)contentPath {
+    return [[self pageFolderPath] stringByAppendingPathComponent:@"content.jpg"];
+}
 - (NSString *)previewPath {
     return [[self pageFolderPath] stringByAppendingPathComponent:@"preview.jpg"];
 }
@@ -144,12 +147,20 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
     return [[self pageFolderPath] stringByAppendingPathComponent:@"page.config"];
 }
 
-- (void)processResultFileWithCompleteBlock:(void (^)(UIImage *))completeBlock writeToFile:(BOOL)writeToFile {
+- (void)cropWithCompleteBlock:(void (^)(void))completeBlock {
+    //crop
+    if (![self needCrop]) {
+        if (completeBlock) {
+            completeBlock();
+        }
+        return;
+    }
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UIImage *contentImage = [UIImage imageWithContentsOfFile:[self originPath]];
         if (!contentImage) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completeBlock(nil);
+                completeBlock();
             });
             return;
         }
@@ -158,122 +169,131 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
             contentImage = [UIImage imageWithCIImage:[CIImage imageWithCGImage:contentImage.CGImage]];
         }
         
-        __block CFTimeInterval startTime = CFAbsoluteTimeGetCurrent();
+        CIContext *context = [CIContext contextWithOptions:nil];
         
-        //crop
-        if ([self needCrop]) {
-            NSArray <NSValue *>*tmpPoints = self.borderArray;
-            NSMutableArray <NSValue *>*newPoints = [NSMutableArray array];
-            [tmpPoints enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [newPoints addObject:[NSValue valueWithCGPoint:CGPointMake(obj.CGPointValue.x, contentImage.size.height*contentImage.scale - obj.CGPointValue.y)]];
-            }];
+        NSArray <NSValue *>*tmpPoints = self.borderArray;
+        NSMutableArray <NSValue *>*newPoints = [NSMutableArray array];
+        [tmpPoints enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [newPoints addObject:[NSValue valueWithCGPoint:CGPointMake(obj.CGPointValue.x, contentImage.size.height*contentImage.scale - obj.CGPointValue.y)]];
+        }];
 
-            CGSize imageSize = CGSizeMake(contentImage.size.width * contentImage.scale, contentImage.size.height * contentImage.scale);
+        CGSize imageSize = CGSizeMake(contentImage.size.width * contentImage.scale, contentImage.size.height * contentImage.scale);
 
-            CGPoint pixel_topLeft = CGPointMake([self.borderArray[0] CGPointValue].x * imageSize.width,imageSize.height - [self.borderArray[0] CGPointValue].y * imageSize.height);
-            CGPoint pixel_bottomLeft = CGPointMake([self.borderArray[1] CGPointValue].x * imageSize.width, imageSize.height - [self.borderArray[1] CGPointValue].y * imageSize.height);
-            CGPoint pixel_bottomRight = CGPointMake([self.borderArray[2] CGPointValue].x * imageSize.width, imageSize.height - [self.borderArray[2] CGPointValue].y * imageSize.height);
-            CGPoint pixel_topRight = CGPointMake([self.borderArray[3] CGPointValue].x * imageSize.width, imageSize.height - [self.borderArray[3] CGPointValue].y * imageSize.height);
+        CGPoint pixel_topLeft = CGPointMake([self.borderArray[0] CGPointValue].x * imageSize.width,imageSize.height - [self.borderArray[0] CGPointValue].y * imageSize.height);
+        CGPoint pixel_bottomLeft = CGPointMake([self.borderArray[1] CGPointValue].x * imageSize.width, imageSize.height - [self.borderArray[1] CGPointValue].y * imageSize.height);
+        CGPoint pixel_bottomRight = CGPointMake([self.borderArray[2] CGPointValue].x * imageSize.width, imageSize.height - [self.borderArray[2] CGPointValue].y * imageSize.height);
+        CGPoint pixel_topRight = CGPointMake([self.borderArray[3] CGPointValue].x * imageSize.width, imageSize.height - [self.borderArray[3] CGPointValue].y * imageSize.height);
 
-            CIImage *tempImage = contentImage.CIImage;
+        CIImage *tempImage = contentImage.CIImage;
 
-            CIFilter <CIPerspectiveCorrection>*perspectiveFilter = [CIFilter perspectiveCorrectionFilter];
-            perspectiveFilter.inputImage = tempImage;
-            perspectiveFilter.topLeft = pixel_topLeft;
-            perspectiveFilter.bottomLeft = pixel_bottomLeft;
-            perspectiveFilter.bottomRight = pixel_bottomRight;
-            perspectiveFilter.topRight = pixel_topRight;
-            tempImage = perspectiveFilter.outputImage;
-
-            contentImage = [UIImage imageWithCIImage:tempImage];
-            
-            CFTimeInterval tt = CFAbsoluteTimeGetCurrent();
-            NSLog(@"debug--crop duration:%@",@(tt - startTime));
-            startTime = tt;
-        }
-        //rotate
-        if (self.orientation != HZPageOrientation_up) {
-            UIImageOrientation orientation = UIImageOrientationUp;
-            CGAffineTransform transform;
-            switch (self.orientation) {
-                case HZPageOrientation_up:
-                    orientation = UIImageOrientationUp;
-                    transform = CGAffineTransformMakeRotation(M_PI_2 * 0);
-                    break;
-                case HZPageOrientation_left:{
-                    orientation = UIImageOrientationLeft;
-                    transform = CGAffineTransformMakeRotation(M_PI_2 * 1);
-                }
-                    break;
-                case HZPageOrientation_down:{
-                    orientation = UIImageOrientationDown;
-                    transform = CGAffineTransformMakeRotation(M_PI_2 * 2);
-                }
-                    break;
-                case HZPageOrientation_right:{
-                    orientation = UIImageOrientationRight;
-                    transform = CGAffineTransformMakeRotation(M_PI_2 * 3);
-                }
-                    break;
-                default:
-                    break;
-            }
-            // 创建滤镜
-            CIFilter *filter = [CIFilter filterWithName:@"CIAffineTransform"];
-            // 设置输入图像
-            [filter setValue:[contentImage CIImage] forKey:kCIInputImageKey];
-            // 设置变换矩阵
-            [filter setValue:[NSValue valueWithCGAffineTransform:transform] forKey:@"inputTransform"];
-            // 获取滤镜处理后的输出图像
-            CIImage *outputImage = [filter outputImage];
-            contentImage = [UIImage imageWithCIImage:outputImage];
-            
-            CFTimeInterval tt = CFAbsoluteTimeGetCurrent();
-            NSLog(@"debug--rotate duration:%@",@(tt - startTime));
-            startTime = tt;
-        }
+        CIFilter <CIPerspectiveCorrection>*perspectiveFilter = [CIFilter perspectiveCorrectionFilter];
+        perspectiveFilter.inputImage = tempImage;
+        perspectiveFilter.topLeft = pixel_topLeft;
+        perspectiveFilter.bottomLeft = pixel_bottomLeft;
+        perspectiveFilter.bottomRight = pixel_bottomRight;
+        perspectiveFilter.topRight = pixel_topRight;
+        tempImage = perspectiveFilter.outputImage;
         
-        //filter
-        @weakify(self);
-        [HZFilterManager makeFilterImageWithImage:contentImage page:self completeBlock:^(UIImage *result ,HZPageModel *page) {
-            @strongify(self);
-            
-            CFTimeInterval tt = CFAbsoluteTimeGetCurrent();
-            NSLog(@"debug--filter duration:%@",@(tt - startTime));
-            startTime = tt;
-            
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                UIImage *baseCGImage = result;
-                
-                if (!baseCGImage.CGImage) {
-                    UIGraphicsBeginImageContextWithOptions(baseCGImage.size, NO, baseCGImage.scale);
-                    [baseCGImage drawAtPoint:CGPointZero];
-                    CGImageRef cgImage = UIGraphicsGetImageFromCurrentImageContext().CGImage;
-                    UIGraphicsEndImageContext();
-                    baseCGImage = [UIImage imageWithCGImage:cgImage];
+        CGRect extent = [tempImage extent];
+        CGImageRef cgImage = [context createCGImage:tempImage fromRect:extent];
+        UIImage *result = [UIImage imageWithCGImage:cgImage];
+        CGImageRelease(cgImage);
+        
+        NSData *contentData = UIImageJPEGRepresentation(result, 0.5);
+        [contentData writeToFile:[self contentPath] atomically:YES];
+        
+        [self writeResultFileWithCompleteBlock:^(UIImage *result) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completeBlock) {
+                    completeBlock();
                 }
-
-                if (writeToFile) {
-                    [HZProjectManager compressImage:baseCGImage toPath:[self resultPath]];
-                    
-                    UIImage *previewImage = [baseCGImage hz_resizeImageToWidth:320];
-                    [HZProjectManager compressImage:previewImage toPath:[self previewPath]];
-                    
-                    [self saveToDisk];
-                }
-                
-                CFTimeInterval tt = CFAbsoluteTimeGetCurrent();
-                NSLog(@"debug--compress+io:%@",@(tt - startTime));
-                startTime = tt;
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completeBlock(baseCGImage);
-                    CFTimeInterval tt = CFAbsoluteTimeGetCurrent();
-                    NSLog(@"debug--block back duration:%@",@(tt - startTime));
-                });                
             });
         }];
+        
     });
+}
+
+- (void)processResultFileWithCompleteBlock:(void (^)(UIImage *))completeBlock writeToFile:(BOOL)writeToFile {
+    UIImage *contentImage = [UIImage imageWithContentsOfFile:[self contentPath]];
+    if (!contentImage) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completeBlock(nil);
+        });
+        return;
+    }
+    
+    if (!contentImage.CIImage) {
+        contentImage = [UIImage imageWithCIImage:[CIImage imageWithCGImage:contentImage.CGImage]];
+    }
+    
+    //rotate
+    if (self.orientation != HZPageOrientation_up) {
+        UIImageOrientation orientation = UIImageOrientationUp;
+        CGAffineTransform transform;
+        switch (self.orientation) {
+            case HZPageOrientation_up:
+                orientation = UIImageOrientationUp;
+                transform = CGAffineTransformMakeRotation(M_PI_2 * 0);
+                break;
+            case HZPageOrientation_left:{
+                orientation = UIImageOrientationLeft;
+                transform = CGAffineTransformMakeRotation(M_PI_2 * 1);
+            }
+                break;
+            case HZPageOrientation_down:{
+                orientation = UIImageOrientationDown;
+                transform = CGAffineTransformMakeRotation(M_PI_2 * 2);
+            }
+                break;
+            case HZPageOrientation_right:{
+                orientation = UIImageOrientationRight;
+                transform = CGAffineTransformMakeRotation(M_PI_2 * 3);
+            }
+                break;
+            default:
+                break;
+        }
+        // 创建滤镜
+        CIFilter *filter = [CIFilter filterWithName:@"CIAffineTransform"];
+        // 设置输入图像
+        [filter setValue:[contentImage CIImage] forKey:kCIInputImageKey];
+        // 设置变换矩阵
+        [filter setValue:[NSValue valueWithCGAffineTransform:transform] forKey:@"inputTransform"];
+        // 获取滤镜处理后的输出图像
+        CIImage *outputImage = [filter outputImage];
+        contentImage = [UIImage imageWithCIImage:outputImage];
+    }
+    
+    //filter
+    @weakify(self);
+    [HZFilterManager makeFilterImageWithImage:contentImage page:self completeBlock:^(UIImage *result, HZPageModel *page) {
+        @strongify(self);
+        
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            UIImage *baseCGImage = result;
+            
+            if (!baseCGImage.CGImage) {
+                UIGraphicsBeginImageContextWithOptions(baseCGImage.size, NO, baseCGImage.scale);
+                [baseCGImage drawAtPoint:CGPointZero];
+                CGImageRef cgImage = UIGraphicsGetImageFromCurrentImageContext().CGImage;
+                UIGraphicsEndImageContext();
+                baseCGImage = [UIImage imageWithCGImage:cgImage];
+            }
+
+            if (writeToFile) {
+                [HZProjectManager compressImage:baseCGImage toPath:[self resultPath]];
+                
+                UIImage *previewImage = [baseCGImage hz_resizeImageToWidth:320];
+                [HZProjectManager compressImage:previewImage toPath:[self previewPath]];
+                
+                [self saveToDisk];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completeBlock(baseCGImage);
+            });
+        });
+    }];
 }
 
 - (void)writeResultFileWithCompleteBlock:(void (^)(UIImage *))completeBlock {

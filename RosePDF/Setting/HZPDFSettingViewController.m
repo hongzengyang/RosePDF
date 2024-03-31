@@ -20,6 +20,10 @@
 #import "HZPDFSettingDataboard.h"
 #import "HZPDFPreviewViewController.h"
 #import "HZPDFConvertingView.h"
+#import "HZIAPManager.h"
+#import "HZIAPViewController.h"
+
+#define pref_key_click_convert_count   @"pref_key_click_convert_count"
 
 @interface HZPDFSettingViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -72,6 +76,15 @@
     [super viewDidLoad];
     
     [self configView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void)configView {
@@ -91,7 +104,7 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.placeHolderView.bottom, self.view.width, 177) collectionViewLayout:layout];
-        self.collectionView.backgroundColor = [UIColor clearColor];
+        self.collectionView.backgroundColor = [UIColor whiteColor];
         self.collectionView.showsHorizontalScrollIndicator = NO;
         [self.collectionView registerClass:[HZPDFSettingCell class] forCellWithReuseIdentifier:@"HZPDFSettingCell"];
         self.collectionView.delegate = self;
@@ -99,7 +112,7 @@
         self.collectionView.contentInset = UIEdgeInsetsMake(16, 16, 16, 16);
         [self.scrollView addSubview:self.collectionView];
         
-        self.containerView = [[UIView alloc] initWithFrame:CGRectMake(16, self.collectionView.bottom, self.view.width - 32, 0)];
+        self.containerView = [[UIView alloc] initWithFrame:CGRectMake(16, self.collectionView.bottom + 16, self.view.width - 32, 0)];
         self.containerView.backgroundColor = [UIColor whiteColor];
         self.containerView.layer.cornerRadius = 10;
         self.containerView.layer.masksToBounds = YES;
@@ -154,18 +167,16 @@
         make.trailing.equalTo(self.view).offset(-16);
         make.bottom.equalTo(previewBtn);
         make.height.mas_equalTo(56);
-        make.width.mas_equalTo(254);
+        make.width.mas_equalTo(245);
     }];
-    convertBtn.layer.cornerRadius = 10;
+    convertBtn.layer.cornerRadius = 16;
     convertBtn.layer.masksToBounds=  YES;
-    convertBtn.contentMode = UIViewContentModeCenter;
+    [convertBtn setBackgroundImage:[UIImage imageNamed:@"rose_big_gradient_bg"] forState:(UIControlStateNormal)];
+    [convertBtn setBackgroundImage:[UIImage imageNamed:@"rose_big_gradient_bg"] forState:(UIControlStateHighlighted)];
     [convertBtn setTitle:NSLocalizedString(@"str_convert", nil) forState:(UIControlStateNormal)];
     convertBtn.titleLabel.font = [UIFont systemFontOfSize:17 weight:(UIFontWeightSemibold)];
     [convertBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [convertBtn addTarget:self action:@selector(clickConvertButton) forControlEvents:(UIControlEventTouchUpInside)];
-    [convertBtn setNeedsLayout];
-    [convertBtn layoutIfNeeded];
-    [convertBtn hz_addGradientWithColors:@[hz_main_color,hz_getColor(@"83BAF2")] startPoint:CGPointMake(0, 0.5) endPoint:CGPointMake(1, 0.5)];
     
     [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
@@ -178,6 +189,33 @@
     [self.sizeView setTop:self.qualityView.bottom];
     
     [self.containerView setHeight:self.sizeView.bottom];
+    
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.width, self.containerView.bottom + 500)];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+}
+
+#pragma 键盘
+//当键盘出现或改变时调用
+- (void)keyboardWillShow:(NSNotification *)note {
+    //取出键盘最终的frame
+    CGRect rect = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSLog(@"debug-%@",NSStringFromCGRect(rect));
+    
+    CGRect convert = [self.passwordView.superview convertRect:self.passwordView.frame toView:self.view];
+    CGFloat pswBottom = convert.origin.y + 115.0;
+    if (rect.origin.y < pswBottom) {
+        //取出键盘弹出需要花费的时间
+        double duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, pswBottom - rect.origin.y) animated:YES];
+    }
+    
+}
+- (void)keyboardWillHide:(NSNotification *)note {
+    double duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, 0) animated:YES];
 }
 
 #pragma mark - Click
@@ -197,6 +235,28 @@
             return;
         }
     }
+    
+    {//vip
+        if (![IAPInstance isVip]) {
+            id count = [[NSUserDefaults standardUserDefaults] valueForKey:pref_key_click_convert_count];
+            if ([count integerValue] == 1) {
+                HZIAPViewController *vc = [[HZIAPViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+                
+                @weakify(self);
+                vc.clickCloseBlock = ^{
+                    @strongify(self);
+                    [self.navigationController popViewControllerAnimated:YES];
+                };
+                vc.successBlock = ^{
+                    @strongify(self);
+                    [self.navigationController popViewControllerAnimated:YES];
+                };
+                return;
+            }
+        }
+    }
+    
     
     __block NSTimeInterval startTime = CFAbsoluteTimeGetCurrent();
     __block NSTimeInterval endTime;
@@ -234,6 +294,14 @@
     self.convertingPdf = YES;
     [self setNeedsStatusBarAppearanceUpdate];
     [self showConvertingLoading];
+    
+    id count = [[NSUserDefaults standardUserDefaults] valueForKey:pref_key_click_convert_count];
+    NSInteger number = 0;
+    if (count) {
+        number = [count integerValue];
+    }
+    number++;
+    [[NSUserDefaults standardUserDefaults] setValue:@(number) forKey:pref_key_click_convert_count];
 }
 
 - (void)updateInfo {
@@ -301,7 +369,7 @@
     if (!_navBar) {
         _navBar = [[HZBaseNavigationBar alloc] init];
         [_navBar configBackImage:[UIImage imageNamed:@"rose_back"]];
-        [_navBar configTitle:NSLocalizedString(@"str_settings", nil)];
+        [_navBar configTitle:NSLocalizedString(@"str_convert", nil)];
         [_navBar configRightTitle:nil];
         
         @weakify(self);

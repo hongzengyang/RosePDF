@@ -111,7 +111,7 @@ static CGFloat prevOffsetY = 0;
         _navBar =[[HZAssetsPickerNavigationBar alloc] init];
         [_navBar configBackImage:[UIImage imageNamed:@"rose_close"]];
         [_navBar configRightTitle:nil];
-        [_navBar configTitle:NSLocalizedString(@"str_import", nil)];
+        [_navBar configTitle:NSLocalizedString(@"str_selectalbum", nil)];
         @weakify(self);
         _navBar.clickBackBlock = ^{
             @strongify(self);

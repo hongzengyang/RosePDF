@@ -56,7 +56,7 @@
         case HZFilter_none:
             name = NSLocalizedString(@"str_original", nil);
             break;
-        case HZFilter_enhance:
+        case HZFilter_color:
             name = NSLocalizedString(@"str_enhance", nil);
             break;
         case HZFilter_bw:
@@ -74,26 +74,26 @@
 + (HZFilterModel *)defaultFilterModel:(HZFilterType)type {
     HZFilterModel *model = [[HZFilterModel alloc] init];
     model.filterType = type;
-    if (type == HZFilter_enhance) {
+    if (type == HZFilter_bw) {
         HZValueModel *value = [[HZValueModel alloc] init];
-        value.intensity = 1.0;
+        value.intensity = 0.1;
         value.defaultValue = value.intensity;
-        value.min = 0.0;
-        value.max = 4.0;
-        model.value = value;
-    }else if (type == HZFilter_bw) {
-        HZValueModel *value = [[HZValueModel alloc] init];
-        value.intensity = 0.5;
-        value.defaultValue = value.intensity;
-        value.min = 0.0;
+        value.min = -1.0;
         value.max = 1.0;
         model.value = value;
     }else if (type == HZFilter_gray) {
         HZValueModel *value = [[HZValueModel alloc] init];
-        value.intensity = 0.5;
+        value.intensity = 0.9;
+        value.defaultValue = value.intensity;
+        value.min = -1.0;
+        value.max = 1.0;
+        model.value = value;
+    }else if (type == HZFilter_color) {
+        HZValueModel *value = [[HZValueModel alloc] init];
+        value.intensity = 1.2;
         value.defaultValue = value.intensity;
         value.min = 0.0;
-        value.max = 1.0;
+        value.max = 2.0;
         model.value = value;
     }
     
@@ -136,16 +136,6 @@
     HZFilterManager *manager = [HZFilterManager manager];
     dispatch_async(manager.queue, ^{
         @autoreleasepool {
-//            CGImageRef cgImage = [image CGImage];
-//            if (!cgImage) {
-//                UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
-//                [image drawAtPoint:CGPointZero];
-//                cgImage = UIGraphicsGetImageFromCurrentImageContext().CGImage;
-//                UIGraphicsEndImageContext();
-//            }
-//            CIImage *inputImage = [[CIImage alloc] initWithCGImage:cgImage];
-//            CIImage *outputImage;
-            
             CIImage *inputImage = [image CIImage];
             if (!inputImage) {
                 inputImage = [CIImage imageWithCGImage:image.CGImage];
@@ -153,56 +143,29 @@
             CIImage *outputImage;
             
             
-            if (pageModel.filter.filterType == HZFilter_enhance) {
-                outputImage = [self coreImagePreActionWithImage:inputImage];
-                
-//                CIFilter <CIDocumentEnhancer> *filter = [CIFilter documentEnhancerFilter];
-//                filter.inputImage = outputImage;
-//                filter.amount = pageModel.filter.value.intensity;
-//                outputImage = [filter outputImage];
-  
-                CIFilter <CIExposureAdjust> *filter = [CIFilter exposureAdjustFilter];
-                filter.inputImage = outputImage;
-                filter.EV = pageModel.filter.value.intensity;
-                outputImage = [filter outputImage];
-                
-            }else if (pageModel.filter.filterType == HZFilter_bw) {
-                outputImage = [self coreImagePreActionWithImage:inputImage];
-                
-                CIFilter <CIColorMonochrome> *filter = [CIFilter colorMonochromeFilter];
-                filter.inputImage = outputImage;
-                filter.color = [CIColor colorWithRed:0.0 green:0.0 blue:0.0];
-                filter.intensity = pageModel.filter.value.intensity;
-                outputImage = [filter outputImage];
-                
+            CIContext *context = [CIContext contextWithOptions:nil];
+            if (pageModel.filter.filterType == HZFilter_bw) {
+                outputImage = [self coreImage_BWFilter:inputImage pageModel:pageModel];
             }else if (pageModel.filter.filterType == HZFilter_gray) {
-                outputImage = [self coreImagePreActionWithImage:inputImage];
-                
-                CIFilter <CIColorMonochrome> *filter = [CIFilter colorMonochromeFilter];
-                filter.inputImage = outputImage;
-                filter.color = [CIColor colorWithCGColor:[UIColor grayColor].CGColor];
-                filter.intensity = pageModel.filter.value.intensity;
-                outputImage = [filter outputImage];
+                outputImage = [self coreImage_GrayFilter:inputImage pageModel:pageModel];
+            }else if (pageModel.filter.filterType == HZFilter_color) {
+                outputImage = [self coreImage_ColorFilter:inputImage pageModel:pageModel];
             }else {
                 outputImage = inputImage;
             }
             
-            if (!manager.colorControlFilter) {
-                manager.colorControlFilter = [CIFilter colorControlsFilter];
-                NSLog(@"%@,%@,%@",@(manager.colorControlFilter.brightness),@(manager.colorControlFilter.contrast),@(manager.colorControlFilter.saturation));
-            }
-            manager.colorControlFilter.inputImage = outputImage;
-            manager.colorControlFilter.brightness = pageModel.adjust.brightnessValue.intensity;
-            manager.colorControlFilter.contrast = pageModel.adjust.contrastValue.intensity;
-            manager.colorControlFilter.saturation = pageModel.adjust.saturationValue.intensity;
-            outputImage = [manager.colorControlFilter outputImage];
+            CIFilter *adjustFilter = [CIFilter filterWithName:@"CIColorControls"];
+            [adjustFilter setValue:outputImage forKey:kCIInputImageKey];
+            [adjustFilter setValue:@(pageModel.adjust.brightnessValue.intensity) forKey:kCIInputBrightnessKey];
+            [adjustFilter setValue:@(pageModel.adjust.contrastValue.intensity) forKey:kCIInputContrastKey];
+            [adjustFilter setValue:@(pageModel.adjust.saturationValue.intensity) forKey:kCIInputSaturationKey];
+            outputImage = [adjustFilter outputImage];
+//
+            CGRect extent = [outputImage extent];
+            CGImageRef cgImage = [context createCGImage:outputImage fromRect:extent];
+            UIImage *result = [UIImage imageWithCGImage:cgImage];
+            CGImageRelease(cgImage);
             
-//            outputImage = [outputImage imageByApplyingFilter:@"CIColorControls" withInputParameters:@{@"inputBrightness":@(pageModel.adjust.brightnessValue.intensity),@"inputContrast":@(pageModel.adjust.contrastValue.intensity),@"inputSaturation":@(pageModel.adjust.saturationValue.intensity)}];
-            
-            UIImage *result = [UIImage imageWithCIImage:outputImage];
-            
-            inputImage = nil;
-            outputImage = nil;
             
             if (completeBlock) {
                 completeBlock(result,pageModel);
@@ -212,26 +175,174 @@
 }
 
 + (CIImage *)coreImagePreActionWithImage:(CIImage *)inputImage {
+//    return inputImage;
     //CIExposureAdjust   曝光调节
     //CISharpenLuminance 锐化调节(亮度)
     //CIUnsharpMask      锐化调节(调节边缘和细节)
     CIImage *outputImage;
+//    {
+//        CIFilter <CISharpenLuminance> *filter1 = [CIFilter sharpenLuminanceFilter];
+//        filter1.inputImage = inputImage;
+//        filter1.radius = 2.5;
+//        filter1.sharpness = 0.6;
+//        outputImage = [filter1 outputImage];
+//
+//        CIFilter <CIUnsharpMask> *filter2 = [CIFilter unsharpMaskFilter];
+//        filter2.inputImage = outputImage;
+//        filter2.radius = 2.5;
+//        filter2.intensity = 0.5;
+//        outputImage = [filter2 outputImage];
+//    }
     {
-        CIFilter <CISharpenLuminance> *filter1 = [CIFilter sharpenLuminanceFilter];
-        filter1.inputImage = inputImage;
-        filter1.radius = 2.5;
-        filter1.sharpness = 0.6;
+        CIFilter *filter1 = [CIFilter filterWithName:@"CISharpenLuminance"];
+        [filter1 setValue:inputImage forKey:kCIInputImageKey];
+        [filter1 setValue:@(2.5) forKey:kCIInputRadiusKey];
+        [filter1 setValue:@(0.6) forKey:kCIInputSharpnessKey];
         outputImage = [filter1 outputImage];
         
-        CIFilter <CIUnsharpMask> *filter2 = [CIFilter unsharpMaskFilter];
-        filter2.inputImage = outputImage;
-        filter2.radius = 2.5;
-        filter2.intensity = 0.5;
+        CIFilter *filter2 = [CIFilter filterWithName:@"CIUnsharpMask"];
+        [filter2 setValue:outputImage forKey:kCIInputImageKey];
+        [filter2 setValue:@(2.5) forKey:kCIInputRadiusKey];
+        [filter2 setValue:@(0.5) forKey:kCIInputIntensityKey];
         outputImage = [filter2 outputImage];
     }
     return outputImage;
 }
 
++ (CIImage *)coreImage_BWFilter:(CIImage *)inputImage pageModel:(HZPageModel *)pageModel {
+    CIImage *outputImage = inputImage;
+    {//baipingheng
+        CIFilter *filter = [CIFilter filterWithName:@"CIWhitePointAdjust"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:[CIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0] forKey:kCIInputColorKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIExposureAdjust"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(pageModel.filter.value.intensity) forKey:kCIInputEVKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIUnsharpMask"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(2) forKey:kCIInputIntensityKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(0.3) forKey:kCIInputSaturationKey];
+        [filter setValue:@(0.5) forKey:kCIInputBrightnessKey];
+        [filter setValue:@(2.7) forKey:kCIInputContrastKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIGammaAdjust"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(0.9) forKey:@"inputPower"];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIColorMonochrome"];
+        [filter setValue:[CIColor colorWithRed:0.0 green:0.0 blue:0.0] forKey:kCIInputColorKey];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(0.9) forKey:kCIInputIntensityKey];
+        outputImage = [filter outputImage];
+    }
+    return outputImage;
+}
+
++ (CIImage *)coreImage_GrayFilter:(CIImage *)inputImage pageModel:(HZPageModel *)pageModel {
+    CIImage *outputImage = inputImage;
+    {//baipingheng
+        CIFilter *filter = [CIFilter filterWithName:@"CIWhitePointAdjust"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:[CIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0] forKey:kCIInputColorKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIExposureAdjust"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(pageModel.filter.value.intensity) forKey:kCIInputEVKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIUnsharpMask"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(2) forKey:kCIInputIntensityKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(0.7) forKey:kCIInputSaturationKey];
+        [filter setValue:@(-0.1) forKey:kCIInputBrightnessKey];
+        [filter setValue:@(0.9) forKey:kCIInputContrastKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIGammaAdjust"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(0.48) forKey:@"inputPower"];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIColorMonochrome"];
+        [filter setValue:[CIColor colorWithCGColor:[UIColor grayColor].CGColor] forKey:kCIInputColorKey];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(0.93) forKey:kCIInputIntensityKey];
+        outputImage = [filter outputImage];
+    }
+    return outputImage;
+}
+
++ (CIImage *)coreImage_ColorFilter:(CIImage *)inputImage pageModel:(HZPageModel *)pageModel {
+    CIImage *outputImage = inputImage;
+    {//baipingheng
+        CIFilter *filter = [CIFilter filterWithName:@"CIWhitePointAdjust"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:[CIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0] forKey:kCIInputColorKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIExposureAdjust"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(0.33) forKey:kCIInputEVKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIUnsharpMask"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(2) forKey:kCIInputIntensityKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(pageModel.filter.value.intensity) forKey:kCIInputSaturationKey];
+        [filter setValue:@(0.13) forKey:kCIInputBrightnessKey];
+        [filter setValue:@(1.3) forKey:kCIInputContrastKey];
+        outputImage = [filter outputImage];
+    }
+    {
+        CIFilter *filter = [CIFilter filterWithName:@"CIGammaAdjust"];
+        [filter setValue:outputImage forKey:kCIInputImageKey];
+        [filter setValue:@(0.43) forKey:@"inputPower"];
+        outputImage = [filter outputImage];
+    }
+//    {
+//        CIFilter *filter = [CIFilter filterWithName:@"CIColorMonochrome"];
+//        [filter setValue:[CIColor colorWithCGColor:[UIColor grayColor].CGColor] forKey:kCIInputColorKey];
+//        [filter setValue:outputImage forKey:kCIInputImageKey];
+//        [filter setValue:@(0.93) forKey:kCIInputIntensityKey];
+//        outputImage = [filter outputImage];
+//    }
+    return outputImage;
+}
+
+
+#pragma mark - GPUImage
 + (void)GPUImageWithImage:(UIImage *)image page:(HZPageModel *)pageModel completeBlock:(void (^)(UIImage *, HZPageModel *))completeBlock {
     NSTimeInterval start = CFAbsoluteTimeGetCurrent();
     
@@ -246,13 +357,7 @@
 
         NSMutableArray <GPUImageFilter *>*filters = [[NSMutableArray alloc] init];
         
-        if (pageModel.filter.filterType == HZFilter_enhance) {
-            if (!manager.sharpenFilter) {
-                manager.sharpenFilter = [[GPUImageSharpenFilter alloc] init];
-            }
-            manager.sharpenFilter.sharpness = pageModel.filter.value.intensity;
-            [filters addObject:manager.sharpenFilter];
-        }else if (pageModel.filter.filterType == HZFilter_bw) {
+        if (pageModel.filter.filterType == HZFilter_bw) {
             if (!manager.sharpenFilter) {
                 manager.sharpenFilter = [[GPUImageSharpenFilter alloc] init];
             }
@@ -263,6 +368,12 @@
                 manager.grayscaleFilter = [[GPUImageGrayscaleFilter alloc] init];
             }
             [filters addObject:manager.grayscaleFilter];
+        }else if (pageModel.filter.filterType == HZFilter_color) {
+            if (!manager.sharpenFilter) {
+                manager.sharpenFilter = [[GPUImageSharpenFilter alloc] init];
+            }
+            manager.sharpenFilter.sharpness = pageModel.filter.value.intensity;
+            [filters addObject:manager.sharpenFilter];
         }else {
             
         }

@@ -14,6 +14,8 @@
 
 - (HZPDFSize)currentPdfSize;
 
++ (NSString *)orientationTitleWithOrientation:(HZPDFOrientation)orientation;
+
 + (NSString *)sizeTitleWithPdfSize:(HZPDFSize)size;
 + (NSString *)sizeDescWithPdfSize:(HZPDFSize)size;
 @end

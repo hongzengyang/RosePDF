@@ -87,7 +87,7 @@
         PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:self.currentAlbum.assetCollection options:options];
         
 
-        NSMutableArray <HZAsset *>*muArray = [[NSMutableArray alloc] init];
+        __block NSMutableArray <HZAsset *>*muArray = [[NSMutableArray alloc] init];
         {
             HZAsset *camera = [[HZAsset alloc] initWithAsset:nil];
             camera.isCameraEntrance = YES;
@@ -115,15 +115,13 @@
             
             if (idx == assets.count - 200) {
                 NSArray *array = [muArray copy];
+                
+                [self.lock lock];
+                self.assetsList = array;
+                self.currentAlbum.assets = array;
+                [self.lock unlock];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.lock lock];
-                    self.assetsList = array;
-                    self.currentAlbum.assets = array;
-                    [self.lock unlock];
-                    
-                    
 //                    NSLog(@"debug--200 Duration = %@",@(CFAbsoluteTimeGetCurrent() - startTime));
-                    
                     if (completeBlock) {
                         completeBlock(YES);
                     }
@@ -132,14 +130,13 @@
             
             if (idx == 0) {
                 NSArray *array = [muArray copy];
+                
+                [self.lock lock];
+                self.assetsList = array;
+                self.currentAlbum.assets = array;
+                [self.lock unlock];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.lock lock];
-                    self.assetsList = array;
-                    self.currentAlbum.assets = array;
-                    [self.lock unlock];
-                    
 //                    NSLog(@"debug--total Duration = %@",@(CFAbsoluteTimeGetCurrent() - startTime));
-                    
                     if (completeBlock) {
                         completeBlock(YES);
                     }
@@ -249,10 +246,14 @@
     if (!_currentAlbum) {
         // 获取所有智能相册
         PHFetchResult<PHAssetCollection *> *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
-                                                                                                       subtype:PHAssetCollectionSubtypeAny
+                                                                                                       subtype:PHAssetCollectionSubtypeAlbumRegular
                                                                                                        options:nil];
+        PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
+        
         NSMutableArray<PHAssetCollection *> *allAlbums = [NSMutableArray array];
         [allAlbums addObjectsFromArray:[smartAlbums objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, smartAlbums.count)]]];
+        [allAlbums addObjectsFromArray:[topLevelUserCollections objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, topLevelUserCollections.count)]]];
+        
         // 遍历所有相册
         HZAlbum *userLibraryCollection;
         HZAlbum *lastSelectCollection;
@@ -260,15 +261,31 @@
         PHAssetCollectionSubtype lastSelect = [[[NSUserDefaults standardUserDefaults] valueForKey:pref_key_lastSelectAlnumIdentifier] integerValue];
         
         NSMutableArray *muArray = [[NSMutableArray alloc] init];
-        for (PHAssetCollection *album in allAlbums) {
-            HZAlbum *hzAlbum = [[HZAlbum alloc] initWithCollection:album];
-            [muArray addObject:hzAlbum];
+        for (PHAssetCollection *collection in allAlbums) {
+            PHFetchOptions *options = [[PHFetchOptions alloc] init];
+            options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", PHAssetMediaTypeImage];
             
-            if (album.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
+            if (![collection isKindOfClass:[PHAssetCollection class]]) continue;
+            
+            PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:options];
+            if (fetchResult.count < 1) continue;
+            
+            if (collection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumAllHidden) continue;
+            
+            if ([collection.localizedTitle containsString:@"Deleted"] || [collection.localizedTitle isEqualToString:@"最近删除"]) continue;
+            
+            if (collection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
+                HZAlbum *hzAlbum = [[HZAlbum alloc] initWithCollection:collection];
+                [muArray insertObject:hzAlbum atIndex:0];
+                
                 userLibraryCollection = hzAlbum;
-            }
-            if (album.assetCollectionSubtype == lastSelect) {
-                lastSelectCollection = hzAlbum;
+            } else {
+                HZAlbum *hzAlbum = [[HZAlbum alloc] initWithCollection:collection];
+                [muArray addObject:hzAlbum];
+                
+                if (collection.assetCollectionSubtype == lastSelect) {
+                    lastSelectCollection = hzAlbum;
+                }
             }
         }
         self.albumsList = [muArray copy];

@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
                                title:(NSString *)title
                           titleColor:(UIColor *)titleColor
                                 font:(UIFont *)font;
+- (void)enableMultiLineTitle:(BOOL)enable;
 
 - (void)setSelectImage:(UIImage *)selectImage selectTitleColor:(UIColor *)selectTitleColor;
 - (void)verticalButtonSelected:(BOOL)selected;

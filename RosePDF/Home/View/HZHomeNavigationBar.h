@@ -10,6 +10,8 @@
 
 @protocol HZHomeNavigationBarDelegate <NSObject>
 
+- (void)clickIAPButton;
+
 - (void)clickMultiSelectButton;
 - (void)clickAppSettingsButton;
 
@@ -24,8 +26,11 @@
 
 @property (nonatomic, weak) id <HZHomeNavigationBarDelegate> delegate;
 
+- (void)viewWillAppear;
 
 - (void)configSelectMode:(BOOL)isSelectMode;
+- (void)configAllSelected:(BOOL)allSelected;
+
 - (void)configSwipeUpMode:(BOOL)isSwipeUpMode;
 
 @end

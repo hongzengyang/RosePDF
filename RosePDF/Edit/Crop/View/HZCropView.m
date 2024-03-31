@@ -303,6 +303,7 @@
     {
         CGContextSetLineWidth(context, kLineWidth);//线的宽度
         UIColor *aColor = hz_getColorWithAlpha(@"2B96FA", 0.2);//blue蓝色
+        aColor = [UIColor clearColor];
         CGContextSetFillColorWithColor(context, aColor.CGColor);//填充颜色
         aColor = hz_getColor(@"2B96FA");
         CGContextSetStrokeColorWithColor(context, aColor.CGColor);//线框颜色
