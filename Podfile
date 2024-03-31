@@ -37,6 +37,6 @@ def common_pods
   #  pod 'Bugly',                '2.5.93'
 end
 
-target 'RosePDF' do
+target 'PDFConverter' do
   common_pods
 end

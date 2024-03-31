@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		213C88DA17E81131D3D9B767 /* libPods-RosePDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */; };
+		213C88DA17E81131D3D9B767 /* libPods-PDFConverter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B1F9BE34685D036ED7A825 /* libPods-PDFConverter.a */; };
 		4444C8DA2B83A8A0005E96AF /* HZPDFSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4444C8D92B83A8A0005E96AF /* HZPDFSettingViewController.m */; };
 		4472BB462B9378BE0093D5D6 /* HZPDFConvertingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4472BB452B9378BE0093D5D6 /* HZPDFConvertingView.m */; };
 		4472BB492B937AED0093D5D6 /* rose_pdf_loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4472BB472B937AED0093D5D6 /* rose_pdf_loading.gif */; };
@@ -57,9 +57,9 @@
 		A1A8DBED2B5E9D650092F0F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A8DBEC2B5E9D650092F0F8 /* Assets.xcassets */; };
 		A1A8DBF02B5E9D650092F0F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1A8DBEE2B5E9D650092F0F8 /* LaunchScreen.storyboard */; };
 		A1A8DBF32B5E9D650092F0F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBF22B5E9D650092F0F8 /* main.m */; };
-		A1A8DBFD2B5E9D650092F0F8 /* RosePDFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBFC2B5E9D650092F0F8 /* RosePDFTests.m */; };
-		A1A8DC072B5E9D650092F0F8 /* RosePDFUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DC062B5E9D650092F0F8 /* RosePDFUITests.m */; };
-		A1A8DC092B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DC082B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m */; };
+		A1A8DBFD2B5E9D650092F0F8 /* PDFConverterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DBFC2B5E9D650092F0F8 /* PDFConverterTests.m */; };
+		A1A8DC072B5E9D650092F0F8 /* PDFConverterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DC062B5E9D650092F0F8 /* PDFConverterUITests.m */; };
+		A1A8DC092B5E9D650092F0F8 /* PDFConverterUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A8DC082B5E9D650092F0F8 /* PDFConverterUITestsLaunchTests.m */; };
 		A1ABB91B2B8200280007C9B6 /* HZEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ABB91A2B8200280007C9B6 /* HZEditViewController.m */; };
 		A1ABB9222B833DF30007C9B6 /* HZEditPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ABB9212B833DF30007C9B6 /* HZEditPreviewCell.m */; };
 		A1ABB9252B8444F20007C9B6 /* HZPDFSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ABB9242B8444F20007C9B6 /* HZPDFSettingCell.m */; };
@@ -106,14 +106,14 @@
 			containerPortal = A1A8DBD52B5E9D630092F0F8 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A1A8DBDC2B5E9D630092F0F8;
-			remoteInfo = RosePDF;
+			remoteInfo = PDFConverter;
 		};
 		A1A8DC032B5E9D650092F0F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A1A8DBD52B5E9D630092F0F8 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A1A8DBDC2B5E9D630092F0F8;
-			remoteInfo = RosePDF;
+			remoteInfo = PDFConverter;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -132,7 +132,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RosePDF.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		31B1F9BE34685D036ED7A825 /* libPods-PDFConverter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PDFConverter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4444C8D82B83A8A0005E96AF /* HZPDFSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingViewController.h; sourceTree = "<group>"; };
 		4444C8D92B83A8A0005E96AF /* HZPDFSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFSettingViewController.m; sourceTree = "<group>"; };
 		4472BB442B9378BE0093D5D6 /* HZPDFConvertingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFConvertingView.h; sourceTree = "<group>"; };
@@ -246,7 +246,7 @@
 		A1A2415C2BB19B10009081E8 /* en-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-IN"; path = "en-IN.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A1A2415D2BB1A6F9009081E8 /* HZIAPManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZIAPManager.h; sourceTree = "<group>"; };
 		A1A2415E2BB1A6F9009081E8 /* HZIAPManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZIAPManager.m; sourceTree = "<group>"; };
-		A1A8DBDD2B5E9D630092F0F8 /* RosePDF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosePDF.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1A8DBDD2B5E9D630092F0F8 /* PDFConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDFConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A8DBE02B5E9D630092F0F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A1A8DBE12B5E9D630092F0F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A1A8DBEA2B5E9D630092F0F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -254,11 +254,11 @@
 		A1A8DBEF2B5E9D650092F0F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1A8DBF12B5E9D650092F0F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1A8DBF22B5E9D650092F0F8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A1A8DBF82B5E9D650092F0F8 /* RosePDFTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RosePDFTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1A8DBFC2B5E9D650092F0F8 /* RosePDFTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RosePDFTests.m; sourceTree = "<group>"; };
-		A1A8DC022B5E9D650092F0F8 /* RosePDFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RosePDFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1A8DC062B5E9D650092F0F8 /* RosePDFUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RosePDFUITests.m; sourceTree = "<group>"; };
-		A1A8DC082B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RosePDFUITestsLaunchTests.m; sourceTree = "<group>"; };
+		A1A8DBF82B5E9D650092F0F8 /* PDFConverterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDFConverterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1A8DBFC2B5E9D650092F0F8 /* PDFConverterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFConverterTests.m; sourceTree = "<group>"; };
+		A1A8DC022B5E9D650092F0F8 /* PDFConverterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDFConverterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1A8DC062B5E9D650092F0F8 /* PDFConverterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFConverterUITests.m; sourceTree = "<group>"; };
+		A1A8DC082B5E9D650092F0F8 /* PDFConverterUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFConverterUITestsLaunchTests.m; sourceTree = "<group>"; };
 		A1ABB9192B8200280007C9B6 /* HZEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditViewController.h; sourceTree = "<group>"; };
 		A1ABB91A2B8200280007C9B6 /* HZEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditViewController.m; sourceTree = "<group>"; };
 		A1ABB9202B833DF30007C9B6 /* HZEditPreviewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditPreviewCell.h; sourceTree = "<group>"; };
@@ -291,8 +291,8 @@
 		A1B4DD0F2B905525000E144D /* HZSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZSlider.m; sourceTree = "<group>"; };
 		A1B4DD112B930AAF000E144D /* HZEditFilterSliderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZEditFilterSliderView.h; sourceTree = "<group>"; };
 		A1B4DD122B930AAF000E144D /* HZEditFilterSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditFilterSliderView.m; sourceTree = "<group>"; };
-		A1B4DD2F2B988606000E144D /* HZCropView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HZCropView.h; path = RosePDF/Edit/Crop/View/HZCropView.h; sourceTree = SOURCE_ROOT; };
-		A1B4DD302B988606000E144D /* HZCropView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HZCropView.m; path = RosePDF/Edit/Crop/View/HZCropView.m; sourceTree = SOURCE_ROOT; };
+		A1B4DD2F2B988606000E144D /* HZCropView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HZCropView.h; path = PDFConverter/Edit/Crop/View/HZCropView.h; sourceTree = SOURCE_ROOT; };
+		A1B4DD302B988606000E144D /* HZCropView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HZCropView.m; path = PDFConverter/Edit/Crop/View/HZCropView.m; sourceTree = SOURCE_ROOT; };
 		A1FE6E1A2B846848005AA056 /* HZPDFSettingPasswordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingPasswordView.h; sourceTree = "<group>"; };
 		A1FE6E1B2B846848005AA056 /* HZPDFSettingPasswordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFSettingPasswordView.m; sourceTree = "<group>"; };
 		A1FE6E1D2B849A5D005AA056 /* HZPDFSettingMarginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingMarginView.h; sourceTree = "<group>"; };
@@ -321,8 +321,8 @@
 		A1FE6E512B88572B005AA056 /* HZPDFPreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFPreviewViewController.m; sourceTree = "<group>"; };
 		A1FE6E542B889CBE005AA056 /* HZHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZHomeCell.h; sourceTree = "<group>"; };
 		A1FE6E552B889CBE005AA056 /* HZHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZHomeCell.m; sourceTree = "<group>"; };
-		AB6EAFC0F9AE7561F3527219 /* Pods-RosePDF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosePDF.debug.xcconfig"; path = "Target Support Files/Pods-RosePDF/Pods-RosePDF.debug.xcconfig"; sourceTree = "<group>"; };
-		F0C836D1915B25165E3F9829 /* Pods-RosePDF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosePDF.release.xcconfig"; path = "Target Support Files/Pods-RosePDF/Pods-RosePDF.release.xcconfig"; sourceTree = "<group>"; };
+		AB6EAFC0F9AE7561F3527219 /* Pods-PDFConverter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFConverter.debug.xcconfig"; path = "Target Support Files/Pods-PDFConverter/Pods-PDFConverter.debug.xcconfig"; sourceTree = "<group>"; };
+		F0C836D1915B25165E3F9829 /* Pods-PDFConverter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDFConverter.release.xcconfig"; path = "Target Support Files/Pods-PDFConverter/Pods-PDFConverter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,7 +337,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				213C88DA17E81131D3D9B767 /* libPods-RosePDF.a in Frameworks */,
+				213C88DA17E81131D3D9B767 /* libPods-PDFConverter.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,8 +389,8 @@
 		7F0C56D00EAB5727517CB565 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AB6EAFC0F9AE7561F3527219 /* Pods-RosePDF.debug.xcconfig */,
-				F0C836D1915B25165E3F9829 /* Pods-RosePDF.release.xcconfig */,
+				AB6EAFC0F9AE7561F3527219 /* Pods-PDFConverter.debug.xcconfig */,
+				F0C836D1915B25165E3F9829 /* Pods-PDFConverter.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -605,9 +605,9 @@
 		A1A8DBD42B5E9D630092F0F8 = {
 			isa = PBXGroup;
 			children = (
-				A1A8DBDF2B5E9D630092F0F8 /* RosePDF */,
-				A1A8DBFB2B5E9D650092F0F8 /* RosePDFTests */,
-				A1A8DC052B5E9D650092F0F8 /* RosePDFUITests */,
+				A1A8DBDF2B5E9D630092F0F8 /* PDFConverter */,
+				A1A8DBFB2B5E9D650092F0F8 /* PDFConverterTests */,
+				A1A8DC052B5E9D650092F0F8 /* PDFConverterUITests */,
 				44F5C6452BA8816900CE4CA9 /* ImageShareExtension */,
 				A1A8DBDE2B5E9D630092F0F8 /* Products */,
 				7F0C56D00EAB5727517CB565 /* Pods */,
@@ -618,15 +618,15 @@
 		A1A8DBDE2B5E9D630092F0F8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1A8DBDD2B5E9D630092F0F8 /* RosePDF.app */,
-				A1A8DBF82B5E9D650092F0F8 /* RosePDFTests.xctest */,
-				A1A8DC022B5E9D650092F0F8 /* RosePDFUITests.xctest */,
+				A1A8DBDD2B5E9D630092F0F8 /* PDFConverter.app */,
+				A1A8DBF82B5E9D650092F0F8 /* PDFConverterTests.xctest */,
+				A1A8DC022B5E9D650092F0F8 /* PDFConverterUITests.xctest */,
 				44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A1A8DBDF2B5E9D630092F0F8 /* RosePDF */ = {
+		A1A8DBDF2B5E9D630092F0F8 /* PDFConverter */ = {
 			isa = PBXGroup;
 			children = (
 				A1A2413A2BB170F7009081E8 /* IAP */,
@@ -649,24 +649,24 @@
 				A1A8DBF22B5E9D650092F0F8 /* main.m */,
 				A12C2A9F2B70FB2E00B77150 /* InfoPlist.strings */,
 			);
-			path = RosePDF;
+			path = PDFConverter;
 			sourceTree = "<group>";
 		};
-		A1A8DBFB2B5E9D650092F0F8 /* RosePDFTests */ = {
+		A1A8DBFB2B5E9D650092F0F8 /* PDFConverterTests */ = {
 			isa = PBXGroup;
 			children = (
-				A1A8DBFC2B5E9D650092F0F8 /* RosePDFTests.m */,
+				A1A8DBFC2B5E9D650092F0F8 /* PDFConverterTests.m */,
 			);
-			path = RosePDFTests;
+			path = PDFConverterTests;
 			sourceTree = "<group>";
 		};
-		A1A8DC052B5E9D650092F0F8 /* RosePDFUITests */ = {
+		A1A8DC052B5E9D650092F0F8 /* PDFConverterUITests */ = {
 			isa = PBXGroup;
 			children = (
-				A1A8DC062B5E9D650092F0F8 /* RosePDFUITests.m */,
-				A1A8DC082B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m */,
+				A1A8DC062B5E9D650092F0F8 /* PDFConverterUITests.m */,
+				A1A8DC082B5E9D650092F0F8 /* PDFConverterUITestsLaunchTests.m */,
 			);
-			path = RosePDFUITests;
+			path = PDFConverterUITests;
 			sourceTree = "<group>";
 		};
 		A1ABB9262B8452200007C9B6 /* View */ = {
@@ -772,7 +772,7 @@
 		ED6EAD6ACA7873E6CA215123 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				31B1F9BE34685D036ED7A825 /* libPods-RosePDF.a */,
+				31B1F9BE34685D036ED7A825 /* libPods-PDFConverter.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -797,9 +797,9 @@
 			productReference = 44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		A1A8DBDC2B5E9D630092F0F8 /* RosePDF */ = {
+		A1A8DBDC2B5E9D630092F0F8 /* PDFConverter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1A8DC0C2B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "RosePDF" */;
+			buildConfigurationList = A1A8DC0C2B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "PDFConverter" */;
 			buildPhases = (
 				14E35838D21EAD6851BE1ACB /* [CP] Check Pods Manifest.lock */,
 				A1A8DBD92B5E9D630092F0F8 /* Sources */,
@@ -814,14 +814,14 @@
 			dependencies = (
 				44F5C64E2BA8816900CE4CA9 /* PBXTargetDependency */,
 			);
-			name = RosePDF;
-			productName = RosePDF;
-			productReference = A1A8DBDD2B5E9D630092F0F8 /* RosePDF.app */;
+			name = PDFConverter;
+			productName = PDFConverter;
+			productReference = A1A8DBDD2B5E9D630092F0F8 /* PDFConverter.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A1A8DBF72B5E9D650092F0F8 /* RosePDFTests */ = {
+		A1A8DBF72B5E9D650092F0F8 /* PDFConverterTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1A8DC0F2B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "RosePDFTests" */;
+			buildConfigurationList = A1A8DC0F2B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "PDFConverterTests" */;
 			buildPhases = (
 				A1A8DBF42B5E9D650092F0F8 /* Sources */,
 				A1A8DBF52B5E9D650092F0F8 /* Frameworks */,
@@ -832,14 +832,14 @@
 			dependencies = (
 				A1A8DBFA2B5E9D650092F0F8 /* PBXTargetDependency */,
 			);
-			name = RosePDFTests;
-			productName = RosePDFTests;
-			productReference = A1A8DBF82B5E9D650092F0F8 /* RosePDFTests.xctest */;
+			name = PDFConverterTests;
+			productName = PDFConverterTests;
+			productReference = A1A8DBF82B5E9D650092F0F8 /* PDFConverterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A1A8DC012B5E9D650092F0F8 /* RosePDFUITests */ = {
+		A1A8DC012B5E9D650092F0F8 /* PDFConverterUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1A8DC122B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "RosePDFUITests" */;
+			buildConfigurationList = A1A8DC122B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "PDFConverterUITests" */;
 			buildPhases = (
 				A1A8DBFE2B5E9D650092F0F8 /* Sources */,
 				A1A8DBFF2B5E9D650092F0F8 /* Frameworks */,
@@ -850,9 +850,9 @@
 			dependencies = (
 				A1A8DC042B5E9D650092F0F8 /* PBXTargetDependency */,
 			);
-			name = RosePDFUITests;
-			productName = RosePDFUITests;
-			productReference = A1A8DC022B5E9D650092F0F8 /* RosePDFUITests.xctest */;
+			name = PDFConverterUITests;
+			productName = PDFConverterUITests;
+			productReference = A1A8DC022B5E9D650092F0F8 /* PDFConverterUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -880,7 +880,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A1A8DBD82B5E9D630092F0F8 /* Build configuration list for PBXProject "RosePDF" */;
+			buildConfigurationList = A1A8DBD82B5E9D630092F0F8 /* Build configuration list for PBXProject "PDFConverter" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -910,9 +910,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1A8DBDC2B5E9D630092F0F8 /* RosePDF */,
-				A1A8DBF72B5E9D650092F0F8 /* RosePDFTests */,
-				A1A8DC012B5E9D650092F0F8 /* RosePDFUITests */,
+				A1A8DBDC2B5E9D630092F0F8 /* PDFConverter */,
+				A1A8DBF72B5E9D650092F0F8 /* PDFConverterTests */,
+				A1A8DC012B5E9D650092F0F8 /* PDFConverterUITests */,
 				44F5C6432BA8816800CE4CA9 /* ImageShareExtension */,
 			);
 		};
@@ -966,15 +966,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RosePDF/Pods-RosePDF-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PDFConverter/Pods-PDFConverter-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RosePDF/Pods-RosePDF-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PDFConverter/Pods-PDFConverter-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RosePDF/Pods-RosePDF-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PDFConverter/Pods-PDFConverter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		14E35838D21EAD6851BE1ACB /* [CP] Check Pods Manifest.lock */ = {
@@ -992,7 +992,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RosePDF-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-PDFConverter-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1005,15 +1005,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RosePDF/Pods-RosePDF-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PDFConverter/Pods-PDFConverter-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RosePDF/Pods-RosePDF-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PDFConverter/Pods-PDFConverter-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RosePDF/Pods-RosePDF-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PDFConverter/Pods-PDFConverter-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1105,7 +1105,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1A241602BB1A6F9009081E8 /* HZIAPManager.m in Sources */,
-				A1A8DBFD2B5E9D650092F0F8 /* RosePDFTests.m in Sources */,
+				A1A8DBFD2B5E9D650092F0F8 /* PDFConverterTests.m in Sources */,
 				A1A2413E2BB17114009081E8 /* HZIAPViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1114,8 +1114,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1A8DC092B5E9D650092F0F8 /* RosePDFUITestsLaunchTests.m in Sources */,
-				A1A8DC072B5E9D650092F0F8 /* RosePDFUITests.m in Sources */,
+				A1A8DC092B5E9D650092F0F8 /* PDFConverterUITestsLaunchTests.m in Sources */,
+				A1A8DC072B5E9D650092F0F8 /* PDFConverterUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,12 +1129,12 @@
 		};
 		A1A8DBFA2B5E9D650092F0F8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A1A8DBDC2B5E9D630092F0F8 /* RosePDF */;
+			target = A1A8DBDC2B5E9D630092F0F8 /* PDFConverter */;
 			targetProxy = A1A8DBF92B5E9D650092F0F8 /* PBXContainerItemProxy */;
 		};
 		A1A8DC042B5E9D650092F0F8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A1A8DBDC2B5E9D630092F0F8 /* RosePDF */;
+			target = A1A8DBDC2B5E9D630092F0F8 /* PDFConverter */;
 			targetProxy = A1A8DC032B5E9D650092F0F8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1381,7 +1381,7 @@
 		};
 		A1A8DC0D2B5E9D650092F0F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB6EAFC0F9AE7561F3527219 /* Pods-RosePDF.debug.xcconfig */;
+			baseConfigurationReference = AB6EAFC0F9AE7561F3527219 /* Pods-PDFConverter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1392,8 +1392,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RosePDF/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RosePDF;
+				INFOPLIST_FILE = PDFConverter/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PDFConverter;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take photos, we need to access your camera.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";
@@ -1418,7 +1418,7 @@
 		};
 		A1A8DC0E2B5E9D650092F0F8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0C836D1915B25165E3F9829 /* Pods-RosePDF.release.xcconfig */;
+			baseConfigurationReference = F0C836D1915B25165E3F9829 /* Pods-PDFConverter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1429,8 +1429,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RosePDF/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RosePDF;
+				INFOPLIST_FILE = PDFConverter/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PDFConverter;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take photos, we need to access your camera.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";
@@ -1462,11 +1462,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = h.com.RosePDFTests;
+				PRODUCT_BUNDLE_IDENTIFIER = h.com.PDFConverterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RosePDF.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RosePDF";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PDFConverter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PDFConverter";
 			};
 			name = Debug;
 		};
@@ -1479,11 +1479,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = h.com.RosePDFTests;
+				PRODUCT_BUNDLE_IDENTIFIER = h.com.PDFConverterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RosePDF.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RosePDF";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PDFConverter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PDFConverter";
 			};
 			name = Release;
 		};
@@ -1494,11 +1494,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = h.com.RosePDFUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = h.com.PDFConverterUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = RosePDF;
+				TEST_TARGET_NAME = PDFConverter;
 			};
 			name = Debug;
 		};
@@ -1509,11 +1509,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = h.com.RosePDFUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = h.com.PDFConverterUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = RosePDF;
+				TEST_TARGET_NAME = PDFConverter;
 			};
 			name = Release;
 		};
@@ -1529,7 +1529,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1A8DBD82B5E9D630092F0F8 /* Build configuration list for PBXProject "RosePDF" */ = {
+		A1A8DBD82B5E9D630092F0F8 /* Build configuration list for PBXProject "PDFConverter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1A8DC0A2B5E9D650092F0F8 /* Debug */,
@@ -1538,7 +1538,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1A8DC0C2B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "RosePDF" */ = {
+		A1A8DC0C2B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "PDFConverter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1A8DC0D2B5E9D650092F0F8 /* Debug */,
@@ -1547,7 +1547,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1A8DC0F2B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "RosePDFTests" */ = {
+		A1A8DC0F2B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "PDFConverterTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1A8DC102B5E9D650092F0F8 /* Debug */,
@@ -1556,7 +1556,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1A8DC122B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "RosePDFUITests" */ = {
+		A1A8DC122B5E9D650092F0F8 /* Build configuration list for PBXNativeTarget "PDFConverterUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1A8DC132B5E9D650092F0F8 /* Debug */,
