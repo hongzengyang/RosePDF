@@ -78,3 +78,5 @@
 "str_feedback" = "Retour d'expérience";
 "str_rate" = "Évaluez-nous";
 "str_about" = "À propos de";
+"str_applytoall" = "Appliquer à tous";
+"str_autofit" = "Ajustage automatique";

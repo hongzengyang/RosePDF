@@ -8,7 +8,7 @@
 "str_left" = "اليسار";
 "str_right" = "اليمين";
 "str_crop" = "قص";
-"str_reorder" = "إعادة ترتيب";
+"str_reorder" = "إعادة الترتيب";
 "str_delete" = "حذف";
 "str_cancel" = "إلغاء";
 "str_import" = "اختيار";
@@ -78,3 +78,5 @@
 "str_feedback" = "تقييم";
 "str_rate" = "قيّمنا";
 "str_about" = "حول";
+"str_applytoall" = "تطبيق على الكل";
+"str_autofit" = "التكيف التلقائي";

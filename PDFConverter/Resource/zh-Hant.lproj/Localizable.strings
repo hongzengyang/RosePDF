@@ -8,14 +8,14 @@
 "str_left" = "左";
 "str_right" = "右";
 "str_crop" = "裁剪";
-"str_reorder" = "重新排序";
+"str_reorder" = "重新排列";
 "str_delete" = "刪除";
 "str_cancel" = "取消";
 "str_import" = "選取";
 "str_selectalbum" = "選取相簿";
 "str_finish" = "完成";
-"str_select" = "選擇";
-"str_selectfiles" = "選擇檔案";
+"str_select" = "選取";
+"str_selectfiles" = "選取檔案";
 "str_selectall" = "全選";
 "str_deselectall" = "取消全選";
 "str_photo_permission_deny_title" = "需要照片權限";
@@ -69,7 +69,7 @@
 "str_landscape" = "橫向";
 "str_premium_desc1" = "獲得無限轉檔次數。";
 "str_premium_desc2" = "PDF 轉檔從未如此輕鬆！";
-"str_terms" = "條款與條件";
+"str_terms" = "使用條款";
 "str_privacy" = "隱私政策";
 "str_price" = "每週只需 %@。";
 "str_cancelanytime" = "隨時可取消。";
@@ -78,3 +78,5 @@
 "str_feedback" = "回饋意見";
 "str_rate" = "給我們評分";
 "str_about" = "關於";
+"str_applytoall" = "全部套用";
+"str_autofit" = "自適應";

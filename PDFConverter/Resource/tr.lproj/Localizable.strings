@@ -8,7 +8,7 @@
 "str_left" = "Sol";
 "str_right" = "Sağ";
 "str_crop" = "Kırp";
-"str_reorder" = "Sırayı Değiştir";
+"str_reorder" = "Yeniden düzenle";
 "str_delete" = "Sil";
 "str_cancel" = "İptal";
 "str_import" = "Seç";
@@ -78,3 +78,5 @@
 "str_feedback" = "Geribildirim";
 "str_rate" = "Bizi Değerlendir";
 "str_about" = "Hakkında";
+"str_applytoall" = "Tümüne Uygula";
+"str_autofit" = "Otomatik uyum";

@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Bugly/Bugly.h>
 #import "HZHomeViewController.h"
 #import "HZUserGuideViewController.h"
 #import "HZNavigationController.h"
@@ -27,6 +28,8 @@
         [UIView appearance].semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
         [UISearchBar appearance].semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
     }
+    
+    [self configBugly];
     
     [IAPInstance application:application didFinishLaunchingWithOptions:launchOptions];
     
@@ -96,6 +99,14 @@
         }
     }];
     [task resume];
+}
+
+- (void)configBugly {
+    BuglyConfig *config = [[BuglyConfig alloc] init];
+    config.debugMode = YES;
+    config.blockMonitorEnable = YES;
+    config.blockMonitorTimeout = 3.0;
+    [Bugly startWithAppId:@"faa4e8c07f" config:config];
 }
 
 

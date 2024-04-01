@@ -213,6 +213,75 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
     });
 }
 
+- (void)renderRotatedImageWithCompleteBlock:(void (^)(UIImage *))completeBlock {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        UIImage *contentImage = [UIImage imageWithContentsOfFile:[self contentPath]];
+        
+        if (!contentImage) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completeBlock(nil);
+            });
+            return;
+        }
+        
+        
+        //rotate
+        if (self.orientation == HZPageOrientation_up) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completeBlock(contentImage);
+            });
+            return;
+        }
+        
+        if (!contentImage.CIImage) {
+            contentImage = [UIImage imageWithCIImage:[CIImage imageWithCGImage:contentImage.CGImage]];
+        }
+
+        CIContext *context = [CIContext contextWithOptions:nil];
+        UIImageOrientation orientation = UIImageOrientationUp;
+        CGAffineTransform transform;
+        switch (self.orientation) {
+            case HZPageOrientation_up:
+                orientation = UIImageOrientationUp;
+                transform = CGAffineTransformMakeRotation(M_PI_2 * 0);
+                break;
+            case HZPageOrientation_left:{
+                orientation = UIImageOrientationLeft;
+                transform = CGAffineTransformMakeRotation(M_PI_2 * 1);
+            }
+                break;
+            case HZPageOrientation_down:{
+                orientation = UIImageOrientationDown;
+                transform = CGAffineTransformMakeRotation(M_PI_2 * 2);
+            }
+                break;
+            case HZPageOrientation_right:{
+                orientation = UIImageOrientationRight;
+                transform = CGAffineTransformMakeRotation(M_PI_2 * 3);
+            }
+                break;
+            default:
+                break;
+        }
+        // 创建滤镜
+        CIFilter *filter = [CIFilter filterWithName:@"CIAffineTransform"];
+        // 设置输入图像
+        [filter setValue:[contentImage CIImage] forKey:kCIInputImageKey];
+        // 设置变换矩阵
+        [filter setValue:[NSValue valueWithCGAffineTransform:transform] forKey:@"inputTransform"];
+        // 获取滤镜处理后的输出图像
+        CIImage *outputImage = [filter outputImage];
+        
+        CGRect extent = [outputImage extent];
+        CGImageRef cgImage = [context createCGImage:outputImage fromRect:extent];
+        UIImage *result = [UIImage imageWithCGImage:cgImage];
+        CGImageRelease(cgImage);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completeBlock(result);
+        });
+    });
+}
+
 - (void)processResultFileWithCompleteBlock:(void (^)(UIImage *))completeBlock writeToFile:(BOOL)writeToFile {
     UIImage *contentImage = [UIImage imageWithContentsOfFile:[self contentPath]];
     if (!contentImage) {

@@ -8,7 +8,7 @@
 "str_left" = "왼쪽";
 "str_right" = "오른쪽";
 "str_crop" = "자르기";
-"str_reorder" = "재배열";
+"str_reorder" = "재정렬";
 "str_delete" = "삭제";
 "str_cancel" = "취소";
 "str_import" = "선택";
@@ -78,3 +78,5 @@
 "str_feedback" = "피드백";
 "str_rate" = "평가하기";
 "str_about" = "정보";
+"str_applytoall" = "모두 적용";
+"str_autofit" = "자동 맞춤";

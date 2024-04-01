@@ -32,7 +32,7 @@
 "str_enterpassword" = "Enter Password";
 "str_changepassword" = "Change Password";
 "str_removepassword" = "Delete Password";
-"str_margin" = "Margin";
+"str_margin" = "Margins";
 "str_normal" = "Normal";
 "str_none" = "None";
 "str_quality" = "Quality";
@@ -68,7 +68,8 @@
 "str_portrait" = "Portrait";
 "str_landscape" = "Landscape";
 "str_premium_desc1" = "Get unlimited conversion.";
-"str_premium_desc2" = "PDF Conversion never been so easy!";
+"str_premium_desc2" = "PDF Conversion never been 
+so easy!";
 "str_terms" = "Terms & Conditions";
 "str_privacy" = "Privacy Policy";
 "str_price" = "Just %@ / Week.";
@@ -78,5 +79,5 @@
 "str_feedback" = "Feedback";
 "str_rate" = "Rate us";
 "str_about" = "About";
-
-
+"str_applytoall" = "Apply to All";
+"str_autofit" = "Auto Fit";

@@ -8,7 +8,7 @@
 "str_left" = "Lewo";
 "str_right" = "Prawo";
 "str_crop" = "Przytnij";
-"str_reorder" = "Zmień kolejność";
+"str_reorder" = "Przestaw";
 "str_delete" = "Usuń";
 "str_cancel" = "Anuluj";
 "str_import" = "Wybierz";
@@ -78,3 +78,5 @@
 "str_feedback" = "Opinia";
 "str_rate" = "Oceń nas";
 "str_about" = "Informacje";
+"str_applytoall" = "Zastosuj do wszystkich";
+"str_autofit" = "Adaptacyjny";

@@ -118,7 +118,7 @@
     NSString *text = @"";
     switch (size) {
         case HZPDFSize_autoFit:
-            text = @"Auto Fit";
+            text = NSLocalizedString(@"str_autofit", nil);
             break;
         case HZPDFSize_A3:
             text = @"A3";

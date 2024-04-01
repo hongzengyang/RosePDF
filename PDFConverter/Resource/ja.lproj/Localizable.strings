@@ -78,3 +78,5 @@
 "str_feedback" = "フィードバック";
 "str_rate" = "評価する";
 "str_about" = "について";
+"str_applytoall" = "すべてに適用";
+"str_autofit" = "自動フィット";

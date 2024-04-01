@@ -34,7 +34,7 @@ def common_pods
   #  pod 'YYCache',              '1.0.4'
   #  pod 'AFNetworking',         '4.0'
   #  pod 'MBProgressHUD',        '1.1.0'
-  #  pod 'Bugly',                '2.5.93'
+  pod 'Bugly',                '2.5.93'
 end
 
 target 'PDFConverter' do

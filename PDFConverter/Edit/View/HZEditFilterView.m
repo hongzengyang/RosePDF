@@ -21,7 +21,7 @@
 @property (nonatomic, strong) UIButton *adjustBtn;
 
 @property (nonatomic, strong) UIButton *completeBtn;
-@property (nonatomic, strong) UIButton *applyAllBtn;
+@property (nonatomic, strong) UIView *applyAllView;
 
 @property (nonatomic, strong) HZEditFilterSliderView *slider;
 
@@ -55,20 +55,46 @@
 
 - (void)configView {
     self.backgroundColor = [UIColor clearColor];
-    
-    self.applyAllBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.applyAllBtn.backgroundColor = hz_getColorWithAlpha(@"000000", 0.4);
-    [self.applyAllBtn setImage:[UIImage imageNamed:@"rose_applyALL"] forState:(UIControlStateNormal)];
-    self.applyAllBtn.layer.cornerRadius = 14;
-    self.applyAllBtn.layer.masksToBounds = YES;
-    [self.applyAllBtn addTarget:self action:@selector(clickApplyAllButton) forControlEvents:(UIControlEventTouchUpInside)];
-    [self addSubview:self.applyAllBtn];
-    [self.applyAllBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self).offset(-16);
-        make.top.equalTo(self);
-        make.width.mas_equalTo(95);
-        make.height.mas_equalTo(28);
-    }];
+    @weakify(self);
+    {//applyAll
+        self.applyAllView = [[UIView alloc] init];
+        self.applyAllView.backgroundColor = hz_getColorWithAlpha(@"000000", 0.4);
+        self.applyAllView.layer.cornerRadius = 14;
+        self.applyAllView.layer.masksToBounds = YES;
+        [self addSubview:self.applyAllView];
+        
+        UILabel *label = [[UILabel alloc] init];
+        [self.applyAllView addSubview:label];
+        label.font = [UIFont systemFontOfSize:10];
+        label.text = NSLocalizedString(@"str_applytoall", nil);
+        label.textColor = [UIColor whiteColor];
+        [label sizeToFit];
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(self.applyAllView).offset(8);
+            make.centerY.equalTo(self.applyAllView);
+        }];
+        UIImageView *imageView = [[UIImageView alloc] init];
+        [self.applyAllView addSubview:imageView];
+        imageView.image = [UIImage imageNamed:@"rose_apply_all_arrow"];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(label.mas_trailing);
+            make.centerY.equalTo(self.applyAllView);
+            make.trailing.equalTo(self.applyAllView).offset(-8);
+        }];
+        
+        [self.applyAllView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.trailing.equalTo(self).offset(-16);
+            make.height.mas_equalTo(28);
+            make.top.equalTo(self);
+        }];
+        
+        UIButton *btn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [self.applyAllView addSubview:btn];
+        [btn addTarget:self action:@selector(clickApplyAllButton) forControlEvents:(UIControlEventTouchUpInside)];
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.applyAllView);
+        }];
+    }
     
     UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 38, self.width, self.height - 38)];
     containerView.backgroundColor = [UIColor whiteColor];
@@ -115,7 +141,6 @@
     [self.completeBtn layoutIfNeeded];
     [self.completeBtn hz_addGradientWithColors:@[hz_main_color,hz_getColor(@"83BAF2")] startPoint:CGPointMake(0, 0.5) endPoint:CGPointMake(1, 0.5)];
     
-    @weakify(self);
     self.slider = [[HZEditFilterSliderView alloc] initWithFrame:CGRectMake((containerView.width - 220)/2.0, 58, 220, 12)];
     self.slider.slideEndBlock = ^{
         @strongify(self);
@@ -224,6 +249,8 @@
     
     UIImageView *imageView = [[UIImageView alloc] init];
     [view addSubview:imageView];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.layer.masksToBounds = YES;
     imageView.tag = type;
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.top.trailing.equalTo(view);
@@ -248,6 +275,7 @@
     [[RACObserve(self.databoard, currentIndex) distinctUntilChanged] subscribeNext:^(id  _Nullable x) {
         @strongify(self);
         [self update];
+        [self handleIndexChanged];
     }];
 }
 
@@ -257,10 +285,30 @@
     [self updateSlider];
     
     if (self.databoard.project.pageModels.count <= 1) {
-        self.applyAllBtn.hidden = YES;
+        self.applyAllView.hidden = YES;
     }else {
-        self.applyAllBtn.hidden = NO;
+        self.applyAllView.hidden = NO;
     }
+}
+
+- (void)handleIndexChanged {
+    HZPageModel *currentPage = [self.databoard currentPage];
+    @weakify(self);
+    [currentPage renderRotatedImageWithCompleteBlock:^(UIImage *result) {
+        result = [result hz_resizeImageToWidth:100];
+        @strongify(self);
+        [self.filterImagerray enumerateObjectsUsingBlock:^(UIImageView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HZPageModel *page = [[HZPageModel alloc] init];
+            HZFilterModel *filterModel = [HZFilterManager defaultFilterModel:obj.tag];
+            page.filter = filterModel;
+            [HZFilterManager makeFilterImageWithImage:result page:page completeBlock:^(UIImage *result2, HZPageModel *page) {
+                @strongify(self);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    obj.image = result2;
+                });
+            }];
+        }];
+    }];
 }
 
 - (void)updateCurrentFilter {

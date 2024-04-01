@@ -58,6 +58,8 @@
 
 - (void)cropWithCompleteBlock:(void(^)(void))completeBlock;
 
+- (void)renderRotatedImageWithCompleteBlock:(void(^)(UIImage *result))completeBlock;
+
 - (void)writeResultFileWithCompleteBlock:(void(^)(UIImage *result))completeBlock;
 - (void)renderResultImageWithCompleteBlock:(void(^)(UIImage *result))completeBlock;
 + (void)writeResultFileWithPages:(NSArray <HZPageModel *>*)pages completeBlock:(void(^)(void))completeBlock;

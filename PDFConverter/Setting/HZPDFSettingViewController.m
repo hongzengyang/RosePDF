@@ -167,7 +167,11 @@
         make.trailing.equalTo(self.view).offset(-16);
         make.bottom.equalTo(previewBtn);
         make.height.mas_equalTo(56);
-        make.width.mas_equalTo(245);
+        if ([[HZSystemManager manager] iPadDevice]) {
+            make.leading.equalTo(previewBtn.mas_trailing).offset(133);
+        }else {
+            make.leading.equalTo(previewBtn.mas_trailing).offset(33);
+        }
     }];
     convertBtn.layer.cornerRadius = 16;
     convertBtn.layer.masksToBounds=  YES;

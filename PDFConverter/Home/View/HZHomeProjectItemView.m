@@ -45,18 +45,21 @@
     }
     
     CGFloat itemHeight = 50;
-    
-    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.height, self.width, 0)];
-    containerView.backgroundColor = hz_getColor(@"E8E8E8");
+    CGFloat containerWidth = self.width;
+    if ([[HZSystemManager manager] iPadDevice]) {
+        containerWidth = 375.0;
+    }
+    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake((self.width - containerWidth)/2.0, self.height, containerWidth, 0)];
+    containerView.backgroundColor = hz_getColor(@"F7F7F7");
     self.containerView = containerView;
     [self addSubview:containerView];
     
-    UIView *rangView = [[UIView alloc] initWithFrame:CGRectMake((self.width - 44)/2.0, 20, 44, 5)];
+    UIView *rangView = [[UIView alloc] initWithFrame:CGRectMake((containerView.width - 44)/2.0, 20, 44, 5)];
     rangView.backgroundColor = hz_getColor(@"B2B2B2");
     rangView.layer.cornerRadius = 2;
     [containerView addSubview:rangView];
     
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(16, rangView.bottom + 25, self.width - 32, itemHeight)];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(16, rangView.bottom + 25, containerView.width - 32, itemHeight)];
     {
         titleView.layer.cornerRadius = 10;
         titleView.layer.masksToBounds = YES;

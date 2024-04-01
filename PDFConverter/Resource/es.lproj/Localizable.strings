@@ -78,3 +78,5 @@
 "str_feedback" = "Comentarios";
 "str_rate" = "Califícanos";
 "str_about" = "Acerca de";
+"str_applytoall" = "Aplicar a todos";
+"str_autofit" = "Auto ajuste";

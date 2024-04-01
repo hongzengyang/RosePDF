@@ -69,7 +69,7 @@
 "str_landscape" = "横向";
 "str_premium_desc1" = "获得无限转换次数。";
 "str_premium_desc2" = "PDF 转换从未如此轻松！";
-"str_terms" = "条款和条件";
+"str_terms" = "使用条款";
 "str_privacy" = "隐私政策";
 "str_price" = "仅 %@ /周。";
 "str_cancelanytime" = "随时可取消。";
@@ -78,4 +78,5 @@
 "str_feedback" = "反馈";
 "str_rate" = "给我们评分";
 "str_about" = "关于";
-
+"str_applytoall" = "全部应用";
+"str_autofit" = "自适应";

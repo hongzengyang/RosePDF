@@ -236,8 +236,10 @@
             NSLog(@"debug--purchase fail");
         }else {
             NSLog(@"debug--purchase success");
-            if (self.successBlock) {
-                self.successBlock();
+            if ([[HZIAPManager manager] isVip]) {
+                if (self.successBlock) {
+                    self.successBlock();
+                }
             }
         }
     }];

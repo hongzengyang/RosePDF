@@ -8,7 +8,7 @@
 "str_left" = "Влево";
 "str_right" = "Вправо";
 "str_crop" = "Обрезать";
-"str_reorder" = "Переупорядочить";
+"str_reorder" = "Изменение порядка";
 "str_delete" = "Удалить";
 "str_cancel" = "Отмена";
 "str_import" = "Выбрать";
@@ -78,3 +78,5 @@
 "str_feedback" = "Отзывы";
 "str_rate" = "Оцените нас";
 "str_about" = "Тема";
+"str_applytoall" = "Для всех";
+"str_autofit" = "Адаптивный";
