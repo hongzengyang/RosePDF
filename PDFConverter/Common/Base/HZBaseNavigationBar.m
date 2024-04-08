@@ -90,7 +90,7 @@
     [self.rightBtn setBackgroundImage:[UIImage imageNamed:@"rose_gradient_bg"] forState:(UIControlStateNormal)];
     self.rightBtn.layer.cornerRadius = 6;
     self.rightBtn.layer.masksToBounds = YES;
-    self.rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    self.rightBtn.titleLabel.font = [UIFont systemFontOfSize:14 weight:(UIFontWeightMedium)];
     [self.rightBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [self.rightBtn addTarget:self action:@selector(clickRightButton) forControlEvents:(UIControlEventTouchUpInside)];
     [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -8,17 +8,19 @@
 #import "HZShareManager.h"
 #import "HZCommonHeader.h"
 
+@implementation HZShareParam
+
+@end
+
 @implementation HZShareManager
 
-+ (void)shareWithProject:(HZProjectModel *)project completionWithItemsHandler:(UIActivityViewControllerCompletionWithItemsHandler)completionWithItemsHandler {
-    BOOL pdfExist = [project pdfExist];
-    if (pdfExist) {
-        NSString *pdfPath = [project pdfPath];
-        [self shareWithPdfPath:pdfPath completionWithItemsHandler:completionWithItemsHandler];
++ (void)shareWithParam:(HZShareParam *)param
+completionWithItemsHandler:(UIActivityViewControllerCompletionWithItemsHandler)completionWithItemsHandler {
+    BOOL pdfExist = [param.project pdfExist];
+    if (!pdfExist) {
+        return;
     }
-}
-
-+ (void)shareWithPdfPath:(NSString *)pdfPath completionWithItemsHandler:(UIActivityViewControllerCompletionWithItemsHandler)completionWithItemsHandler {
+    NSString *pdfPath = [param.project pdfPath];
     if (pdfPath.length == 0) {
         return;
     }
@@ -35,22 +37,38 @@
         }];
     }
     //不出现在活动项目
-    activityVC.excludedActivityTypes = @[UIActivityTypePostToFacebook,
-                                         UIActivityTypePostToTwitter,
-                                         UIActivityTypePostToWeibo,
+    activityVC.excludedActivityTypes = @[UIActivityTypePostToWeibo,
                                          UIActivityTypePrint,
                                          //                                         UIActivityTypeCopyToPasteboard,
                                          UIActivityTypeAssignToContact,
                                          UIActivityTypeSaveToCameraRoll,
-                                         UIActivityTypeAddToReadingList,
                                          UIActivityTypePostToFlickr,
                                          UIActivityTypePostToVimeo,
                                          UIActivityTypePostToTencentWeibo];
     
     if ([[HZSystemManager manager] iPadDevice]) {
-        activityVC.popoverPresentationController.sourceView = viewwController.view;
-        activityVC.popoverPresentationController.sourceRect = CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight);
-        activityVC.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        if (!param.relatedView) {
+            activityVC.popoverPresentationController.sourceView = viewwController.view;
+            activityVC.popoverPresentationController.sourceRect = CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight);
+            activityVC.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        }else {
+            activityVC.popoverPresentationController.sourceView = param.relatedView;
+            activityVC.popoverPresentationController.permittedArrowDirections = param.arrowDirection;
+            switch (param.arrowDirection) {
+                case UIPopoverArrowDirectionUp:
+                    activityVC.popoverPresentationController.sourceRect = CGRectMake(param.relatedView.width/2.0, 0, 0, 0);
+                    break;
+                case UIPopoverArrowDirectionLeft:
+                    activityVC.popoverPresentationController.sourceRect = CGRectMake(param.relatedView.width, param.relatedView.height/2.0, 0, 0);
+                    break;
+                case UIPopoverArrowDirectionRight:
+                    activityVC.popoverPresentationController.sourceRect = CGRectMake(0, param.relatedView.height/2.0, 0, 0);
+                    break;
+                default:
+                    activityVC.popoverPresentationController.sourceRect = CGRectMake(param.relatedView.width/2.0, 0, 0, 0);
+                    break;
+            }
+        }
     }
     [viewwController presentViewController:activityVC animated:YES completion:nil];
 }

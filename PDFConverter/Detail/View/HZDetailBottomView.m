@@ -34,8 +34,7 @@
     CGFloat startLeading = 19;
     CGFloat space = (ScreenWidth - (startLeading * 2) - (btnWidth * 5)) / 4.0;
     for (int i = 0; i < images.count; i++) {
-        HZVerticalButton *btn = [HZVerticalButton buttonWithSize:CGSizeMake(btnWidth, btnHeight) imageSize:CGSizeMake(22, 22) image:images[i] verticalSpacing:3 title:titles[i] titleColor:i == 4 ? hz_getColor(@"FF3B30") : hz_getColor(@"333333") font:[UIFont systemFontOfSize:10 weight:(UIFontWeightMedium)]];
-        [btn enableMultiLineTitle:NO];
+        HZVerticalButton *btn = [HZVerticalButton buttonWithSize:CGSizeMake(btnWidth, btnHeight) imageSize:CGSizeMake(22, 22) image:images[i] verticalSpacing:3 title:titles[i] titleColor:i == 4 ? hz_getColor(@"FF3B30") : hz_getColor(@"333333") font:[UIFont systemFontOfSize:10 weight:(UIFontWeightMedium)] multiLine:NO];
         [self addSubview:btn];
         btn.tag = i;
         [btn addTarget:self action:@selector(clickItem:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -45,6 +44,10 @@
             make.width.mas_equalTo(btnWidth);
             make.height.mas_equalTo(btnHeight);
         }];
+        
+        if (i == HZDetailBottomItemShare) {
+            self.shareBtn = btn;
+        }
     }
 }
 

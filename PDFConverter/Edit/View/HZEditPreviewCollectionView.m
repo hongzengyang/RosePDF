@@ -28,7 +28,6 @@
     return self;
 }
 - (void)configView {
-    self.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.collectionView];
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {

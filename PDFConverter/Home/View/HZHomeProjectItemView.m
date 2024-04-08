@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong) UIView *containerView;
 
+@property (nonatomic, strong) UIView *shareView;
+
 @end
 
 @implementation HZHomeProjectItemView
@@ -163,7 +165,7 @@
             [button addTarget:self action:@selector(clickChangePsw) forControlEvents:(UIControlEventTouchUpInside)];
             
             UIView *separater = [[UIView alloc] init];
-            separater.backgroundColor = hz_1_bgColor;
+            separater.backgroundColor = hz_getColorWithAlpha(@"3C3C43", 0.1);
             [changePswView addSubview:separater];
             [separater mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.leading.equalTo(leftLab);
@@ -241,7 +243,7 @@
         [button addTarget:self action:@selector(clickEdit) forControlEvents:(UIControlEventTouchUpInside)];
         
         UIView *separater = [[UIView alloc] init];
-        separater.backgroundColor = hz_1_bgColor;
+        separater.backgroundColor = hz_getColorWithAlpha(@"3C3C43", 0.1);
         [editView addSubview:separater];
         [separater mas_makeConstraints:^(MASConstraintMaker *make) {
             make.leading.equalTo(leftLab);
@@ -281,7 +283,7 @@
         [button addTarget:self action:@selector(clickSetting) forControlEvents:(UIControlEventTouchUpInside)];
         
         UIView *separater = [[UIView alloc] init];
-        separater.backgroundColor = hz_1_bgColor;
+        separater.backgroundColor = hz_getColorWithAlpha(@"3C3C43", 0.1);
         [settingView addSubview:separater];
         [separater mas_makeConstraints:^(MASConstraintMaker *make) {
             make.leading.equalTo(leftLab);
@@ -314,6 +316,7 @@
             make.centerY.equalTo(shareView);
             make.width.height.mas_equalTo(28);
         }];
+        self.shareView = imageView;
         
         UIButton *button = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [button setFrame:shareView.bounds];
@@ -322,7 +325,7 @@
         [button addTarget:self action:@selector(clickShare) forControlEvents:(UIControlEventTouchUpInside)];
         
         UIView *separater = [[UIView alloc] init];
-        separater.backgroundColor = hz_1_bgColor;
+        separater.backgroundColor = hz_getColorWithAlpha(@"3C3C43", 0.1);
         [shareView addSubview:separater];
         [separater mas_makeConstraints:^(MASConstraintMaker *make) {
             make.leading.equalTo(leftLab);
@@ -597,9 +600,12 @@
 }
 
 - (void)clickShare {
-    @weakify(self);
-    [HZShareManager shareWithProject:self.project completionWithItemsHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
-        @strongify(self);
+    HZShareParam *param = [[HZShareParam alloc] init];
+    param.project = self.project;
+    param.relatedView = self.shareView;
+    param.arrowDirection = UIPopoverArrowDirectionRight;
+    [HZShareManager shareWithParam:param completionWithItemsHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
+            
     }];
 }
 

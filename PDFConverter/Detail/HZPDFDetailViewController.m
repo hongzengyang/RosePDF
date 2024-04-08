@@ -90,8 +90,12 @@
 - (void)detailBottomViewClickItem:(HZDetailBottomItem)item {
     @weakify(self);
     if (item == HZDetailBottomItemShare) {
-        [HZShareManager shareWithProject:self.project completionWithItemsHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
-            @strongify(self);
+        HZShareParam *param = [[HZShareParam alloc] init];
+        param.project = self.project;
+        param.relatedView = self.bottomView.shareBtn;
+        param.arrowDirection = UIPopoverArrowDirectionDown;
+        [HZShareManager shareWithParam:param completionWithItemsHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
+                
         }];
     }else if (item == HZDetailBottomItemRename) {
         HZAlertTextFieldInput *input = [[HZAlertTextFieldInput alloc] init];

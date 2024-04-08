@@ -18,11 +18,11 @@
 @property (nonatomic, strong) UIButton *vipBtn;
 @property (nonatomic, strong) UIButton *moreBtn;
 @property (nonatomic, strong) UILabel *titleLab;
+@property (nonatomic, strong) UIView *separaterView;
 
 @property (nonatomic, strong) UIView *selectContainerView;
 @property (nonatomic, strong) UIButton *selectAllBtn;
 @property (nonatomic, strong) UIButton *finishBtn;
-@property (nonatomic, strong) UILabel *selectLab;
 
 @property (nonatomic, assign) BOOL isSelectMode;
 @property (nonatomic, assign) BOOL isSwipeUpMode;
@@ -52,6 +52,7 @@
 
 - (void)configSwipeUpMode:(BOOL)isSwipeUpMode {
     self.isSwipeUpMode = isSwipeUpMode;
+    self.separaterView.hidden = !isSwipeUpMode;
     [self refreshWithAnimation:YES];
 }
 
@@ -94,9 +95,10 @@
         make.trailing.equalTo(self.selectContainerView).offset(-16);
         make.centerY.equalTo(self.selectAllBtn);
     }];
-    [self.selectLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.selectAllBtn);
-        make.centerX.equalTo(self.selectContainerView);
+    
+    [self.separaterView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.leading.trailing.equalTo(self);
+        make.height.mas_equalTo(0.33);
     }];
 }
 
@@ -106,6 +108,7 @@
     [self addSubview:self.visualEffectView];
     [self addSubview:self.normalContainerView];
     [self addSubview:self.selectContainerView];
+    [self addSubview:self.separaterView];
     
     [self refreshWithAnimation:NO];
 }
@@ -214,7 +217,6 @@
         
         [view addSubview:self.selectAllBtn];
         [view addSubview:self.finishBtn];
-        [view addSubview:self.selectLab];
     }
     return _selectContainerView;
 }
@@ -275,14 +277,14 @@
     }
     return _finishBtn;
 }
-- (UILabel *)selectLab {
-    if (!_selectLab) {
-        _selectLab = [[UILabel alloc] init];
-        _selectLab.font = [UIFont systemFontOfSize:17 weight:(UIFontWeightMedium)];
-        _selectLab.textColor = hz_1_textColor;
-        _selectLab.text = NSLocalizedString(@"str_selectfiles", nil);
+
+- (UIView *)separaterView {
+    if (!_separaterView) {
+        _separaterView = [[UIView alloc] init];
+        _separaterView.backgroundColor = hz_getColorWithAlpha(@"000000", 0.3);
+        _separaterView.hidden = YES;
     }
-    return _selectLab;
+    return _separaterView;
 }
 
 @end

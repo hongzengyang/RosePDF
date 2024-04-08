@@ -194,7 +194,7 @@
     
     [self.containerView setHeight:self.sizeView.bottom];
     
-    [self.scrollView setContentSize:CGSizeMake(self.scrollView.width, self.containerView.bottom + 500)];
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.width, self.containerView.bottom + 120)];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

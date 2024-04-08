@@ -302,7 +302,7 @@ static CGFloat prevOffsetY = 0;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        _collectionView.contentInset = UIEdgeInsetsMake([UIView hz_safeTop] + 44 + 48, 19, 200, 19);
+        _collectionView.contentInset = UIEdgeInsetsMake([UIView hz_safeTop] + 44 + 48, 0, 200, 0);
     }
     return _collectionView;
 }

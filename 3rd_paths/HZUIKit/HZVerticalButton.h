@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
                      verticalSpacing:(CGFloat)verticalSpacing
                                title:(NSString *)title
                           titleColor:(UIColor *)titleColor
-                                font:(UIFont *)font;
+                                font:(UIFont *)font
+                           multiLine:(BOOL)multiLine;
 - (void)enableMultiLineTitle:(BOOL)enable;
 
 - (void)setSelectImage:(UIImage *)selectImage selectTitleColor:(UIColor *)selectTitleColor;

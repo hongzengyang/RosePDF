@@ -30,7 +30,8 @@
                      verticalSpacing:(CGFloat)verticalSpacing
                                title:(NSString *)title
                           titleColor:(UIColor *)titleColor
-                                font:(UIFont *)font {
+                                font:(UIFont *)font
+                           multiLine:(BOOL)multiLine {
     HZVerticalButton *button = [HZVerticalButton buttonWithType:(UIButtonTypeCustom)];
     [button setSize:size];
     
@@ -45,7 +46,11 @@
     titleLab.textColor = titleColor;
     titleLab.text = title;
     titleLab.textAlignment = NSTextAlignmentCenter;
-    titleLab.numberOfLines = 2;
+    if (multiLine) {
+        titleLab.numberOfLines = 2;
+    }else {
+        titleLab.numberOfLines = 1;
+    }
     [titleLab sizeToFit];
     [titleLab setFrame:CGRectMake(0, imageView.bottom + verticalSpacing, size.width, titleLab.height)];
     [button addSubview:titleLab];

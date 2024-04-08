@@ -49,9 +49,9 @@
     }];
     
     [self.numLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(14);
-        make.top.equalTo(self.contentView).offset(4);
-        make.trailing.equalTo(self.contentView).offset(-4);
+        make.width.height.mas_equalTo(26);
+        make.top.equalTo(self.contentView).offset(5);
+        make.trailing.equalTo(self.contentView).offset(-5);
     }];
 }
 
@@ -126,10 +126,10 @@
         _numLab = [[UILabel alloc] init];
         _numLab.textAlignment = NSTextAlignmentCenter;
         _numLab.textColor = [UIColor whiteColor];
-        _numLab.font = [UIFont systemFontOfSize:10];
+        _numLab.font = [UIFont systemFontOfSize:15];
         _numLab.layer.borderColor = [UIColor whiteColor].CGColor;
-        _numLab.layer.borderWidth = 1.0;
-        _numLab.layer.cornerRadius = 7.0;
+        _numLab.layer.borderWidth = 2.0;
+        _numLab.layer.cornerRadius = 13.0;
         _numLab.layer.masksToBounds = YES;
         _numLab.backgroundColor = [UIColor hz_getColor:@"2B96FA"];
     }

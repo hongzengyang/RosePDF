@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "HZProjectModel.h"
 
+@class HZVerticalButton;
+
 typedef NS_ENUM(NSUInteger, HZDetailBottomItem) {
     HZDetailBottomItemRename,
     HZDetailBottomItemEdit,
@@ -24,6 +26,8 @@ typedef NS_ENUM(NSUInteger, HZDetailBottomItem) {
 @end
 
 @interface HZDetailBottomView : UIView
+
+@property (nonatomic, strong) HZVerticalButton *shareBtn;
 
 @property (nonatomic, weak) id<HZDetailBottomViewDelegate> delegate;
 

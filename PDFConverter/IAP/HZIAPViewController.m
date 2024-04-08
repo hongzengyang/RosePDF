@@ -65,7 +65,7 @@
     [restoreBtn addTarget:self action:@selector(clickRestoreButton) forControlEvents:(UIControlEventTouchUpInside)];
     [restoreBtn setTitle:NSLocalizedString(@"str_restore", nil) forState:(UIControlStateNormal)];
     restoreBtn.titleLabel.font = [UIFont systemFontOfSize:10 weight:(UIFontWeightBold)];
-    [restoreBtn setTitleColor:hz_getColorWithAlpha(@"000000", 0.5) forState:(UIControlStateNormal)];
+    [restoreBtn setTitleColor:hz_getColor(@"999999") forState:(UIControlStateNormal)];
     [restoreBtn sizeToFit];
     [restoreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(self.view).offset(-22);
@@ -83,7 +83,7 @@
         [TermsConditions addTarget:self action:@selector(clickTermsConditionsButton) forControlEvents:(UIControlEventTouchUpInside)];
         [TermsConditions setTitle:NSLocalizedString(@"str_terms", nil) forState:(UIControlStateNormal)];
         TermsConditions.titleLabel.font = [UIFont systemFontOfSize:10 weight:(UIFontWeightRegular)];
-        [TermsConditions setTitleColor:hz_getColorWithAlpha(@"000000", 0.5) forState:(UIControlStateNormal)];
+        [TermsConditions setTitleColor:hz_getColor(@"666666") forState:(UIControlStateNormal)];
         [TermsConditions sizeToFit];
         
         UIButton *privacy = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -91,12 +91,12 @@
         [privacy addTarget:self action:@selector(clickPrivacyButton) forControlEvents:(UIControlEventTouchUpInside)];
         [privacy setTitle:NSLocalizedString(@"str_privacy", nil) forState:(UIControlStateNormal)];
         privacy.titleLabel.font = [UIFont systemFontOfSize:10 weight:(UIFontWeightRegular)];
-        [privacy setTitleColor:hz_getColorWithAlpha(@"000000", 0.5) forState:(UIControlStateNormal)];
+        [privacy setTitleColor:hz_getColor(@"666666") forState:(UIControlStateNormal)];
         [privacy sizeToFit];
         
         UIView *vertical = [[UIView alloc] init];
         [containerView addSubview:vertical];
-        vertical.backgroundColor = hz_getColorWithAlpha(@"000000", 0.5);
+        vertical.backgroundColor = hz_getColor(@"666666");
         
         [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(TermsConditions.width + privacy.width + 10);
@@ -185,7 +185,7 @@
     
     NSString *text1 = [NSString stringWithFormat:NSLocalizedString(@"str_price", nil),formattedString];
     NSString *text2 = NSLocalizedString(@"str_cancelanytime", nil);
-    self.tipLab.text = [NSString stringWithFormat:@"%@%@",text1,text2];
+    self.tipLab.text = [NSString stringWithFormat:@"%@ %@",text1,text2];
     [self.tipLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view).offset(60);
         make.trailing.equalTo(self.view).offset(-60);

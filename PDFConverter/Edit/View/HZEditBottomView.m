@@ -34,8 +34,7 @@
     CGFloat startLeading = 19;
     CGFloat space = (ScreenWidth - (startLeading * 2) - (btnWidth * 6)) / 5.0;
     for (int i = 0; i < images.count; i++) {
-        HZVerticalButton *btn = [HZVerticalButton buttonWithSize:CGSizeMake(btnWidth, btnHeight) imageSize:CGSizeMake(22, 22) image:images[i] verticalSpacing:3 title:titles[i] titleColor:i == 5 ? hz_getColor(@"FF3B30") : hz_getColor(@"333333") font:[UIFont systemFontOfSize:10 weight:(UIFontWeightMedium)]];
-        [btn enableMultiLineTitle:NO];
+        HZVerticalButton *btn = [HZVerticalButton buttonWithSize:CGSizeMake(btnWidth, btnHeight) imageSize:CGSizeMake(22, 22) image:images[i] verticalSpacing:3 title:titles[i] titleColor:i == 5 ? hz_getColor(@"FF3B30") : hz_getColor(@"333333") font:[UIFont systemFontOfSize:10 weight:(UIFontWeightMedium)] multiLine:NO];
         [self addSubview:btn];
         btn.tag = i;
         [btn addTarget:self action:@selector(clickItem:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -49,6 +48,15 @@
             self.deleteBtn = btn;
         }
     }
+    
+    UIView *separaterView = [[UIView alloc] init];
+    [self addSubview:separaterView];
+    separaterView.backgroundColor = hz_getColorWithAlpha(@"000000", 0.3);
+    [separaterView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.leading.trailing.equalTo(self);
+        make.height.mas_equalTo(0.33);
+    }];
+    
     [self checkDeleteEnable];
 }
 

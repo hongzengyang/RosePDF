@@ -185,12 +185,12 @@
         NSArray *images = @[[UIImage imageNamed:@"rose_contrast_n"],[UIImage imageNamed:@"rose_brightness_n"],[UIImage imageNamed:@"rose_saturation_n"]];
         NSArray *selectedImages = @[[UIImage imageNamed:@"rose_contrast_s"],[UIImage imageNamed:@"rose_brightness_s"],[UIImage imageNamed:@"rose_saturation_s"]];
         NSArray *titles = @[NSLocalizedString(@"str_contrast", nil),NSLocalizedString(@"str_brightness", nil),NSLocalizedString(@"str_saturation", nil)];
-        CGFloat btnWidth = 48;
+        CGFloat btnWidth = 60;
         CGFloat btnHeight = 58;
         CGFloat space = 20.0;
         CGFloat startLeading = (ScreenWidth - btnWidth*3 - space*2)/2.0;
         for (int i = 0; i < images.count; i++) {
-            HZVerticalButton *btn = [HZVerticalButton buttonWithSize:CGSizeMake(btnWidth, btnHeight) imageSize:CGSizeMake(40, 40) image:images[i] verticalSpacing:4 title:titles[i] titleColor:hz_1_textColor font:[UIFont systemFontOfSize:8]];
+            HZVerticalButton *btn = [HZVerticalButton buttonWithSize:CGSizeMake(btnWidth, btnHeight) imageSize:CGSizeMake(40, 40) image:images[i] verticalSpacing:4 title:titles[i] titleColor:hz_1_textColor font:[UIFont systemFontOfSize:10 weight:(UIFontWeightMedium)] multiLine:NO];
             [btn setSelectImage:selectedImages[i] selectTitleColor:hz_main_color];
             [self.adjustView addSubview:btn];
             btn.tag = i;
@@ -239,7 +239,7 @@
     [view addSubview:nameLab];
     nameLab.userInteractionEnabled = NO;
     nameLab.tag = type;
-    nameLab.titleLabel.font = [UIFont systemFontOfSize:8];
+    nameLab.titleLabel.font = [UIFont systemFontOfSize:8 weight:(UIFontWeightMedium)];
     [nameLab setTitle:[HZFilterManager filterNameWithType:type] forState:(UIControlStateNormal)];
     [nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.bottom.equalTo(view);
@@ -288,6 +288,14 @@
         self.applyAllView.hidden = YES;
     }else {
         self.applyAllView.hidden = NO;
+    }
+    
+    if (self.isFocusAdjust) {
+        self.adjustView.hidden = NO;
+        self.filterView.hidden = YES;
+    }else {
+        self.filterView.hidden = NO;
+        self.adjustView.hidden = YES;
     }
 }
 

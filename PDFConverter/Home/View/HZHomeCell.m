@@ -211,7 +211,11 @@
         self.clickShareBlock();
     }
     
-    [HZShareManager shareWithProject:self.project completionWithItemsHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
+    HZShareParam *param = [[HZShareParam alloc] init];
+    param.project = self.project;
+    param.relatedView = self.shareBtn;
+    param.arrowDirection = UIPopoverArrowDirectionUp;
+    [HZShareManager shareWithParam:param completionWithItemsHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
             
     }];
 }
