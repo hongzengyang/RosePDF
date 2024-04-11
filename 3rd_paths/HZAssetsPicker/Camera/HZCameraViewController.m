@@ -39,6 +39,7 @@
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) HZCameraPreviewView *previewView;
 @property (nonatomic, strong) HZCameraButton *cameraBtn;
+@property (nonatomic, strong) UIButton *nextBtn;
 
 @property (nonatomic, strong) UIView *captureView;
 @property (nonatomic, strong) HZCameraGridLayer *gridLayer;
@@ -142,13 +143,6 @@
     [self.previewView updateWithImage:image count:self.inputImages.count + self.capturedImages.count];
 }
 
-- (void)handleClickPreview {
-    if (self.selectFinishBlock) {
-        self.selectFinishBlock([self.capturedImages copy]);
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - Click
 - (void)clickBackButton {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -157,7 +151,7 @@
 - (void)clickGridButton:(UIButton *)button {
     button.selected = !button.selected;
     if (button.selected) {
-        button.tintColor = [UIColor hz_getColor:@"262626"];
+        button.tintColor = [UIColor hz_getColor:@"2B96FA"];
     }else {
         button.tintColor = [UIColor hz_getColor:@"888888"];
     }
@@ -167,7 +161,7 @@
 - (void)clickFlashButton:(UIButton *)button {
     button.selected = !button.selected;
     if (button.selected) {
-        button.tintColor = [UIColor hz_getColor:@"262626"];
+        button.tintColor = [UIColor hz_getColor:@"2B96FA"];
     }else {
         button.tintColor = [UIColor hz_getColor:@"888888"];
     }
@@ -194,6 +188,13 @@
         set.flashMode = AVCaptureFlashModeOff;
     }
     [self.imageOutPut capturePhotoWithSettings:set delegate:self];
+}
+
+- (void)clickNextButton {
+    if (self.selectFinishBlock) {
+        self.selectFinishBlock([self.capturedImages copy]);
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - AVCapturePhotoCaptureDelegate
@@ -294,16 +295,29 @@
         [bottomView setNeedsLayout];
         [bottomView layoutIfNeeded];
         @weakify(self);
-        [self.previewView hz_clickBlock:^{
-            @strongify(self);
-            [self handleClickPreview];
-        }];
+//        [self.previewView hz_clickBlock:^{
+//            @strongify(self);
+//            [self handleClickPreview];
+//        }];
         
         [self updatePreviewImage];
         
         self.cameraBtn = [[HZCameraButton alloc] initCustomWithFrame:CGRectMake((bottomView.width - 78)/2.0, 17, 78, 78)];
         [bottomView addSubview:self.cameraBtn];
         [self.cameraBtn addTarget:self action:@selector(clickCameraButton) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        self.nextBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [bottomView addSubview:self.nextBtn];
+        [self.nextBtn addTarget:self action:@selector(clickNextButton) forControlEvents:(UIControlEventTouchUpInside)];
+        self.nextBtn.titleLabel.font = [UIFont systemFontOfSize:14 weight:(UIFontWeightMedium)];
+        [self.nextBtn setTitle:NSLocalizedString(@"str_done", nil) forState:(UIControlStateNormal)];
+        [self.nextBtn setBackgroundImage:[UIImage imageNamed:@"rose_gradient_bg"] forState:(UIControlStateNormal)];
+        [self.nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.trailing.equalTo(bottomView).offset(-16);
+            make.width.mas_equalTo(56);
+            make.height.mas_equalTo(28);
+            make.centerY.equalTo(self.cameraBtn);
+        }];
         
         _bottomView = bottomView;
     }

@@ -255,6 +255,7 @@
                 vc.successBlock = ^{
                     @strongify(self);
                     [self.navigationController popViewControllerAnimated:YES];
+                    [self clickConvertButton];
                 };
                 return;
             }

@@ -120,8 +120,10 @@
             return;
         }
         
+        [SVProgressHUD show];
         [self.databoard requestCurrentAlbumWithCompleteBlock:^(BOOL complete) {
             @strongify(self);
+            [SVProgressHUD dismiss];
             [self.curAlbumView updateWithAlbum:self.databoard.currentAlbum];
             [self.collectionView reloadData];
         }];

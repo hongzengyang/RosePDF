@@ -6,8 +6,9 @@
 //
 
 #import "HZCameraButton.h"
+#import <HZUIKit/HZUIKit.h>
 #define DegreesToRadians(x) (M_PI*(x)/180.0) //把角度转换成PI的方式
-#define cap_line_width   4.0
+#define cap_line_width   3.0
 
 @interface HZCameraButton ()
 
@@ -37,7 +38,7 @@
     [self.layer addSublayer:_innerLayer];
     
     //外面的环形
-    self.outterLayer = [self createOutterLayerWithStartAngle:DegreesToRadians(0) endAngle:DegreesToRadians(360) color:[UIColor blackColor] opacity:1.0];
+    self.outterLayer = [self createOutterLayerWithStartAngle:DegreesToRadians(0) endAngle:DegreesToRadians(360) color:[UIColor hz_getColor:@"2B96FA"] opacity:1.0];
     [self.layer insertSublayer:_outterLayer below:_innerLayer];
     
     //画圈
@@ -79,7 +80,7 @@
     CAShapeLayer *innerLayer = [[CAShapeLayer alloc] init];
     innerLayer.path = [innerpath CGPath];
 //    innerLayer.fillColor =  _isPad?[[UIColor whiteColor] CGColor]:[sh_mainColor CGColor];
-    innerLayer.fillColor = [[UIColor blackColor] CGColor];
+    innerLayer.fillColor = [[UIColor hz_getColor:@"2B96FA"] CGColor];
     innerLayer.opacity = 1.0;
     innerLayer.shadowColor = [UIColor grayColor].CGColor;
     innerLayer.shadowOffset = CGSizeMake(0, 0); // 阴影的偏移量
@@ -117,8 +118,8 @@
     layer.frame = self.bounds ;
     
     // 颜色分配
-    layer.colors = @[(__bridge id)[UIColor blackColor].CGColor,
-                     (__bridge id)[UIColor blackColor].CGColor];
+    layer.colors = @[(__bridge id)[UIColor hz_getColor:@"2B96FA"].CGColor,
+                     (__bridge id)[UIColor hz_getColor:@"83BAF2"].CGColor];
     
     
     // 起始点
@@ -151,7 +152,7 @@
 }
 
 - (CGFloat)innerCircleRadius {
-    return self.frame.size.width / 2.0 - 10;
+    return self.frame.size.width / 2.0 - 6;
 }
 
 - (CGFloat)outterCircleRadius {

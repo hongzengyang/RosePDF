@@ -69,17 +69,17 @@
     [self.bottomBgImageView setFrame:CGRectMake(0, self.contentView.height - bottomImgHeight, bottomImgWidth, bottomImgHeight)];
     self.bottomBgImageView.image = bottomBgImage;
     
-    CGFloat titleWidth = self.contentView.width - 49 - 49;
-    self.titleLab.width = titleWidth;
-    [self.titleLab sizeToFit];
-    [self.titleLab setFrame:CGRectMake(49, self.bottomBgImageView.top + 28, titleWidth, self.titleLab.height)];
+//    CGFloat titleWidth = self.contentView.width - 49 - 49;
+//    self.titleLab.width = titleWidth;
+//    [self.titleLab sizeToFit];
+//    [self.titleLab setFrame:CGRectMake(49, self.bottomBgImageView.top + 28, titleWidth, self.titleLab.height)];
     
     [self.nextBtn setFrame:CGRectMake(60, self.contentView.height - hz_safeBottom - 32 - 56, self.contentView.width - 120, 56)];
     [self.nextBtn hz_addGradientWithColors:@[hz_main_color,hz_getColor(@"83BAF2")] startPoint:CGPointMake(0, 0.5) endPoint:CGPointMake(1, 0.5)];
     
     if (self.titleLab.bottom > self.nextBtn.top) {
-        [self.titleLab setFrame:CGRectMake(5, self.bottomBgImageView.top, self.contentView.width - 5 - 5, self.nextBtn.top - 2 - (self.bottomBgImageView.top))];
     }
+    [self.titleLab setFrame:CGRectMake(5, self.bottomBgImageView.top, self.contentView.width - 5 - 5, self.nextBtn.top - 2 - (self.bottomBgImageView.top))];
 }
 
 - (void)clickNext {

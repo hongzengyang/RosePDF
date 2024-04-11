@@ -7,6 +7,7 @@
 
 #import "HZEditViewController.h"
 #import "HZCommonHeader.h"
+#import <HZUIKit/HZActionSheet.h>
 #import "HZProjectModel.h"
 #import "HZBaseNavigationBar.h"
 #import "HZEditTopCollectionView.h"
@@ -256,14 +257,20 @@
         HZSortViewController *vc = [[HZSortViewController alloc] initWithPages:[self.databoard.project.pageModels copy]];
         [self.navigationController pushViewController:vc animated:YES];
     }else if (item == HZEditBottomItemDelete) {
-        NSMutableArray *muArray = [self.databoard.project.pageModels mutableCopy];
-        [muArray removeObjectAtIndex:self.databoard.currentIndex];
-        self.databoard.project.pageModels = [muArray copy];
-        if (self.databoard.currentIndex >= self.databoard.project.pageModels.count) {
-            self.databoard.currentIndex = self.databoard.project.pageModels.count - 1;
-        }
-        [self reloadAll];
-        [self.bottomView checkDeleteEnable];
+        HZActionSheet *sheet = [[HZActionSheet alloc] initWithTitle:nil];
+        [sheet addDestructiveButtonWithTitle:NSLocalizedString(@"str_delete", nil) block:^{
+            @strongify(self);
+            NSMutableArray *muArray = [self.databoard.project.pageModels mutableCopy];
+            [muArray removeObjectAtIndex:self.databoard.currentIndex];
+            self.databoard.project.pageModels = [muArray copy];
+            if (self.databoard.currentIndex >= self.databoard.project.pageModels.count) {
+                self.databoard.currentIndex = self.databoard.project.pageModels.count - 1;
+            }
+            [self reloadAll];
+            [self.bottomView checkDeleteEnable];
+        }];
+        [sheet addCancelButtonWithTitle:NSLocalizedString(@"str_cancel", nil)];
+        [sheet showInView:self.view];
     }
 }
 
