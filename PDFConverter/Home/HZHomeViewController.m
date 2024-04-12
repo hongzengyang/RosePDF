@@ -166,24 +166,44 @@
 
 #pragma mark - UITableViewDelegate
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 116.0;
+    return 100.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     HZHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HZHomeCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    HZProjectModel *project = [self.projects objectAtIndex:indexPath.row];
+    HZProjectModel *project = [self.projects objectAtIndex:indexPath.section];
     [cell configWithProject:project isSelectMode:self.multiSelectMode isSelect:[self.selectProjects containsObject:project]];
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.projects.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 16;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFoooterInSection:(NSInteger)section{
+    return [UIView new];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.01;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return [UIView new];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    HZProjectModel *project = [self.projects objectAtIndex:indexPath.row];
+    HZProjectModel *project = [self.projects objectAtIndex:indexPath.section];
     if (self.multiSelectMode) {
         if ([self.selectProjects containsObject:project]) {
             [self.selectProjects removeObject:project];
@@ -208,6 +228,41 @@
         [project updateInDataBase];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationNone)];
     }
+}
+
+#pragma mark - UITableViewRowAction
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView reloadData];
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath  API_AVAILABLE(ios(11.0)){
+    HZProjectModel *project = [self.projects objectAtIndex:indexPath.section];
+    UISwipeActionsConfiguration *config = nil;
+    @weakify(self);
+    UIContextualAction *deleteRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL))
+                                           {
+        @strongify(self);
+        [HZProjectManager deleteProject:project postNotification:YES completeBlock:^(HZProjectModel *project) {
+            @strongify(self);
+            completionHandler(YES);
+        }];
+                                               
+                                           }];
+    deleteRowAction.backgroundColor = hz_getColor(@"FF3B30");
+    deleteRowAction.image = [UIImage imageNamed:@"rose_home_swipe_delete"];
+    
+    config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction]];
+    config.performsFirstActionWithFullSwipe = NO;
+    
+    return config;
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
 }
 
 #pragma mark - UIScrollView
@@ -329,7 +384,7 @@ static CGFloat prevOffsetY = 0;
 #pragma mark - Lazy
 - (UITableView *)tableView {
     if (!_tableView) {
-        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - hz_safeBottom) style:(UITableViewStylePlain)];
+        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(16, 0, self.view.width - 32, self.view.height - hz_safeBottom) style:(UITableViewStyleGrouped)];
         tableView.backgroundColor = hz_1_bgColor;
         _tableView = tableView;
         _tableView.delegate = self;
@@ -339,7 +394,7 @@ static CGFloat prevOffsetY = 0;
         [_tableView registerClass:[HZHomeCell class] forCellReuseIdentifier:@"HZHomeCell"];
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
         
-        HZHomeTableHeaderView *header = [[HZHomeTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, hz_safeTop + 158)];
+        HZHomeTableHeaderView *header = [[HZHomeTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, hz_safeTop + 158)];
         _tableView.tableHeaderView = header;
         if (@available(iOS 11.0, *)){
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

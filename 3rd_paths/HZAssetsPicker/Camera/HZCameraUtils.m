@@ -23,8 +23,8 @@
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"str_cancel", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
         }];
-        [alertVC addAction:done];
         [alertVC addAction:cancel];
+        [alertVC addAction:done];
         [viewController presentViewController:alertVC animated:NO completion:^{
         }];
         if (completeBlock) {

@@ -49,7 +49,7 @@
 }
 
 - (void)clickCancelButton {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)clickClearButton {
@@ -119,6 +119,11 @@
     }
     return YES;
 }
+
+- (void)onTextFieldChanged:(UITextField *)textField {
+    [self startSearch];
+}
+
 
 #pragma mark - 通知
 - (void)projectUpdate:(NSNotification *)not {
@@ -200,6 +205,7 @@
             textField.tintColor = hz_getColor(@"000000");
             textField.textColor = hz_getColor(@"888888");
             textField.font = [UIFont systemFontOfSize:16];
+            [textField addTarget:self action:@selector(onTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
             [textField mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.leading.equalTo(icon.mas_trailing).offset(4);
                 make.top.bottom.equalTo(containerView);

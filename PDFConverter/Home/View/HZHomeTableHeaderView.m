@@ -32,7 +32,7 @@
 
 - (void)clickSearch {
     HZSearchViewController *vc = [[HZSearchViewController alloc] init];
-    [[UIView hz_viewController].navigationController pushViewController:vc animated:YES];
+    [[UIView hz_viewController].navigationController pushViewController:vc animated:NO];
 }
 
 - (void)updateConstraints {
@@ -40,11 +40,11 @@
     
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(hz_safeTop + 53);
-        make.leading.equalTo(self).offset(16);
+        make.leading.equalTo(self).offset(0);
     }];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self).offset(16);
-        make.trailing.equalTo(self).offset(-16);
+        make.leading.equalTo(self).offset(0);
+        make.trailing.equalTo(self).offset(0);
         make.top.equalTo(self.titleLab.mas_bottom).offset(18);
         make.height.mas_equalTo(36);
     }];

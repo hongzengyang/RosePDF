@@ -13,7 +13,6 @@
 @interface HZHomeCell()
 @property (nonatomic, strong) HZProjectModel *project;
 
-@property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) UIImageView *thumbImageView;
 @property (nonatomic, strong) UILabel *flagLab;
 @property (nonatomic, strong) UILabel *titleLab;
@@ -34,23 +33,18 @@
 }
 
 - (void)configView {
-    self.backgroundColor = [UIColor clearColor];
     
-    self.containerView = [[UIView alloc] init];
-    [self.contentView addSubview:self.containerView];
-    self.containerView.backgroundColor = [UIColor whiteColor];
-    self.containerView.layer.cornerRadius = 10;
-    self.containerView.layer.masksToBounds = YES;
+    self.backgroundColor = [UIColor whiteColor];
     
     self.thumbImageView = [[UIImageView alloc] init];
     self.thumbImageView.backgroundColor = hz_getColor(@"F4F4F4");
     self.thumbImageView.layer.cornerRadius = 4;
     self.thumbImageView.layer.masksToBounds = YES;
-    [self.containerView addSubview:self.thumbImageView];
+    [self.contentView addSubview:self.thumbImageView];
     self.thumbImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     self.flagLab = [[UILabel alloc] init];
-    [self.containerView addSubview:self.flagLab];
+    [self.contentView addSubview:self.flagLab];
     self.flagLab.textAlignment = NSTextAlignmentCenter;
     self.flagLab.font = [UIFont systemFontOfSize:11 weight:(UIFontWeightMedium)];
     self.flagLab.textColor = hz_getColor(@"ffffff");
@@ -60,22 +54,22 @@
     self.flagLab.text = NSLocalizedString(@"str_new", nil);
     
     self.titleLab = [[UILabel alloc] init];
-    [self.containerView addSubview:self.titleLab];
+    [self.contentView addSubview:self.titleLab];
     self.titleLab.font = [UIFont systemFontOfSize:17 weight:(UIFontWeightMedium)];
     self.titleLab.textColor = [UIColor blackColor];
     
     self.countLab = [[UILabel alloc] init];
-    [self.containerView addSubview:self.countLab];
+    [self.contentView addSubview:self.countLab];
     self.countLab.font = [UIFont systemFontOfSize:15 weight:(UIFontWeightRegular)];
     self.countLab.textColor = hz_getColor(@"666666");
     
     self.timeLab = [[UILabel alloc] init];
-    [self.containerView addSubview:self.timeLab];
+    [self.contentView addSubview:self.timeLab];
     self.timeLab.font = [UIFont systemFontOfSize:14 weight:(UIFontWeightRegular)];
     self.timeLab.textColor = hz_getColor(@"666666");
     
     self.moreBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [self.containerView addSubview:self.moreBtn];
+    [self.contentView addSubview:self.moreBtn];
     [self.moreBtn setImage:[UIImage imageNamed:@"rose_home_more"] forState:(UIControlStateNormal)];
     [self.moreBtn addTarget:self action:@selector(clickMore) forControlEvents:(UIControlEventTouchUpInside)];
     self.moreBtn.backgroundColor = hz_getColor(@"F4F4F4");
@@ -83,7 +77,7 @@
     self.moreBtn.layer.masksToBounds = YES;
     
     self.shareBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [self.containerView addSubview:self.shareBtn];
+    [self.contentView addSubview:self.shareBtn];
     [self.shareBtn setImage:[UIImage imageNamed:@"rose_homecell_share"] forState:(UIControlStateNormal)];
     [self.shareBtn addTarget:self action:@selector(clickShare) forControlEvents:(UIControlEventTouchUpInside)];
     self.shareBtn.backgroundColor = hz_getColor(@"F4F4F4");
@@ -91,53 +85,47 @@
     self.shareBtn.layer.masksToBounds = YES;
     
     self.selectBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [self.containerView addSubview:self.selectBtn];
+    [self.contentView addSubview:self.selectBtn];
     self.selectBtn.userInteractionEnabled = NO;
     [self.selectBtn setImage:[UIImage imageNamed:@"rose_homeselect_n"] forState:(UIControlStateNormal)];
     [self.selectBtn setImage:[UIImage imageNamed:@"rose_homeselect_s"] forState:(UIControlStateSelected)];
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.contentView).offset(16);
-        make.trailing.equalTo(self.contentView).offset(-16);
-        make.top.equalTo(self.contentView);
-        make.height.mas_equalTo(100);
-    }];
+- (void)updateConstraints {
+    [super updateConstraints];
     
     [self.thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.containerView).offset(12);
-        make.top.equalTo(self.containerView).offset(10);
+        make.leading.equalTo(self.contentView).offset(12);
+        make.top.equalTo(self.contentView).offset(10);
         make.width.mas_equalTo(58);
         make.height.mas_equalTo(77);
     }];
     
     [self.flagLab sizeToFit];
     [self.flagLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.containerView).offset(4);
-        make.leading.equalTo(self.containerView).offset(10);
+        make.top.equalTo(self.contentView).offset(4);
+        make.leading.equalTo(self.contentView).offset(10);
         make.width.mas_equalTo(self.flagLab.width + 10);
         make.height.mas_equalTo(18);
     }];
     
     [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.thumbImageView);
-        make.trailing.equalTo(self.containerView).offset(-16);
+        make.trailing.equalTo(self.contentView).offset(-16);
         make.width.mas_equalTo(24);
         make.height.mas_equalTo(24);
     }];
     
     [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.thumbImageView);
-        make.trailing.equalTo(self.containerView).offset(-16);
+        make.trailing.equalTo(self.contentView).offset(-16);
         make.width.mas_equalTo(24);
         make.height.mas_equalTo(24);
     }];
     
     [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.containerView);
-        make.trailing.equalTo(self.containerView).offset(-16);
+        make.centerY.equalTo(self.contentView);
+        make.trailing.equalTo(self.contentView).offset(-16);
         make.width.mas_equalTo(24);
         make.height.mas_equalTo(24);
     }];
@@ -195,6 +183,12 @@
         self.moreBtn.hidden = NO;
         self.shareBtn.hidden = NO;
     }
+    
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
+    
+    self.layer.cornerRadius = 10;
+    self.layer.masksToBounds = YES;
 }
 
 - (void)clickMore {

@@ -24,6 +24,7 @@
 #import "HZIAPViewController.h"
 
 #define pref_key_click_convert_count   @"pref_key_click_convert_count"
+#define pref_key_convert_success_count @"pref_key_convert_success_count"
 
 @interface HZPDFSettingViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -279,6 +280,15 @@
                         @strongify(self);
                         self.convertingPdf = NO;
                         [self.navigationController popToRootViewControllerAnimated:YES];
+                        
+                        NSInteger sucCount = [[[NSUserDefaults standardUserDefaults] valueForKey:pref_key_convert_success_count] integerValue];
+                        if (sucCount == 0) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [SKStoreReviewController requestReview];
+                            });
+                        }
+                        sucCount = sucCount + 1;
+                        [[NSUserDefaults standardUserDefaults] setValue:@(sucCount) forKey:pref_key_convert_success_count];
                     }];
                 });
             }else {
