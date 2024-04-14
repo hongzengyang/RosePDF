@@ -14,6 +14,9 @@
 		4472BB4A2B937AED0093D5D6 /* rose_pdf_complete.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4472BB482B937AED0093D5D6 /* rose_pdf_complete.gif */; };
 		44A7C72B2BB9813800B3C385 /* Terms_Conditions.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7C72A2BB9813800B3C385 /* Terms_Conditions.pdf */; };
 		44A7C72D2BB9817100B3C385 /* PrivacyPolicy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7C72C2BB9817100B3C385 /* PrivacyPolicy.pdf */; };
+		44C27FD52BCADDA2000319DA /* HZAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C27FD42BCADDA2000319DA /* HZAppSettingViewController.m */; };
+		44C27FD82BCAE925000319DA /* HZAppAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C27FD72BCAE925000319DA /* HZAppAboutViewController.m */; };
+		44C27FDB2BCBB3B2000319DA /* HZMarginSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C27FDA2BCBB3B2000319DA /* HZMarginSelectView.m */; };
 		44F5C64F2BA8816900CE4CA9 /* ImageShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		44F5C6562BA8822C00CE4CA9 /* ShareExtensionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F5C6552BA8822C00CE4CA9 /* ShareExtensionViewController.m */; };
 		A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */; };
@@ -141,6 +144,12 @@
 		4472BB482B937AED0093D5D6 /* rose_pdf_complete.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rose_pdf_complete.gif; sourceTree = "<group>"; };
 		44A7C72A2BB9813800B3C385 /* Terms_Conditions.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Terms_Conditions.pdf; sourceTree = "<group>"; };
 		44A7C72C2BB9817100B3C385 /* PrivacyPolicy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PrivacyPolicy.pdf; sourceTree = "<group>"; };
+		44C27FD32BCADDA2000319DA /* HZAppSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZAppSettingViewController.h; sourceTree = "<group>"; };
+		44C27FD42BCADDA2000319DA /* HZAppSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZAppSettingViewController.m; sourceTree = "<group>"; };
+		44C27FD62BCAE925000319DA /* HZAppAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZAppAboutViewController.h; sourceTree = "<group>"; };
+		44C27FD72BCAE925000319DA /* HZAppAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZAppAboutViewController.m; sourceTree = "<group>"; };
+		44C27FD92BCBB3B2000319DA /* HZMarginSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZMarginSelectView.h; sourceTree = "<group>"; };
+		44C27FDA2BCBB3B2000319DA /* HZMarginSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZMarginSelectView.m; sourceTree = "<group>"; };
 		44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F5C64C2BA8816900CE4CA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44F5C6542BA8822C00CE4CA9 /* ShareExtensionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareExtensionViewController.h; sourceTree = "<group>"; };
@@ -374,6 +383,17 @@
 				A1B4DD062B8F4663000E144D /* HZChangePasswordViewController.m */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		44C27FD22BCADD77000319DA /* APP Settting */ = {
+			isa = PBXGroup;
+			children = (
+				44C27FD32BCADDA2000319DA /* HZAppSettingViewController.h */,
+				44C27FD42BCADDA2000319DA /* HZAppSettingViewController.m */,
+				44C27FD62BCAE925000319DA /* HZAppAboutViewController.h */,
+				44C27FD72BCAE925000319DA /* HZAppAboutViewController.m */,
+			);
+			path = "APP Settting";
 			sourceTree = "<group>";
 		};
 		44F5C6452BA8816900CE4CA9 /* ImageShareExtension */ = {
@@ -629,6 +649,7 @@
 		A1A8DBDF2B5E9D630092F0F8 /* PDFConverter */ = {
 			isa = PBXGroup;
 			children = (
+				44C27FD22BCADD77000319DA /* APP Settting */,
 				A1A2413A2BB170F7009081E8 /* IAP */,
 				A1A241202BABD003009081E8 /* UserGuide */,
 				A1A240F62B9ED497009081E8 /* Search */,
@@ -680,6 +701,8 @@
 				A1FE6E1B2B846848005AA056 /* HZPDFSettingPasswordView.m */,
 				A1FE6E1D2B849A5D005AA056 /* HZPDFSettingMarginView.h */,
 				A1FE6E1E2B849A5D005AA056 /* HZPDFSettingMarginView.m */,
+				44C27FD92BCBB3B2000319DA /* HZMarginSelectView.h */,
+				44C27FDA2BCBB3B2000319DA /* HZMarginSelectView.m */,
 				A1FE6E202B849FFB005AA056 /* HZPDFSettingQualityView.h */,
 				A1FE6E212B849FFB005AA056 /* HZPDFSettingQualityView.m */,
 				A1FE6E232B84A27F005AA056 /* HZPDFSettingSizeView.h */,
@@ -1051,6 +1074,7 @@
 				A1FE6E252B84A27F005AA056 /* HZPDFSettingSizeView.m in Sources */,
 				A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */,
 				A1A8DBF32B5E9D650092F0F8 /* main.m in Sources */,
+				44C27FD52BCADDA2000319DA /* HZAppSettingViewController.m in Sources */,
 				A1B190A92BB55D2A00B31842 /* HZPDFWebViewController.m in Sources */,
 				A1FE6E2E2B858EC3005AA056 /* HZPDFMaker.m in Sources */,
 				4472BB462B9378BE0093D5D6 /* HZPDFConvertingView.m in Sources */,
@@ -1068,6 +1092,7 @@
 				A13B8DC42B9AE3F800AC131C /* HZHomeMenuView.m in Sources */,
 				A1A01C0B2B8C675E008B6FE8 /* HZDetailBottomView.m in Sources */,
 				A1ABB9222B833DF30007C9B6 /* HZEditPreviewCell.m in Sources */,
+				44C27FD82BCAE925000319DA /* HZAppAboutViewController.m in Sources */,
 				A1A240EE2B9ED181009081E8 /* HZCropViewController.m in Sources */,
 				A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */,
 				A1ABB91B2B8200280007C9B6 /* HZEditViewController.m in Sources */,
@@ -1082,6 +1107,7 @@
 				A12C2ABA2B71F83100B77150 /* HZEditTopCell.m in Sources */,
 				A1FE6E522B88572B005AA056 /* HZPDFPreviewViewController.m in Sources */,
 				A1B4DCEC2B8D7060000E144D /* HZPDFPreviewView.m in Sources */,
+				44C27FDB2BCBB3B2000319DA /* HZMarginSelectView.m in Sources */,
 				A1B4DD072B8F4663000E144D /* HZChangePasswordViewController.m in Sources */,
 				A1FE6E412B861560005AA056 /* HZSortCell.m in Sources */,
 				A1A01C0E2B8C76DD008B6FE8 /* HZDetailPasswordView.m in Sources */,

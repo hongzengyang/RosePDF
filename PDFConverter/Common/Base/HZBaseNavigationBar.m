@@ -14,6 +14,8 @@
 @property (nonatomic, strong) UIButton *rightBtn;
 @property (nonatomic, strong) UILabel *titleLab;
 
+@property (nonatomic, strong) UIVisualEffectView *blurEffectView;
+
 @property (nonatomic, strong) UIView *separaterView;
 
 @end
@@ -65,12 +67,21 @@
     self.rightBtn.hidden = hidden;
 }
 
+- (void)setVisualEffectHidden:(BOOL)hidden {
+    self.blurEffectView.hidden = hidden;
+}
+
+- (void)setSeparaterHidden:(BOOL)hidden {
+    self.separaterView.hidden = hidden;
+}
+
 - (void)configView {
 //    self.backgroundColor = [UIColor whiteColor];
     
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [self addSubview:blurEffectView];
+    self.blurEffectView = blurEffectView;
     [blurEffectView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];

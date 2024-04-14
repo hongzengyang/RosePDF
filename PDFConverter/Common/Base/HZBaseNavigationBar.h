@@ -19,6 +19,7 @@
 
 - (void)setBackHidden:(BOOL)hidden;
 - (void)setRightHidden:(BOOL)hidden;
-
+- (void)setVisualEffectHidden:(BOOL)hidden;
+- (void)setSeparaterHidden:(BOOL)hidden;
 @end
 

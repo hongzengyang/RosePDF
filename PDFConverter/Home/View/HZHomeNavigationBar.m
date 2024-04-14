@@ -141,12 +141,6 @@
 }
 
 - (void)clickMoreButton {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(clickMultiSelectButton)]) {
-        [self.delegate clickMultiSelectButton];
-        [self configSelectMode:YES];
-    }
-    return;
-    
     @weakify(self);
     [HZHomeMenuView popInView:[UIView hz_viewController].view relatedView:self selectBlock:^(HZHomeMenuType index) {
         @strongify(self);

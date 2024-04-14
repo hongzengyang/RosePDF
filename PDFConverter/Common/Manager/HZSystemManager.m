@@ -39,4 +39,15 @@
     }
 }
 
+- (BOOL)isChina {
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+
+    if ([[countryCode lowercaseString] isEqualToString:@"cn"]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end

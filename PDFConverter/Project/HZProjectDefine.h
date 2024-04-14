@@ -15,6 +15,8 @@
 #define HZLibraryPath [HZLibraryCachePath stringByReplacingOccurrencesOfString:@"/Caches" withString:@""]
 #define OCR_FOLDER_NAME             @"ocr"
 
+#define pref_key_userSelect_margin @"pref_key_userSelect_margin"
+
 
 typedef NS_ENUM(NSUInteger, HZPDFMargin) {
     HZPDFMargin_none,

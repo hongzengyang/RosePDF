@@ -14,5 +14,6 @@
 + (HZSystemManager *)manager;
 
 - (BOOL)iPadDevice;
+- (BOOL)isChina;
 
 @end

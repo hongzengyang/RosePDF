@@ -20,6 +20,7 @@
 #import "HZIAPManager.h"
 #import "HZIAPViewController.h"
 #import "HZSystemManager.h"
+#import "HZAppSettingViewController.h"
 
 @interface HZHomeViewController ()<UITableViewDelegate,UITableViewDataSource,HZHomeNavigationBarDelegate>
 
@@ -298,7 +299,8 @@ static CGFloat prevOffsetY = 0;
     [self enterSelectMode];
 }
 - (void)clickAppSettingsButton {
-    
+    HZAppSettingViewController *vc = [[HZAppSettingViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)clickSelectAllButton {

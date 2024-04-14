@@ -7,7 +7,7 @@
 
 #import "HZPDFSettingMarginView.h"
 #import "HZCommonHeader.h"
-#import "HZSelectPopView.h"
+#import "HZMarginSelectView.h"
 
 @interface HZPDFSettingMarginView()
 @property (nonatomic, strong) HZPDFSettingDataboard *databoard;
@@ -25,7 +25,7 @@
     if (self = [super initWithFrame:frame]) {
         self.databoard = databoard;
         
-        self.selectMargin = databoard.project.margin;
+        self.selectMargin = (HZPDFMargin)[[[NSUserDefaults standardUserDefaults] valueForKey:pref_key_userSelect_margin] integerValue];
         
         [self configView];
     }
@@ -94,17 +94,8 @@
 }
 
 - (void)clickMarginButton {
-    NSArray *items = @[
-        [self marginTextWithMargin:(HZPDFMargin_none)],
-        [self marginTextWithMargin:(HZPDFMargin_normal)]
-    ];
-    NSString *curItem = [self marginTextWithMargin:self.selectMargin];
-    NSInteger index = 0;
-    if ([items containsObject:curItem]) {
-        index = [items indexOfObject:curItem];
-    }
     @weakify(self);
-    [HZSelectPopView popWithItems:items index:index inView:[UIView hz_viewController].view relatedView:self.iconImageView type:(HZSelectPopType_margin) selectBlock:^(NSInteger index) {
+    [HZMarginSelectView popWithMargin:self.selectMargin inView:[UIView hz_viewController].view relatedView:self.iconImageView selectBlock:^(NSInteger index) {
         @strongify(self);
         if (index != self.selectMargin) {
             self.selectMargin = index;
