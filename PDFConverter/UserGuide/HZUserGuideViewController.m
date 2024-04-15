@@ -21,7 +21,6 @@
 @implementation HZUserGuideViewController
 
 + (BOOL)checkDisplayed {
-    return NO;
     id value = [[NSUserDefaults standardUserDefaults] valueForKey:pref_key_userGuide_displayed];
     if (value) {
         return YES;
