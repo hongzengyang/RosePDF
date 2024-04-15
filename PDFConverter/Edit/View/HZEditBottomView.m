@@ -12,8 +12,6 @@
 
 @property (nonatomic, strong) HZEditDataboard *databoard;
 
-@property (nonatomic, strong) HZVerticalButton *deleteBtn;
-
 @end
 
 @implementation HZEditBottomView

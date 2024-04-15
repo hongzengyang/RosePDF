@@ -15,7 +15,6 @@
 #import "HZPDFSettingViewController.h"
 #import "HZEditViewController.h"
 #import "HZDetailPasswordView.h"
-#import <HZUIKit/HZActionSheet.h>
 #import "HZShareManager.h"
 
 @interface HZPDFDetailViewController ()<HZDetailBottomViewDelegate>
@@ -133,16 +132,24 @@
             [self.navigationController pushViewController:vc animated:YES];
         }];
     }else if (item == HZDetailBottomItemDelete) {
-        HZActionSheet *sheet = [[HZActionSheet alloc] initWithTitle:nil];
-        [sheet addDestructiveButtonWithTitle:NSLocalizedString(@"str_delete", nil) block:^{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle: UIAlertControllerStyleActionSheet];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"str_cancel", nil) style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"str_delete", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             @strongify(self);
             [HZProjectManager deleteProject:self.project postNotification:YES completeBlock:^(HZProjectModel *project) {
                 @strongify(self);
                 [self.navigationController popViewControllerAnimated:YES];
             }];
         }];
-        [sheet addCancelButtonWithTitle:NSLocalizedString(@"str_cancel", nil)];
-        [sheet showInView:self.view];
+        [alertController addAction:cancelAction];
+        [alertController addAction:deleteAction];
+
+        if ([[HZSystemManager manager] iPadDevice]) {
+            alertController.popoverPresentationController.sourceView = self.bottomView.deleteBtn;
+            alertController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionDown;
+            alertController.popoverPresentationController.sourceRect = CGRectMake(self.bottomView.deleteBtn.width/2.0, 0, 0, 0);
+        }
+        [[UIView hz_viewController] presentViewController:alertController animated:YES completion:nil];
     }
 }
 

@@ -12,8 +12,6 @@
 
 @property (nonatomic, strong) HZProjectModel *project;
 
-@property (nonatomic, strong) HZVerticalButton *deleteBtn;
-
 @end
 
 @implementation HZDetailBottomView
@@ -47,6 +45,8 @@
         
         if (i == HZDetailBottomItemShare) {
             self.shareBtn = btn;
+        }else if (i == HZDetailBottomItemDelete) {
+            self.deleteBtn = btn;
         }
     }
 }

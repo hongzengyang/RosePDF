@@ -28,6 +28,7 @@ typedef NS_ENUM(NSUInteger, HZDetailBottomItem) {
 @interface HZDetailBottomView : UIView
 
 @property (nonatomic, strong) HZVerticalButton *shareBtn;
+@property (nonatomic, strong) HZVerticalButton *deleteBtn;
 
 @property (nonatomic, weak) id<HZDetailBottomViewDelegate> delegate;
 

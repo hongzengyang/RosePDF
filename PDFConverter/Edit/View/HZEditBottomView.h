@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "HZEditDataboard.h"
 
+@class HZVerticalButton;
+
 typedef NS_ENUM(NSUInteger, HZEditBottomItem) {
     HZEditBottomItemFilter,
     HZEditBottomItemLeft,
@@ -28,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HZEditBottomView : UIView
 
 @property (nonatomic, weak) id<HZEditBottomViewDelegate> delegate;
+
+@property (nonatomic, strong) HZVerticalButton *deleteBtn;
 
 - (instancetype)initWithDataboard:(HZEditDataboard *)databoard;
 
