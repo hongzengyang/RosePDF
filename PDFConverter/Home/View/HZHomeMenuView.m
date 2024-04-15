@@ -103,6 +103,16 @@
 //        shadow.layer.shadowOpacity = 0.5;
 //        shadow.backgroundColor = [UIColor whiteColor];
 //    }
+    
+    CGRect frame = containerView.frame;
+    containerView.layer.anchorPoint = CGPointMake(1, 0);
+    containerView.frame = frame;
+    containerView.alpha = 0.3;
+    containerView.transform = CGAffineTransformScale(containerView.transform, 0.1, 0.1);
+    [UIView animateWithDuration:0.15 animations:^{
+        containerView.transform = CGAffineTransformIdentity;
+        containerView.alpha = 1.0;
+    }];
 }
 
 

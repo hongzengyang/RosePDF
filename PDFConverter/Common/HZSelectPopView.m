@@ -135,15 +135,17 @@
     [self setNeedsLayout];
     [self layoutIfNeeded];
     
-    
-    
-//    [UIView animateWithDuration:0.15 animations:^{
-//        containerView.transform = CGAffineTransformMakeScale(1.05, 1.05);
-//    } completion:^(BOOL finished) {
-//        [UIView animateWithDuration:0.15 animations:^{
-//            containerView.transform = CGAffineTransformIdentity;
-//        } completion:nil];
-//    }];
+    CGRect frame = containerView.frame;
+    if (self.type == HZSelectPopType_quality) {
+        containerView.layer.anchorPoint = CGPointMake(1, 1);
+    }
+    containerView.frame = frame;
+    containerView.alpha = 0.3;
+    containerView.transform = CGAffineTransformScale(containerView.transform, 0.1, 0.1);
+    [UIView animateWithDuration:0.15 animations:^{
+        containerView.transform = CGAffineTransformIdentity;
+        containerView.alpha = 1.0;
+    }];
 }
 
 - (void)updateSelectImageView {
