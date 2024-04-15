@@ -224,10 +224,10 @@
         outputImage = [filter outputImage];
     }
     {
-        CIFilter *filter = [CIFilter filterWithName:@"CIUnsharpMask"];
-        [filter setValue:outputImage forKey:kCIInputImageKey];
-        [filter setValue:@(2) forKey:kCIInputIntensityKey];
-        outputImage = [filter outputImage];
+//        CIFilter *filter = [CIFilter filterWithName:@"CIUnsharpMask"];
+//        [filter setValue:outputImage forKey:kCIInputImageKey];
+//        [filter setValue:@(0.5) forKey:kCIInputIntensityKey];
+//        outputImage = [filter outputImage];
     }
     {
         CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
