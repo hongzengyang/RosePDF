@@ -612,6 +612,7 @@
 
 - (void)clickDelete {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle: UIAlertControllerStyleActionSheet];
+    alertController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"str_cancel", nil) style:UIAlertActionStyleCancel handler:nil];
     @weakify(self);
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"str_delete", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {

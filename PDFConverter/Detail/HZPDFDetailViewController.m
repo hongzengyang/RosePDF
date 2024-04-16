@@ -133,6 +133,7 @@
         }];
     }else if (item == HZDetailBottomItemDelete) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle: UIAlertControllerStyleActionSheet];
+        alertController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"str_cancel", nil) style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"str_delete", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             @strongify(self);
