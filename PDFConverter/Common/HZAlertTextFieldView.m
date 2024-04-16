@@ -59,16 +59,19 @@
     }];
     
     UITextField *textField = [[UITextField alloc] init];
+    textField.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     [contentView addSubview:textField];
     [textField setSecureTextEntry:self.inputModel.encrypt];
     self.textField = textField;
     textField.delegate = self;
     textField.keyboardType = self.inputModel.keyboardType;
     [textField becomeFirstResponder];
-    textField.delegate = self;
     textField.textColor = hz_getColor(@"000000");
     textField.tintColor = [UIColor blackColor];
     if (self.inputModel.originText.length > 0) {
+        textField.markedTextStyle = @{
+            NSBackgroundColorAttributeName : hz_getColorWithAlpha(@"007AFF", 0.3)
+        };
         [textField setMarkedText:self.inputModel.originText selectedRange:NSMakeRange(0, self.inputModel.originText.length)];
     }
     textField.font = [UIFont systemFontOfSize:14];
@@ -78,6 +81,8 @@
         make.trailing.equalTo(contentView).offset(-20);
         make.height.mas_equalTo(20);
     }];
+    [textField addTarget:self action:@selector(onTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    textField.delegate = self;
     
     UIView *lineView = [[UIView alloc] init];
     [contentView addSubview:lineView];
@@ -188,5 +193,18 @@
     self.errorTipLab.text = nil;
     return YES;
 }
+- (void)onTextFieldChanged:(UITextField *)textField {
+    NSString *text = textField.text;
+    if (!textField.markedTextRange.isEmpty) {
+        textField.text = nil;
+    }
+    textField.markedTextStyle = @{
+        NSBackgroundColorAttributeName : [UIColor clearColor]
+    };
+    [textField setMarkedText:@"" selectedRange:NSMakeRange(0, 0)];
+    
+    textField.text = text;
+}
+
 
 @end
