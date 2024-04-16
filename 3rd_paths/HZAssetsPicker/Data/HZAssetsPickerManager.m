@@ -271,23 +271,45 @@
             if (fetchResult.count < 1) continue;
             
             if (collection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumAllHidden) continue;
+            if (collection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumRecentlyAdded) continue;
             
             if ([collection.localizedTitle containsString:@"Deleted"] || [collection.localizedTitle isEqualToString:@"最近删除"]) continue;
             
+            HZAlbum *hzAlbum = [[HZAlbum alloc] initWithCollection:collection];
+            [muArray addObject:hzAlbum];
+            
             if (collection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
-                HZAlbum *hzAlbum = [[HZAlbum alloc] initWithCollection:collection];
-                [muArray insertObject:hzAlbum atIndex:0];
-                
                 userLibraryCollection = hzAlbum;
-            } else {
-                HZAlbum *hzAlbum = [[HZAlbum alloc] initWithCollection:collection];
-                [muArray addObject:hzAlbum];
-                
+            }else {
                 if (collection.assetCollectionSubtype == lastSelect) {
                     lastSelectCollection = hzAlbum;
                 }
             }
         }
+        
+        __block HZAlbum *hz_UserLibrary;
+        __block HZAlbum *hz_Favorites;
+        [muArray enumerateObjectsUsingBlock:^(HZAlbum *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
+                hz_UserLibrary = obj;
+            }
+            if (obj.assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumFavorites) {
+                hz_Favorites = obj;
+            }
+        }];
+        if (hz_UserLibrary) {
+            [muArray removeObject:hz_UserLibrary];
+        }
+        if (hz_Favorites) {
+            [muArray removeObject:hz_Favorites];
+        }
+        if (hz_Favorites) {
+            [muArray insertObject:hz_Favorites atIndex:0];
+        }
+        if (hz_UserLibrary) {
+            [muArray insertObject:hz_UserLibrary atIndex:0];
+        }
+        
         self.albumsList = [muArray copy];
         
         if (lastSelectCollection) {

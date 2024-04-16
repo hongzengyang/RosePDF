@@ -82,7 +82,7 @@
         [containerView addSubview:view];
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((view.width - 42)/2.0, 14, 42, 51)];
-        imageView.backgroundColor = [UIColor redColor];
+        imageView.image = [UIImage imageNamed:@"rose_margin_none"];
         [view addSubview:imageView];
         
         UILabel *titleLab = [[UILabel alloc] init];
@@ -111,7 +111,7 @@
         [containerView addSubview:view];
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((view.width - 42)/2.0, 14, 42, 51)];
-        imageView.backgroundColor = [UIColor redColor];
+        imageView.image = [UIImage imageNamed:@"rose_margin_normal"];
         [view addSubview:imageView];
         
         UILabel *titleLab = [[UILabel alloc] init];
