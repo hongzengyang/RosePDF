@@ -80,3 +80,5 @@
 "str_about" = "关于";
 "str_applytoall" = "全部应用";
 "str_autofit" = "自适应";
+"setup_email_title" = "要发送反馈，请在此设备上设置你的邮箱。";
+"not_now" = "现在不要";

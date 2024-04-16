@@ -80,3 +80,5 @@
 "str_about" = "關於";
 "str_applytoall" = "全部套用";
 "str_autofit" = "自適應";
+"setup_email_title" = "要發送反饋，請在此設備上設置您的電子郵件。";
+"not_now" = "現在不要";

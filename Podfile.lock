@@ -19,6 +19,9 @@ PODS:
   - SVProgressHUD/Core (2.3.1)
   - WCDB (0.0.1)
   - XYIAPKit (1.0.1)
+  - YYCategories (1.0.4):
+    - YYCategories/no-arc (= 1.0.4)
+  - YYCategories/no-arc (1.0.4)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -34,6 +37,7 @@ DEPENDENCIES:
   - SVProgressHUD (= 2.3.1)
   - WCDB (from `./3rd_paths/WCDB`)
   - XYIAPKit (from `./3rd_paths/XYIAPKit`)
+  - YYCategories
   - YYModel (= 1.0.4)
 
 SPEC REPOS:
@@ -45,6 +49,7 @@ SPEC REPOS:
     - ReactiveObjC
     - SDWebImage
     - SVProgressHUD
+    - YYCategories
     - YYModel
 
 EXTERNAL SOURCES:
@@ -72,8 +77,9 @@ SPEC CHECKSUMS:
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   WCDB: 297e4e61ff7157dcb65a684127e8d99734247f74
   XYIAPKit: b92b68df3c9310acfdfd3292f86bb3c7f5aa22ac
+  YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 40aceb71eb621833b525ec4db2546e693c8a6f5b
+PODFILE CHECKSUM: 804a79101410b030d06bb4efcfa2ccb0608d4c28
 
 COCOAPODS: 1.12.0

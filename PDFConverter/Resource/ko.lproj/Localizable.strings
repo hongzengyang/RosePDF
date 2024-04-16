@@ -80,3 +80,5 @@
 "str_about" = "정보";
 "str_applytoall" = "모두 적용";
 "str_autofit" = "자동 맞춤";
+"setup_email_title" = "피드백을 보내려면 이 기기에서 이메일을 설정하세요.";
+"not_now" = "지금은 아니다";

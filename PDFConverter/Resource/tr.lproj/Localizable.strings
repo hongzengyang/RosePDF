@@ -80,3 +80,5 @@
 "str_about" = "Hakkında";
 "str_applytoall" = "Tümüne Uygula";
 "str_autofit" = "Otomatik uyum";
+"setup_email_title" = "Geri bildirim göndermek için lütfen e-postanızı bu cihazda kurun.";
+"not_now" = "Şimdi değil";

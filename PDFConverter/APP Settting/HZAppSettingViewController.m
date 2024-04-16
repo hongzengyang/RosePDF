@@ -6,12 +6,15 @@
 //
 
 #import "HZAppSettingViewController.h"
+#import <HZUIKit/HZAlertView.h>
+#import <YYCategories/UIDevice+YYAdd.h>
+#import <MessageUI/MessageUI.h>
 #import <StoreKit/StoreKit.h>
 #import "HZCommonHeader.h"
 #import "HZBaseNavigationBar.h"
 #import "HZAppAboutViewController.h"
 
-@interface HZAppSettingViewController ()
+@interface HZAppSettingViewController ()<MFMailComposeViewControllerDelegate>
 
 @property (nonatomic,strong) HZBaseNavigationBar *navBar;
 
@@ -161,7 +164,18 @@
 }
 
 - (void)clickFeedback {
+    if (![self checkEmailEnable]) {
+        HZAlertView *alertView = [[HZAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"setup_email_title", nil)];
+        __weak typeof(self) weakSelf = self;
+        [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_go_setting", nil) block:^{
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto://"] options:nil completionHandler:nil];
+        }];
+        [alertView addCancelButtonWithTitle:NSLocalizedString(@"not_now", nil) block:nil];
+        [alertView show];
+        return;
+    }
     
+    [self sendEmailAction];
 }
 
 - (void)clickRateUs {
@@ -171,6 +185,65 @@
 - (void)clickAbout {
     HZAppAboutViewController *vc = [[HZAppAboutViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - feedback
+- (BOOL)checkEmailEnable {
+    BOOL canSend = [MFMailComposeViewController canSendMail];
+    return canSend;
+}
+
+- (void)sendEmailAction
+{
+    // 邮件服务器
+    MFMailComposeViewController *mailCompose = [[MFMailComposeViewController alloc] init];
+    // 设置邮件代理
+    [mailCompose setMailComposeDelegate:self];
+    // 设置邮件主题
+    [mailCompose setSubject:@"PDF Converter for iOS Feedback"];
+    // 设置收件人
+    [mailCompose setToRecipients:@[@"shamble.feedback@gmail.com"]];
+    /**
+    *  设置邮件的正文内容
+    */
+    NSString *sysVersion = [[UIDevice currentDevice] systemVersion];
+    NSString *deviceNadme = [UIDevice currentDevice].machineModel;
+    NSString *appVersion = [ [[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    CGFloat diskSpaceUsed = [UIDevice currentDevice].diskSpaceUsed * 1.0 / 1000000000.0;
+    CGFloat diskSpaceFree = [UIDevice currentDevice].diskSpaceFree * 1.0 / 1000000000.0;
+    
+    NSString *string1 = [NSString stringWithFormat:@"Have problems to report(%@)",appVersion];
+    NSString *string2 = [NSString stringWithFormat:@"Device Model: %@",deviceNadme];
+    NSString *string3 = [NSString stringWithFormat:@"OS Version: %@",sysVersion];
+    NSString *string4 = [NSString stringWithFormat:@"Free Capacity: %.2f GB / %.2f GB",diskSpaceUsed,diskSpaceFree];
+    NSString *emailContent = [NSString stringWithFormat:@"%@\n\n%@\n%@\n%@",string1,string2,string3,string4];
+    // 是否为HTML格式
+    [mailCompose setMessageBody:emailContent isHTML:NO];
+    // 弹出邮件发送视图
+    [self presentViewController:mailCompose animated:YES completion:nil];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+      didFinishWithResult:(MFMailComposeResult)result
+            error:(NSError *)error
+{
+  switch (result)
+  {
+    case MFMailComposeResultCancelled: // 用户取消编辑
+      NSLog(@"Mail send canceled...");
+      break;
+    case MFMailComposeResultSaved: // 用户保存邮件
+      NSLog(@"Mail saved...");
+      break;
+    case MFMailComposeResultSent: // 用户点击发送
+      NSLog(@"Mail sent...");
+      break;
+    case MFMailComposeResultFailed: // 用户尝试保存或发送邮件失败
+      NSLog(@"Mail send errored: %@...", [error localizedDescription]);
+      break;
+  }
+  // 关闭邮件发送视图
+  [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -lazy

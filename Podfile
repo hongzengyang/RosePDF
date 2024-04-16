@@ -26,6 +26,7 @@ def common_pods
   
   pod 'GPUImage'
   pod 'YYModel',              '1.0.4'
+  pod 'YYCategories',         '1.0.4'
   pod 'SDWebImage',           '5.15.7'
   pod 'ReactiveObjC',         '3.1.1'
   pod 'Masonry'

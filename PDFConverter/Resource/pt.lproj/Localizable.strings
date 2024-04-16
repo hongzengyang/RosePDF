@@ -80,3 +80,5 @@
 "str_about" = "Sobre";
 "str_applytoall" = "Aplicar a Todos";
 "str_autofit" = "Ajuste automático";
+"setup_email_title" = "Para enviar comentários, configure seu e-mail neste dispositivo.";
+"not_now" = "Agora não";

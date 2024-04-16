@@ -68,8 +68,7 @@
 "str_portrait" = "Portrait";
 "str_landscape" = "Landscape";
 "str_premium_desc1" = "Get unlimited conversion.";
-"str_premium_desc2" = "PDF Conversion never been 
-so easy!";
+"str_premium_desc2" = "PDF Conversion never been so easy!";
 "str_terms" = "Terms & Conditions";
 "str_privacy" = "Privacy Policy";
 "str_price" = "Just %@ / Week.";
@@ -81,4 +80,5 @@ so easy!";
 "str_about" = "About";
 "str_applytoall" = "Apply to All";
 "str_autofit" = "Auto Fit";
-
+"setup_email_title" = "To send feedback, please setup your email on this device.";
+"not_now" = "Not Now";
