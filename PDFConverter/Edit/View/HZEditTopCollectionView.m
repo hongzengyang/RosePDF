@@ -26,6 +26,8 @@
         [self configView];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleIndexChanged) name:pref_key_scroll_preview object:nil];
+        
+        [self reloadAll];
     }
     return self;
 }
@@ -119,13 +121,18 @@
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
+                                             collectionViewLayout:layout];
         _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.showsHorizontalScrollIndicator = NO;
         [_collectionView registerClass:[HZEditTopCell class] forCellWithReuseIdentifier:@"HZEditTopCell"];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        _collectionView.contentInset = UIEdgeInsetsMake(16, 16, 16, 16+87);
+        if (isRTL) {
+            _collectionView.contentInset = UIEdgeInsetsMake(16, 16+87, 16, 16);
+        }else {
+            _collectionView.contentInset = UIEdgeInsetsMake(16, 16, 16, 16+87);
+        }
     }
     return _collectionView;
 }

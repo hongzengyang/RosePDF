@@ -37,10 +37,16 @@
 
 - (void)reloadAll {
     [self.collectionView reloadData];
+    [self.collectionView performBatchUpdates:nil completion:^(BOOL finished) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.databoard.currentIndex inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:YES];
+    }];
 }
 
 - (void)reloadCurrent {
     [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.databoard.currentIndex inSection:0]]];
+    [self.collectionView performBatchUpdates:nil completion:^(BOOL finished) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.databoard.currentIndex inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:YES];
+    }];
 }
 
 - (void)renderCurrentPreviewImage {
@@ -74,13 +80,35 @@
 }
 
 #pragma mark - UIScrollView
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+bool userDrag = NO;
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (decelerate) {
+        userDrag = YES;
+    }else {
+        NSInteger page = roundf(scrollView.contentOffset.x/scrollView.bounds.size.width);
+        if (isRTL) {
+            page = self.databoard.project.pageModels.count - page - 1;
+        }
+        if (self.databoard.currentIndex != page) {
+            [[self currentCell] resetZoom];
+            self.databoard.currentIndex = page;
+            [[NSNotificationCenter defaultCenter] postNotificationName:pref_key_scroll_preview object:nil];
+        }
+        userDrag = NO;
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSInteger page = roundf(scrollView.contentOffset.x/scrollView.bounds.size.width);
+    if (isRTL) {
+        page = self.databoard.project.pageModels.count - page - 1;
+    }
     if (self.databoard.currentIndex != page) {
         [[self currentCell] resetZoom];
         self.databoard.currentIndex = page;
         [[NSNotificationCenter defaultCenter] postNotificationName:pref_key_scroll_preview object:nil];
     }
+    userDrag = NO;
 }
 
 #pragma mark - Notification
