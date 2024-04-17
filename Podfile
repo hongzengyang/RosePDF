@@ -3,6 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 inhibit_all_warnings!
 platform :ios, '13.0'
+use_modular_headers!
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
@@ -32,11 +33,9 @@ def common_pods
   pod 'Masonry'
   pod 'SVProgressHUD',        '2.3.1'
   pod 'LookinServer',         :configurations => ['Debug']
-  #  pod 'SDWebImageWebPCoder',  '0.11.0'
-  #  pod 'YYCache',              '1.0.4'
-  #  pod 'AFNetworking',         '4.0'
-  #  pod 'MBProgressHUD',        '1.1.0'
   pod 'Bugly',                '2.5.93'
+  pod 'FirebaseAnalytics',    '10.20.0'
+  pod 'Firebase/AnalyticsWithoutAdIdSupport', '10.20.0'
 end
 
 target 'PDFConverter' do

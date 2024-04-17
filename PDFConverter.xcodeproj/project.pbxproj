@@ -17,6 +17,7 @@
 		44C27FD52BCADDA2000319DA /* HZAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C27FD42BCADDA2000319DA /* HZAppSettingViewController.m */; };
 		44C27FD82BCAE925000319DA /* HZAppAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C27FD72BCAE925000319DA /* HZAppAboutViewController.m */; };
 		44C27FDB2BCBB3B2000319DA /* HZMarginSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C27FDA2BCBB3B2000319DA /* HZMarginSelectView.m */; };
+		44C27FE02BD0112E000319DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44C27FDF2BD0112E000319DA /* GoogleService-Info.plist */; };
 		44F5C64F2BA8816900CE4CA9 /* ImageShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		44F5C6562BA8822C00CE4CA9 /* ShareExtensionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F5C6552BA8822C00CE4CA9 /* ShareExtensionViewController.m */; };
 		A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */; };
@@ -150,6 +151,7 @@
 		44C27FD72BCAE925000319DA /* HZAppAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZAppAboutViewController.m; sourceTree = "<group>"; };
 		44C27FD92BCBB3B2000319DA /* HZMarginSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZMarginSelectView.h; sourceTree = "<group>"; };
 		44C27FDA2BCBB3B2000319DA /* HZMarginSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZMarginSelectView.m; sourceTree = "<group>"; };
+		44C27FDF2BD0112E000319DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F5C64C2BA8816900CE4CA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44F5C6542BA8822C00CE4CA9 /* ShareExtensionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareExtensionViewController.h; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 				A1A8DBEE2B5E9D650092F0F8 /* LaunchScreen.storyboard */,
 				A1A8DBF12B5E9D650092F0F8 /* Info.plist */,
 				A1A8DBF22B5E9D650092F0F8 /* main.m */,
+				44C27FDF2BD0112E000319DA /* GoogleService-Info.plist */,
 				A12C2A9F2B70FB2E00B77150 /* InfoPlist.strings */,
 			);
 			path = PDFConverter;
@@ -961,6 +964,7 @@
 				44A7C72D2BB9817100B3C385 /* PrivacyPolicy.pdf in Resources */,
 				4472BB492B937AED0093D5D6 /* rose_pdf_loading.gif in Resources */,
 				A1A8DBEB2B5E9D630092F0F8 /* Main.storyboard in Resources */,
+				44C27FE02BD0112E000319DA /* GoogleService-Info.plist in Resources */,
 				A12C2AA32B70FDF300B77150 /* Media.xcassets in Resources */,
 				A12C2A9D2B70FB2E00B77150 /* InfoPlist.strings in Resources */,
 			);

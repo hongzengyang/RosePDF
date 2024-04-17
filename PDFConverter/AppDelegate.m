@@ -15,6 +15,8 @@
 #import "HZIAPManager.h"
 #import "HZIAPViewController.h"
 
+@import FirebaseCore;
+
 @interface AppDelegate ()
 
 @end
@@ -23,6 +25,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [FIRApp configure];
     
     if (isRTL) {
         [UIView appearance].semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
