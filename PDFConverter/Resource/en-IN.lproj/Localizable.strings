@@ -81,4 +81,8 @@
 "str_applytoall" = "Apply to All";
 "str_autofit" = "Auto Fit";
 "str_setup_email_title" = "To send feedback, please setup your email on this device.";
-"not_now" = "Not Now";
+"str_not_now" = "Not Now";
+"str_rate_title" = "Hey, Enjoy using %@?";
+"str_rate_desc" = "Your feedback is very important to us.";
+"str_no" = "No";
+"str_yes" = "Yes";

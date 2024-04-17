@@ -80,5 +80,9 @@
 "str_about" = "について";
 "str_applytoall" = "すべてに適用";
 "str_autofit" = "自動フィット";
-"setup_email_title" = "フィードバックを送信するには、このデバイスでメールを設定してください。";
-"not_now" = "今はやめろ";
+"str_setup_email_title" = "フィードバックを送信するには、このデバイスでメールを設定してください。";
+"str_not_now" = "今はやめろ";
+"str_rate_title" = "ねえ、%@ を使って楽しんでいますか？";
+"str_rate_desc" = "あなたのフィードバックは私たちにとって非常に重要です。";
+"str_no" = "いいえ";
+"str_yes" = "はい";

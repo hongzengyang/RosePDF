@@ -28,6 +28,7 @@
 - (void)configView {
     self.guideImageView = [[UIImageView alloc] init];
     self.guideImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.guideImageView.layer.masksToBounds = YES;
     [self.contentView addSubview:self.guideImageView];
     
     self.bottomBgImageView = [[UIImageView alloc] init];

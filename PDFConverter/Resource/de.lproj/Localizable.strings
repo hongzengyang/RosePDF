@@ -80,5 +80,9 @@
 "str_about" = "Info";
 "str_applytoall" = "Auf alle anwenden";
 "str_autofit" = "Auto-Fit";
-"setup_email_title" = "Richten Sie Ihre E-Mail-Adresse auf diesem Gerät ein, um Feedback zu senden.";
-"not_now" = "Nicht jetzt";
+"str_setup_email_title" = "Richten Sie Ihre E-Mail-Adresse auf diesem Gerät ein, um Feedback zu senden.";
+"str_not_now" = "Nicht jetzt";
+"str_rate_title" = "Hey, viel Spaß mit %@?";
+"str_rate_desc" = "Ihr Feedback ist uns sehr wichtig.";
+"str_no" = "Nein";
+"str_yes" = "Ja";

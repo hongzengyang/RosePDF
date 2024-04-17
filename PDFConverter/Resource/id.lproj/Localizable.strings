@@ -80,5 +80,9 @@
 "str_about" = "Tentang";
 "str_applytoall" = "Terapkan ke Semua";
 "str_autofit" = "Pas Otomatis";
-"setup_email_title" = "Untuk mengirim masukan, siapkan email Anda di perangkat ini.";
-"not_now" = "Tidak sekarang";
+"str_setup_email_title" = "Untuk mengirim masukan, siapkan email Anda di perangkat ini.";
+"str_not_now" = "Tidak sekarang";
+"str_rate_title" = "Hei, Senang menggunakan %@?";
+"str_rate_desc" = "Umpan balik Anda sangat penting bagi kami.";
+"str_no" = "Tidak";
+"str_yes" = "Ya";

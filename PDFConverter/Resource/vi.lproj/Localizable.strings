@@ -80,5 +80,9 @@
 "str_about" = "Về chúng tôi";
 "str_applytoall" = "Áp dụng cho tất cả";
 "str_autofit" = "Thích ứng";
-"setup_email_title" = "Để gửi phản hồi, vui lòng thiết lập email của bạn trên thiết bị này.";
-"not_now" = "Không phải bây giờ";
+"str_setup_email_title" = "Để gửi phản hồi, vui lòng thiết lập email của bạn trên thiết bị này.";
+"str_not_now" = "Không phải bây giờ";
+"str_rate_title" = "Này, thích sử dụng %@?";
+"str_rate_desc" = "Phản hồi của bạn rất quan trọng với chúng tôi.";
+"str_no" = "Không";
+"str_yes" = "CÓ";

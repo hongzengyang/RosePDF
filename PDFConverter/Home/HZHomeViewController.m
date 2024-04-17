@@ -399,7 +399,6 @@ static CGFloat prevOffsetY = 0;
 
 - (void)handleUserReview {
     HZAlertView *alertView = [[HZAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"str_rate_title", nil),NSLocalizedString(@"str_appname", nil)] message:NSLocalizedString(@"str_rate_desc", nil)];
-    __weak typeof(self) weakSelf = self;
     [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_yes", nil) block:^{
         [SKStoreReviewController requestReview];
     }];

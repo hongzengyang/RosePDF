@@ -80,5 +80,9 @@
 "str_about" = "Informacje";
 "str_applytoall" = "Zastosuj do wszystkich";
 "str_autofit" = "Adaptacyjny";
-"setup_email_title" = "Aby przesłać opinię, skonfiguruj pocztę e-mail na tym urządzeniu.";
-"not_now" = "Nie teraz";
+"str_setup_email_title" = "Aby przesłać opinię, skonfiguruj pocztę e-mail na tym urządzeniu.";
+"str_not_now" = "Nie teraz";
+"str_rate_title" = "Hej, lubisz korzystać z %@?";
+"str_rate_desc" = "Twoja opinia jest dla nas bardzo ważna.";
+"str_no" = "Nie";
+"str_yes" = "Tak";
