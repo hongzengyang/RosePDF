@@ -80,5 +80,5 @@
 "str_about" = "About";
 "str_applytoall" = "Apply to All";
 "str_autofit" = "Auto Fit";
-"setup_email_title" = "To send feedback, please setup your email on this device.";
+"str_setup_email_title" = "To send feedback, please setup your email on this device.";
 "not_now" = "Not Now";

@@ -165,12 +165,12 @@
 
 - (void)clickFeedback {
     if (![self checkEmailEnable]) {
-        HZAlertView *alertView = [[HZAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"setup_email_title", nil)];
+        HZAlertView *alertView = [[HZAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"str_setup_email_title", nil)];
         __weak typeof(self) weakSelf = self;
         [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_go_setting", nil) block:^{
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto://"] options:nil completionHandler:nil];
         }];
-        [alertView addCancelButtonWithTitle:NSLocalizedString(@"not_now", nil) block:nil];
+        [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_not_now", nil) block:nil];
         [alertView show];
         return;
     }

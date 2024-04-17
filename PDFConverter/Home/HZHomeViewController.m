@@ -7,6 +7,7 @@
 
 #import "HZHomeViewController.h"
 #import "HZCommonHeader.h"
+#import <HZUIKit/HZAlertView.h>
 #import "HZHomeNavigationBar.h"
 #import "HZHomeTableHeaderView.h"
 #import "HZEditViewController.h"
@@ -51,6 +52,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectRename:) name:pref_key_rename_project object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(projectPasswordChanged:) name:pref_key_project_psw_changed object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserReview) name:@"pref_key_user_review" object:nil];
     
     [HZProjectManager cleanTmpProjects];
     
@@ -253,8 +255,20 @@
         }];
                                                
                                            }];
-    deleteRowAction.backgroundColor = hz_getColor(@"FF3B30");
-    deleteRowAction.image = [UIImage imageNamed:@"rose_home_swipe_delete"];
+//    deleteRowAction.backgroundColor = hz_getColor(@"FF3B30");
+//    deleteRowAction.image = [UIImage imageNamed:@"rose_home_swipe_delete"];
+    
+    UIImageView *bgView = [[UIImageView alloc] init];
+    bgView.size = CGSizeMake(100, 100);
+    bgView.backgroundColor = hz_getColor(@"FF3B30");
+//    bgView.contentMode = UIViewContentModeCenter;
+    bgView.image = [UIImage imageNamed:@"rose_home_swipe_delete"];
+    [bgView hz_addCorner:(UIRectCornerTopRight | UIRectCornerBottomRight) radious:10];
+    
+    UIImage *image = [UIImage hz_createImageWithView:bgView];
+    CGImageRef ref = image.CGImage;
+    deleteRowAction.image = image;
+    deleteRowAction.backgroundColor = [UIColor clearColor];
     
     config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction]];
     config.performsFirstActionWithFullSwipe = NO;
@@ -262,9 +276,9 @@
     return config;
 }
 
--(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
-}
+//-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return UITableViewCellEditingStyleDelete;
+//}
 
 #pragma mark - UIScrollView
 static CGFloat prevOffsetY = 0;
@@ -381,6 +395,16 @@ static CGFloat prevOffsetY = 0;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self requestData];
     });
+}
+
+- (void)handleUserReview {
+    HZAlertView *alertView = [[HZAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"str_rate_title", nil),NSLocalizedString(@"str_appname", nil)] message:NSLocalizedString(@"str_rate_desc", nil)];
+    __weak typeof(self) weakSelf = self;
+    [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_yes", nil) block:^{
+        [SKStoreReviewController requestReview];
+    }];
+    [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_no", nil) block:nil];
+    [alertView show];
 }
 
 #pragma mark - Lazy
