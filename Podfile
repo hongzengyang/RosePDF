@@ -33,9 +33,9 @@ def common_pods
   pod 'Masonry'
   pod 'SVProgressHUD',        '2.3.1'
   pod 'LookinServer',         :configurations => ['Debug']
-  pod 'Bugly',                '2.5.93'
   pod 'FirebaseAnalytics',    '10.20.0'
   pod 'Firebase/AnalyticsWithoutAdIdSupport', '10.20.0'
+  pod 'FirebaseCrashlytics'
 end
 
 target 'PDFConverter' do
