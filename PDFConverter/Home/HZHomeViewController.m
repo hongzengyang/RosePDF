@@ -235,7 +235,7 @@
 
 #pragma mark - UITableViewRowAction
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -255,20 +255,20 @@
         }];
                                                
                                            }];
-//    deleteRowAction.backgroundColor = hz_getColor(@"FF3B30");
-//    deleteRowAction.image = [UIImage imageNamed:@"rose_home_swipe_delete"];
+    deleteRowAction.backgroundColor = hz_getColor(@"FF3B30");
+    deleteRowAction.image = [UIImage imageNamed:@"rose_home_swipe_delete"];
     
-    UIImageView *bgView = [[UIImageView alloc] init];
-    bgView.size = CGSizeMake(100, 100);
-    bgView.backgroundColor = hz_getColor(@"FF3B30");
-//    bgView.contentMode = UIViewContentModeCenter;
-    bgView.image = [UIImage imageNamed:@"rose_home_swipe_delete"];
-    [bgView hz_addCorner:(UIRectCornerTopRight | UIRectCornerBottomRight) radious:10];
-    
-    UIImage *image = [UIImage hz_createImageWithView:bgView];
-    CGImageRef ref = image.CGImage;
-    deleteRowAction.image = image;
-    deleteRowAction.backgroundColor = [UIColor clearColor];
+//    UIImageView *bgView = [[UIImageView alloc] init];
+//    bgView.size = CGSizeMake(100, 100);
+//    bgView.backgroundColor = hz_getColor(@"FF3B30");
+////    bgView.contentMode = UIViewContentModeCenter;
+//    bgView.image = [UIImage imageNamed:@"rose_home_swipe_delete"];
+//    [bgView hz_addCorner:(UIRectCornerTopRight | UIRectCornerBottomRight) radious:10];
+//    
+//    UIImage *image = [UIImage hz_createImageWithView:bgView];
+//    CGImageRef ref = image.CGImage;
+//    deleteRowAction.image = image;
+//    deleteRowAction.backgroundColor = [UIColor clearColor];
     
     config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction]];
     config.performsFirstActionWithFullSwipe = NO;
