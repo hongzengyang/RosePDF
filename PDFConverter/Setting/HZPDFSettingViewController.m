@@ -246,6 +246,7 @@
             id count = [[NSUserDefaults standardUserDefaults] valueForKey:pref_key_click_convert_count];
             if ([count integerValue] == 1) {
                 HZIAPViewController *vc = [[HZIAPViewController alloc] init];
+                vc.source = HZIAPSource_convertLimit;
                 [self.navigationController pushViewController:vc animated:YES];
                 
                 @weakify(self);

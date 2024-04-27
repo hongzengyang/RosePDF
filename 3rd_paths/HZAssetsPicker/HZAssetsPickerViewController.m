@@ -155,7 +155,12 @@ static CGFloat prevOffsetY = 0;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat width = (self.view.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right - 2.0 - 2.0) / 3.0;
+    CGFloat width;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        width = (self.view.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right - 2.0 - 2.0 - 2.0 - 2.0) / 5.0;
+    }else {
+        width = (self.view.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right - 2.0 - 2.0) / 3.0;
+    }
     return CGSizeMake(width, width);
 }
 

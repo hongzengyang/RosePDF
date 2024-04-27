@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		213C88DA17E81131D3D9B767 /* libPods-PDFConverter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B1F9BE34685D036ED7A825 /* libPods-PDFConverter.a */; };
+		443C52BB2BDCC9DF00E32881 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 443C52BA2BDCC9DF00E32881 /* PrivacyInfo.xcprivacy */; };
 		4444C8DA2B83A8A0005E96AF /* HZPDFSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4444C8D92B83A8A0005E96AF /* HZPDFSettingViewController.m */; };
 		4472BB462B9378BE0093D5D6 /* HZPDFConvertingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4472BB452B9378BE0093D5D6 /* HZPDFConvertingView.m */; };
 		4472BB492B937AED0093D5D6 /* rose_pdf_loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4472BB472B937AED0093D5D6 /* rose_pdf_loading.gif */; };
@@ -20,6 +21,8 @@
 		44C27FE02BD0112E000319DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44C27FDF2BD0112E000319DA /* GoogleService-Info.plist */; };
 		44F5C64F2BA8816900CE4CA9 /* ImageShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 44F5C6442BA8816800CE4CA9 /* ImageShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		44F5C6562BA8822C00CE4CA9 /* ShareExtensionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F5C6552BA8822C00CE4CA9 /* ShareExtensionViewController.m */; };
+		A101839A2BD91B8900C35AAA /* HZIAPDetainmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A10183992BD91B8900C35AAA /* HZIAPDetainmentView.m */; };
+		A10183BB2BDA485400C35AAA /* HZIAPSkuView.m in Sources */ = {isa = PBXBuildFile; fileRef = A10183BA2BDA485400C35AAA /* HZIAPSkuView.m */; };
 		A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */; };
 		A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A662B6F6C6800B77150 /* HZHomeViewController.m */; };
 		A12C2A712B6F784B00B77150 /* HZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A702B6F784B00B77150 /* HZBaseModel.m */; };
@@ -81,6 +84,7 @@
 		A1B4DD102B905525000E144D /* HZSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD0F2B905525000E144D /* HZSlider.m */; };
 		A1B4DD132B930AAF000E144D /* HZEditFilterSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD122B930AAF000E144D /* HZEditFilterSliderView.m */; };
 		A1B4DD312B988606000E144D /* HZCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B4DD302B988606000E144D /* HZCropView.m */; };
+		A1D816B72BD642CA007781F6 /* HZDetectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D816B62BD642CA007781F6 /* HZDetectorManager.m */; };
 		A1FE6E1C2B846848005AA056 /* HZPDFSettingPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FE6E1B2B846848005AA056 /* HZPDFSettingPasswordView.m */; };
 		A1FE6E1F2B849A5D005AA056 /* HZPDFSettingMarginView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FE6E1E2B849A5D005AA056 /* HZPDFSettingMarginView.m */; };
 		A1FE6E222B849FFB005AA056 /* HZPDFSettingQualityView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FE6E212B849FFB005AA056 /* HZPDFSettingQualityView.m */; };
@@ -137,6 +141,7 @@
 
 /* Begin PBXFileReference section */
 		31B1F9BE34685D036ED7A825 /* libPods-PDFConverter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PDFConverter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		443C52BA2BDCC9DF00E32881 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		4444C8D82B83A8A0005E96AF /* HZPDFSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingViewController.h; sourceTree = "<group>"; };
 		4444C8D92B83A8A0005E96AF /* HZPDFSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFSettingViewController.m; sourceTree = "<group>"; };
 		4472BB442B9378BE0093D5D6 /* HZPDFConvertingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFConvertingView.h; sourceTree = "<group>"; };
@@ -156,6 +161,10 @@
 		44F5C64C2BA8816900CE4CA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44F5C6542BA8822C00CE4CA9 /* ShareExtensionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareExtensionViewController.h; sourceTree = "<group>"; };
 		44F5C6552BA8822C00CE4CA9 /* ShareExtensionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareExtensionViewController.m; sourceTree = "<group>"; };
+		A10183982BD91B8900C35AAA /* HZIAPDetainmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZIAPDetainmentView.h; sourceTree = "<group>"; };
+		A10183992BD91B8900C35AAA /* HZIAPDetainmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZIAPDetainmentView.m; sourceTree = "<group>"; };
+		A10183B92BDA485400C35AAA /* HZIAPSkuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZIAPSkuView.h; sourceTree = "<group>"; };
+		A10183BA2BDA485400C35AAA /* HZIAPSkuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZIAPSkuView.m; sourceTree = "<group>"; };
 		A12C2A622B6F6C4000B77150 /* HZBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZBaseViewController.h; sourceTree = "<group>"; };
 		A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZBaseViewController.m; sourceTree = "<group>"; };
 		A12C2A652B6F6C6800B77150 /* HZHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZHomeViewController.h; sourceTree = "<group>"; };
@@ -304,6 +313,8 @@
 		A1B4DD122B930AAF000E144D /* HZEditFilterSliderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZEditFilterSliderView.m; sourceTree = "<group>"; };
 		A1B4DD2F2B988606000E144D /* HZCropView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HZCropView.h; path = PDFConverter/Edit/Crop/View/HZCropView.h; sourceTree = SOURCE_ROOT; };
 		A1B4DD302B988606000E144D /* HZCropView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HZCropView.m; path = PDFConverter/Edit/Crop/View/HZCropView.m; sourceTree = SOURCE_ROOT; };
+		A1D816B52BD642CA007781F6 /* HZDetectorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZDetectorManager.h; sourceTree = "<group>"; };
+		A1D816B62BD642CA007781F6 /* HZDetectorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZDetectorManager.m; sourceTree = "<group>"; };
 		A1FE6E1A2B846848005AA056 /* HZPDFSettingPasswordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingPasswordView.h; sourceTree = "<group>"; };
 		A1FE6E1B2B846848005AA056 /* HZPDFSettingPasswordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZPDFSettingPasswordView.m; sourceTree = "<group>"; };
 		A1FE6E1D2B849A5D005AA056 /* HZPDFSettingMarginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPDFSettingMarginView.h; sourceTree = "<group>"; };
@@ -417,6 +428,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A10183B82BDA482800C35AAA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A10183982BD91B8900C35AAA /* HZIAPDetainmentView.h */,
+				A10183992BD91B8900C35AAA /* HZIAPDetainmentView.m */,
+				A10183B92BDA485400C35AAA /* HZIAPSkuView.h */,
+				A10183BA2BDA485400C35AAA /* HZIAPSkuView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A12C2A5F2B6F6BFC00B77150 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +494,8 @@
 				A12C2ACB2B722D7700B77150 /* HZProjectManager.m */,
 				A1B4DD082B902488000E144D /* HZFilterManager.h */,
 				A1B4DD092B902488000E144D /* HZFilterManager.m */,
+				A1D816B52BD642CA007781F6 /* HZDetectorManager.h */,
+				A1D816B62BD642CA007781F6 /* HZDetectorManager.m */,
 				A1FE6E2C2B858EC3005AA056 /* HZPDFMaker.h */,
 				A1FE6E2D2B858EC3005AA056 /* HZPDFMaker.m */,
 			);
@@ -492,6 +516,7 @@
 		A12C2A932B70FAB100B77150 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				443C52BA2BDCC9DF00E32881 /* PrivacyInfo.xcprivacy */,
 				A1B190A22BB55C2C00B31842 /* File */,
 				A12C2A982B70FADA00B77150 /* Localizable.strings */,
 				A12C2AA22B70FDF300B77150 /* Media.xcassets */,
@@ -616,6 +641,7 @@
 		A1A2413A2BB170F7009081E8 /* IAP */ = {
 			isa = PBXGroup;
 			children = (
+				A10183B82BDA482800C35AAA /* View */,
 				A1A2413B2BB17114009081E8 /* HZIAPViewController.h */,
 				A1A2413C2BB17114009081E8 /* HZIAPViewController.m */,
 				A1A2415D2BB1A6F9009081E8 /* HZIAPManager.h */,
@@ -963,6 +989,7 @@
 				A1A8DBED2B5E9D650092F0F8 /* Assets.xcassets in Resources */,
 				4472BB4A2B937AED0093D5D6 /* rose_pdf_complete.gif in Resources */,
 				44A7C72D2BB9817100B3C385 /* PrivacyPolicy.pdf in Resources */,
+				443C52BB2BDCC9DF00E32881 /* PrivacyInfo.xcprivacy in Resources */,
 				4472BB492B937AED0093D5D6 /* rose_pdf_loading.gif in Resources */,
 				A1A8DBEB2B5E9D630092F0F8 /* Main.storyboard in Resources */,
 				44C27FE02BD0112E000319DA /* GoogleService-Info.plist in Resources */,
@@ -994,11 +1021,9 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PDFConverter/Pods-PDFConverter-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PDFConverter/Pods-PDFConverter-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1050,11 +1075,9 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PDFConverter/Pods-PDFConverter-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PDFConverter/Pods-PDFConverter-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1095,6 +1118,7 @@
 				A12C2AB72B71DCAB00B77150 /* HZEditDataboard.m in Sources */,
 				A1FE6E252B84A27F005AA056 /* HZPDFSettingSizeView.m in Sources */,
 				A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */,
+				A10183BB2BDA485400C35AAA /* HZIAPSkuView.m in Sources */,
 				A1A8DBF32B5E9D650092F0F8 /* main.m in Sources */,
 				44C27FD52BCADDA2000319DA /* HZAppSettingViewController.m in Sources */,
 				A1B190A92BB55D2A00B31842 /* HZPDFWebViewController.m in Sources */,
@@ -1129,8 +1153,10 @@
 				A12C2ABA2B71F83100B77150 /* HZEditTopCell.m in Sources */,
 				A1FE6E522B88572B005AA056 /* HZPDFPreviewViewController.m in Sources */,
 				A1B4DCEC2B8D7060000E144D /* HZPDFPreviewView.m in Sources */,
+				A1D816B72BD642CA007781F6 /* HZDetectorManager.m in Sources */,
 				44C27FDB2BCBB3B2000319DA /* HZMarginSelectView.m in Sources */,
 				A1B4DD072B8F4663000E144D /* HZChangePasswordViewController.m in Sources */,
+				A101839A2BD91B8900C35AAA /* HZIAPDetainmentView.m in Sources */,
 				A1FE6E412B861560005AA056 /* HZSortCell.m in Sources */,
 				A1A01C0E2B8C76DD008B6FE8 /* HZDetailPasswordView.m in Sources */,
 				4444C8DA2B83A8A0005E96AF /* HZPDFSettingViewController.m in Sources */,
@@ -1435,7 +1461,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z2Q26UZ9SX;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -1457,7 +1483,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pdfconverter.phototopdf.pdf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1474,7 +1500,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Z2Q26UZ9SX;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -1495,7 +1521,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pdfconverter.phototopdf.pdf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

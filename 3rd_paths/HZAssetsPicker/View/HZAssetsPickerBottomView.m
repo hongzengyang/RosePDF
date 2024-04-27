@@ -8,8 +8,10 @@
 #import "HZAssetsPickerBottomView.h"
 #import <HZUIKit/HZUIKit.h>
 #import <Masonry/Masonry.h>
+#import <ReactiveObjC/ReactiveObjC.h>
 #import "HZAssetsPickerBottomCell.h"
 #import "HZAssetsPickerManager.h"
+#import "HZAssetsPickerBottomDeleteAllSheetView.h"
 
 @interface HZAssetsPickerBottomView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -96,9 +98,18 @@
 }
 
 - (void)clickDeleteAll {
-    if (self.deleteAllBlock) {
-        self.deleteAllBlock();
-    }
+    @weakify(self);
+    HZAssetsPickerBottomDeleteAllSheetView *view = [[HZAssetsPickerBottomDeleteAllSheetView alloc] initWithRelatedView:self clickBlock:^{
+        @strongify(self);
+        if (self.deleteAllBlock) {
+            self.deleteAllBlock();
+        }
+    }];
+    [[UIView hz_viewController].view addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo([UIView hz_viewController].view);
+    }];
+    
 }
 
 #pragma mark - UICollectionViewDataSource

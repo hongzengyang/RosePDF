@@ -11,6 +11,7 @@
 #define IAPInstance  [HZIAPManager manager]
 
 #define sku_weekly          @"pdfconverter.premium.weekly"
+#define sku_yearly          @"pdfconverter.premium.yearly"
 
 #define notify_iap_changed  @"notify_iap_changed"
 

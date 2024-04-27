@@ -68,6 +68,7 @@
             @strongify(self);
             @strongify(nav);
             HZIAPViewController *vc = [[HZIAPViewController alloc] init];
+            vc.source = HZIAPSource_guide;
             [nav pushViewController:vc animated:YES];
             
             vc.clickCloseBlock = ^{

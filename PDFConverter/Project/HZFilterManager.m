@@ -25,11 +25,6 @@
 @property (nonatomic, strong) GPUImageContrastFilter *contrastFilter;
 @property (nonatomic, strong) GPUImageSaturationFilter *saturationFilter;
 
-//CoreImage
-//@property (strong, nonatomic) CIContext *context;
-//@property (strong, nonatomic) CIFilter *filter;
-@property (strong, nonatomic) CIImage *beginImage;
-@property (strong, nonatomic) CIFilter <CIColorControls> *colorControlFilter;
 @end
 
 @implementation HZFilterManager

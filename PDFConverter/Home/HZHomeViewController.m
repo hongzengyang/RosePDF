@@ -61,6 +61,7 @@
             if ([NSDate hz_checkFirstTimeOpenAppTodayWithKey:@"pref_key_first_open_homePage"]) {
                 if (![HZSystemManager manager].duringFirstOpen) {
                     HZIAPViewController *vc = [[HZIAPViewController alloc] init];
+                    vc.source = HZIAPSource_dailyOpen;
                     [self.navigationController pushViewController:vc animated:YES];
                     
                     @weakify(self);
@@ -296,6 +297,7 @@ static CGFloat prevOffsetY = 0;
 #pragma mark - HZHomeNavigationBarDelegate
 - (void)clickIAPButton {
     HZIAPViewController *vc = [[HZIAPViewController alloc] init];
+    vc.source = HZIAPSource_home;
     [self.navigationController pushViewController:vc animated:YES];
     
     @weakify(self);

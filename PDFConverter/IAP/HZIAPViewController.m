@@ -9,9 +9,16 @@
 #import "HZCommonHeader.h"
 #import "HZIAPManager.h"
 #import "HZPDFWebViewController.h"
+#import "HZIAPDetainmentView.h"
+#import "HZIAPSkuView.h"
 
 @interface HZIAPViewController ()
 
+@property (nonatomic, copy) NSString *selectedSkuId;
+@property (nonatomic, strong) NSArray <SKProduct *>*products;
+
+@property (nonatomic, strong) HZIAPSkuView *weekSkuView;
+@property (nonatomic, strong) HZIAPSkuView *yearSkuView;
 @property (nonatomic, strong) UILabel *tipLab;
 @property (nonatomic, strong) UIButton *purchaseBtn;
 
@@ -22,9 +29,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.selectedSkuId = sku_yearly;
+    
     [self configView];
     @weakify(self);
-    [IAPInstance requestSku:@[sku_weekly] completeBlock:^(NSError *error, NSArray *products) {
+    [IAPInstance requestSku:@[sku_weekly,sku_yearly] completeBlock:^(NSError *error, NSArray *products) {
         @strongify(self);
         if (error || products.count == 0) {
             //
@@ -32,9 +41,22 @@
             
             return;
         }
-        SKProduct *product = [products firstObject];
-        [self refreshPriceLabWithProduct:product];
+        self.products = [products copy];
+        
+        __block SKProduct *weekP;
+        __block SKProduct *yearP;
+        [products enumerateObjectsUsingBlock:^(SKProduct *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.productIdentifier isEqualToString:sku_weekly]) {
+                weekP = obj;
+            }else if ([obj.productIdentifier isEqualToString:sku_yearly]) {
+                yearP = obj;
+            }
+        }];
+        [self.weekSkuView updateWithProduct:weekP];
+        [self.yearSkuView updateWithProduct:yearP];
+        [self refreshSkuUI];
     }];
+    [self refreshSkuUI];
 }
 
 - (void)configView {
@@ -126,8 +148,7 @@
     [self.view addSubview:purchaseBtn];
     purchaseBtn.layer.cornerRadius = 16;
     purchaseBtn.layer.masksToBounds = YES;
-    [purchaseBtn setTitle:NSLocalizedString(@"str_continue", nil) forState:(UIControlStateNormal)];
-    purchaseBtn.titleLabel.font = [UIFont systemFontOfSize:17 weight:(UIFontWeightBold)];
+    purchaseBtn.titleLabel.font = [UIFont systemFontOfSize:17 weight:(UIFontWeightSemibold)];
     [purchaseBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [purchaseBtn addTarget:self action:@selector(clickPurchaseButton) forControlEvents:(UIControlEventTouchUpInside)];
     [purchaseBtn setFrame:CGRectMake((self.view.width - 254)/2.0, containerView.top - 16 - 56, 254, 56)];
@@ -139,6 +160,34 @@
     self.tipLab.textAlignment = NSTextAlignmentCenter;
     self.tipLab.textColor = hz_getColorWithAlpha(@"000000", 0.6);
     [self.view addSubview:self.tipLab];
+    
+    @weakify(self);
+    CGFloat skuWidth = 375;
+    CGRect yearFrame;
+    if ([[HZSystemManager manager] iPadDevice]) {
+        yearFrame = CGRectMake((self.view.width - skuWidth)/2.0, self.purchaseBtn.top - 34 - 50, skuWidth, 50);
+    }else {
+        yearFrame = CGRectMake(44, self.purchaseBtn.top - 34 - 50, self.view.width - 44 -44, 50);
+    }
+    self.yearSkuView = [[HZIAPSkuView alloc] initWithFrame:yearFrame skuId:sku_yearly clickBlock:^{
+        @strongify(self);
+        self.selectedSkuId = sku_yearly;
+        [self refreshSkuUI];
+    }];
+    [self.view addSubview:self.yearSkuView];
+
+    CGRect weekFrame;
+    if ([[HZSystemManager manager] iPadDevice]) {
+        weekFrame = CGRectMake((self.view.width - skuWidth)/2.0, self.yearSkuView.top - 3 - 50, skuWidth, 50);
+    }else {
+        weekFrame = CGRectMake(44, self.yearSkuView.top - 3 - 50, self.view.width - 44 -44, 50);
+    }
+    self.weekSkuView = [[HZIAPSkuView alloc] initWithFrame:weekFrame skuId:sku_weekly clickBlock:^{
+        @strongify(self);
+        self.selectedSkuId = sku_weekly;
+        [self refreshSkuUI];
+    }];
+    [self.view addSubview:self.weekSkuView];
     
     CGFloat targetWidth = self.view.width - 7 - 7;
     UILabel *desc2 = [[UILabel alloc] init];
@@ -154,7 +203,7 @@
         desc2.width = targetWidth;
         [desc2 sizeToFit];
     }
-    [desc2 setFrame:CGRectMake((self.view.width - desc2.width)/2.0, purchaseBtn.top - 44 - desc2.height, desc2.width, desc2.height)];
+    [desc2 setFrame:CGRectMake((self.view.width - desc2.width)/2.0, self.weekSkuView.top - 15 - desc2.height, desc2.width, desc2.height)];
     
     UILabel *desc1 = [[UILabel alloc] init];
     [self.view addSubview:desc1];
@@ -173,19 +222,18 @@
 
 }
 
-- (void)refreshPriceLabWithProduct:(SKProduct *)product {
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [numberFormatter setLocale:product.priceLocale];
-    NSString *formattedString = [numberFormatter stringFromNumber:product.price];
-    if ([formattedString hasSuffix:@".00"]) {
-        formattedString = [formattedString stringByReplacingOccurrencesOfString:@".00" withString:@""];
+- (void)refreshSkuUI {
+    if ([self.selectedSkuId isEqualToString:sku_weekly]) {
+        [self.purchaseBtn setTitle:NSLocalizedString(@"str_continue", nil) forState:(UIControlStateNormal)];
+        [self.weekSkuView configSelected:YES];
+        [self.yearSkuView configSelected:NO];
+    }else if ([self.selectedSkuId isEqualToString:sku_yearly]) {
+        [self.purchaseBtn setTitle:NSLocalizedString(@"str_freetrial_action", nil) forState:(UIControlStateNormal)];
+        [self.weekSkuView configSelected:NO];
+        [self.yearSkuView configSelected:YES];
     }
     
-    NSString *text1 = [NSString stringWithFormat:NSLocalizedString(@"str_price", nil),formattedString];
-    NSString *text2 = NSLocalizedString(@"str_cancelanytime", nil);
-    self.tipLab.text = [NSString stringWithFormat:@"%@ %@",text1,text2];
+    self.tipLab.text = NSLocalizedString(@"str_cancelanytime", nil);
     [self.tipLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view).offset(60);
         make.trailing.equalTo(self.view).offset(-60);
@@ -193,7 +241,22 @@
     }];
 }
 
+- (SKProduct *)selectedProduct {
+    __block SKProduct *product;
+    [self.products enumerateObjectsUsingBlock:^(SKProduct * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.productIdentifier isEqualToString:self.selectedSkuId]) {
+            product = obj;
+        }
+    }];
+    return product;
+}
+
+#pragma mark - Click
 - (void)clickCloseButton {
+    if (self.source == HZIAPSource_guide) {
+        [self showDetainmentView];
+        return;
+    }
     if (self.clickCloseBlock) {
         self.clickCloseBlock();
     }
@@ -229,20 +292,40 @@
 - (void)clickPurchaseButton {
     [SVProgressHUD show];
     @weakify(self);
-    [IAPInstance purchaseSku:sku_weekly completeBlock:^(NSError *error, SKPaymentTransaction *transaction) {
+    [IAPInstance purchaseSku:self.selectedSkuId completeBlock:^(NSError *error, SKPaymentTransaction *transaction) {
         [SVProgressHUD dismiss];
         @strongify(self);
         if (error) {
-            NSLog(@"debug--purchase fail");
-        }else {
-            NSLog(@"debug--purchase success");
-            if ([[HZIAPManager manager] isVip]) {
-                if (self.successBlock) {
-                    self.successBlock();
-                }
+            return;
+        }
+
+        if ([[HZIAPManager manager] isVip]) {
+            if (self.successBlock) {
+                self.successBlock();
             }
         }
     }];
+}
+
+#pragma mark - 挽留弹窗
+- (void)showDetainmentView {
+    @weakify(self);
+    HZIAPDetainmentView *detainmentView = [[HZIAPDetainmentView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight) closeBlock:^{
+        @strongify(self);
+        if (self.clickCloseBlock) {
+            self.clickCloseBlock();
+        }
+    } buySuccessBlock:^{
+        @strongify(self);
+        if (self.successBlock) {
+            self.successBlock();
+        }
+    }];
+    [self.view addSubview:detainmentView];
+    
+    [UIView animateWithDuration:0.25 delay:0 options:(UIViewAnimationOptionCurveEaseIn) animations:^{
+        detainmentView.top = 0;
+    } completion:nil];
 }
 
 @end

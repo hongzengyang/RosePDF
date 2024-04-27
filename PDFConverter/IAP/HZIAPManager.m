@@ -87,6 +87,9 @@
     if ([[XYStoreiTunesReceiptVerifier shareInstance] isSubscribedWithAutoRenewProduct:sku_weekly]) {
         vip = YES;
     }
+    if ([[XYStoreiTunesReceiptVerifier shareInstance] isSubscribedWithAutoRenewProduct:sku_yearly]) {
+        vip = YES;
+    }
     return vip;
 }
 

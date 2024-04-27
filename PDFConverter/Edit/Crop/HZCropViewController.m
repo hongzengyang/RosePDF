@@ -10,6 +10,7 @@
 #import "HZCropData.h"
 #import "HZBaseNavigationBar.h"
 #import "HZCropCell.h"
+#import "HZDetectorManager.h"
 
 @interface HZCropViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) NSArray <HZCropData *>*dataList;
@@ -24,6 +25,9 @@
     if (self = [super init]) {
         HZCropData *cropData = [[HZCropData alloc] initWithPage:pageModel];
         self.dataList = @[cropData];
+        
+        UIImage *originImage = [UIImage imageWithContentsOfFile:[pageModel originPath]];
+        [HZDetectorManager detectCornersWithImage:originImage];
     }
     return self;
 }

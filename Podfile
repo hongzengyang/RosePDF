@@ -3,6 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 inhibit_all_warnings!
 platform :ios, '13.0'
+install! 'cocoapods', :disable_input_output_paths => true
 use_modular_headers!
 
 post_install do |installer|
@@ -24,18 +25,20 @@ def common_pods
   pod 'HZUIKit',              :path => './3rd_paths/HZUIKit'
   pod 'HZAssetsPicker',       :path => './3rd_paths/HZAssetsPicker'
   pod 'WCDB',                 :path => './3rd_paths/WCDB'
-  
-  pod 'GPUImage'
+
+  pod 'GPUImage',             '0.1.7'
   pod 'YYModel',              '1.0.4'
   pod 'YYCategories',         '1.0.4'
-  pod 'SDWebImage',           '5.15.7'
+  pod 'SDWebImage',           '5.19.1'
   pod 'ReactiveObjC',         '3.1.1'
-  pod 'Masonry'
+  pod 'Masonry',              '1.1.0'
   pod 'SVProgressHUD',        '2.3.1'
   pod 'LookinServer',         :configurations => ['Debug']
-  pod 'FirebaseAnalytics',    '10.20.0'
-  pod 'Firebase/AnalyticsWithoutAdIdSupport', '10.20.0'
-  pod 'FirebaseCrashlytics'
+  pod 'FirebaseAnalytics',    '10.24.0'
+  pod 'Firebase/AnalyticsWithoutAdIdSupport','10.24.0'
+  pod 'FirebaseCrashlytics',  '10.24.0'
+
+
 end
 
 target 'PDFConverter' do
