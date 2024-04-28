@@ -40,6 +40,8 @@
     NSString *imageName;
     if ([[HZSystemManager manager] iPadDevice]) {
         imageName = @"rose_detainment_bg_ipad";
+    }else if (SmallPhone) {
+        imageName = @"rose_detainment_small_phone";
     }else {
         imageName = @"rose_detainment_bg";
     }
@@ -99,12 +101,12 @@
         [step3 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.height.mas_equalTo(36);
             make.leading.equalTo(self).offset(space);
-            make.bottom.equalTo(self.purchaseBtn.mas_top).offset(-100);
+            make.bottom.equalTo(self.purchaseBtn.mas_top).offset(SmallPhone ? (-53) : (-100));
         }];
         
         UILabel *label1 = [[UILabel alloc] init];
         [self addSubview:label1];
-        label1.font = [UIFont systemFontOfSize:20 weight:(UIFontWeightMedium)];
+        label1.font = [UIFont systemFontOfSize:SmallPhone ? 16 : 20 weight:(UIFontWeightMedium)];
         label1.textColor = hz_getColor(@"484850");
         label1.text = [NSString stringWithFormat:NSLocalizedString(@"str_freetrial_newuser_day", nil),@(3)];
         [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -115,7 +117,7 @@
         UILabel *label2 = [[UILabel alloc] init];
         [self addSubview:label2];
         label2.numberOfLines = 0;
-        label2.font = [UIFont systemFontOfSize:12 weight:(UIFontWeightMedium)];
+        label2.font = [UIFont systemFontOfSize:SmallPhone ? 10 : 12 weight:(UIFontWeightMedium)];
         label2.textColor = hz_getColorWithAlpha(@"484850", 0.5);
         label2.text = NSLocalizedString(@"str_freetrial_newuser_day3_desc", nil);
         [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -132,7 +134,7 @@
         make.centerX.equalTo(step3);
         make.bottom.equalTo(step3.mas_top).offset(-2);
         make.width.mas_equalTo(4);
-        make.height.mas_equalTo(56);
+        make.height.mas_equalTo(SmallPhone ? 34 : 56);
     }];
     
     UIImageView *step2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"rose_step2"]];
@@ -148,7 +150,7 @@
         
         UILabel *label1 = [[UILabel alloc] init];
         [self addSubview:label1];
-        label1.font = [UIFont systemFontOfSize:20 weight:(UIFontWeightMedium)];
+        label1.font = [UIFont systemFontOfSize:SmallPhone ? 16 : 20 weight:(UIFontWeightMedium)];
         label1.textColor = hz_getColor(@"484850");
         label1.text = [NSString stringWithFormat:NSLocalizedString(@"str_freetrial_newuser_day", nil),@(2)];
         [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -159,7 +161,7 @@
         UILabel *label2 = [[UILabel alloc] init];
         [self addSubview:label2];
         label2.numberOfLines = 0;
-        label2.font = [UIFont systemFontOfSize:12 weight:(UIFontWeightMedium)];
+        label2.font = [UIFont systemFontOfSize:SmallPhone ? 10 : 12 weight:(UIFontWeightMedium)];
         label2.textColor = hz_getColorWithAlpha(@"484850", 0.5);
         label2.text = NSLocalizedString(@"str_freetrial_newuser_day2_desc", nil);
         [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -174,7 +176,7 @@
     [self addSubview:connect12];
     [connect12 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(4);
-        make.height.mas_equalTo(56);
+        make.height.mas_equalTo(SmallPhone ? 34 : 56);
         make.centerX.equalTo(step2);
         make.bottom.equalTo(step2.mas_top).offset(-2);
     }];
@@ -192,7 +194,7 @@
         
         UILabel *label1 = [[UILabel alloc] init];
         [self addSubview:label1];
-        label1.font = [UIFont systemFontOfSize:20 weight:(UIFontWeightMedium)];
+        label1.font = [UIFont systemFontOfSize:SmallPhone ? 16 : 20 weight:(UIFontWeightMedium)];
         label1.textColor = hz_getColor(@"484850");
         label1.text = [NSString stringWithFormat:NSLocalizedString(@"str_freetrial_newuser_day", nil),@(1)];
         [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -203,7 +205,7 @@
         UILabel *label2 = [[UILabel alloc] init];
         [self addSubview:label2];
         label2.numberOfLines = 0;
-        label2.font = [UIFont systemFontOfSize:12 weight:(UIFontWeightMedium)];
+        label2.font = [UIFont systemFontOfSize:SmallPhone ? 10 : 12 weight:(UIFontWeightMedium)];
         label2.textColor = hz_getColorWithAlpha(@"484850", 0.5);
         label2.text = NSLocalizedString(@"str_freetrial_newuser_today_desc", nil);
         [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -218,11 +220,11 @@
     [self addSubview:titleLab];
     titleLab.text = [NSString stringWithFormat:@"%@\n%@",NSLocalizedString(@"str_freetrial_newuser_title1", nil),NSLocalizedString(@"str_freetrial_newuser_title2", nil)];
     titleLab.textColor = hz_getColor(@"484850");
-    titleLab.font = [UIFont systemFontOfSize:29 weight:(UIFontWeightBold)];
+    titleLab.font = [UIFont systemFontOfSize:SmallPhone ? 20 : 29 weight:(SmallPhone ? UIFontWeightMedium : UIFontWeightBold)];
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self).offset(space);
         make.trailing.equalTo(self).offset(-space);
-        make.bottom.equalTo(step1.mas_top).offset(-30);
+        make.bottom.equalTo(step1.mas_top).offset(SmallPhone ? (-23) : (-30));
     }];
     
     [self setNeedsLayout];

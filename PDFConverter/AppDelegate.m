@@ -13,6 +13,7 @@
 #import "HZCommonHeader.h"
 #import "HZIAPManager.h"
 #import "HZIAPViewController.h"
+#import "HZFileConvertView.h"
 
 @import FirebaseCore;
 
@@ -38,6 +39,21 @@
     [self configProgressHUD];
     [self configViewController];
     [self requestNetworkPermission];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return YES;
+    if ([[[url absoluteString] lowercaseString] hasSuffix:@"docx"] || [[[url absoluteString] lowercaseString] hasSuffix:@"doc"]) {
+        HZFileConvertView *convertView = [[HZFileConvertView alloc] initWithFrame:self.window.bounds];
+        [self.window addSubview:convertView];
+        @weakify(self);
+        [convertView convertWord:url completeBlock:^(HZProjectModel *project) {
+            @strongify(self);
+            [convertView removeFromSuperview];
+            [self.window.rootViewController.navigationController popToRootViewControllerAnimated:YES];
+        }];
+    }
     return YES;
 }
 

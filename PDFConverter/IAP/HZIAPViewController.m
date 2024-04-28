@@ -66,6 +66,8 @@
     [self.view addSubview:bgImageView];
     if ([[HZSystemManager manager] iPadDevice]) {
         bgImageView.image = [UIImage imageNamed:@"rose_iap_bg_ipad"];
+    }else if (SmallPhone) {
+        bgImageView.image = [UIImage imageNamed:@"rose_iap_bg_small_phone"];
     }else {
         bgImageView.image = [UIImage imageNamed:@"rose_iap_bg"];
     }

@@ -24,6 +24,8 @@
 #define hz_safeTop      [UIView hz_safeTop]
 #define hz_safeBottom   [UIView hz_safeBottom]
 
+#define SmallPhone      ScreenHeight < 600
+
 #define navigationHeight 44
 
 #define hz_getColor(x)               [UIColor hz_getColor:x]

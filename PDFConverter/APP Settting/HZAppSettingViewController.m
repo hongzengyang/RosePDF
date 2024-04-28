@@ -67,7 +67,7 @@
         
         UIView *separater = [[UIView alloc] init];
         [cView addSubview:separater];
-        separater.backgroundColor = hz_getColorWithAlpha(@"000000", 0.3);
+        separater.backgroundColor = hz_getColorWithAlpha(@"000000", 0.1);
         [separater mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.trailing.equalTo(cView);
             make.height.mas_equalTo(0.33);
@@ -107,7 +107,7 @@
         
         UIView *separater = [[UIView alloc] init];
         [cView addSubview:separater];
-        separater.backgroundColor = hz_getColorWithAlpha(@"000000", 0.3);
+        separater.backgroundColor = hz_getColorWithAlpha(@"000000", 0.1);
         [separater mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.trailing.equalTo(cView);
             make.height.mas_equalTo(0.33);
@@ -160,6 +160,21 @@
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(cView);
         }];
+    }
+    
+    {//version
+        UILabel *label = [[UILabel alloc] init];
+        label.textColor = hz_2_textColor;
+        [self.view addSubview:label];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont systemFontOfSize:14];
+        label.text = [NSString stringWithFormat:@"Version: %@",[ [[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(self.view).offset(10);
+            make.trailing.equalTo(self.view).offset(-10);
+            make.bottom.equalTo(self.view).offset(-hz_safeBottom - 30);
+        }];
+        
     }
 }
 

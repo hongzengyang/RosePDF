@@ -57,7 +57,7 @@
         
         UIView *separater = [[UIView alloc] init];
         [cView addSubview:separater];
-        separater.backgroundColor = hz_getColorWithAlpha(@"000000", 0.3);
+        separater.backgroundColor = hz_getColorWithAlpha(@"000000", 0.1);
         [separater mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.trailing.equalTo(cView);
             make.height.mas_equalTo(0.33);
@@ -97,7 +97,7 @@
         if (isChina) {
             UIView *separater = [[UIView alloc] init];
             [cView addSubview:separater];
-            separater.backgroundColor = hz_getColorWithAlpha(@"000000", 0.3);
+            separater.backgroundColor = hz_getColorWithAlpha(@"000000", 0.1);
             [separater mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.trailing.equalTo(cView);
                 make.height.mas_equalTo(0.33);

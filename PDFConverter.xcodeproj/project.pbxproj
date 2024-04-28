@@ -23,6 +23,9 @@
 		44F5C6562BA8822C00CE4CA9 /* ShareExtensionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F5C6552BA8822C00CE4CA9 /* ShareExtensionViewController.m */; };
 		A101839A2BD91B8900C35AAA /* HZIAPDetainmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A10183992BD91B8900C35AAA /* HZIAPDetainmentView.m */; };
 		A10183BB2BDA485400C35AAA /* HZIAPSkuView.m in Sources */ = {isa = PBXBuildFile; fileRef = A10183BA2BDA485400C35AAA /* HZIAPSkuView.m */; };
+		A106F5022BDE25DF00A0C28D /* HZFileHandleUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = A106F5012BDE25DF00A0C28D /* HZFileHandleUnit.m */; };
+		A106F5052BDE26C700A0C28D /* HZFileHandleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A106F5042BDE26C700A0C28D /* HZFileHandleManager.m */; };
+		A106F5092BDE3B7900A0C28D /* HZFileConvertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A106F5082BDE3B7900A0C28D /* HZFileConvertView.m */; };
 		A12C2A642B6F6C4000B77150 /* HZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */; };
 		A12C2A672B6F6C6800B77150 /* HZHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A662B6F6C6800B77150 /* HZHomeViewController.m */; };
 		A12C2A712B6F784B00B77150 /* HZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12C2A702B6F784B00B77150 /* HZBaseModel.m */; };
@@ -165,6 +168,12 @@
 		A10183992BD91B8900C35AAA /* HZIAPDetainmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZIAPDetainmentView.m; sourceTree = "<group>"; };
 		A10183B92BDA485400C35AAA /* HZIAPSkuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZIAPSkuView.h; sourceTree = "<group>"; };
 		A10183BA2BDA485400C35AAA /* HZIAPSkuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZIAPSkuView.m; sourceTree = "<group>"; };
+		A106F5002BDE25DF00A0C28D /* HZFileHandleUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZFileHandleUnit.h; sourceTree = "<group>"; };
+		A106F5012BDE25DF00A0C28D /* HZFileHandleUnit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZFileHandleUnit.m; sourceTree = "<group>"; };
+		A106F5032BDE26C700A0C28D /* HZFileHandleManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZFileHandleManager.h; sourceTree = "<group>"; };
+		A106F5042BDE26C700A0C28D /* HZFileHandleManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZFileHandleManager.m; sourceTree = "<group>"; };
+		A106F5072BDE3B7900A0C28D /* HZFileConvertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZFileConvertView.h; sourceTree = "<group>"; };
+		A106F5082BDE3B7900A0C28D /* HZFileConvertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZFileConvertView.m; sourceTree = "<group>"; };
 		A12C2A622B6F6C4000B77150 /* HZBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZBaseViewController.h; sourceTree = "<group>"; };
 		A12C2A632B6F6C4000B77150 /* HZBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZBaseViewController.m; sourceTree = "<group>"; };
 		A12C2A652B6F6C6800B77150 /* HZHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZHomeViewController.h; sourceTree = "<group>"; };
@@ -439,6 +448,27 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A106F4FF2BDE25C900A0C28D /* FileHandle */ = {
+			isa = PBXGroup;
+			children = (
+				A106F5002BDE25DF00A0C28D /* HZFileHandleUnit.h */,
+				A106F5012BDE25DF00A0C28D /* HZFileHandleUnit.m */,
+				A106F5032BDE26C700A0C28D /* HZFileHandleManager.h */,
+				A106F5042BDE26C700A0C28D /* HZFileHandleManager.m */,
+			);
+			path = FileHandle;
+			sourceTree = "<group>";
+		};
+		A106F5062BDE3B1E00A0C28D /* File Convert */ = {
+			isa = PBXGroup;
+			children = (
+				A106F4FF2BDE25C900A0C28D /* FileHandle */,
+				A106F5072BDE3B7900A0C28D /* HZFileConvertView.h */,
+				A106F5082BDE3B7900A0C28D /* HZFileConvertView.m */,
+			);
+			path = "File Convert";
+			sourceTree = "<group>";
+		};
 		A12C2A5F2B6F6BFC00B77150 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -677,6 +707,7 @@
 		A1A8DBDF2B5E9D630092F0F8 /* PDFConverter */ = {
 			isa = PBXGroup;
 			children = (
+				A106F5062BDE3B1E00A0C28D /* File Convert */,
 				44C27FD22BCADD77000319DA /* APP Settting */,
 				A1A2413A2BB170F7009081E8 /* IAP */,
 				A1A241202BABD003009081E8 /* UserGuide */,
@@ -1122,6 +1153,7 @@
 				A1A8DBF32B5E9D650092F0F8 /* main.m in Sources */,
 				44C27FD52BCADDA2000319DA /* HZAppSettingViewController.m in Sources */,
 				A1B190A92BB55D2A00B31842 /* HZPDFWebViewController.m in Sources */,
+				A106F5092BDE3B7900A0C28D /* HZFileConvertView.m in Sources */,
 				A1FE6E2E2B858EC3005AA056 /* HZPDFMaker.m in Sources */,
 				4472BB462B9378BE0093D5D6 /* HZPDFConvertingView.m in Sources */,
 				A1FE6E2B2B858A91005AA056 /* HZEditInput.m in Sources */,
@@ -1157,8 +1189,10 @@
 				44C27FDB2BCBB3B2000319DA /* HZMarginSelectView.m in Sources */,
 				A1B4DD072B8F4663000E144D /* HZChangePasswordViewController.m in Sources */,
 				A101839A2BD91B8900C35AAA /* HZIAPDetainmentView.m in Sources */,
+				A106F5022BDE25DF00A0C28D /* HZFileHandleUnit.m in Sources */,
 				A1FE6E412B861560005AA056 /* HZSortCell.m in Sources */,
 				A1A01C0E2B8C76DD008B6FE8 /* HZDetailPasswordView.m in Sources */,
+				A106F5052BDE26C700A0C28D /* HZFileHandleManager.m in Sources */,
 				4444C8DA2B83A8A0005E96AF /* HZPDFSettingViewController.m in Sources */,
 				A1A240EF2B9ED181009081E8 /* HZCropData.m in Sources */,
 				A1B4DD102B905525000E144D /* HZSlider.m in Sources */,
@@ -1470,6 +1504,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PDFConverter/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PDFConverter;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take photos, we need to access your camera.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";
@@ -1508,6 +1543,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PDFConverter/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PDFConverter;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take photos, we need to access your camera.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "To select photos for PDF conversion, We need to access your photos. For better experience, please Allow Access to All Photos.";
