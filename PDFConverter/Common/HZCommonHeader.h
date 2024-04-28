@@ -24,7 +24,7 @@
 #define hz_safeTop      [UIView hz_safeTop]
 #define hz_safeBottom   [UIView hz_safeBottom]
 
-#define SmallPhone      ScreenHeight < 600
+#define SmallPhone      ScreenHeight < 700
 
 #define navigationHeight 44
 
