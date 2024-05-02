@@ -88,12 +88,6 @@
         
 
         __block NSMutableArray <HZAsset *>*muArray = [[NSMutableArray alloc] init];
-        {
-            HZAsset *camera = [[HZAsset alloc] initWithAsset:nil];
-            camera.isCameraEntrance = YES;
-            [muArray insertObject:camera atIndex:0];
-        }
-        
         if (assets.count == 0) {
             NSArray *array = [muArray copy];
             dispatch_async(dispatch_get_main_queue(), ^{

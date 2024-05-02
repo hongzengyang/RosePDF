@@ -10,13 +10,15 @@
 #import "HZCommonHeader.h"
 #import "HZPDFConvertingView.h"
 #import <WebKit/WebKit.h>
+#import <HZUIKit/HZAlertView.h>
 
 
-@interface HZFileHandleManager()<WKNavigationDelegate>
+@interface HZFileHandleManager()<WKNavigationDelegate,UIDocumentPickerDelegate>
 
 @property (nonatomic, strong) HZPDFConvertingView *convertingView;
 @property (nonatomic, strong) WKWebView *webView;
 
+@property (nonatomic, copy) void(^wordFileBlock)(NSURL *wordUrl);
 @property (nonatomic, copy) void(^completeBlock)(HZProjectModel *project);
 
 
@@ -30,6 +32,19 @@
         sharedInstance = [[HZFileHandleManager alloc] init];
     });
     return sharedInstance;
+}
+
+- (void)presentWordFileWithCompleteBlock:(void (^)(NSURL *))completeBlock {
+    NSArray *types = @[@"com.microsoft.word.doc",@"org.openxmlformats.wordprocessingml.document"];
+    
+    UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:types inMode:UIDocumentPickerModeImport];
+    documentPicker.delegate = self;
+    documentPicker.modalPresentationStyle = UIModalPresentationFormSheet;
+    documentPicker.allowsMultipleSelection = NO;
+    [[UIView hz_viewController] presentViewController:documentPicker animated:YES completion:^{
+    }];
+    
+    self.wordFileBlock = completeBlock;
 }
 
 - (void)convertPdfUrl:(NSURL *)pdfUrl completeBlock:(void (^)(HZProjectModel *))completeBlock {
@@ -48,6 +63,26 @@
     [topController.view bringSubviewToFront:self.convertingView];
     
     [self.convertingView startConverting];
+}
+
+#pragma mark - UIDocumentPickerDelegate
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)urls {
+    if (urls.count == 0) {
+        return;
+    }
+    NSURL *url = [urls firstObject];
+    @weakify(self);
+    [self safeFile:url completeBlock:^(NSURL *wordUrl) {
+        @strongify(self);
+        HZAlertView *alertView = [[HZAlertView alloc] initWithTitle:NSLocalizedString(@"str_convertword2pdf", nil) message:NSLocalizedString(@"str_convertword2pdf_content", nil)];
+        [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_convert", nil) block:^{
+            if (self.wordFileBlock) {
+                self.wordFileBlock(wordUrl);
+            }
+        }];
+        [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_cancel", nil) block:nil];
+        [alertView show];
+    }];
 }
 
 #pragma mark - Webview
@@ -132,6 +167,40 @@
     
 }
 
-
+- (void)safeFile:(NSURL *)url completeBlock:(void(^)(NSURL *wordUrl))completeBlock {
+    [url startAccessingSecurityScopedResource];//fileURL ---> Which FileURL you want to copy
+    NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+    NSFileAccessIntent *readingIntent = [NSFileAccessIntent readingIntentWithURL:url options:NSFileCoordinatorReadingWithoutChanges];
+    [fileCoordinator coordinateAccessWithIntents:@[readingIntent] queue:[NSOperationQueue mainQueue] byAccessor:^(NSError *error) {
+        if (error) {
+            if (completeBlock) {
+                completeBlock(nil);
+            }
+            return;
+        }
+        NSData *filePathData;
+        
+        // Always get URL from access intent. It might have changed.
+        NSURL *safeURL = readingIntent.URL;
+        filePathData = [NSData dataWithContentsOfURL:safeURL];
+        // here your code to do what you want with this
+        NSString *tmpWordPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"sb.%@",[safeURL.absoluteString hz_pathExtension]]];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:tmpWordPath]) {
+            [[NSFileManager defaultManager] removeItemAtPath:tmpWordPath error:nil];
+        }
+        NSURL *copyUrl = [NSURL fileURLWithPath:tmpWordPath];
+        if ([filePathData writeToURL:copyUrl atomically:YES]) {
+            if (completeBlock) {
+                completeBlock(copyUrl);
+            }
+        }else {
+            if (completeBlock) {
+                completeBlock(nil);
+            }
+        }
+        
+        [url stopAccessingSecurityScopedResource];
+    }];
+}
 
 @end

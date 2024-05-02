@@ -82,6 +82,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == self.databoard.project.pageModels.count) {
         HZAssetsPickerViewController *assetPicker = [[HZAssetsPickerViewController alloc] init];
+        assetPicker.enableFile = NO;
         @weakify(self);
         assetPicker.SelectImageBlock = ^(NSArray<UIImage *> * _Nonnull images) {
             @strongify(self);

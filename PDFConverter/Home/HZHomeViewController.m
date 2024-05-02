@@ -22,6 +22,8 @@
 #import "HZIAPViewController.h"
 #import "HZSystemManager.h"
 #import "HZAppSettingViewController.h"
+#import "HZFileHandleManager.h"
+#import "HZFileConvertView.h"
 
 @interface HZHomeViewController ()<UITableViewDelegate,UITableViewDataSource,HZHomeNavigationBarDelegate>
 
@@ -149,6 +151,7 @@
             return;
         }
         HZAssetsPickerViewController *assetPicker = [[HZAssetsPickerViewController alloc] init];
+        assetPicker.enableFile = YES;
         assetPicker.SelectImageBlock = ^(NSArray<UIImage *> * _Nonnull images) {
             @strongify(self);
             HZProjectModel *project = [HZProjectManager createProjectWithFolderId:Default_folderId isTmp:YES];
@@ -161,6 +164,22 @@
                 
                 HZEditViewController *edit = [[HZEditViewController alloc] initWithInput:input];
                 [self.navigationController pushViewController:edit animated:YES];
+            }];
+        };
+        @weakify(assetPicker);
+        assetPicker.ClickFileBlock = ^{
+            @strongify(self);
+            [[HZFileHandleManager manager] presentWordFileWithCompleteBlock:^(NSURL *wordUrl) {
+                @strongify(self);
+                @strongify(assetPicker);
+                HZFileConvertView *convertView = [[HZFileConvertView alloc] initWithFrame:assetPicker.view.bounds];
+                [assetPicker.view addSubview:convertView];
+                [convertView convertWord:wordUrl completeBlock:^(HZProjectModel *project) {
+                    @strongify(self);
+                    [convertView removeFromSuperview];
+                    
+                    [[UIView hz_viewController].navigationController popToRootViewControllerAnimated:NO];
+                }];
             }];
         };
         [self.navigationController pushViewController:assetPicker animated:YES];

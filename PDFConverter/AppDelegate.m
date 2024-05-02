@@ -14,6 +14,7 @@
 #import "HZIAPManager.h"
 #import "HZIAPViewController.h"
 #import "HZFileConvertView.h"
+#import "HZFileHandleManager.h"
 
 @import FirebaseCore;
 
@@ -43,16 +44,21 @@
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    return YES;
     if ([[[url absoluteString] lowercaseString] hasSuffix:@"docx"] || [[[url absoluteString] lowercaseString] hasSuffix:@"doc"]) {
-        HZFileConvertView *convertView = [[HZFileConvertView alloc] initWithFrame:self.window.bounds];
-        [self.window addSubview:convertView];
         @weakify(self);
-        [convertView convertWord:url completeBlock:^(HZProjectModel *project) {
+        [[HZFileHandleManager manager] safeFile:url completeBlock:^(NSURL *wordUrl) {
             @strongify(self);
-            [convertView removeFromSuperview];
-            [self.window.rootViewController.navigationController popToRootViewControllerAnimated:YES];
+            HZFileConvertView *convertView = [[HZFileConvertView alloc] initWithFrame:self.window.bounds];
+            [self.window addSubview:convertView];
+            [convertView convertWord:wordUrl completeBlock:^(HZProjectModel *project) {
+                @strongify(self);
+                [convertView removeFromSuperview];
+                
+                [[UIView hz_viewController].navigationController popToRootViewControllerAnimated:NO];
+            }];
         }];
+        
+        
     }
     return YES;
 }
