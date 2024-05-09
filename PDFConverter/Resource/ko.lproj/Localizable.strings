@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· 취소하지 않으면 청구됩니다.";
 "str_start" = "시작";
 "str_remove_all" = "모두 제거";
+"str_photo" = "사진";
+"str_camera" = "카메라";
+"str_file" = "파일";
+"str_convertword2pdf" = "Word를 PDF로 변환하시겠습니까?";
+"str_convertword2pdf_content" = "선택한 사진이 삭제됩니다.";

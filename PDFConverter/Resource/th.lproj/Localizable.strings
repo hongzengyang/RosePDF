@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· คุณจะถูกเรียกเก็บเงิน ถ้าคุณไม่ยกเลิก.";
 "str_start" = "เริ่ม";
 "str_remove_all" = "ลบทั้งหมด";
+"str_photo" = "รูปภาพ";
+"str_camera" = "กล้อง";
+"str_file" = "ไฟล์";
+"str_convertword2pdf" = "แปลง Word เป็น PDF?";
+"str_convertword2pdf_content" = "รูปภาพที่เลือกจะถูกละทิ้ง";

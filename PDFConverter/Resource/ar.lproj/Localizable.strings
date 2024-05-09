@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· سوف يتم تحصيل الرسوم ما لم تقوموا بالإلغاء.";
 "str_start" = "يبدأ";
 "str_remove_all" = "حذف الكل";
+"str_photo" = "الصور";
+"str_camera" = "الكاميرا";
+"str_file" = "الملفات";
+"str_convertword2pdf" = "تحويل Word إلى PDF؟";
+"str_convertword2pdf_content" = "سيتم التخلص من الصور المختارة";

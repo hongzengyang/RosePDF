@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· You will be charged unless you cancel it.";
 "str_start" = "Start";
 "str_remove_all" = "Remove all";
+"str_photo" = "Photos";
+"str_camera" = "Camera";
+"str_file" = "Files";
+"str_convertword2pdf" = "Convert Word to PDF?";
+"str_convertword2pdf_content" = "Selected photos will be discarded";

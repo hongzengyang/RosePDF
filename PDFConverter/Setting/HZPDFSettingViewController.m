@@ -244,23 +244,23 @@
     {//vip
         if (![IAPInstance isVip]) {
             id count = [[NSUserDefaults standardUserDefaults] valueForKey:pref_key_click_convert_count];
-            if ([count integerValue] == 1) {
-                HZIAPViewController *vc = [[HZIAPViewController alloc] init];
-                vc.source = HZIAPSource_convertLimit;
-                [self.navigationController pushViewController:vc animated:YES];
-                
-                @weakify(self);
-                vc.clickCloseBlock = ^{
-                    @strongify(self);
-                    [self.navigationController popViewControllerAnimated:YES];
-                };
-                vc.successBlock = ^{
-                    @strongify(self);
-                    [self.navigationController popViewControllerAnimated:YES];
-                    [self clickConvertButton];
-                };
-                return;
-            }
+//            if ([count integerValue] == 1) {
+//                HZIAPViewController *vc = [[HZIAPViewController alloc] init];
+//                vc.source = HZIAPSource_convertLimit;
+//                [self.navigationController pushViewController:vc animated:YES];
+//                
+//                @weakify(self);
+//                vc.clickCloseBlock = ^{
+//                    @strongify(self);
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                };
+//                vc.successBlock = ^{
+//                    @strongify(self);
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                    [self clickConvertButton];
+//                };
+//                return;
+//            }
         }
     }
     

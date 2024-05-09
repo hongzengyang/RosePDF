@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· Sie werden berechnet, wenn Sie es nicht stornieren.";
 "str_start" = "Beginnen";
 "str_remove_all" = "Alles entfernen";
+"str_photo" = "Fotos";
+"str_camera" = "Kamera";
+"str_file" = "Dateien";
+"str_convertword2pdf" = "Word in PDF konvertieren?";
+"str_convertword2pdf_content" = "Ausgewählte Fotos werden verworfen";

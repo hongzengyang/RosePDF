@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· İptal etmedikçe ücretlendirileceksiniz.";
 "str_start" = "Başlat";
 "str_remove_all" = "Hepsini kaldır";
+"str_photo" = "Fotoğraflar";
+"str_camera" = "Kamera";
+"str_file" = "Dosyalar";
+"str_convertword2pdf" = "Word'ü PDF'ye dönüştürün mü?";
+"str_convertword2pdf_content" = "Seçilen fotoğraflar iptal edilecek";

@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· キャンセルしない場合は請求が発生します。";
 "str_start" = "開始";
 "str_remove_all" = "すべて削除する";
+"str_photo" = "写真";
+"str_camera" = "カメラ";
+"str_file" = "ファイル";
+"str_convertword2pdf" = "WordをPDFに変換しますか?";
+"str_convertword2pdf_content" = "選択した写真は破棄されます";

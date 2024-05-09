@@ -101,10 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· 如果您不取消，将被收费。";
 "str_start" = "开始";
 "str_remove_all" = "移除全部";
-
 "str_photo" = "照片";
 "str_camera" = "相机";
 "str_file" = "文件";
-"str_convertword2pdf" = "Convert Word to PDF?";
-"str_convertword2pdf_content" = "Selected photos will be discarded";
-"str_convert" = "Convert";
+"str_convertword2pdf" = "将 Word 转换为 PDF？";
+"str_convertword2pdf_content" = "已选的照片将被丢弃";

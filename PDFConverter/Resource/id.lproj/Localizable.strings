@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· Anda akan dikenakan biaya kecuali jika Anda membatalkannya.";
 "str_start" = "Mulai";
 "str_remove_all" = "Menghapus semua";
+"str_photo" = "Foto";
+"str_camera" = "Kamera";
+"str_file" = "File";
+"str_convertword2pdf" = "Konversi Word ke PDF?";
+"str_convertword2pdf_content" = "Foto yang dipilih akan dibuang";

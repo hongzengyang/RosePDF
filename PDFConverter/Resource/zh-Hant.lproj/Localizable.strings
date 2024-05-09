@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· 如果您不取消，將被收費。";
 "str_start" = "開始";
 "str_remove_all" = "移除全部";
+"str_photo" = "照片";
+"str_camera" = "相機";
+"str_file" = "檔案";
+"str_convertword2pdf" = "將 Word 轉換為 PDF？";
+"str_convertword2pdf_content" = "選定的照片將被丟棄";

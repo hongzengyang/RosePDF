@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· С вас будет взиматься плата, если вы не отмените подписку.";
 "str_start" = "Начать";
 "str_remove_all" = "Удалить все";
+"str_photo" = "Фото";
+"str_camera" = "Камера";
+"str_file" = "Файлы";
+"str_convertword2pdf" = "Конвертировать Word в PDF?";
+"str_convertword2pdf_content" = "Выбранные фотографии будут удалены";

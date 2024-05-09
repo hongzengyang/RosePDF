@@ -16,6 +16,8 @@
 #import "HZPageModel.h"
 #import "HZPDFMaker.h"
 
+//https://github.com/liuchuan-alex/PPTToImage   ppt 2 image
+
 @interface HZFileConvertView()<WKNavigationDelegate>
 
 @property (nonatomic, strong) HZPDFConvertingView *convertingView;

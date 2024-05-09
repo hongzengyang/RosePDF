@@ -101,3 +101,8 @@
 "str_freetrial_newuser_day3_desc" = "· Vous serez facturé sauf si vous l'annulez.";
 "str_start" = "Commencer";
 "str_remove_all" = "Enlever tout";
+"str_photo" = "Photos";
+"str_camera" = "Appareil photo";
+"str_file" = "Fichiers";
+"str_convertword2pdf" = "Convertir Word en PDF ?";
+"str_convertword2pdf_content" = "Les photos sélectionnées seront supprimées";
