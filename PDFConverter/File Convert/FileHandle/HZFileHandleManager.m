@@ -18,7 +18,7 @@
 @property (nonatomic, strong) HZPDFConvertingView *convertingView;
 @property (nonatomic, strong) WKWebView *webView;
 
-@property (nonatomic, copy) void(^wordFileBlock)(NSURL *wordUrl);
+@property (nonatomic, copy) void(^fileBlock)(NSURL *fileUrl);
 @property (nonatomic, copy) void(^completeBlock)(HZProjectModel *project);
 
 
@@ -34,8 +34,8 @@
     return sharedInstance;
 }
 
-- (void)presentWordFileWithCompleteBlock:(void (^)(NSURL *))completeBlock {
-    NSArray *types = @[@"com.microsoft.word.doc",@"org.openxmlformats.wordprocessingml.document"];
+- (void)presentFileWithCompleteBlock:(void (^)(NSURL *))completeBlock {
+    NSArray *types = @[@"com.microsoft.word.doc",@"org.openxmlformats.wordprocessingml.document",@"public.image"];
     
     UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:types inMode:UIDocumentPickerModeImport];
     documentPicker.delegate = self;
@@ -44,7 +44,7 @@
     [[UIView hz_viewController] presentViewController:documentPicker animated:YES completion:^{
     }];
     
-    self.wordFileBlock = completeBlock;
+    self.fileBlock = completeBlock;
 }
 
 - (void)convertPdfUrl:(NSURL *)pdfUrl completeBlock:(void (^)(HZProjectModel *))completeBlock {
@@ -72,16 +72,11 @@
     }
     NSURL *url = [urls firstObject];
     @weakify(self);
-    [self safeFile:url completeBlock:^(NSURL *wordUrl) {
+    [self safeFile:url completeBlock:^(NSURL *fileUrl) {
         @strongify(self);
-        HZAlertView *alertView = [[HZAlertView alloc] initWithTitle:NSLocalizedString(@"str_convertword2pdf", nil) message:NSLocalizedString(@"str_convertword2pdf_content", nil)];
-        [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_convert", nil) block:^{
-            if (self.wordFileBlock) {
-                self.wordFileBlock(wordUrl);
-            }
-        }];
-        [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_cancel", nil) block:nil];
-        [alertView show];
+        if (self.fileBlock) {
+            self.fileBlock(fileUrl);
+        }
     }];
 }
 
@@ -167,7 +162,7 @@
     
 }
 
-- (void)safeFile:(NSURL *)url completeBlock:(void(^)(NSURL *wordUrl))completeBlock {
+- (void)safeFile:(NSURL *)url completeBlock:(void(^)(NSURL *fileUrl))completeBlock {
     [url startAccessingSecurityScopedResource];//fileURL ---> Which FileURL you want to copy
     NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
     NSFileAccessIntent *readingIntent = [NSFileAccessIntent readingIntentWithURL:url options:NSFileCoordinatorReadingWithoutChanges];
@@ -184,7 +179,7 @@
         NSURL *safeURL = readingIntent.URL;
         filePathData = [NSData dataWithContentsOfURL:safeURL];
         // here your code to do what you want with this
-        NSString *tmpWordPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"sb.%@",[safeURL.absoluteString hz_pathExtension]]];
+        NSString *tmpWordPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",[safeURL.absoluteString lastPathComponent]]];
         if ([[NSFileManager defaultManager] fileExistsAtPath:tmpWordPath]) {
             [[NSFileManager defaultManager] removeItemAtPath:tmpWordPath error:nil];
         }

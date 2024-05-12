@@ -31,8 +31,10 @@
 - (void)convertWord:(NSURL *)wordUrl completeBlock:(void (^)(HZProjectModel *))completeBlock {
     self.completeBlock = completeBlock;
     
-    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, hz_safeTop, self.width, self.height - hz_safeTop - hz_safeBottom)];
-    self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    CGFloat width = self.width;
+    CGFloat height = width / (210.0 / 297.0);
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, hz_safeTop, width, height)];
+//    self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     self.webView.navigationDelegate = self;
     self.webView.hidden = NO;
     [self addSubview:self.webView];
@@ -47,6 +49,7 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self createPDFfromWKWebView:webView];
+//        [self test];
     });
 }
 
@@ -66,7 +69,7 @@
     // 创建PDF文件路径
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *pdfPath = [documentsDirectory stringByAppendingPathComponent:@"webViewContentd.pdf"];
+    NSString *pdfPath = [documentsDirectory stringByAppendingPathComponent:@"webViewContent.pdf"];
     // 等待内容加载完成
     dispatch_async(dispatch_get_main_queue(), ^{
         // 开始绘制PDF
@@ -79,6 +82,10 @@
         void (^__block drawPDFPage)(NSInteger) = ^(NSInteger page) {
             if (page < totalPages) {
                 // 设置PDF页面尺寸
+//                CGFloat width = contentSize.width;
+//                CGFloat height = pageHeight;
+//                CGFloat sc = 0.1;
+//                UIGraphicsBeginPDFPageWithInfo(CGRectMake(sc * width, sc * height, sc * 2 * width, sc * 2 * height), nil);
                 UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, contentSize.width, pageHeight), nil);
                 // 设置绘制的偏移量
                 CGContextTranslateCTM(pdfContext, 0, -offsetY);
@@ -131,6 +138,15 @@
             
             // 使用PDF页面创建一个CGImageRef
             UIImage *pageImage = ([pdfPage thumbnailOfSize:pageRect.size forBox:kPDFDisplayBoxMediaBox]);
+            
+            CGFloat width = 595;
+            CGFloat height = 841;
+            CGFloat sc = 0.02;
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), NO, 0.0);
+            [pageImage drawInRect:CGRectMake(sc*width, sc*height, (1 - sc*2) * width, (1 - sc*2) * height)];
+            pageImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
             if (pageImage) {
                 [imageArray addObject:pageImage];
             }
@@ -143,6 +159,7 @@
 - (void)convertImages2Project:(NSArray <UIImage *>*)imageArray {
     @weakify(self);
     HZProjectModel *project = [HZProjectManager createProjectWithFolderId:Default_folderId isTmp:YES];
+    project.title = [[[self.webView.URL.absoluteString hz_fileName] stringByRemovingPercentEncoding] stringByRemovingPercentEncoding];
     [HZProjectManager addPagesWithImages:imageArray inProject:project completeBlock:^(NSArray<HZPageModel *> *pages) {
         [HZPDFMaker generatePDFWithProject:project completeBlock:^(NSString *pdfPath) {
             @strongify(self);
@@ -175,6 +192,39 @@
             self.completeBlock(nil);
         }
     }
+}
+
+- (void)test {
+    UIPrintPageRenderer *render = [[UIPrintPageRenderer alloc] init];
+    [render addPrintFormatter:self.webView.viewPrintFormatter startingAtPageAtIndex:0];//关联对象
+    NSUInteger contentHeight = self.webView.scrollView.contentSize.height;
+    NSUInteger contentWidth = self.webView.scrollView.contentSize.width;
+    CGSize contentSize = CGSizeMake(contentWidth, contentHeight);
+    //  需要打印的frame
+    CGRect printableRect = CGRectMake(0,
+                                      0,
+                                      contentSize.width,
+                                      contentSize.height);
+    // 纸张的规格
+    CGRect paperRect = CGRectMake(0, 0, contentSize.width, contentSize.height);
+    [render setValue:[NSValue valueWithCGRect:paperRect] forKey:@"paperRect"]; //因为是readonly属性，所以我们只能用KVC 进行赋值
+    [render setValue:[NSValue valueWithCGRect:printableRect] forKey:@"printableRect"];
+    NSData *pdfData = [self test_printToPDF:render];
+    NSString *fileUrl = [NSString stringWithFormat:@"%@testtemp.pdf",NSTemporaryDirectory()];
+    [pdfData writeToFile:fileUrl atomically: YES];
+}
+
+- (NSData*) test_printToPDF:(UIPrintPageRenderer *)render {
+    NSMutableData *pdfData = [NSMutableData data];
+    UIGraphicsBeginPDFContextToData( pdfData, render.paperRect, nil );
+    [render prepareForDrawingPages: NSMakeRange(0, render.numberOfPages)];
+    CGRect bounds = UIGraphicsGetPDFContextBounds();
+    for ( int i = 0 ; i < render.numberOfPages ; i++ ) {
+        UIGraphicsBeginPDFPage();
+        [render drawPageAtIndex: i inRect: bounds];
+    }
+    UIGraphicsEndPDFContext();
+    return pdfData;
 }
 
 @end

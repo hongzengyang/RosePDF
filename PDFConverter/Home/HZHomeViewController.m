@@ -167,19 +167,57 @@
             }];
         };
         @weakify(assetPicker);
-        assetPicker.ClickFileBlock = ^{
+        assetPicker.ClickFileBlock = ^(BOOL selected) {
             @strongify(self);
-            [[HZFileHandleManager manager] presentWordFileWithCompleteBlock:^(NSURL *wordUrl) {
+            [[HZFileHandleManager manager] presentFileWithCompleteBlock:^(NSURL *fileUrl) {
                 @strongify(self);
                 @strongify(assetPicker);
-                HZFileConvertView *convertView = [[HZFileConvertView alloc] initWithFrame:assetPicker.view.bounds];
-                [assetPicker.view addSubview:convertView];
-                [convertView convertWord:wordUrl completeBlock:^(HZProjectModel *project) {
-                    @strongify(self);
-                    [convertView removeFromSuperview];
-                    
-                    [[UIView hz_viewController].navigationController popToRootViewControllerAnimated:NO];
-                }];
+                NSString *filePath = fileUrl.absoluteString;
+                NSString *pathExtension = [[filePath lowercaseString] hz_pathExtension];
+                if (pathExtension.length == 0) {
+                    return;
+                }
+                if ([@[@"doc",@"docx"] containsObject:pathExtension]) {
+                    void(^wordConvertBlock)(NSURL *) = ^(NSURL *wordUrl) {
+                        @strongify(self);
+                        @strongify(assetPicker);
+                        HZFileConvertView *convertView = [[HZFileConvertView alloc] initWithFrame:assetPicker.view.bounds];
+                        [assetPicker.view addSubview:convertView];
+                        [convertView convertWord:wordUrl completeBlock:^(HZProjectModel *project) {
+                            @strongify(self);
+                            [convertView removeFromSuperview];
+                            [[UIView hz_viewController].navigationController popToRootViewControllerAnimated:NO];
+                        }];
+                    };
+                    if (selected) {
+                        HZAlertView *alertView = [[HZAlertView alloc] initWithTitle:NSLocalizedString(@"str_convertword2pdf", nil) message:NSLocalizedString(@"str_convertword2pdf_content", nil)];
+                        [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_convert", nil) block:^{
+                            wordConvertBlock(fileUrl);
+                        }];
+                        [alertView addCancelButtonWithTitle:NSLocalizedString(@"str_cancel", nil) block:nil];
+                        [alertView show];
+                    }else {
+                        wordConvertBlock(fileUrl);
+                    }
+                }else if ([@[@"jpg",@"jpeg",@"png"] containsObject:pathExtension]) {
+                    if ([filePath hasPrefix:@"file://"]) {
+                        filePath = [filePath stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+                    }
+                    UIImage *image = [UIImage imageWithContentsOfFile:filePath];
+                    image.title = [filePath hz_lastPathComponent];
+                    image.createTime = [[NSDate date] timeIntervalSince1970];
+                    {
+                        NSError *error;
+                        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+                        if (attributes) {
+                            NSDate *creationDate = attributes[NSFileCreationDate];
+                            if (creationDate) {
+                                image.createTime = [creationDate timeIntervalSince1970];
+                            }
+                        }
+                    }
+                    [assetPicker addImages:@[image]];
+                }
             }];
         };
         [self.navigationController pushViewController:assetPicker animated:YES];

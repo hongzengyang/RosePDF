@@ -11,8 +11,10 @@
 
 
 @property (nonatomic, copy) void(^SelectImageBlock)(NSArray <UIImage *>*images);
-@property (nonatomic, copy) void(^ClickFileBlock)(void);
+@property (nonatomic, copy) void(^ClickFileBlock)(BOOL selected);
 @property (nonatomic, assign) BOOL enableFile;
+
+- (void)addImages:(NSArray *)images;
 
 
 @end

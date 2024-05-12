@@ -74,6 +74,18 @@
     }
 }
 
+#pragma mark - Public
+- (void)addImages:(NSArray *)images {
+    [images enumerateObjectsUsingBlock:^(UIImage * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        HZAsset *asset = [[HZAsset alloc] initWithImage:obj];
+        asset.captureTime = obj.createTime;
+        asset.captureTitle = obj.title;
+        [self.databoard addAsset:asset];
+    }];
+    [self.bottomView reload];
+    [self.navBar updateNextButtonEnable:self.databoard.selectedAssets.count > 0];
+}
+
 - (void)configView {
     self.view.backgroundColor = [UIColor hz_getColor:@"F2F1F6"];
     
@@ -91,9 +103,9 @@
     [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
     
-    [self.view addSubview:self.typeView];
+    [self.collectionView addSubview:self.typeView];
     
-    [self.view addSubview:self.curAlbumView];
+    [self.collectionView addSubview:self.curAlbumView];
     [self.curAlbumView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.height.mas_equalTo(32);
@@ -203,7 +215,7 @@
 
 - (void)assetsTypeViewDidClickFile {
     if (self.ClickFileBlock) {
-        self.ClickFileBlock();
+        self.ClickFileBlock(self.databoard.selectedAssets.count > 0);
     }
 }
 
@@ -300,7 +312,7 @@ static CGFloat prevOffsetY = 0;
 }
 - (HZAssetsTypeView *)typeView {
     if (!_typeView) {
-        _typeView = [[HZAssetsTypeView alloc] initWithFrame:CGRectMake(0, self.navBar.bottom, self.view.width, 96) enableFile:self.enableFile];
+        _typeView = [[HZAssetsTypeView alloc] initWithFrame:CGRectMake(0, -136, self.view.width, 96) enableFile:self.enableFile];
         _typeView.delegate = self;
     }
     return _typeView;

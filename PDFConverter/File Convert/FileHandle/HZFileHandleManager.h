@@ -12,7 +12,7 @@
 
 + (HZFileHandleManager *)manager;
 
-- (void)presentWordFileWithCompleteBlock:(void(^)(NSURL *wordUrl))completeBlock;
+- (void)presentFileWithCompleteBlock:(void(^)(NSURL *fileUrl))completeBlock;
 
 - (void)convertPdfUrl:(NSURL *)pdfUrl completeBlock:(void(^)(HZProjectModel *project))completeBlock;
 

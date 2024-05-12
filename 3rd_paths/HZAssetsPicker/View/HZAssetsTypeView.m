@@ -171,6 +171,7 @@ typedef NS_ENUM(NSUInteger, HZEntranceType) {
     self.fileView.backgroundColor = [UIColor hz_getColor:@"E4E3EB"];
     self.fileView.layer.borderWidth = 0;
     self.fileIconImageView.tintColor = [UIColor hz_getColor:@"000000"];
+    self.fileLab.textColor = [UIColor hz_getColor:@"000000"];
     
     {
         UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
