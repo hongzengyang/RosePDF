@@ -151,7 +151,7 @@
             return;
         }
         HZAssetsPickerViewController *assetPicker = [[HZAssetsPickerViewController alloc] init];
-        assetPicker.enableFile = YES;
+        assetPicker.enableFile = NO;
         assetPicker.SelectImageBlock = ^(NSArray<UIImage *> * _Nonnull images) {
             @strongify(self);
             HZProjectModel *project = [HZProjectManager createProjectWithFolderId:Default_folderId isTmp:YES];

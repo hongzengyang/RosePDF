@@ -19,11 +19,12 @@ post_install do |installer|
 end
 
 
-def common_pods
+def pods_jobs
   pod 'XYIAPKit',             :path => './3rd_paths/XYIAPKit'
   pod 'HZFoundationKit',      :path => './3rd_paths/HZFoundationKit'
   pod 'HZUIKit',              :path => './3rd_paths/HZUIKit'
   pod 'HZAssetsPicker',       :path => './3rd_paths/HZAssetsPicker'
+  pod 'HZDetectKit',          :path => './3rd_paths/HZDetectKit'
   pod 'WCDB',                 :path => './3rd_paths/WCDB'
 
   pod 'GPUImage',             '0.1.7'
@@ -42,5 +43,5 @@ def common_pods
 end
 
 target 'PDFConverter' do
-  common_pods
+  pods_jobs
 end

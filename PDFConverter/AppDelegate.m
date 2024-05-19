@@ -44,22 +44,20 @@
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    if ([[[url absoluteString] lowercaseString] hasSuffix:@"docx"] || [[[url absoluteString] lowercaseString] hasSuffix:@"doc"]) {
-        @weakify(self);
-        [[HZFileHandleManager manager] safeFile:url completeBlock:^(NSURL *wordUrl) {
-            @strongify(self);
-            HZFileConvertView *convertView = [[HZFileConvertView alloc] initWithFrame:self.window.bounds];
-            [self.window addSubview:convertView];
-            [convertView convertWord:wordUrl completeBlock:^(HZProjectModel *project) {
-                @strongify(self);
-                [convertView removeFromSuperview];
-                
-                [[UIView hz_viewController].navigationController popToRootViewControllerAnimated:NO];
-            }];
-        }];
-        
-        
-    }
+//    if ([[[url absoluteString] lowercaseString] hasSuffix:@"docx"] || [[[url absoluteString] lowercaseString] hasSuffix:@"doc"]) {
+//        @weakify(self);
+//        [[HZFileHandleManager manager] safeFile:url completeBlock:^(NSURL *wordUrl) {
+//            @strongify(self);
+//            HZFileConvertView *convertView = [[HZFileConvertView alloc] initWithFrame:self.window.bounds];
+//            [self.window addSubview:convertView];
+//            [convertView convertWord:wordUrl completeBlock:^(HZProjectModel *project) {
+//                @strongify(self);
+//                [convertView removeFromSuperview];
+//                
+//                [[UIView hz_viewController].navigationController popToRootViewControllerAnimated:NO];
+//            }];
+//        }];
+//    }
     return YES;
 }
 

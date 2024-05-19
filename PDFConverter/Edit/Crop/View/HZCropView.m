@@ -403,7 +403,9 @@
 
 +(BOOL)isDistanceOverLimit:(CGFloat)distance
 {
-    return (distance - (PATH_VIEW_HEIGHT + PATH_VIEW_MARGIN) < 0.00001);
+    return NO;
+    BOOL flag =  (distance - (PATH_VIEW_HEIGHT + PATH_VIEW_MARGIN) < 0.00001);
+    return flag;
 }
 
 -(void)swapTwoPoints

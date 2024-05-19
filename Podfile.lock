@@ -35,9 +35,9 @@ PODS:
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
     - GoogleUtilities/Logger (~> 7.12)
-  - FirebaseCoreExtension (10.25.0):
+  - FirebaseCoreExtension (10.24.0):
     - FirebaseCore (~> 10.0)
-  - FirebaseCoreInternal (10.25.0):
+  - FirebaseCoreInternal (10.24.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
   - FirebaseCrashlytics (10.24.0):
     - FirebaseCore (~> 10.5)
@@ -48,19 +48,18 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesObjC (~> 2.1)
-  - FirebaseInstallations (10.25.0):
+  - FirebaseInstallations (10.24.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
-  - FirebaseRemoteConfigInterop (10.25.0)
-  - FirebaseSessions (10.25.0):
+  - FirebaseRemoteConfigInterop (10.24.0)
+  - FirebaseSessions (10.24.0):
     - FirebaseCore (~> 10.5)
     - FirebaseCoreExtension (~> 10.0)
     - FirebaseInstallations (~> 10.0)
     - GoogleDataTransport (~> 9.2)
-    - GoogleUtilities/Environment (~> 7.13)
-    - GoogleUtilities/UserDefaults (~> 7.13)
+    - GoogleUtilities/Environment (~> 7.10)
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
   - GoogleAppMeasurement (10.24.0):
@@ -87,38 +86,40 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/AppDelegateSwizzler (7.13.2):
+  - GoogleUtilities/AppDelegateSwizzler (7.13.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Environment (7.13.2):
+  - GoogleUtilities/Environment (7.13.0):
     - GoogleUtilities/Privacy
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.13.2):
+  - GoogleUtilities/Logger (7.13.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Privacy
-  - GoogleUtilities/MethodSwizzler (7.13.2):
+  - GoogleUtilities/MethodSwizzler (7.13.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Network (7.13.2):
+  - GoogleUtilities/Network (7.13.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Privacy
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.13.2)":
+  - "GoogleUtilities/NSData+zlib (7.13.0)":
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Privacy (7.13.2)
-  - GoogleUtilities/Reachability (7.13.2):
+  - GoogleUtilities/Privacy (7.13.0)
+  - GoogleUtilities/Reachability (7.13.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - GoogleUtilities/UserDefaults (7.13.2):
+  - GoogleUtilities/UserDefaults (7.13.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
   - GPUImage (0.1.7)
   - HZAssetsPicker (0.0.0):
     - HZFoundationKit
     - HZUIKit
+  - HZDetectKit (0.0.0):
+    - OpenCV2 (= 4.3.0)
   - HZFoundationKit (0.0.0)
   - HZUIKit (0.0.0)
   - LookinServer (1.2.8):
@@ -130,6 +131,7 @@ PODS:
     - nanopb/encode (= 2.30910.0)
   - nanopb/decode (2.30910.0)
   - nanopb/encode (2.30910.0)
+  - OpenCV2 (4.3.0)
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
@@ -153,6 +155,7 @@ DEPENDENCIES:
   - FirebaseCrashlytics (= 10.24.0)
   - GPUImage (= 0.1.7)
   - HZAssetsPicker (from `./3rd_paths/HZAssetsPicker`)
+  - HZDetectKit (from `./3rd_paths/HZDetectKit`)
   - HZFoundationKit (from `./3rd_paths/HZFoundationKit`)
   - HZUIKit (from `./3rd_paths/HZUIKit`)
   - LookinServer
@@ -183,6 +186,7 @@ SPEC REPOS:
     - LookinServer
     - Masonry
     - nanopb
+    - OpenCV2
     - PromisesObjC
     - PromisesSwift
     - ReactiveObjC
@@ -194,6 +198,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   HZAssetsPicker:
     :path: "./3rd_paths/HZAssetsPicker"
+  HZDetectKit:
+    :path: "./3rd_paths/HZDetectKit"
   HZFoundationKit:
     :path: "./3rd_paths/HZFoundationKit"
   HZUIKit:
@@ -207,32 +213,34 @@ SPEC CHECKSUMS:
   Firebase: 91fefd38712feb9186ea8996af6cbdef41473442
   FirebaseAnalytics: b5efc493eb0f40ec560b04a472e3e1a15d39ca13
   FirebaseCore: 11dc8a16dfb7c5e3c3f45ba0e191a33ac4f50894
-  FirebaseCoreExtension: 8a47811d0b155501559ef05d089518152a0a1677
-  FirebaseCoreInternal: 910a81992c33715fec9263ca7381d59ab3a750b7
+  FirebaseCoreExtension: af5fd85e817ea9d19f9a2659a376cf9cf99f03c0
+  FirebaseCoreInternal: bcb5acffd4ea05e12a783ecf835f2210ce3dc6af
   FirebaseCrashlytics: af38ea4adfa606f6e63fcc22091b61e7938fcf66
-  FirebaseInstallations: 91950fe859846fff0fbd296180909dd273103b09
-  FirebaseRemoteConfigInterop: b25018791b204c0d78a90e394d6c62d9b1f22da8
-  FirebaseSessions: c0939656253a1fa0e94ecc266ccf770cc8b33732
+  FirebaseInstallations: 8f581fca6478a50705d2bd2abd66d306e0f5736e
+  FirebaseRemoteConfigInterop: 6c349a466490aeace3ce9c091c86be1730711634
+  FirebaseSessions: 2651b464e241c93fd44112f995d5ab663c970487
   GoogleAppMeasurement: f3abf08495ef2cba7829f15318c373b8d9226491
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
-  GoogleUtilities: c56430aef51a1aa57b25da78c3f8397e522c67b7
+  GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   HZAssetsPicker: dbbb3180301c155cef76b1f48f9be842be49f7b7
+  HZDetectKit: e51fc73e05ffa098b8952ee13f92b5b4a31dcad9
   HZFoundationKit: 11fb5e05d78fa22c13095d1e2edce8c6db961f5e
   HZUIKit: bd1792b2b1887009017327d6d1bb2a70da14009f
   LookinServer: 1b2b61c6402ae29fa22182d48f5cd067b4e99e80
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
+  OpenCV2: ffe82e5cb5d16dc3fc01a5f4127b9a5b3cfc7d1b
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   SDWebImage: 40b0b4053e36c660a764958bff99eed16610acbb
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
-  WCDB: 297e4e61ff7157dcb65a684127e8d99734247f74
+  WCDB: 40074b71e22355694f1164d2601c2ca7d376af50
   XYIAPKit: b92b68df3c9310acfdfd3292f86bb3c7f5aa22ac
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 6451ddc206abf95c5356c521db59c0bde9325fcc
+PODFILE CHECKSUM: 95df7ca17afaaf833a13eca519da624968c71be7
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.15.2

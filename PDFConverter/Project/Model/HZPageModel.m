@@ -411,15 +411,12 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
 
 #pragma mark - Setter Getter
 - (NSArray<NSValue *> *)borderArray {
-    if (_borderArray.count  == 0) {
+    if (_borderArray.count == 0) {
         if (self.border.length > 0) {
             NSArray <NSString *>*bs = [_border componentsSeparatedByString:@","];
             NSMutableArray *borderArray = [NSMutableArray arrayWithCapacity:4];
             if (bs.count == 8) {
-                
-                
-                for (NSInteger i = 0; i < 4; i++)
-                {
+                for (NSInteger i = 0; i < 4; i++) {
                     NSString *xString = bs[i*2];
                     NSString *yString = bs[i*2 + 1];
                     NSString *pointString = [NSString stringWithFormat:@"%@,%@",xString,yString];
@@ -429,13 +426,14 @@ HZ_SERIALIZE_COPY_WITH_ZONE();
                 }
                 _borderArray = borderArray;
             }
-        }else {
-            CGPoint leftTop = CGPointMake(0, 0);
-            CGPoint leftBottom = CGPointMake(0, 1);
-            CGPoint rightBottom = CGPointMake(1, 1);
-            CGPoint rightTop = CGPointMake(1, 0);
-            _borderArray = @[@(leftTop),@(leftBottom),@(rightBottom),@(rightTop)];
         }
+//        else {
+//            CGPoint leftTop = CGPointMake(0, 0);
+//            CGPoint leftBottom = CGPointMake(0, 1);
+//            CGPoint rightBottom = CGPointMake(1, 1);
+//            CGPoint rightTop = CGPointMake(1, 0);
+//            _borderArray = @[@(leftTop),@(leftBottom),@(rightBottom),@(rightTop)];
+//        }
     }
     return _borderArray;
 }

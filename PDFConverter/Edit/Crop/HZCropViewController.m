@@ -11,6 +11,7 @@
 #import "HZBaseNavigationBar.h"
 #import "HZCropCell.h"
 #import "HZDetectorManager.h"
+#import <HZDetectKit/HZDetectHelper.h>
 
 @interface HZCropViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) NSArray <HZCropData *>*dataList;
@@ -25,9 +26,6 @@
     if (self = [super init]) {
         HZCropData *cropData = [[HZCropData alloc] initWithPage:pageModel];
         self.dataList = @[cropData];
-        
-        UIImage *originImage = [UIImage imageWithContentsOfFile:[pageModel originPath]];
-        [HZDetectorManager detectCornersWithImage:originImage];
     }
     return self;
 }
@@ -35,6 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configView];
+    
+    [self checkAutoDetect];
 }
 
 - (void)configView {
@@ -50,6 +50,31 @@
         make.leading.equalTo(self.view).offset(0);
         make.trailing.equalTo(self.view).offset(0);
         make.bottom.equalTo(self.view).offset(-hz_safeBottom);
+    }];
+}
+
+- (void)checkAutoDetect {
+    HZCropData *data = self.dataList[0];
+    if (data.pageModel.borderArray.count > 0) {
+        return;
+    }
+    UIImage *originImage = [UIImage imageWithContentsOfFile:[data.pageModel originPath]];
+    if (!originImage) {
+        return;
+    }
+    
+    originImage = [originImage hz_resizeImageToWidth:200];
+    
+    @weakify(self);
+    @weakify(data);
+    CFTimeInterval start = CFAbsoluteTimeGetCurrent();
+    [HZDetectHelper asyncDetectQuadCornersWithImage:originImage targetSize:originImage.size completionHandler:^(NSArray<NSValue *> *quadPoints) {
+        @strongify(self);
+        @strongify(data);
+        data.borders = [quadPoints copy];
+        data.modified = YES;
+        [self.collectionView reloadData];
+        NSLog(@"debug- detect duration:%.2f", (CFAbsoluteTimeGetCurrent() - start));
     }];
 }
 

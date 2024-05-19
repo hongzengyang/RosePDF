@@ -87,7 +87,6 @@
     if ([self.session canSetSessionPreset:AVCaptureSessionPreset3840x2160]) {
         [self.session setSessionPreset:AVCaptureSessionPreset3840x2160];  //拿到的图像的大小可以自行设定
     }
-    
     // 1.2 获取视频输入设备(摄像头)
     self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
@@ -204,6 +203,7 @@
         UIImage *image = [UIImage imageWithData:imageData];
 //        CGImageRef ref1 = image.CGImage;
         image = [self fixOrientation:image];
+        CGImageRef ref = image.CGImage;
 //        CGImageRef ref2 = image.CGImage;
         [self.capturedImages addObject:image];
         [self updatePreviewImage];
