@@ -109,7 +109,7 @@
     [self.curAlbumView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.height.mas_equalTo(32);
-        make.top.equalTo(self.typeView.mas_bottom);
+        make.top.equalTo(self.navBar.mas_bottom).offset(8);
     }];
     
     [self.view addSubview:self.bottomView];
@@ -263,6 +263,71 @@ static CGFloat prevOffsetY = 0;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     HZAsset *asset = [self.databoard.assetsList objectAtIndex:indexPath.row];
     
+    if (asset.isCameraEntrance) {
+        @weakify(self);
+        [HZCameraUtils checkCameraPermissionWithViewController:self completeBlock:^(BOOL complete) {
+            @strongify(self);
+            if (complete) {
+                void(^enterCameraBlock)(NSArray <UIImage *>*) = ^(NSArray <UIImage *>*images){
+                    @strongify(self);
+                    NSDictionary *param;
+                    if (images.count > 0) {
+                        param = @{@"images":[images copy]};
+                    }
+                    HZCameraViewController *vc = [[HZCameraViewController alloc] initWithInputParams:param];
+                    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+                    [self presentViewController:vc animated:YES completion:nil];
+                    
+                    vc.selectFinishBlock = ^(NSArray<UIImage *> *images) {
+                        @strongify(self);
+                        [images enumerateObjectsUsingBlock:^(UIImage * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            HZAsset *asset = [[HZAsset alloc] initWithImage:obj];
+                            asset.captureTime = obj.createTime;
+                            asset.captureTitle = obj.title;
+                            [self.databoard addAsset:asset];
+                        }];
+                        [self.bottomView reload];
+                        [self.navBar updateNextButtonEnable:self.databoard.selectedAssets.count > 0];
+                    };
+                };
+                
+                if (self.databoard.selectedAssets.count == 0) {
+                    enterCameraBlock(nil);
+                    return;
+                }
+                
+                NSMutableArray <UIImage *>*thumbImages = [[NSMutableArray alloc] init];
+                dispatch_queue_t queue = dispatch_queue_create("com.sbpdf.requestThumbnail", NULL);
+                dispatch_async(queue, ^{
+                    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+                    __block NSInteger callbackCount = 0;
+                    for (int i = 0; i < self.databoard.selectedAssets.count; i++) {
+                        CFTimeInterval startTime = CFAbsoluteTimeGetCurrent();
+                        NSLog(@"debug--开始刷新第%d页page,startTime:%lf",i,startTime);
+                        HZAsset *asset = self.databoard.selectedAssets[i];
+                        [asset requestThumbnailWithCompleteBlock:^(UIImage * _Nonnull image) {
+                            @strongify(self);
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                CFTimeInterval endTime = CFAbsoluteTimeGetCurrent();
+                                NSLog(@"debug--完成刷新第%d页page,endTime:%lf",i,(endTime - startTime));
+                                dispatch_semaphore_signal(semaphore);
+                                callbackCount++;
+                                [thumbImages addObject:image];
+                                if (callbackCount == self.databoard.selectedAssets.count) {
+                                    enterCameraBlock([thumbImages copy]);
+                                }
+                            });
+                        }];
+                        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+                    }
+                });
+            }
+        }];
+        return;
+    }
+
+    
+    
     BOOL alreadySelected = [self.databoard isSelected:asset];
     if (alreadySelected) {
         [self.databoard deleteAsset:asset];
@@ -314,6 +379,7 @@ static CGFloat prevOffsetY = 0;
     if (!_typeView) {
         _typeView = [[HZAssetsTypeView alloc] initWithFrame:CGRectMake(0, -136, self.view.width, 96) enableFile:self.enableFile];
         _typeView.delegate = self;
+        _typeView.hidden = YES;
     }
     return _typeView;
 }
@@ -348,7 +414,7 @@ static CGFloat prevOffsetY = 0;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        _collectionView.contentInset = UIEdgeInsetsMake([UIView hz_safeTop] + 44 + 136, 0, 200, 0);
+        _collectionView.contentInset = UIEdgeInsetsMake([UIView hz_safeTop] + 44 + 48, 0, 200, 0);
     }
     return _collectionView;
 }

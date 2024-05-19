@@ -58,12 +58,18 @@
 - (void)configAsset:(HZAsset *)asset {
     self.asset = asset;
     @weakify(self);
-    self.imageView.image = nil;
-    [self.asset requestThumbnailWithCompleteBlock:^(UIImage * _Nonnull image) {
-        @strongify(self);
-        self.imageView.image = image;
-        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    }];
+    
+    if (asset.isCameraEntrance) {
+        self.imageView.image = [UIImage imageNamed:@"rose_camera_enter"];
+        self.imageView.contentMode = UIViewContentModeCenter;
+    }else {
+        self.imageView.image = nil;
+        [self.asset requestThumbnailWithCompleteBlock:^(UIImage * _Nonnull image) {
+            @strongify(self);
+            self.imageView.image = image;
+            self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        }];
+    }
     
     [[RACObserve(self.asset, index) takeUntil:self.rac_prepareForReuseSignal] subscribeNext:^(id  _Nullable x) {
         @strongify(self);
