@@ -213,62 +213,116 @@ using std::string;
         if (largest_square.size() == 4) {
             NSMutableArray *points = [NSMutableArray array];
             
-            for (int i = 0; i < 4; i++) {
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      [NSValue valueWithCGPoint:CGPointMake(largest_square[i].x, largest_square[i].y)], @"point" , [NSNumber numberWithInt:(largest_square[i].x + largest_square[i].y)], @"value", nil];
-                [points addObject:dict];
+            cv::Point point0 = largest_square[0];
+            cv::Point point1 = largest_square[1];
+            cv::Point point2 = largest_square[2];
+            cv::Point point3 = largest_square[3];
+            
+            std::vector<cv::Point> sort_square;
+            
+            sort_square.push_back(point0);
+            
+            if (point1.y <= sort_square[0].y) {
+                sort_square.insert(sort_square.begin(), point1);
+            }else {
+                sort_square.push_back(point1);
             }
             
-            int min = [[points valueForKeyPath:@"@min.value"] intValue];
-            int max = [[points valueForKeyPath:@"@max.value"] intValue];
-            
-            int minIndex = 0;
-            int maxIndex = 0;
-            
-            int missingIndexOne = 0;
-            int missingIndexTwo = 0;
-            
-            for (int i = 0; i < 4; i++)
-            {
-                NSDictionary *dict = [points objectAtIndex:i];
-                
-                if ([[dict objectForKey:@"value"] intValue] == min)
-                {
-                    [sortedPoints setObject:[dict objectForKey:@"point"] forKey:@(HZCornerPositionTopLeft)];
-                    minIndex = i;
-                    continue;
-                }
-                
-                if ([[dict objectForKey:@"value"] intValue] == max)
-                {
-                    [sortedPoints setObject:[dict objectForKey:@"point"] forKey:@(HZCornerPositionBottomRight)];
-                    maxIndex = i;
-                    continue;
-                }
-                
-                missingIndexOne = i;
+            if (point2.y <= sort_square[0].y) {
+                sort_square.insert(sort_square.begin(), point2);
+            }else if (point2.y <= sort_square[1].y) {
+                sort_square.insert(sort_square.begin()+1, point2);
+            }else {
+                sort_square.push_back(point2);
             }
             
-            for (int i = 0; i < 4; i++)
-            {
-                if (missingIndexOne != i && minIndex != i && maxIndex != i)
-                {
-                    missingIndexTwo = i;
-                }
+            if (point3.y <= sort_square[0].y) {
+                sort_square.insert(sort_square.begin(), point3);
+            }else if (point3.y <= sort_square[1].y) {
+                sort_square.insert(sort_square.begin()+1, point3);
+            }else if (point3.y <= sort_square[2].y) {
+                sort_square.insert(sort_square.begin()+2, point3);
+            }else {
+                sort_square.push_back(point3);
             }
             
-            if (largest_square[missingIndexOne].x < largest_square[missingIndexTwo].x)
-            {
-                //2nd Point Found
-                [sortedPoints setObject:[[points objectAtIndex:missingIndexOne] objectForKey:@"point"] forKey:@(HZCornerPositionBottomLeft)];
-                [sortedPoints setObject:[[points objectAtIndex:missingIndexTwo] objectForKey:@"point"] forKey:@(HZCornerPositionTopRight)];
+            cv::Point sort_0 = sort_square[0];
+            cv::Point sort_1 = sort_square[1];
+            cv::Point sort_2 = sort_square[2];
+            cv::Point sort_3 = sort_square[3];
+            
+            if (sort_0.x < sort_1.x) {
+                [sortedPoints setObject:[NSValue valueWithCGPoint:CGPointMake(sort_0.x, sort_0.y)] forKey:@(HZCornerPositionTopLeft)];
+                [sortedPoints setObject:[NSValue valueWithCGPoint:CGPointMake(sort_1.x, sort_1.y)] forKey:@(HZCornerPositionTopRight)];
+            }else {
+                [sortedPoints setObject:[NSValue valueWithCGPoint:CGPointMake(sort_1.x, sort_1.y)] forKey:@(HZCornerPositionTopLeft)];
+                [sortedPoints setObject:[NSValue valueWithCGPoint:CGPointMake(sort_0.x, sort_0.y)] forKey:@(HZCornerPositionTopRight)];
             }
-            else
-            {
-                //4rd Point Found
-                [sortedPoints setObject:[[points objectAtIndex:missingIndexOne] objectForKey:@"point"] forKey:@(HZCornerPositionTopRight)];
-                [sortedPoints setObject:[[points objectAtIndex:missingIndexTwo] objectForKey:@"point"] forKey:@(HZCornerPositionBottomLeft)];
+            
+            if (sort_2.x < sort_3.x) {
+                [sortedPoints setObject:[NSValue valueWithCGPoint:CGPointMake(sort_2.x, sort_2.y)] forKey:@(HZCornerPositionBottomLeft)];
+                [sortedPoints setObject:[NSValue valueWithCGPoint:CGPointMake(sort_3.x, sort_3.y)] forKey:@(HZCornerPositionBottomRight)];
+            }else {
+                [sortedPoints setObject:[NSValue valueWithCGPoint:CGPointMake(sort_3.x, sort_3.y)] forKey:@(HZCornerPositionBottomLeft)];
+                [sortedPoints setObject:[NSValue valueWithCGPoint:CGPointMake(sort_2.x, sort_2.y)] forKey:@(HZCornerPositionBottomRight)];
             }
+            
+//            for (int i = 0; i < 4; i++) {
+//                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                      [NSValue valueWithCGPoint:CGPointMake(largest_square[i].x, largest_square[i].y)], @"point" , [NSNumber numberWithInt:(largest_square[i].x + largest_square[i].y)], @"value", nil];
+//                [points addObject:dict];
+//            }
+//
+//            int min = [[points valueForKeyPath:@"@min.value"] intValue];
+//            int max = [[points valueForKeyPath:@"@max.value"] intValue];
+//
+//            int minIndex = 0;
+//            int maxIndex = 0;
+//
+//            int missingIndexOne = 0;
+//            int missingIndexTwo = 0;
+//
+//            for (int i = 0; i < 4; i++)
+//            {
+//                NSDictionary *dict = [points objectAtIndex:i];
+//
+//                if ([[dict objectForKey:@"value"] intValue] == min)
+//                {
+//                    [sortedPoints setObject:[dict objectForKey:@"point"] forKey:@(HZCornerPositionTopLeft)];
+//                    minIndex = i;
+//                    continue;
+//                }
+//
+//                if ([[dict objectForKey:@"value"] intValue] == max)
+//                {
+//                    [sortedPoints setObject:[dict objectForKey:@"point"] forKey:@(HZCornerPositionBottomRight)];
+//                    maxIndex = i;
+//                    continue;
+//                }
+//
+//                missingIndexOne = i;
+//            }
+//
+//            for (int i = 0; i < 4; i++)
+//            {
+//                if (missingIndexOne != i && minIndex != i && maxIndex != i)
+//                {
+//                    missingIndexTwo = i;
+//                }
+//            }
+//
+//            if (largest_square[missingIndexOne].x < largest_square[missingIndexTwo].x)
+//            {
+//                //2nd Point Found
+//                [sortedPoints setObject:[[points objectAtIndex:missingIndexOne] objectForKey:@"point"] forKey:@(HZCornerPositionBottomLeft)];
+//                [sortedPoints setObject:[[points objectAtIndex:missingIndexTwo] objectForKey:@"point"] forKey:@(HZCornerPositionTopRight)];
+//            }
+//            else
+//            {
+//                //4rd Point Found
+//                [sortedPoints setObject:[[points objectAtIndex:missingIndexOne] objectForKey:@"point"] forKey:@(HZCornerPositionTopRight)];
+//                [sortedPoints setObject:[[points objectAtIndex:missingIndexTwo] objectForKey:@"point"] forKey:@(HZCornerPositionBottomLeft)];
+//            }
         }
         original.release();
         
@@ -609,3 +663,4 @@ cv::Mat debugSquares( std::vector<std::vector<cv::Point> > squares, cv::Mat imag
 }
 
 @end
+
